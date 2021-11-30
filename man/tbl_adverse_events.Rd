@@ -4,7 +4,16 @@
 \alias{tbl_adverse_events}
 \title{Tabulate Adverse Events}
 \usage{
-tbl_adverse_events(data, id, adverse_event, soc, grade, strata)
+tbl_adverse_events(
+  data,
+  id,
+  adverse_event,
+  soc,
+  grade,
+  strata,
+  statistic = "{n} ({p})",
+  header = "**Grade {level}**"
+)
 }
 \arguments{
 \item{data}{Data frame}
@@ -19,6 +28,12 @@ tbl_adverse_events(data, id, adverse_event, soc, grade, strata)
 
 \item{strata}{Variable to stratify results by, e.g. report AEs summaries
 by treatment group}
+
+\item{statistic}{String indicating the statistics that will be reported.
+The default is \code{"{n} ({p})"}}
+
+\item{header}{String indicating the header to be placed in the table.
+Default is \code{"**Grade {level}**"}}
 }
 \description{
 Tabulate Adverse Events

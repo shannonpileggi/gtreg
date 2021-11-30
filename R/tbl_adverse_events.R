@@ -7,6 +7,10 @@
 #' @param grade Variable to split results by, e.g. report AEs by grade
 #' @param strata Variable to stratify results by, e.g. report AEs summaries
 #' by treatment group
+#' @param statistic String indicating the statistics that will be reported.
+#' The default is `"{n} ({p})"`
+#' @param header String indicating the header to be placed in the table.
+#' Default is `"**Grade {level}**"`
 #'
 #' @export
 #' @examples
@@ -21,7 +25,8 @@
 #'   as_kable() # UPDATE THIS WITH PROPER gt image at some point..
 
 tbl_adverse_events <- function(data, id, adverse_event, soc,
-                               grade, strata) {
+                               grade, strata, statistic = "{n} ({p})",
+                               header = "**Grade {level}**") {
   # evaluate bare selectors/check inputs ---------------------------------------
   stopifnot(inherits(data, "data.frame"))
   id <-
@@ -80,10 +85,11 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
                   gtsummary::tbl_summary(
                     by = .data$grade,
                     percent = "row",
-                    label = list(..all_true.. = soc)
+                    label = list(..all_true.. = soc),
+                    statistic = everything() ~ statistic
                   ) %>%
                   gtsummary::modify_header(
-                    gtsummary::all_stat_cols() ~ "**Grade {level}**") %>%
+                    gtsummary::all_stat_cols() ~ header) %>%
                   # hide Grade 0 column
                   gtsummary::modify_column_hide(all_of("stat_1"))
               )
@@ -105,10 +111,11 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
                   dplyr::select(.data$grade, .data$adverse_event) %>%
                   gtsummary::tbl_summary(
                     by = .data$grade,
-                    percent = "row"
+                    percent = "row",
+                    statistic = everything() ~ statistic
                   ) %>%
                   gtsummary::modify_header(
-                    gtsummary::all_stat_cols() ~ "**Grade {level}**") %>%
+                    gtsummary::all_stat_cols() ~ header) %>%
                   gtsummary::remove_row_type(type = "header") %>%
                   # hide Grade 0 column
                   gtsummary::modify_column_hide(all_of("stat_1"))
@@ -120,18 +127,33 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
     )
 
   # stack all tbls and return --------------------------------------------------
+  # save a copy of what a zero count cell looks like, so we can make them missing
+  zero_count_statistic <-
+    stringr::str_glue_data(
+      .x = list(n = 0, p = 0, N = NA, N_obs = NA, N_miss = NA, N_nonmiss = NA,
+                p_miss = NA, p_nonmiss = NA),
+      statistic
+    )
+
+  # stack all the SOC/AE summary tables
   df_results$tbl %>%
     gtsummary::tbl_stack() %>%
     # change zero count cells to em-dash
     gtsummary::modify_table_body(
       ~ .x %>%
         dplyr::mutate(dplyr::across(gtsummary::all_stat_cols(),
-                                    ~ifelse(. == "0 (0%)", "\U2014", .)))
+                                    ~ifelse(. == zero_count_statistic, NA_character_, .)))
+    ) %>%
+    gtsummary::modify_table_styling(
+      columns = gtsummary::all_stat_cols(),
+      rows = !is.na(.data$label),
+      missing_symbol = "\U2014"
     ) %>%
     # update labels
     gtsummary::modify_header(label = "**Adverse Event**") %>%
     # removing the no longer needed data elements saved in the individual stacked/merged tbls
     gtsummary::tbl_butcher() %>%
+    # return list with function's inputs
     purrr::list_modify(inputs = tbl_adverse_events_inputs) %>%
     # add class
     structure(class = c("tbl_adverse_events", "gtsummary"))
