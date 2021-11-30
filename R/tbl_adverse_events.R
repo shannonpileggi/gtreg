@@ -84,7 +84,6 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
                   ) %>%
                   gtsummary::modify_header(
                     gtsummary::all_stat_cols() ~ "**Grade {level}**") %>%
-                  gtsummary::bold_labels() %>%
                   # hide Grade 0 column
                   gtsummary::modify_column_hide(all_of("stat_1"))
               )

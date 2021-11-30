@@ -40,7 +40,8 @@ tbl <-
     soc = system_organ_class, 
     grade = grade, 
     strata = trt
-  )
+  ) %>%
+  gtsummary::bold_labels()
 ```
 
 <img src="man/figures/README-example-tbl_adverse_events-1.png" width="100%" />
