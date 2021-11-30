@@ -1,3 +1,13 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("df_adverse_events() works", {
+  expect_error(
+    df_adverse_events %>%
+      tbl_adverse_events(
+        id = patient_id,
+        adverse_event = adverse_event,
+        soc = system_organ_class,
+        grade = grade,
+        strata = trt
+      ),
+    NA
+  )
 })

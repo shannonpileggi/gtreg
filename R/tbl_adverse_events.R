@@ -40,6 +40,9 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
     .select_to_varnames({{ strata }}, data = data,
                         arg_name = "strata", select_single = TRUE)
 
+  # will return inputs ---------------------------------------------------------
+  tbl_adverse_events_inputs <- as.list(environment())
+
   # create data frame where every AE is observed -------------------------------
   lst_name_recode <- list(id = id, adverse_event = adverse_event, soc = soc,
                           grade = grade, strata = strata)
@@ -67,8 +70,10 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
               dplyr::group_by(.data$id) %>%
               dplyr::slice_tail(n = 1) %>%
               dplyr::ungroup() %>%
+              # stratify summary table
               gtsummary::tbl_strata(
                 strata = strata,
+                # create summary table
                 ~ .x %>%
                   dplyr::select(.data$grade) %>%
                   dplyr::mutate(..all_true.. = TRUE) %>%
@@ -80,7 +85,7 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
                   gtsummary::modify_header(
                     gtsummary::all_stat_cols() ~ "**Grade {level}**") %>%
                   gtsummary::bold_labels() %>%
-                  # hide Grade 0 col
+                  # hide Grade 0 column
                   gtsummary::modify_column_hide(all_of("stat_1"))
               )
           }
@@ -106,7 +111,7 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
                   gtsummary::modify_header(
                     gtsummary::all_stat_cols() ~ "**Grade {level}**") %>%
                   gtsummary::remove_row_type(type = "header") %>%
-                  # hide Grade 0 col
+                  # hide Grade 0 column
                   gtsummary::modify_column_hide(all_of("stat_1"))
               )
           }
@@ -118,9 +123,17 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
   # stack all tbls and return --------------------------------------------------
   df_results$tbl %>%
     gtsummary::tbl_stack() %>%
+    # change zero count cells to em-dash
     gtsummary::modify_table_body(
       ~ .x %>%
         dplyr::mutate(dplyr::across(gtsummary::all_stat_cols(),
                                     ~ifelse(. == "0 (0%)", "\U2014", .)))
-    )
+    ) %>%
+    # update labels
+    gtsummary::modify_header(label = "**Adverse Event**") %>%
+    # removing the no longer needed data elements saved in the individual stacked/merged tbls
+    gtsummary::tbl_butcher() %>%
+    purrr::list_modify(inputs = tbl_adverse_events_inputs) %>%
+    # add class
+    structure(class = c("tbl_adverse_events", "gtsummary"))
 }

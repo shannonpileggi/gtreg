@@ -14,11 +14,12 @@ coverage](https://codecov.io/gh/shannonpileggi/gtreg/branch/main/graph/badge.svg
 [![R-CMD-check](https://github.com/shannonpileggi/gtreg/workflows/R-CMD-check/badge.svg)](https://github.com/shannonpileggi/gtreg/actions)
 <!-- badges: end -->
 
-The goal of gtreg is to …
+The {gtreg} package creates tabular data summaries appropriate for
+regulatory submissions. The package builds the tables using {gtsummary}.
 
 ## Installation
 
-You can install the development version of gtreg from
+You can install the development version of {gtreg} from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -27,8 +28,6 @@ devtools::install_github("shannonpileggi/gtreg")
 ```
 
 ## Example
-
-This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(gtreg)
@@ -45,9 +44,6 @@ tbl <-
 ```
 
 <img src="man/figures/README-example-tbl_adverse_events-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
 
 ## Code of Conduct
 
