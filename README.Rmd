@@ -38,6 +38,7 @@ devtools::install_github("shannonpileggi/gtreg")
 
 ```{r example}
 library(gtreg)
+gtsummary::theme_gtsummary_compact()
 
 tbl <- 
   df_adverse_events %>%
@@ -59,7 +60,7 @@ gt::gtsave(as_gt(tbl), file = file.path(tempdir(), "temp.png"))
 ```{r out.width = "100%", echo = FALSE}
 # Have to do this workaround since the README needs markdown format for GitHub page but a different format for the website.
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
-  tbl
+  as_gt(tbl)
 } else {
   knitr::include_graphics("man/figures/README-example-tbl_adverse_events-1.png")
 } 
