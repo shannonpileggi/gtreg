@@ -1,0 +1,29 @@
+Package: gtreg
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+URL: https://shannonpileggi.github.io/gtreg
+Depends: 
+    R (>= 2.10)
+Imports: 
+    broom.helpers (>= 1.4.0),
+    dplyr (>= 1.0.7),
+    gtsummary (>= 1.5.0),
+    knitr (>= 1.36),
+    purrr (>= 0.3.4),
+    rlang (>= 0.4.12),
+    tibble (>= 3.1.6),
+    tidyr (>= 1.1.4)
+Suggests: 
+    covr (>= 3.5.1),
+    gt,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
