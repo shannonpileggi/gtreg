@@ -14,7 +14,10 @@ test_that("multiplication works", {
     soc = system_organ_class,
     by = grade,
     strata = trt,
-    id_values = paste0("ID", 1:5),
+    id_df = data.frame(
+      patient_id = paste0("ID", 1:5),
+      trt = c(rep("A", 3),rep("B", 2))
+      ),
     by_values = c("Unknown", 1:3)
   )
 })

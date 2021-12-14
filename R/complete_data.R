@@ -7,7 +7,7 @@
 #' @param by Variable to split results by, e.g. report AEs by grade or attribution
 #' @param strata Variable to stratify results by, e.g. report AEs summaries
 #' by treatment group
-#' @param id_values Optional vector of complete id values to achieve correct
+#' @param id_df Optional data frame of complete id values and strata to achieve correct
 #' base n for the situation in which not all subjects experience adverse events
 #' @param by_values Optional vector of complete by values, listed in desired order,
 #' to achieve correct table structure for the situation in which an adverse
@@ -27,7 +27,7 @@
 #'   as_kable() # UPDATE THIS WITH PROPER gt image at some point..
 
 complete_data <- function(data, id, ae, soc, by, strata,
-                          id_values, by_values) {
+                          id_df, by_values) {
 
   # evaluate bare selectors/check inputs ---------------------------------------
   stopifnot(inherits(data, "data.frame"))
@@ -50,8 +50,8 @@ complete_data <- function(data, id, ae, soc, by, strata,
                         arg_name = "strata", select_single = TRUE)
 
   # create data frame where every AE is observed -------------------------------
-  lst_name_recode <- list(id = id, ae = ae, soc = soc,
-                          by = by, strata = strata)
+  lst_name_recode <- list(id = id, strata = strata,
+                          ae = ae, soc = soc, by = by)
 
   # some default factor levels -------------------------------------------------
   initial_missing <- "Not entered"
@@ -62,7 +62,7 @@ complete_data <- function(data, id, ae, soc, by, strata,
     dplyr::rename(data, !!!lst_name_recode) %>%
     dplyr::select(all_of(names(lst_name_recode)))
 
-  # if by values are not supplied ----------------------------------------------
+  # if by values are not supplied retrieve them from the submitted data --------
   if (is.null(by_values)) {
     by_values <- data_initial %>%
       dplyr::distinct(by) %>%
@@ -75,7 +75,21 @@ complete_data <- function(data, id, ae, soc, by, strata,
     by_values <- c(initial_dummy, initial_missing, by_values)
   }
 
+  # if data frame of ids supplied ----------------------------------------------
+  if (!is.null(id_df)) {id_df <- dplyr::rename(id_df, !!!lst_name_recode[1:2])}
+  if ( is.null(id_df)) {id_df <- dplyr::select(data_initial, id, strata)}
+
   browser()
+
+  # fully expanded data frame --------------------------------------------------
+  data_full <- id_df %>%
+    tidyr::expand(
+      tidyr::nesting(strata, id),
+      tidyr::nesting(
+        soc = data_initial$soc,
+        ae = data_initial$ae,
+        by = by_values),
+      )
 
   data_complete <- data_initial %>%
     mutate(
@@ -91,14 +105,13 @@ complete_data <- function(data, id, ae, soc, by, strata,
       # prep id variable -------------------------------------------------------
       # convert id variable to factor
       id = forcats::as_factor(id),
-      # expand values of factor
-      id = forcats::fct_expand(id, id_values),
       # indicator for if observation present in original data vs
       # added during expansion
       in_original = TRUE
     ) %>%
+    # assuming you would not have an id in more than one strata - is this valid?
     tidyr::complete(
-      tidyr::nesting(id, strata), tidyr::nesting(soc, ae),
+      tidyr::nesting(strata, id),
       fill = list(by = "dummy", in_original = FALSE)
     ) %>%
     dplyr::arrange(.data$id, .data$soc,  .data$by) %>%
