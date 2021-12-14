@@ -63,57 +63,64 @@ complete_data <- function(data, id, ae, soc, by, strata,
     dplyr::select(all_of(names(lst_name_recode)))
 
   # if by values are not supplied retrieve them from the submitted data --------
-  if (is.null(by_values)) {
-    by_values <- data_initial %>%
-      dplyr::distinct(by) %>%
-      dplyr::pull() %>%
-      c(initial_dummy, initial_missing, .)
+  if (is.null(by_values)) { by_values <- get_unique(data_initial, by) }
+
+  # combine dummy and mising with by values ------------------------------------
+  by_values <- c(initial_dummy, initial_missing, by_values)
+
+
+  # retrieve unique values for ae and soc --------------------------------------
+  soc_values <- get_unique(data_initial, soc)
+  ae_values  <- get_unique(data_initial, ae)
+
+  # if data frame of ids is supplied -------------------------------------------
+  if (!is.null(id_df)) {
+    id_df <- id_df %>%
+      dplyr::rename(!!!lst_name_recode[1:2])
   }
 
-  # if by values are supplied --------------------------------------------------
-  if (!is.null(by_values)) {
-    by_values <- c(initial_dummy, initial_missing, by_values)
-  }
+  # if data frame of ids is not supplied  --------------------------------------
+  if (is.null(id_df)) {
+    id_df <- data_initial
+    }
 
-  # if data frame of ids supplied ----------------------------------------------
-  if (!is.null(id_df)) {id_df <- dplyr::rename(id_df, !!!lst_name_recode[1:2])}
-  if ( is.null(id_df)) {id_df <- dplyr::select(data_initial, id, strata)}
-
-  browser()
+  # retrieve unique strata & id combinations -----------------------------------
+  id_df <- id_df %>%
+      dplyr::select(id, strata) %>%
+      dplyr::distinct(id, strata) %>%
+      dplyr::arrange(strata, id)
 
   # fully expanded data frame --------------------------------------------------
   data_full <- id_df %>%
-    tidyr::expand(
-      tidyr::nesting(strata, id),
-      tidyr::nesting(
-        soc = data_initial$soc,
-        ae = data_initial$ae,
-        by = by_values),
+    tidyr::expand_grid(
+      soc = soc_values,
+      ae = ae_values
       )
+
+
+  browser()
 
   data_complete <- data_initial %>%
     mutate(
-      # prep by variable -------------------------------------------------------
-      # convert by variable to factor
+      in_original = TRUE,
+      # convert to character initially -----------------------------------------
+      by = as.character(by),
+      # replace any missing values in by ---------------------------------------
+      by = tidyr::replace_na(by, initial_missing)
+    ) %>%
+    # join with full data frame -----------------------------------------------
+    dplyr::right_join(data_full, by = c("strata", "id", "soc", "ae", "by")) %>%
+    dplyr::mutate(
+      # if data comes from expanded full data and not original data, replace
+      # with  dummy value
+      by = case_when(
+        in_original ~ by,
+        !in_original ~ initial_dummy
+      ),
+      # convert by variable to factor ------------------------------------------
       by = forcats::as_factor(by),
-      # expand values of factor
-      by = forcats::fct_expand(by, by_values),
-      # explicit NA
-      by = forcats::fct_explicit_na(by, initial_missing),
-      # relevel values of factor
-      by = forcats::fct_relevel(by, by_values),
-      # prep id variable -------------------------------------------------------
-      # convert id variable to factor
-      id = forcats::as_factor(id),
-      # indicator for if observation present in original data vs
-      # added during expansion
-      in_original = TRUE
-    ) %>%
-    # assuming you would not have an id in more than one strata - is this valid?
-    tidyr::complete(
-      tidyr::nesting(strata, id),
-      fill = list(by = "dummy", in_original = FALSE)
-    ) %>%
+      by = forcats::fct_relevel(by, by_values)
+    )
     dplyr::arrange(.data$id, .data$soc,  .data$by) %>%
     # keep highest `grade` value per patient, e.g. highest grade
     dplyr::group_by(.data$id, .data$soc) %>%
@@ -128,3 +135,4 @@ complete_data <- function(data, id, ae, soc, by, strata,
   return(out)
 
 }
+
