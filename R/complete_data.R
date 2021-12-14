@@ -101,7 +101,7 @@ complete_data <- function(data, id, ae, soc, by, strata,
   browser()
 
   data_complete <- data_initial %>%
-    mutate(
+    dplyr::mutate(
       in_original = TRUE,
       # convert to character initially -----------------------------------------
       by = as.character(by),
@@ -109,18 +109,19 @@ complete_data <- function(data, id, ae, soc, by, strata,
       by = tidyr::replace_na(by, initial_missing)
     ) %>%
     # join with full data frame -----------------------------------------------
-    dplyr::right_join(data_full, by = c("strata", "id", "soc", "ae", "by")) %>%
+    dplyr::right_join(data_full, by = c("strata", "id", "soc", "ae")) %>%
     dplyr::mutate(
       # if data comes from expanded full data and not original data, replace
       # with  dummy value
-      by = case_when(
+      by = dplyr::case_when(
         in_original ~ by,
-        !in_original ~ initial_dummy
+        TRUE ~ initial_dummy
       ),
       # convert by variable to factor ------------------------------------------
       by = forcats::as_factor(by),
+      by = forcats::fct_expand(by, by_values),
       by = forcats::fct_relevel(by, by_values)
-    )
+    ) %>%
     dplyr::arrange(.data$id, .data$soc,  .data$by) %>%
     # keep highest `grade` value per patient, e.g. highest grade
     dplyr::group_by(.data$id, .data$soc) %>%
