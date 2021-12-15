@@ -1,21 +1,24 @@
 #' Create a complete and expanded data frame for tabulating adverse events
 #'
 #' @param data Data frame
-#' @param id Variable name of the patient ID
-#' @param soc Variable name of the system organ class column
-#' @param ae Variable name of the adverse event column
-#' @param by Variable to split results by, e.g. report AEs by grade or attribution
-#' @param strata Variable to stratify results by, e.g. report AEs summaries
-#' by treatment group
+#' @param id String variable name of the patient ID
+#' @param soc Optional string variable name of the system organ class column
+#' @param ae String variable name of the adverse event column
+#' @param by Optional string variable to split results by, e.g. report AEs by grade or attribution
+#' @param strata Optional string variable to stratify results by,
+#' e.g. report AEs summaries by treatment group
 #' @param id_df Optional data frame of complete id values and strata to achieve correct
 #' base n for the situation in which not all subjects experience adverse events
 #' @param by_values Optional vector of complete by values, listed in desired order,
 #' to achieve correct table structure for the situation in which an adverse
 #' event of a certain grade is not observed for a given soc
+#' @param missing_text String that will be shown for missing levels of `by=`,
+#' Default is `"Unknown"`
 #'
+#' @export
 #' @examples
-#' df_aes %>%
-#'   complete_data(
+#' df_adverse_events %>%
+#'   .complete_ae_data(
 #'     id = "patient_id",
 #'     ae = "adverse_event",
 #'     soc = "system_organ_class",
@@ -23,50 +26,76 @@
 #'     strata = "trt"
 #'   )
 
-complete_data <- function(data, id, ae, soc = NULL, by = NULL, strata = NULL,
+.complete_ae_data <- function(data, id, ae, soc = NULL, by = NULL, strata = NULL,
                           id_df = NULL, by_values = NULL,
                           missing_text = "Unknown") {
 
-  # evaluate bare selectors/check inputs ---------------------------------------
-  stopifnot(inherits(data, "data.frame"))
+  # check inputs ---------------------------------------------------------------
+  if (is.null(by) && !is.null(by_values))
+    stop("Cannot specify `by_values=` without also specifying `by=`.", call. = FALSE)
+  if (!is.null(by) && inherits(data[[by]], "factor"))
+    stop("Cannot speficy `by_values=` when `by=` is a factor.", call. = FALSE)
+  if (!rlang::is_string(missing_text)) {
+    stop("The `missing_text=` argument must be a string.", call. = FALSE)
+  }
+  if (!is.null(by_values) && !is.character(by_values)) {
+    stop("The `by_values=` argument must be a character vector.", call. = FALSE)
+  }
+  # TODO: Add checks for `id_df=` argument
+  # 1. Check the ID column names and type match `data=`
+  # 2. Check strata column names and type match `data=` (if present)
+  # 3. Check all ID/strata combos appear in `data=`
+
+  # some default factor levels -------------------------------------------------
+  initial_missing <- missing_text
+  initial_dummy   <- "NOT OBSERVED"
+  if (any(c(initial_missing, initial_dummy) %in% data[[by]])) {
+    stringr::str_glue("Levels '{initial_missing}' and '{initial_dummy}' cannot ",
+                      "appear in the levels of the `by=` variable.") %>%
+      stop(call. = FALSE)
+  }
+  if (!is.null(by_values) && any(c(initial_missing, initial_dummy) %in% by_values)) {
+    stringr::str_glue("Levels '{initial_missing}' and '{initial_dummy}' cannot ",
+                      "appear in the levels of the `by_values=` argument.") %>%
+      stop(call. = FALSE)
+  }
 
   # list to rename variables----------------------------------------------------
   lst_name_recode <-
     list(id = id, strata = strata, ae = ae, soc = soc, by = by) %>%
     purrr::compact()
 
-  # some default factor levels -------------------------------------------------
-  initial_missing <- missing_text
-  initial_dummy   <- "NOT OBSERVED"
-
   # initial data renaming and trimming -----------------------------------------
   data <- data %>% dplyr::select(!!!lst_name_recode)
-
 
   # configuring the `by=` variable ---------------------------------------------
   if (is.null(by)) {
     data$by <- factor("TRUE")
   }
 
-  if (!inherits(data[[by]], "factor")) {
+  if (!inherits(data$by, "factor")) {
     data$by <- factor(data$by)
   }
 
-  if (any(is.na(data$by))) {
-    data$by <- forcats::fct_explicit_na(data$by, na_lavel =initial_missing )
+  if (!is.null(by_values)) {
+    if (!rlang::is_empty(setdiff(levels(data$by), by_values))) {
+      stop("All levels of `by=` variable must appear in  `by_values=`",
+           call. = FALSE)
+    }
+
+    # expanding by factor variable
+    data$by <- rlang::inject(forcats::fct_expand(data$by, !!!as.list(by_values)))
+
+    # re-leveling by variable by_values (to order the levels in the output table)
+    data$by <- rlang::inject(forcats::fct_relevel(data$by, !!!as.list(by_values)))
   }
 
-  # if by values are not supplied retrieve them from the submitted data --------
-  # if (is.null(by_values)) { by_values <- get_unique(data_initial, by) }
-  #
-  # # combine dummy and missing with by values -----------------------------------
-  # by_values <- c(initial_dummy, initial_missing, by_values)
+  # adding missing level, as needed
+  if (any(is.na(data$by))) {
+    data$by <- forcats::fct_explicit_na(data$by, na_lavel = initial_missing)
+  }
 
-  # retrieve unique values for ae and soc --------------------------------------
-  # soc_values <- get_unique(data_initial, soc)
-  # ae_values  <- get_unique(data_initial, ae)
-
-  # if data frame of ids is supplied -------------------------------------------
+  # if data frame of ids is supplied, and IDs obs to data ----------------------
   if (!is.null(id_df)) {
     data <-
       id_df %>%
@@ -88,6 +117,7 @@ complete_data <- function(data, id, ae, soc = NULL, by = NULL, strata = NULL,
 
   # replace unobserved AEs with an explicit level ------------------------------
   data_full$by <- forcats::fct_explicit_na(data_full$by, initial_dummy)
+
   # re-level to put unobserved and missing in front
   if (any(c(initial_dummy, initial_missing) %in% levels(data_full$by))) {
     data_full$by <-
