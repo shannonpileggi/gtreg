@@ -97,9 +97,6 @@ complete_data <- function(data, id, ae, soc, by, strata,
       ae = ae_values
       )
 
-
-  browser()
-
   data_complete <- data_initial %>%
     dplyr::mutate(
       in_original = TRUE,
@@ -129,6 +126,7 @@ complete_data <- function(data, id, ae, soc, by, strata,
     dplyr::ungroup()
 
   # will return inputs ---------------------------------------------------------
+  # keep all of these or just some?
   tbl_ae_inputs <- as.list(environment())
 
   out <- tibble::lst(data_complete, tbl_ae_inputs)

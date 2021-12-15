@@ -20,4 +20,6 @@ test_that("multiplication works", {
       ),
     by_values = c("Unknown", 1:3)
   )
+  expect_equal(dim(e1$data_complete), c(5, 6))
+  expect_equal(as.character(e1$data_complete$by), c("1", "1", "2", "dummy", "dummy"))
 })
