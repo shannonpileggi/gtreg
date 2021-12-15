@@ -49,7 +49,7 @@
   # some default factor levels -------------------------------------------------
   initial_missing <- missing_text
   initial_dummy   <- "NOT OBSERVED"
-  if (any(c(initial_missing, initial_dummy) %in% data[[by]])) {
+  if (!is.null(by) && any(c(initial_missing, initial_dummy) %in% data[[by]])) {
     stringr::str_glue("Levels '{initial_missing}' and '{initial_dummy}' cannot ",
                       "appear in the levels of the `by=` variable.") %>%
       stop(call. = FALSE)
