@@ -73,11 +73,11 @@ test_that("multiplication works", {
     NA
   )
   expect_error(
-      .complete_ae_data(
-        data = df1,
-        id = "patient_id",
-        ae = "adverse_event"
-      ),
+    .complete_ae_data(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event"
+    ),
     NA
   )
 })
