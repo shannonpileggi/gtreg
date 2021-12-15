@@ -13,124 +13,113 @@
 #' to achieve correct table structure for the situation in which an adverse
 #' event of a certain grade is not observed for a given soc
 #'
-#'
-#' @export
 #' @examples
 #' df_aes %>%
-#'   tbl_adverse_events(
-#'     id = patient_id,
-#'     ae = adverse_event,
-#'     soc = system_organ_class,
-#'     by = grade,
-#'     strata = trt
-#'   ) %>%
-#'   as_kable() # UPDATE THIS WITH PROPER gt image at some point..
+#'   complete_data(
+#'     id = "patient_id",
+#'     ae = "adverse_event",
+#'     soc = "system_organ_class",
+#'     by = "grade",
+#'     strata = "trt"
+#'   )
 
-complete_data <- function(data, id, ae, soc, by, strata,
-                          id_df, by_values) {
+complete_data <- function(data, id, ae, soc = NULL, by = NULL, strata = NULL,
+                          id_df = NULL, by_values = NULL,
+                          missing_text = "Unknown") {
 
   # evaluate bare selectors/check inputs ---------------------------------------
   stopifnot(inherits(data, "data.frame"))
 
-  # Does this need to be repeated here and in the main tabling function?? ----
-  id <-
-    .select_to_varnames({{ id }}, data = data,
-                        arg_name = "id", select_single = TRUE)
-  ae <-
-    .select_to_varnames({{ ae }}, data = data,
-                        arg_name = "ae", select_single = TRUE)
-  soc <-
-    .select_to_varnames({{ soc }}, data = data,
-                        arg_name = "soc", select_single = TRUE)
-  by <-
-    .select_to_varnames({{ by }}, data = data,
-                        arg_name = "by", select_single = TRUE)
-  strata <-
-    .select_to_varnames({{ strata }}, data = data,
-                        arg_name = "strata", select_single = TRUE)
-
   # list to rename variables----------------------------------------------------
-  lst_name_recode <- list(id = id, strata = strata,
-                          ae = ae, soc = soc, by = by)
+  lst_name_recode <-
+    list(id = id, strata = strata, ae = ae, soc = soc, by = by) %>%
+    purrr::compact()
 
   # some default factor levels -------------------------------------------------
-  initial_missing <- "Not entered"
-  initial_dummy   <- "dummy"
+  initial_missing <- missing_text
+  initial_dummy   <- "NOT OBSERVED"
 
   # initial data renaming and trimming -----------------------------------------
-  data_initial <- data %>%
-    dplyr::rename(!!!lst_name_recode) %>%
-    dplyr::select(all_of(names(lst_name_recode)))
+  data <- data %>% dplyr::select(!!!lst_name_recode)
+
+
+  # configuring the `by=` variable ---------------------------------------------
+  if (is.null(by)) {
+    data$by <- factor("TRUE")
+  }
+
+  if (!inherits(data[[by]], "factor")) {
+    data$by <- factor(data$by)
+  }
+
+  if (any(is.na(data$by))) {
+    data$by <- forcats::fct_explicit_na(data$by, na_lavel =initial_missing )
+  }
 
   # if by values are not supplied retrieve them from the submitted data --------
-  if (is.null(by_values)) { by_values <- get_unique(data_initial, by) }
-
-  # combine dummy and missing with by values -----------------------------------
-  by_values <- c(initial_dummy, initial_missing, by_values)
+  # if (is.null(by_values)) { by_values <- get_unique(data_initial, by) }
+  #
+  # # combine dummy and missing with by values -----------------------------------
+  # by_values <- c(initial_dummy, initial_missing, by_values)
 
   # retrieve unique values for ae and soc --------------------------------------
-  soc_values <- get_unique(data_initial, soc)
-  ae_values  <- get_unique(data_initial, ae)
+  # soc_values <- get_unique(data_initial, soc)
+  # ae_values  <- get_unique(data_initial, ae)
 
   # if data frame of ids is supplied -------------------------------------------
   if (!is.null(id_df)) {
-    id_df <- id_df %>%
-      dplyr::rename(!!!lst_name_recode[1:2])
+    data <-
+      id_df %>%
+      select(!!!lst_name_recode[c("id", "strata")]) %>%
+      dplyr::full_join(
+        data,
+        by = intersect(c("id", "strata"), names(data))
+      )
   }
 
-  # if data frame of ids is not supplied  --------------------------------------
-  if (is.null(id_df)) {
-    id_df <- data_initial
-    }
-
-  # retrieve unique strata & id combinations -----------------------------------
-  id_df <- id_df %>%
-      dplyr::select(id, strata) %>%
-      dplyr::distinct(id, strata) %>%
-      dplyr::arrange(strata, id)
-
   # fully expanded data frame --------------------------------------------------
-  data_full <- id_df %>%
-    tidyr::expand_grid(
-      soc = soc_values,
-      ae = ae_values
-    )
+  data_full <-
+    data %>%
+    tidyr::complete(
+      tidyr::nesting(!!!rlang::syms(intersect(c("id", "strata"), names(data)))),
+      tidyr::nesting(!!!rlang::syms(intersect(c("soc", "ae"), names(data))))
+    ) %>%
+    tidyr::drop_na(!!!rlang::syms(intersect(c("soc", "ae"), names(data))))
 
-  data_complete <- data_initial %>%
+  # replace unobserved AEs with an explicit level ------------------------------
+  data_full$by <- forcats::fct_explicit_na(data_full$by, initial_dummy)
+  # re-level to put unobserved and missing in front
+  if (any(c(initial_dummy, initial_missing) %in% levels(data_full$by))) {
+    data_full$by <-
+      rlang::inject(
+        forcats::fct_relevel(
+          data_full$by,
+          !!!as.list(intersect(c(initial_dummy, initial_missing), levels(data_full$by)))
+        )
+      )
+  }
+
+  # identifying rows that will be used in tabulation ---------------------------
+  if (!is.null(soc)) {
+    data_full <-
+      data_full %>%
+      dplyr::arrange(dplyr::across(any_of(c("id", "strata", "soc", "by")))) %>%
+      dplyr::group_by(dplyr::across(any_of(c("id", "strata", "soc")))) %>%
+      dplyr::mutate(
+        ..soc.. = dplyr::row_number() == dplyr::n()
+      ) %>%
+      dplyr::ungroup()
+  }
+  data_full <-
+    data_full %>%
+    dplyr::arrange(dplyr::across(any_of(c("id", "strata", "soc", "ae", "by")))) %>%
+    dplyr::group_by(dplyr::across(any_of(c("id", "strata", "soc", "ae")))) %>%
     dplyr::mutate(
-      in_original = TRUE,
-      # convert to character initially -----------------------------------------
-      by = as.character(by),
-      # replace any missing values in by ---------------------------------------
-      by = tidyr::replace_na(by, initial_missing)
+      ..ae.. = dplyr::row_number() == dplyr::n()
     ) %>%
-    # join with full data frame -----------------------------------------------
-    dplyr::right_join(data_full, by = c("strata", "id", "soc", "ae")) %>%
-    dplyr::mutate(
-      # if data comes from expanded full data and not original data, replace
-      # with  dummy value
-      by = dplyr::case_when(
-        in_original ~ by,
-        TRUE ~ initial_dummy
-      ),
-      # convert by variable to factor ------------------------------------------
-      by = forcats::as_factor(by),
-      by = forcats::fct_expand(by, by_values),
-      by = forcats::fct_relevel(by, by_values)
-    ) %>%
-    dplyr::arrange(.data$id, .data$soc,  .data$by) %>%
-    # keep highest `grade` value per patient, e.g. highest grade
-    dplyr::group_by(.data$id, .data$soc) %>%
-    dplyr::slice_tail(n = 1) %>%
     dplyr::ungroup()
 
-  # will return inputs ---------------------------------------------------------
-  # keep all of these or just some?
-  tbl_ae_inputs <- as.list(environment())
 
-  out <- tibble::lst(data_complete, tbl_ae_inputs)
-
-  return(out)
-
+  return(data_full)
 }
 
