@@ -58,16 +58,15 @@ complete_data <- function(data, id, ae, soc, by, strata,
   initial_dummy   <- "dummy"
 
   # initial data renaming and trimming -----------------------------------------
-  data_initial <- data
+  data_initial <- data %>%
     dplyr::rename(!!!lst_name_recode) %>%
     dplyr::select(all_of(names(lst_name_recode)))
 
   # if by values are not supplied retrieve them from the submitted data --------
   if (is.null(by_values)) { by_values <- get_unique(data_initial, by) }
 
-  # combine dummy and mising with by values ------------------------------------
+  # combine dummy and missing with by values -----------------------------------
   by_values <- c(initial_dummy, initial_missing, by_values)
-
 
   # retrieve unique values for ae and soc --------------------------------------
   soc_values <- get_unique(data_initial, soc)
@@ -95,7 +94,7 @@ complete_data <- function(data, id, ae, soc, by, strata,
     tidyr::expand_grid(
       soc = soc_values,
       ae = ae_values
-      )
+    )
 
   data_complete <- data_initial %>%
     dplyr::mutate(
