@@ -41,7 +41,12 @@ event of a certain grade is not observed for a given soc}
 Default is \code{"Unknown"}}
 }
 \description{
-Create a complete and expanded data frame for tabulating adverse events
+Returns a data frame that has an observation for each patient in the study,
+with combinations for each ID, SOC, and AE. The returned data frame includes
+new logical columns \code{"..ae.."} and  \code{"..soc.."} indicating whether that
+row should be included when tabulating the AE table. When multiple
+AEs of the same type are observed, the AE with the largest \verb{by=} value
+is the observation to be used in the tabulation.
 }
 \examples{
 df_adverse_events \%>\%

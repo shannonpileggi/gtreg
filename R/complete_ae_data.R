@@ -1,9 +1,16 @@
 #' Create a complete and expanded data frame for tabulating adverse events
 #'
+#' Returns a data frame that has an observation for each patient in the study,
+#' with combinations for each ID, SOC, and AE. The returned data frame includes
+#' new logical columns `"..ae.."` and  `"..soc.."` indicating whether that
+#' row should be included when tabulating the AE table. When multiple
+#' AEs of the same type are observed, the AE with the largest `by=` value
+#' is the observation to be used in the tabulation.
+#'
 #' @param data Data frame
 #' @param id String variable name of the patient ID
-#' @param soc Optional string variable name of the system organ class column
 #' @param ae String variable name of the adverse event column
+#' @param soc Optional string variable name of the system organ class column
 #' @param by Optional string variable to split results by, e.g. report AEs by grade or attribution
 #' @param strata Optional string variable to stratify results by,
 #' e.g. report AEs summaries by treatment group
