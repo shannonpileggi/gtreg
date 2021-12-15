@@ -49,7 +49,7 @@ complete_data <- function(data, id, ae, soc, by, strata,
     .select_to_varnames({{ strata }}, data = data,
                         arg_name = "strata", select_single = TRUE)
 
-  # create data frame where every AE is observed -------------------------------
+  # list to rename variables----------------------------------------------------
   lst_name_recode <- list(id = id, strata = strata,
                           ae = ae, soc = soc, by = by)
 
@@ -58,8 +58,8 @@ complete_data <- function(data, id, ae, soc, by, strata,
   initial_dummy   <- "dummy"
 
   # initial data renaming and trimming -----------------------------------------
-  data_initial <-
-    dplyr::rename(data, !!!lst_name_recode) %>%
+  data_initial <- data
+    dplyr::rename(!!!lst_name_recode) %>%
     dplyr::select(all_of(names(lst_name_recode)))
 
   # if by values are not supplied retrieve them from the submitted data --------
