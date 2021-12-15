@@ -6,6 +6,7 @@
 #'
 #' @param data data frame
 #' @param var variable from which we want unique values
+#' @param drop_na whether or not to drop NA from returned values; default to TRUE
 #'
 #' @return a vector (either character or numeric, depending on input)
 #' @export
@@ -20,23 +21,16 @@
 #' get_unique(dat, y)
 #' get_unique(dat, z)
 #'
-get_unique <- function(data, var){
+get_unique <- function(data, var, drop_na = TRUE){
 
   values <- data %>%
     dplyr::distinct( {{var}} ) %>%
     dplyr::arrange( {{var}} ) %>%
-    dplyr::pull()
+    {if ( drop_na ) tidyr::drop_na(., {{var}} ) else . } %>%
+    dplyr::pull( {{var}} )
 
   if (class(values) == "factor") values <- as.character(values)
 
   return(values)
 }
 
-dat <- data.frame(
-  x = c(1, 1, 2),
-  y = c("B", "B", "A"),
-  z = factor(x = c("cat", "cat", "dog"), levels = c("dog", "cat"))
-)
-get_unique(dat, x)
-get_unique(dat, y)
-get_unique(dat, z)

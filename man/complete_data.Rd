@@ -4,7 +4,7 @@
 \alias{complete_data}
 \title{Create a complete and expanded data frame for tabulating adverse events}
 \usage{
-complete_data(data, id, ae, soc, by, strata, id_values, by_values)
+complete_data(data, id, ae, soc, by, strata, id_df, by_values)
 }
 \arguments{
 \item{data}{Data frame}
@@ -20,7 +20,7 @@ complete_data(data, id, ae, soc, by, strata, id_values, by_values)
 \item{strata}{Variable to stratify results by, e.g. report AEs summaries
 by treatment group}
 
-\item{id_values}{Optional vector of complete id values to achieve correct
+\item{id_df}{Optional data frame of complete id values and strata to achieve correct
 base n for the situation in which not all subjects experience adverse events}
 
 \item{by_values}{Optional vector of complete by values, listed in desired order,
