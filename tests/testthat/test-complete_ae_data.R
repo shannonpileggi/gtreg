@@ -29,4 +29,55 @@ test_that("multiplication works", {
 
   expect_equal(dim(e1), c(11, 7))
   # expect_equal(as.character(e1$by), c("1", "1", "2", "dummy", "dummy"))
+
+  # no errors when soc, by, and strata are not specified
+  expect_error(
+    .complete_ae_data(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      by = "grade",
+      strata = "trt"
+    ),
+    NA
+  )
+  expect_error(
+    .complete_ae_data(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      soc = "system_organ_class",
+      by = "grade",
+      strata = "trt"
+    ),
+    NA
+  )
+  expect_error(
+    .complete_ae_data(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      soc = "system_organ_class",
+      strata = "trt"
+    ),
+    NA
+  )
+  expect_error(
+    .complete_ae_data(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      soc = "system_organ_class",
+      by = "grade"
+    ),
+    NA
+  )
+  expect_error(
+      .complete_ae_data(
+        data = df1,
+        id = "patient_id",
+        ae = "adverse_event"
+      ),
+    NA
+  )
 })
