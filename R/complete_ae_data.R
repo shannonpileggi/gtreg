@@ -140,21 +140,21 @@
   if (!is.null(soc)) {
     data_full <-
       data_full %>%
-      dplyr::arrange(dplyr::across(any_of(c("id", "strata", "soc", "by")))) %>%
-      dplyr::group_by(dplyr::across(any_of(c("id", "strata", "soc")))) %>%
-      dplyr::mutate(
+      arrange(across(any_of(c("id", "strata", "soc", "by")))) %>%
+      group_by(across(any_of(c("id", "strata", "soc")))) %>%
+      mutate(
         ..soc.. = dplyr::row_number() == dplyr::n()
       ) %>%
-      dplyr::ungroup()
+      ungroup()
   }
   data_full <-
     data_full %>%
-    dplyr::arrange(dplyr::across(any_of(c("id", "strata", "soc", "ae", "by")))) %>%
-    dplyr::group_by(dplyr::across(any_of(c("id", "strata", "soc", "ae")))) %>%
-    dplyr::mutate(
+    arrange(across(any_of(c("id", "strata", "soc", "ae", "by")))) %>%
+    group_by(across(any_of(c("id", "strata", "soc", "ae")))) %>%
+    mutate(
       ..ae.. = dplyr::row_number() == dplyr::n()
     ) %>%
-    dplyr::ungroup()
+    ungroup()
 
 
   return(data_full)
