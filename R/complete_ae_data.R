@@ -125,7 +125,7 @@
     data$by <- forcats::fct_explicit_na(data$by, na_lavel = initial_missing)
   }
 
-  # if data frame of ids is supplied, and IDs obs to data ----------------------
+  # if data frame of ids is supplied, add IDs obs to data ----------------------
   if (!is.null(id_df)) {
     data <-
       id_df %>%
