@@ -6,18 +6,23 @@
 #'
 #' @param data data frame
 #' @param var variable from which we want unique values
-#' @param drop_na whether or not to drop NA from returned values; default to TRUE
+#' @param drop_na whether or not to drop NA from returned values; defaults to TRUE
+#' @param keep_fct_levels whether or not to keep all levels of factor (instead
+#' of only values present in data); defaults to TRUE
+#'
 #'
 #' @return a vector (either character or numeric, depending on input)
 #' @noRD
 #'
 #' @examples
 #' dat <- data.frame(
+#'   w = c(NA, 1, "B"),
 #'   x = c(1, 1, 2),
 #'   y = c("B", "B", "A"),
 #'   z = factor(x = c("cat", "cat", "dog"), levels = c("dog", "cat")),
-#'   u = factor(x = c("cat", "cat", "dog"), levels = c("dog", "cat", "pig"))
+#'   u = factor(x = c("cat", "cat", "dog"), levels = c("dog", "pig", "cat"))
 #'   )
+#' get_unique(dat, w)
 #' get_unique(dat, x)
 #' get_unique(dat, y)
 #' get_unique(dat, z)
