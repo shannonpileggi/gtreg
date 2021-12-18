@@ -9,7 +9,7 @@
 #' @param drop_na whether or not to drop NA from returned values; default to TRUE
 #'
 #' @return a vector (either character or numeric, depending on input)
-#' @export
+#' @noRD
 #'
 #' @examples
 #' dat <- data.frame(
