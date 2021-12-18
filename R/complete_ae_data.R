@@ -49,8 +49,17 @@
   if (!is.null(by_values) && !is.character(by_values)) {
     stop("The `by_values=` argument must be a character vector.", call. = FALSE)
   }
-  # TODO: Add checks for `id_df=` argument
-  # 1. Check the ID column names and type match `data=`
+
+  # Check the ID column names match `data=`
+  if (!is.null(id_df) && !(id %in% names(id_df))) {
+    stop("The `id=` argument must be present in `id_df.`", call. = FALSE)
+  }
+
+  # Check the id type matches between `data=` and `id_df`
+  if (!is.null(id_df) && class(data[[id]]) != class(id_df[[id]])) {
+      stop("The class of `id` must match in both `data` and `id_df`.", call. = FALSE)
+  }
+
   # 2. Check strata column names and type match `data=` (if present)
   # 3. Check all ID/strata combos appear in `data=`
 
