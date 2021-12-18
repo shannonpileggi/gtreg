@@ -25,7 +25,7 @@ get_unique <- function(data, var, drop_na = TRUE){
 
   values <- data %>%
     dplyr::distinct( {{var}} ) %>%
-    dplyr::arrange( {{var}} ) %>%
+    arrange( {{var}} ) %>%
     {if ( drop_na ) tidyr::drop_na(., {{var}} ) else . } %>%
     dplyr::pull( {{var}} )
 

@@ -58,7 +58,7 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
       tidyr::nesting(id, strata), tidyr::nesting(soc, adverse_event),
       fill = list(grade = 0)
     ) %>%
-    dplyr::mutate(grade = factor(grade, levels = 0:5))
+    mutate(grade = factor(grade, levels = 0:5))
 
   # tabulate AEs ---------------------------------------------------------------
   df_results <-
@@ -70,18 +70,18 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
         purrr::map2(
           .data$soc, .data$data,
           function(soc, df_soc) {
-            dplyr::arrange(df_soc, .data$id, .data$grade) %>%
+            arrange(df_soc, .data$id, .data$grade) %>%
               # keep highest `grade` value per patient, e.g. highest grade
-              dplyr::group_by(.data$id) %>%
+              group_by(.data$id) %>%
               dplyr::slice_tail(n = 1) %>%
-              dplyr::ungroup() %>%
+              ungroup() %>%
               # stratify summary table
               gtsummary::tbl_strata(
                 strata = strata,
                 # create summary table
                 ~ .x %>%
                   dplyr::select(.data$grade) %>%
-                  dplyr::mutate(..all_true.. = TRUE) %>%
+                  mutate(..all_true.. = TRUE) %>%
                   gtsummary::tbl_summary(
                     by = .data$grade,
                     percent = "row",
@@ -100,11 +100,11 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
         purrr::map(
           .data$data,
           function(df_soc) {
-            dplyr::arrange(df_soc, .data$id, .data$adverse_event, .data$grade) %>%
+            arrange(df_soc, .data$id, .data$adverse_event, .data$grade) %>%
               # keep highest `grade` value per patient per AE, e.g. highest grade
-              dplyr::group_by(.data$id, .data$adverse_event) %>%
+              group_by(.data$id, .data$adverse_event) %>%
               dplyr::slice_tail(n = 1) %>%
-              dplyr::ungroup() %>%
+              ungroup() %>%
               gtsummary::tbl_strata(
                 strata = strata,
                 ~ .x %>%
@@ -141,7 +141,7 @@ tbl_adverse_events <- function(data, id, adverse_event, soc,
     # change zero count cells to em-dash
     gtsummary::modify_table_body(
       ~ .x %>%
-        dplyr::mutate(dplyr::across(gtsummary::all_stat_cols(),
+        mutate(across(gtsummary::all_stat_cols(),
                                     ~ifelse(. == zero_count_statistic, NA_character_, .)))
     ) %>%
     gtsummary::modify_table_styling(
