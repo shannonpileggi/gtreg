@@ -50,6 +50,7 @@
     stop("The `by_values=` argument must be a character vector.", call. = FALSE)
   }
 
+  # check ID between data and id_df --------------------------------------------
   # Check the ID column names match `data=`
   if (!is.null(id_df) && !(id %in% names(id_df))) {
     stop("The `id=` argument must be present in `id_df.`", call. = FALSE)
@@ -57,10 +58,20 @@
 
   # Check the id type matches between `data=` and `id_df`
   if (!is.null(id_df) && class(data[[id]]) != class(id_df[[id]])) {
-      stop("The class of `id` must match in both `data` and `id_df`.", call. = FALSE)
+      stop("The class of the `id` variable must match in both `data` and `id_df`.", call. = FALSE)
   }
 
-  # 2. Check strata column names and type match `data=` (if present)
+  # check strata between data and id_df --------------------------------------------
+  # Check the strata column names match `data=`
+  if (!is.null(strata) && !is.null(id_df) && !(strata %in% names(id_df))) {
+    stop("The `strata=` argument must be present in `id_df.`", call. = FALSE)
+  }
+
+  # Check the strata type matches between `data=` and `id_df`
+  if (!is.null(strata) && !is.null(id_df) && class(data[[strata]]) != class(id_df[[strata]])) {
+    stop("The class of the `strata` variable must match in both `data` and `id_df`.", call. = FALSE)
+  }
+
   # 3. Check all ID/strata combos appear in `data=`
 
   # some default factor levels -------------------------------------------------

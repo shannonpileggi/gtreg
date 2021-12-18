@@ -67,6 +67,39 @@ test_that("multiplication works", {
     )
   )
 
+  # strata variable name does not match
+  expect_error(
+    .complete_ae_data(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      soc = "system_organ_class",
+      by = "grade",
+      strata = "trt",
+      id_df = data.frame(
+        patient_id = paste0("ID", 1:5),
+        arm = c(rep("A", 3),rep("B", 2))
+      ),
+      by_values = as.character(c(1:5))
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      soc = "system_organ_class",
+      by = "grade",
+      strata = "trt",
+      id_df = data.frame(
+        patient_id = paste0("ID", 1:5),
+        trt = factor(c(rep("A", 3),rep("B", 2)))
+      ),
+      by_values = as.character(c(1:5))
+    )
+  )
+
 
   # identifying correct specifications -----------------------------------------
   expect_error(
