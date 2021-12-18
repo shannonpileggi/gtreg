@@ -167,8 +167,6 @@
   # only id and ae required
   tab_vars <- c("id", "ae")
 
-  browser()
-
   # add in other variables when present
   if (!is.null(strata)) { tab_vars <- c(tab_vars, "strata") }
   if (!is.null(soc))    { tab_vars <- c(tab_vars, "soc") }
