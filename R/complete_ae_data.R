@@ -41,7 +41,8 @@
   if (is.null(by) && !is.null(by_values))
     stop("Cannot specify `by_values=` without also specifying `by=`.", call. = FALSE)
   if (!is.null(by) && inherits(data[[by]], "factor"))
-    stop("Cannot speficy `by_values=` when `by=` is a factor.", call. = FALSE)
+    stop("Cannot specify `by_values=` when `by=` is a factor as it is expected
+         that factor levels contain all possible `by_values`.", call. = FALSE)
   if (!rlang::is_string(missing_text)) {
     stop("The `missing_text=` argument must be a string.", call. = FALSE)
   }
