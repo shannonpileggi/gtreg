@@ -15,14 +15,28 @@
 #' dat <- data.frame(
 #'   x = c(1, 1, 2),
 #'   y = c("B", "B", "A"),
-#'   z = factor(x = c("cat", "cat", "dog"), levels = c("dog", "cat"))
+#'   z = factor(x = c("cat", "cat", "dog"), levels = c("dog", "cat")),
+#'   u = factor(x = c("cat", "cat", "dog"), levels = c("dog", "cat", "pig"))
 #'   )
 #' get_unique(dat, x)
 #' get_unique(dat, y)
 #' get_unique(dat, z)
+#' get_unique(dat, u)
 #'
-get_unique <- function(data, var, drop_na = TRUE){
+get_unique <- function(data, var, drop_na = TRUE, keep_fct_levels = TRUE){
 
+  var_chr <- rlang::as_label(rlang::ensym(var))
+
+  # check to see if variable is a factor and we want to return
+  # all factor levels
+  if (class(data[[var_chr]]) == "factor" & keep_fct_levels) {
+    values <- levels(data[[var_chr]])
+    return(values)
+  }
+
+  # this should run if variable is not a factor, or if variable
+  # is a factor but we only want factor levels observed in data to
+  # be returned
   values <- data %>%
     dplyr::distinct( {{var}} ) %>%
     arrange( {{var}} ) %>%
