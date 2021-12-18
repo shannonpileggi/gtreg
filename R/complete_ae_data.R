@@ -178,6 +178,9 @@
     data_full %>%
     arrange(across(any_of(tab_vars))) %>%
     group_by(across(any_of(tab_vars))) %>%
+    # i dropped soc here, so maybe i made this more trouble than it is worth?
+    # but i think there is a possible solution with mutate across and walrus
+    # operator
     mutate(
       ..ae.. = dplyr::row_number() == dplyr::n()
     ) %>%
