@@ -159,21 +159,27 @@
       )
   }
 
+
+  # create tabulate vars vector ------------------------------------------------
+  # maybe you have a slicker way of doing this?
+  # please review this carefully, not sure this is doing what is intended
+
+  # only id and ae required
+  tab_vars <- c("id", "ae")
+
+  browser()
+
+  # add in other variables when present
+  if (!is.null(strata)) { tab_vars <- c(tab_vars, "strata") }
+  if (!is.null(soc))    { tab_vars <- c(tab_vars, "soc") }
+  if (!is.null(by))     { tab_vars <- c(tab_vars, "by") }
+
+
   # identifying rows that will be used in tabulation ---------------------------
-  if (!is.null(soc)) {
-    data_full <-
-      data_full %>%
-      arrange(across(any_of(c("id", "strata", "soc", "by")))) %>%
-      group_by(across(any_of(c("id", "strata", "soc")))) %>%
-      mutate(
-        ..soc.. = dplyr::row_number() == dplyr::n()
-      ) %>%
-      ungroup()
-  }
-  data_full <-
+ data_full <-
     data_full %>%
-    arrange(across(any_of(c("id", "strata", "soc", "ae", "by")))) %>%
-    group_by(across(any_of(c("id", "strata", "soc", "ae")))) %>%
+    arrange(across(any_of(tab_vars))) %>%
+    group_by(across(any_of(tab_vars))) %>%
     mutate(
       ..ae.. = dplyr::row_number() == dplyr::n()
     ) %>%
