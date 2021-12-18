@@ -12,7 +12,7 @@
 #'
 #'
 #' @return a vector (either character or numeric, depending on input)
-#' @noRD
+#' @noRd
 #'
 #' @examples
 #' dat <- data.frame(
