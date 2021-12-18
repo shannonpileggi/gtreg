@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://shannonpileggi.github.io/gtreg/404.html</loc>
+  </url>
+  <url>
+    <loc>https://shannonpileggi.github.io/gtreg/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://shannonpileggi.github.io/gtreg/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://shannonpileggi.github.io/gtreg/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://shannonpileggi.github.io/gtreg/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://shannonpileggi.github.io/gtreg/SUPPORT.html</loc>
+  </url>
+  <url>
+    <loc>https://shannonpileggi.github.io/gtreg/authors.html</loc>
+  </url>
+  <url>
     <loc>https://shannonpileggi.github.io/gtreg/index.html</loc>
   </url>
   <url>
     <loc>https://shannonpileggi.github.io/gtreg/reference/df_adverse_events.html</loc>
   </url>
   <url>
+    <loc>https://shannonpileggi.github.io/gtreg/reference/dot-complete_ae_data.html</loc>
+  </url>
+  <url>
     <loc>https://shannonpileggi.github.io/gtreg/reference/gtreg-package.html</loc>
+  </url>
+  <url>
+    <loc>https://shannonpileggi.github.io/gtreg/reference/index.html</loc>
   </url>
   <url>
     <loc>https://shannonpileggi.github.io/gtreg/reference/reexports.html</loc>
