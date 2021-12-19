@@ -42,10 +42,11 @@ Tabulate Adverse Events
 df_adverse_events \%>\%
   tbl_adverse_events(
     id = patient_id,
-    adverse_event = adverse_event,
+    ae = adverse_event,
     soc = system_organ_class,
-    grade = grade,
-    strata = trt
+    by = grade,
+    strata = trt,
+    header = "**Grade {level}**"
   ) \%>\%
   as_kable() # UPDATE THIS WITH PROPER gt image at some point..
 }

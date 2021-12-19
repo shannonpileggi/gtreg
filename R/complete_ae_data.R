@@ -159,33 +159,25 @@
       )
   }
 
-
-  # create tabulate vars vector ------------------------------------------------
-  # maybe you have a slicker way of doing this?
-  # please review this carefully, not sure this is doing what is intended
-
-  # only id and ae required
-  tab_vars <- c("id", "ae")
-
-  # add in other variables when present
-  if (!is.null(strata)) { tab_vars <- c(tab_vars, "strata") }
-  if (!is.null(soc))    { tab_vars <- c(tab_vars, "soc") }
-  if (!is.null(by))     { tab_vars <- c(tab_vars, "by") }
-
-
   # identifying rows that will be used in tabulation ---------------------------
- data_full <-
+  if (!is.null(soc)) {
+    data_full <-
+      data_full %>%
+      arrange(across(any_of(c("id", "strata", "soc", "by")))) %>%
+      group_by(across(any_of(c("id", "strata", "soc")))) %>%
+      mutate(
+        ..soc.. = dplyr::row_number() == dplyr::n()
+      ) %>%
+      ungroup()
+  }
+  data_full <-
     data_full %>%
-    arrange(across(any_of(tab_vars))) %>%
-    group_by(across(any_of(tab_vars))) %>%
-    # i dropped soc here, so maybe i made this more trouble than it is worth?
-    # but i think there is a possible solution with mutate across and walrus
-    # operator
+    arrange(across(any_of(c("id", "strata", "soc", "ae", "by")))) %>%
+    group_by(across(any_of(c("id", "strata", "soc", "ae")))) %>%
     mutate(
       ..ae.. = dplyr::row_number() == dplyr::n()
     ) %>%
     ungroup()
-
 
   return(data_full)
 }
