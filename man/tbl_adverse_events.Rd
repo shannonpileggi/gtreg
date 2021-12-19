@@ -7,12 +7,12 @@
 tbl_adverse_events(
   data,
   id,
-  adverse_event,
-  soc,
-  grade,
-  strata,
+  ae,
+  soc = NULL,
+  by = NULL,
+  strata = NULL,
   statistic = "{n} ({p})",
-  header = "**Grade {level}**"
+  header = "**{level}**"
 )
 }
 \arguments{
@@ -20,11 +20,11 @@ tbl_adverse_events(
 
 \item{id}{Variable name of the patient ID}
 
-\item{adverse_event}{Variable name of the adverse event column}
+\item{ae}{Variable name of the adverse event column}
 
 \item{soc}{Variable name of the system organ class column}
 
-\item{grade}{Variable to split results by, e.g. report AEs by grade}
+\item{by}{Variable to split results by, e.g. report AEs by grade}
 
 \item{strata}{Variable to stratify results by, e.g. report AEs summaries
 by treatment group}
@@ -33,7 +33,7 @@ by treatment group}
 The default is \code{"{n} ({p})"}}
 
 \item{header}{String indicating the header to be placed in the table.
-Default is \code{"**Grade {level}**"}}
+Default is \code{"**{level}**"}}
 }
 \description{
 Tabulate Adverse Events

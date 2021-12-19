@@ -3,14 +3,14 @@
 #' @param data Data frame
 #' @param id Variable name of the patient ID
 #' @param soc Variable name of the system organ class column
-#' @param adverse_event Variable name of the adverse event column
-#' @param grade Variable to split results by, e.g. report AEs by grade
+#' @param ae Variable name of the adverse event column
+#' @param by Variable to split results by, e.g. report AEs by grade
 #' @param strata Variable to stratify results by, e.g. report AEs summaries
 #' by treatment group
 #' @param statistic String indicating the statistics that will be reported.
 #' The default is `"{n} ({p})"`
 #' @param header String indicating the header to be placed in the table.
-#' Default is `"**Grade {level}**"`
+#' Default is `"**{level}**"`
 #'
 #' @export
 #' @examples
@@ -24,29 +24,33 @@
 #'   ) %>%
 #'   as_kable() # UPDATE THIS WITH PROPER gt image at some point..
 
-tbl_adverse_events <- function(data, id, adverse_event, soc,
-                               grade, strata, statistic = "{n} ({p})",
-                               header = "**Grade {level}**") {
+tbl_adverse_events <- function(data, id, ae,
+                               soc = NULL, by = NULL, strata = NULL,
+                               statistic = "{n} ({p})",
+                               header = "**{level}**") {
   # evaluate bare selectors/check inputs ---------------------------------------
   stopifnot(inherits(data, "data.frame"))
   id <-
     .select_to_varnames({{ id }}, data = data,
                         arg_name = "id", select_single = TRUE)
-  adverse_event <-
-    .select_to_varnames({{ adverse_event }}, data = data,
-                        arg_name = "adverse_event", select_single = TRUE)
+  ae <-
+    .select_to_varnames({{ ae }}, data = data,
+                        arg_name = "ae", select_single = TRUE)
   soc <-
     .select_to_varnames({{ soc }}, data = data,
                         arg_name = "soc", select_single = TRUE)
-  grade <-
-    .select_to_varnames({{ grade }}, data = data,
-                        arg_name = "grade", select_single = TRUE)
+  by <-
+    .select_to_varnames({{ by }}, data = data,
+                        arg_name = "by", select_single = TRUE)
   strata <-
     .select_to_varnames({{ strata }}, data = data,
                         arg_name = "strata", select_single = TRUE)
 
   # will return inputs ---------------------------------------------------------
   tbl_adverse_events_inputs <- as.list(environment())
+
+  .complete_ae_data(data, id = id, ae = ae, soc = soc, by = by, strata = strata,
+                    id_df = NULL, by_values = NULL)
 
   # create data frame where every AE is observed -------------------------------
   lst_name_recode <- list(id = id, adverse_event = adverse_event, soc = soc,
