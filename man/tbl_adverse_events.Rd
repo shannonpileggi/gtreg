@@ -36,9 +36,17 @@ The default is \code{"{n} ({p})"}}
 Default is \code{"**{level}**"}}
 }
 \description{
-Tabulate Adverse Events
+The function tabulates adverse events. One AE per ID will be counted in the
+resulting table. If a \verb{by=} variable is passed and a
+patient experienced more than one of the same AE, the AE associated with the
+highest \verb{by=} level will be included. For example, if a patient has two of
+the same AE and \code{by = grade}, the AE with the highest grade will be
+included.
+Similarly, if tabulations within system organ class are requested, the
+AE within SOC associated with the highest grade will be tabulated.
 }
 \examples{
+# Example 1 -----------------------------------------------------------------
 df_adverse_events \%>\%
   tbl_adverse_events(
     id = patient_id,
@@ -48,5 +56,15 @@ df_adverse_events \%>\%
     strata = trt,
     header = "**Grade {level}**"
   ) \%>\%
-  as_kable() # UPDATE THIS WITH PROPER gt image at some point..
+  as_kable() # UPDATE THIS WITH PROPER gt image at some point.
+
+# Example 2 -----------------------------------------------------------------
+df_adverse_events \%>\%
+  tbl_adverse_events(
+    id = patient_id,
+    ae = adverse_event,
+    by = grade,
+    header = "**Grade {level}**"
+  ) \%>\%
+  as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 }

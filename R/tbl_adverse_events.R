@@ -1,5 +1,15 @@
 #' Tabulate Adverse Events
 #'
+#' @description
+#' The function tabulates adverse events. One AE per ID will be counted in the
+#' resulting table. If a `by=` variable is passed and a
+#' patient experienced more than one of the same AE, the AE associated with the
+#' highest `by=` level will be included. For example, if a patient has two of
+#' the same AE and `by = grade`, the AE with the highest grade will be
+#' included.
+#' Similarly, if tabulations within system organ class are requested, the
+#' AE within SOC associated with the highest grade will be tabulated.
+#'
 #' @param data Data frame
 #' @param id Variable name of the patient ID
 #' @param soc Variable name of the system organ class column
@@ -14,6 +24,7 @@
 #'
 #' @export
 #' @examples
+#' # Example 1 -----------------------------------------------------------------
 #' df_adverse_events %>%
 #'   tbl_adverse_events(
 #'     id = patient_id,
@@ -23,7 +34,17 @@
 #'     strata = trt,
 #'     header = "**Grade {level}**"
 #'   ) %>%
-#'   as_kable() # UPDATE THIS WITH PROPER gt image at some point..
+#'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
+#'
+#' # Example 2 -----------------------------------------------------------------
+#' df_adverse_events %>%
+#'   tbl_adverse_events(
+#'     id = patient_id,
+#'     ae = adverse_event,
+#'     by = grade,
+#'     header = "**Grade {level}**"
+#'   ) %>%
+#'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 
 tbl_adverse_events <- function(data, id, ae,
                                soc = NULL, by = NULL, strata = NULL,
