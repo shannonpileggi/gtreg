@@ -7,12 +7,12 @@
 tbl_adverse_events(
   data,
   id,
-  adverse_event,
-  soc,
-  grade,
-  strata,
+  ae,
+  soc = NULL,
+  by = NULL,
+  strata = NULL,
   statistic = "{n} ({p})",
-  header = "**Grade {level}**"
+  header = "**{level}**"
 )
 }
 \arguments{
@@ -20,11 +20,11 @@ tbl_adverse_events(
 
 \item{id}{Variable name of the patient ID}
 
-\item{adverse_event}{Variable name of the adverse event column}
+\item{ae}{Variable name of the adverse event column}
 
 \item{soc}{Variable name of the system organ class column}
 
-\item{grade}{Variable to split results by, e.g. report AEs by grade}
+\item{by}{Variable to split results by, e.g. report AEs by grade}
 
 \item{strata}{Variable to stratify results by, e.g. report AEs summaries
 by treatment group}
@@ -33,19 +33,38 @@ by treatment group}
 The default is \code{"{n} ({p})"}}
 
 \item{header}{String indicating the header to be placed in the table.
-Default is \code{"**Grade {level}**"}}
+Default is \code{"**{level}**"}}
 }
 \description{
-Tabulate Adverse Events
+The function tabulates adverse events. One AE per ID will be counted in the
+resulting table. If a \verb{by=} variable is passed and a
+patient experienced more than one of the same AE, the AE associated with the
+highest \verb{by=} level will be included. For example, if a patient has two of
+the same AE and \code{by = grade}, the AE with the highest grade will be
+included.
+Similarly, if tabulations within system organ class are requested, the
+AE within SOC associated with the highest grade will be tabulated.
 }
 \examples{
+# Example 1 -----------------------------------------------------------------
 df_adverse_events \%>\%
   tbl_adverse_events(
     id = patient_id,
-    adverse_event = adverse_event,
+    ae = adverse_event,
     soc = system_organ_class,
-    grade = grade,
-    strata = trt
+    by = grade,
+    strata = trt,
+    header = "**Grade {level}**"
   ) \%>\%
-  as_kable() # UPDATE THIS WITH PROPER gt image at some point..
+  as_kable() # UPDATE THIS WITH PROPER gt image at some point.
+
+# Example 2 -----------------------------------------------------------------
+df_adverse_events \%>\%
+  tbl_adverse_events(
+    id = patient_id,
+    ae = adverse_event,
+    by = grade,
+    header = "**Grade {level}**"
+  ) \%>\%
+  as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 }
