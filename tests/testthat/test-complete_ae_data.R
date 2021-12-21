@@ -10,7 +10,7 @@ test_that("multiplication works", {
 
 
   id_df1_correct <-
-    data.frame(
+    tibble::tibble(
       patient_id = paste0("ID", 1:5),
       trt = c(rep("A", 3),rep("B", 2))
     )
