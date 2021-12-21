@@ -79,15 +79,16 @@
 
 <span class="va">tbl</span> <span class="op">&lt;-</span> 
   <span class="va">df_adverse_events</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="reference/tbl_adverse_events.html">tbl_adverse_events</a></span><span class="op">(</span>
+  <span class="fu"><a href="reference/tbl_adverse_event.html">tbl_adverse_event</a></span><span class="op">(</span>
     id <span class="op">=</span> <span class="va">patient_id</span>,
-    adverse_event <span class="op">=</span> <span class="va">adverse_event</span>,
+    ae <span class="op">=</span> <span class="va">adverse_event</span>,
     soc <span class="op">=</span> <span class="va">system_organ_class</span>, 
-    grade <span class="op">=</span> <span class="va">grade</span>, 
-    strata <span class="op">=</span> <span class="va">trt</span>
+    by <span class="op">=</span> <span class="va">grade</span>, 
+    strata <span class="op">=</span> <span class="va">trt</span>,
+    header <span class="op">=</span> <span class="st">"**Grade {level}**"</span>
   <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="http://www.danieldsjoberg.com/gtsummary//reference/bold_italicize_labels_levels.html" class="external-link">bold_labels</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-example-tbl_adverse_events-1.png" width="100%"></p>
+<p><img src="reference/figures/README-example-tbl_adverse_event-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
