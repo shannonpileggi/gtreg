@@ -47,7 +47,7 @@ tbl <-
   gtsummary::bold_labels()
 ```
 
-<img src="man/figures/README-example-tbl_adverse_events-1.png" width="100%" />
+<img src="man/figures/README-example-tbl_adverse_event-1.png" width="100%" />
 
 ## Code of Conduct
 
