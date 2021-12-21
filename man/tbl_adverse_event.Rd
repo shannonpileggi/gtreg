@@ -11,6 +11,9 @@ tbl_adverse_event(
   soc = NULL,
   by = NULL,
   strata = NULL,
+  id_df = NULL,
+  by_values = NULL,
+  missing_text = "Unknown",
   statistic = "{n} ({p})",
   header = "**{level}**"
 )
@@ -28,6 +31,16 @@ tbl_adverse_event(
 
 \item{strata}{Variable to stratify results by, e.g. report AEs summaries
 by treatment group}
+
+\item{id_df}{Optional data frame of complete id values and strata to achieve correct
+base n for the situation in which not all subjects experience adverse events}
+
+\item{by_values}{Optional vector of complete by values, listed in desired order,
+to achieve correct table structure for the situation in which an adverse
+event of a certain grade is not observed for a given soc}
+
+\item{missing_text}{String that will be shown for missing levels of \verb{by=},
+Default is \code{"Unknown"}}
 
 \item{statistic}{String indicating the statistics that will be reported.
 The default is \code{"{n} ({p})"}}
