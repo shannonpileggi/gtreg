@@ -1,7 +1,7 @@
 test_that("df_adverse_events() works", {
   expect_error(
     df_adverse_events %>%
-      tbl_adverse_events(
+      tbl_adverse_event(
         id = patient_id,
         ae = adverse_event,
         soc = system_organ_class,
@@ -13,7 +13,7 @@ test_that("df_adverse_events() works", {
 
   expect_error(
     df_adverse_events %>%
-      tbl_adverse_events(
+      tbl_adverse_event(
         id = patient_id,
         ae = adverse_event,
         soc = system_organ_class,
@@ -24,7 +24,7 @@ test_that("df_adverse_events() works", {
 
   expect_error(
     df_adverse_events %>%
-      tbl_adverse_events(
+      tbl_adverse_event(
         id = patient_id,
         ae = adverse_event,
         by = grade
@@ -34,7 +34,7 @@ test_that("df_adverse_events() works", {
 
   expect_error(
     df_adverse_events %>%
-      tbl_adverse_events(
+      tbl_adverse_event(
         id = patient_id,
         ae = adverse_event
       ),

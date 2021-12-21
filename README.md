@@ -36,17 +36,18 @@ gtsummary::theme_gtsummary_compact()
 
 tbl <- 
   df_adverse_events %>%
-  tbl_adverse_events(
+  tbl_adverse_event(
     id = patient_id,
-    adverse_event = adverse_event,
+    ae = adverse_event,
     soc = system_organ_class, 
-    grade = grade, 
-    strata = trt
+    by = grade, 
+    strata = trt,
+    header = "**Grade {level}**"
   ) %>%
   gtsummary::bold_labels()
 ```
 
-<img src="man/figures/README-example-tbl_adverse_events-1.png" width="100%" />
+<img src="man/figures/README-example-tbl_adverse_event-1.png" width="100%" />
 
 ## Code of Conduct
 

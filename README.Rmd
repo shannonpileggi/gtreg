@@ -42,17 +42,18 @@ gtsummary::theme_gtsummary_compact()
 
 tbl <- 
   df_adverse_events %>%
-  tbl_adverse_events(
+  tbl_adverse_event(
     id = patient_id,
-    adverse_event = adverse_event,
+    ae = adverse_event,
     soc = system_organ_class, 
-    grade = grade, 
-    strata = trt
+    by = grade, 
+    strata = trt,
+    header = "**Grade {level}**"
   ) %>%
   gtsummary::bold_labels()
 ```
 
-```{r example-tbl_adverse_events, include = FALSE}
+```{r example-tbl_adverse_event, include = FALSE}
 # Had to manually save images in temp file, not sure if better way.
 gt::gtsave(as_gt(tbl), file = file.path(tempdir(), "temp.png"))
 ```
@@ -62,7 +63,7 @@ gt::gtsave(as_gt(tbl), file = file.path(tempdir(), "temp.png"))
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
   as_gt(tbl)
 } else {
-  knitr::include_graphics("man/figures/README-example-tbl_adverse_events-1.png")
+  knitr::include_graphics("man/figures/README-example-tbl_adverse_event-1.png")
 } 
 ```
 
