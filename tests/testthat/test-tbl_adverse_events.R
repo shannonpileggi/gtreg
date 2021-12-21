@@ -64,24 +64,26 @@ test_that("counting rules", {
 
   # this currently errors out
   # due to single soc
- #expected_ae_1 <- tbl_adverse_events(
- #  data = ae_1,
- #  id   = subject,
- #  adverse_event = ae,
- #  soc = soc,
- #  grade = grade,
- #  strata = cohort
- #)
+  expected_ae_1 <-
+    tbl_adverse_events(
+      data = ae_1,
+      id = subject,
+      ae = ae,
+      soc = soc,
+      by = grade,
+      strata = cohort
+    )
 
- ## this also errors out
- #expected_ae_2 <- tbl_adverse_events(
- #  data = ae_2,
- #  id   = subject,
- #  adverse_event = ae,
- #  soc = soc,
- #  grade = grade,
- #  strata = cohort
- #)
+  ## this also errors out
+  expected_ae_2 <-
+    tbl_adverse_events(
+      data = ae_2,
+      id   = subject,
+      ae = ae,
+      soc = soc,
+      by = grade,
+      strata = cohort
+    )
 
 
 
