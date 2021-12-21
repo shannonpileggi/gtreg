@@ -26,7 +26,7 @@
 #' @examples
 #' # Example 1 -----------------------------------------------------------------
 #' df_adverse_events %>%
-#'   tbl_adverse_events(
+#'   tbl_adverse_event(
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
@@ -38,7 +38,7 @@
 #'
 #' # Example 2 -----------------------------------------------------------------
 #' df_adverse_events %>%
-#'   tbl_adverse_events(
+#'   tbl_adverse_event(
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     by = grade,
@@ -46,7 +46,7 @@
 #'   ) %>%
 #'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 
-tbl_adverse_events <- function(data, id, ae,
+tbl_adverse_event <- function(data, id, ae,
                                soc = NULL, by = NULL, strata = NULL,
                                statistic = "{n} ({p})",
                                header = "**{level}**") {
@@ -69,7 +69,7 @@ tbl_adverse_events <- function(data, id, ae,
                         arg_name = "strata", select_single = TRUE)
 
   # will return inputs ---------------------------------------------------------
-  tbl_adverse_events_inputs <- as.list(environment())
+  tbl_adverse_event_inputs <- as.list(environment())
 
   # obtain the complete data ---------------------------------------------------
   data_complete <-
@@ -176,10 +176,10 @@ tbl_adverse_events <- function(data, id, ae,
     # removing the no longer needed data elements saved in the individual stacked/merged tbls
     gtsummary::tbl_butcher() %>%
     # return list with function's inputs and the complete data
-    purrr::list_modify(inputs = tbl_adverse_events_inputs,
+    purrr::list_modify(inputs = tbl_adverse_event_inputs,
                        data_complete = dplyr::ungroup(data_complete)) %>%
     # add class
-    structure(class = c("tbl_adverse_events", "gtsummary"))
+    structure(class = c("tbl_adverse_event", "gtsummary"))
 }
 
 
