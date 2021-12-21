@@ -1,5 +1,5 @@
 test_that("get_unique() returns correct output", {
-  dat <- data.frame(
+  dat <- tibble::tibble(
     w = c(NA, 1, "B"),
     x = c(1, 1, 2),
     y = c("B", "B", "A"),
