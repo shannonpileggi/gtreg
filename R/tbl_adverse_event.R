@@ -17,6 +17,13 @@
 #' @param by Variable to split results by, e.g. report AEs by grade
 #' @param strata Variable to stratify results by, e.g. report AEs summaries
 #' by treatment group
+#' @param id_df Optional data frame of complete id values and strata to achieve correct
+#' base n for the situation in which not all subjects experience adverse events
+#' @param by_values Optional vector of complete by values, listed in desired order,
+#' to achieve correct table structure for the situation in which an adverse
+#' event of a certain grade is not observed for a given soc
+#' @param missing_text String that will be shown for missing levels of `by=`,
+#' Default is `"Unknown"`
 #' @param statistic String indicating the statistics that will be reported.
 #' The default is `"{n} ({p})"`
 #' @param header String indicating the header to be placed in the table.
@@ -26,7 +33,7 @@
 #' @examples
 #' # Example 1 -----------------------------------------------------------------
 #' df_adverse_events %>%
-#'   tbl_adverse_events(
+#'   tbl_adverse_event(
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
@@ -38,7 +45,7 @@
 #'
 #' # Example 2 -----------------------------------------------------------------
 #' df_adverse_events %>%
-#'   tbl_adverse_events(
+#'   tbl_adverse_event(
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     by = grade,
@@ -46,8 +53,10 @@
 #'   ) %>%
 #'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 
-tbl_adverse_events <- function(data, id, ae,
+tbl_adverse_event <- function(data, id, ae,
                                soc = NULL, by = NULL, strata = NULL,
+                               id_df = NULL, by_values = NULL,
+                               missing_text = "Unknown",
                                statistic = "{n} ({p})",
                                header = "**{level}**") {
   # evaluate bare selectors/check inputs ---------------------------------------
@@ -69,12 +78,13 @@ tbl_adverse_events <- function(data, id, ae,
                         arg_name = "strata", select_single = TRUE)
 
   # will return inputs ---------------------------------------------------------
-  tbl_adverse_events_inputs <- as.list(environment())
+  tbl_adverse_event_inputs <- as.list(environment())
 
   # obtain the complete data ---------------------------------------------------
   data_complete <-
     .complete_ae_data(data, id = id, ae = ae, soc = soc, by = by,
-                      strata = strata, id_df = NULL, by_values = NULL) %>%
+                      strata = strata, id_df = id_df, by_values = by_values,
+                      missing_text = missing_text) %>%
     group_by(across(any_of("soc")))
 
   # putting data into list of tibbles...one element per SOC --------------------
@@ -176,10 +186,10 @@ tbl_adverse_events <- function(data, id, ae,
     # removing the no longer needed data elements saved in the individual stacked/merged tbls
     gtsummary::tbl_butcher() %>%
     # return list with function's inputs and the complete data
-    purrr::list_modify(inputs = tbl_adverse_events_inputs,
+    purrr::list_modify(inputs = tbl_adverse_event_inputs,
                        data_complete = dplyr::ungroup(data_complete)) %>%
     # add class
-    structure(class = c("tbl_adverse_events", "gtsummary"))
+    structure(class = c("tbl_adverse_event", "gtsummary"))
 }
 
 

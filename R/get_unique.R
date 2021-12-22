@@ -15,7 +15,7 @@
 #' @noRd
 #'
 #' @examples
-#' dat <- data.frame(
+#' dat <- tibble::tibble(
 #'   w = c(NA, 1, "B"),
 #'   x = c(1, 1, 2),
 #'   y = c("B", "B", "A"),
@@ -34,7 +34,7 @@ get_unique <- function(data, var, drop_na = TRUE, keep_fct_levels = TRUE){
 
   # check to see if variable is a factor and we want to return
   # all factor levels
-  if (class(data[[var_chr]]) == "factor" & keep_fct_levels) {
+  if (inherits(data[[var_chr]], "factor") & keep_fct_levels) {
     values <- levels(data[[var_chr]])
     return(values)
   }
@@ -48,7 +48,7 @@ get_unique <- function(data, var, drop_na = TRUE, keep_fct_levels = TRUE){
     {if ( drop_na ) tidyr::drop_na(., {{var}} ) else . } %>%
     dplyr::pull( {{var}} )
 
-  if (class(values) == "factor") values <- as.character(values)
+  if (inherits(values, "factor")) values <- as.character(values)
 
   return(values)
 }
