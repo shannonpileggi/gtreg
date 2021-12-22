@@ -24,6 +24,7 @@
 \alias{as_kable}
 \alias{as_kable_extra}
 \alias{inline_text}
+\alias{add_overall}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -33,7 +34,7 @@ below to see their documentation.
 \describe{
   \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}, \code{\link[dplyr:reexports]{all_of}}, \code{\link[dplyr:reexports]{any_of}}, \code{\link[dplyr:reexports]{contains}}, \code{\link[dplyr:reexports]{ends_with}}, \code{\link[dplyr:reexports]{everything}}, \code{\link[dplyr:reexports]{last_col}}, \code{\link[dplyr:reexports]{matches}}, \code{\link[dplyr:reexports]{num_range}}, \code{\link[dplyr:reexports]{one_of}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:reexports]{starts_with}}, \code{\link[dplyr]{vars}}}
 
-  \item{gtsummary}{\code{\link[gtsummary]{as_flex_table}}, \code{\link[gtsummary]{as_gt}}, \code{\link[gtsummary]{as_hux_table}}, \code{\link[gtsummary]{as_kable}}, \code{\link[gtsummary]{as_kable_extra}}, \code{\link[gtsummary]{inline_text}}}
+  \item{gtsummary}{\code{\link[gtsummary]{add_overall}}, \code{\link[gtsummary]{as_flex_table}}, \code{\link[gtsummary]{as_gt}}, \code{\link[gtsummary]{as_hux_table}}, \code{\link[gtsummary]{as_kable}}, \code{\link[gtsummary]{as_kable_extra}}, \code{\link[gtsummary]{inline_text}}}
 
   \item{knitr}{\code{\link[knitr]{knit_print}}}
 

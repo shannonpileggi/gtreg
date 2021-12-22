@@ -86,3 +86,7 @@ gtsummary::as_kable_extra
 #' @export
 gtsummary::inline_text
 
+#' @importFrom gtsummary add_overall
+#' @export
+gtsummary::add_overall
+
