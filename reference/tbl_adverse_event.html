@@ -65,6 +65,9 @@ AE within SOC associated with the highest grade will be tabulated.</p>
   soc <span class="op">=</span> <span class="cn">NULL</span>,
   by <span class="op">=</span> <span class="cn">NULL</span>,
   strata <span class="op">=</span> <span class="cn">NULL</span>,
+  id_df <span class="op">=</span> <span class="cn">NULL</span>,
+  by_values <span class="op">=</span> <span class="cn">NULL</span>,
+  missing_text <span class="op">=</span> <span class="st">"Unknown"</span>,
   statistic <span class="op">=</span> <span class="st">"{n} ({p})"</span>,
   header <span class="op">=</span> <span class="st">"**{level}**"</span>
 <span class="op">)</span></code></pre></div>
@@ -85,6 +88,16 @@ AE within SOC associated with the highest grade will be tabulated.</p>
 <dt>strata</dt>
 <dd><p>Variable to stratify results by, e.g. report AEs summaries
 by treatment group</p></dd>
+<dt>id_df</dt>
+<dd><p>Optional data frame of complete id values and strata to achieve correct
+base n for the situation in which not all subjects experience adverse events</p></dd>
+<dt>by_values</dt>
+<dd><p>Optional vector of complete by values, listed in desired order,
+to achieve correct table structure for the situation in which an adverse
+event of a certain grade is not observed for a given soc</p></dd>
+<dt>missing_text</dt>
+<dd><p>String that will be shown for missing levels of <code>by=</code>,
+Default is <code>"Unknown"</code></p></dd>
 <dt>statistic</dt>
 <dd><p>String indicating the statistics that will be reported.
 The default is <code>"{n} ({p})"</code></p></dd>
