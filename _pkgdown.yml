@@ -1,2 +1,32 @@
 url: https://shannonpileggi.github.io/gtreg
+template:
+  bootstrap: 5
 
+authors:
+  Shannon Pileggi:
+    href: "https://www.pipinghotdata.com/"
+  Daniel D. Sjoberg:
+    href: "https://www.danieldsjoberg.com/"
+
+# add this back after the first release
+# development:
+#   mode: auto
+#   version_label: default
+
+navbar:
+  structure:
+    left:  [reference, news]
+    right: [search, github]
+
+reference:
+  - title: Data Summaries
+  - contents:
+      - starts_with("tbl_")
+
+  - title: Utility Functions
+  - contents:
+      - starts_with("\\.")
+
+  - title: Data
+  - contents:
+      - df_adverse_events
