@@ -2,6 +2,7 @@
 
 export("%>%")
 export(.complete_ae_data)
+export(add_overall.tbl_adverse_event)
 export(all_of)
 export(any_of)
 export(as_flex_table)
