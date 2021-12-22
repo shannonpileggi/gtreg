@@ -122,7 +122,7 @@
 
   # adding missing level, as needed
   if (any(is.na(data$by))) {
-    data$by <- forcats::fct_explicit_na(data$by, na_lavel = initial_missing)
+    data$by <- forcats::fct_explicit_na(data$by, na_level = initial_missing)
   }
 
   # if data frame of ids is supplied, add IDs obs to data ----------------------
