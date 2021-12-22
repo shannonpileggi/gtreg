@@ -36,6 +36,10 @@ test_that("df_adverse_events() single arm, single soc", {
   expect_equal(e1[["table_body"]][["stat_2_1"]][2], "2 (67)")
   expect_equal(e1[["table_body"]][["stat_3_1"]][1], "1 (33)")
   expect_equal(e1[["table_body"]][["stat_3_1"]][3], "1 (33)")
+  expect_equal(
+    e1[["table_body"]][["label"]],
+    c("Blood and lymphatic system disorders", "Anaemia", "Increased tendency to bruise")
+    )
 })
 
 # ------------------------------------------------------------------------------
