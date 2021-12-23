@@ -51,4 +51,21 @@ test_that("multiplication works", {
       as_tibble(col_label = FALSE),
     NA
   )
+  
+    expect_error(
+    tbl1 <-
+      df_adverse_events %>%
+      tbl_adverse_event(
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        by = grade,
+        strata = trt,
+        header = "**Grade {level}**"
+      ) %>%
+      add_overall() %>%
+      as_tibble(col_label = FALSE),
+    NA
+  )
+  
 })
