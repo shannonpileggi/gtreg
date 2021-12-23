@@ -1,6 +1,6 @@
 #' @keywords internal
-#' @importFrom rlang .env .data abort :=
 #' @importFrom purrr %||%
+#' @importFrom rlang .env .data :=
 #' @importFrom dplyr mutate select filter ungroup group_by arrange across
 #' @importFrom broom.helpers .formula_list_to_named_list .select_to_varnames
 "_PACKAGE"
