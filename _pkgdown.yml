@@ -1,6 +1,7 @@
 url: https://shannonpileggi.github.io/gtreg
 template:
   bootstrap: 5
+  bootswatch: litera
 
 authors:
   Shannon Pileggi:
