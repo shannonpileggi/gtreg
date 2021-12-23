@@ -83,7 +83,7 @@ tbl_adverse_event <- function(data, id, ae,
     dplyr::group_split() %>%
     rlang::set_names(dplyr::group_keys(data_complete) %>% purrr::pluck(1))
 
-  # tablulate SOC --------------------------------------------------------------
+  # tabulate SOC ---------------------------------------------------------------
   if (!is.null(soc)) {
     lst_tbl_soc <-
       purrr::imap(
@@ -185,11 +185,12 @@ tbl_adverse_event <- function(data, id, ae,
 
 # define `tbl_summary()` function to tabulate SOC/AE
 fn_tbl <- function(data, variable, label = NULL, statistic, header,
-                   remove_header_row, zero_symbol = NULL) {
+                   remove_header_row, zero_symbol = NULL, by = "by",
+                   by_level_to_hide = "NOT OBSERVED") {
   tbl <-
     gtsummary::tbl_summary(
       data = data,
-      by = "by",
+      by = any_of(by),
       percent = "row",
       label = switch(!is.null(label), everything() ~ label),
       statistic = everything() ~ statistic,
@@ -200,7 +201,7 @@ fn_tbl <- function(data, variable, label = NULL, statistic, header,
   # hide the column for unobserved data
   column_to_hide <-
     tbl$df_by %>%
-    filter(.data$by %in% "NOT OBSERVED") %>%
+    filter(.data$by %in% by_level_to_hide) %>%
     purrr::pluck("by_col")
   if (!is.null(column_to_hide)) {
     tbl <- gtsummary::modify_column_hide(tbl, columns = column_to_hide)
