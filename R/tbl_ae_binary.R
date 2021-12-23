@@ -6,7 +6,7 @@
 #' @inheritParams tbl_adverse_event
 #' @param include Vector of column names to summarize. Column names may be
 #' quoted or unquoted. All columns must be class 'logical'.
-#' @param include_label A named list of labels that will be applied in the
+#' @param label A named list of labels that will be applied in the
 #' resulting table. Names must be those passed in `include=`. Default is
 #' NULL, and either the label attribute or the column name will be used.
 #'
@@ -26,14 +26,19 @@
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
-#'     include_label =
+#'     label =
 #'       list(any_complication = "Any Grade Complication",
 #'            grade3_complication = "Grade 3+ Complication")
-#'   )
+#'   ) %>%
+#'   bold_labels()
+#' @section Example Output:
+#' \if{html}{Example 1}
+#'
+#' \if{html}{\figure{tbl_ae_binary_ex1.png}{options: width=70\%}}
 
 tbl_ae_binary <- function(data, include, id, ae, soc = NULL, strata = NULL,
                           id_df = NULL, statistic = "{n} ({p})",
-                          include_label = NULL) {
+                          label = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -53,10 +58,10 @@ tbl_ae_binary <- function(data, include, id, ae, soc = NULL, strata = NULL,
   include <-
     .select_to_varnames({{ include }}, data = data,
                         arg_name = "include", select_single = FALSE)
-  include_label <-
-    .formula_list_to_named_list(x = {{ include_label }},
+  label <-
+    .formula_list_to_named_list(x = {{ label }},
                                 data = data,
-                                arg_name = "include_label",
+                                arg_name = "label",
                                 type_check = rlang::is_string)
 
   purrr::walk(
@@ -124,7 +129,7 @@ tbl_ae_binary <- function(data, include, id, ae, soc = NULL, strata = NULL,
                                by_level_to_hide = "FALSE",
                                statistic = statistic,
                                header =
-                                 include_label[[binary_varname]] %||%
+                                 label[[binary_varname]] %||%
                                  attr(data[[binary_varname]], "label") %||%
                                  binary_varname %>%
                                  {stringr::str_glue("**{.}**")},
@@ -186,7 +191,7 @@ tbl_ae_binary <- function(data, include, id, ae, soc = NULL, strata = NULL,
                              by_level_to_hide = "FALSE",
                              statistic = statistic,
                              header =
-                               include_label[[binary_varname]] %||%
+                               label[[binary_varname]] %||%
                                attr(data[[binary_varname]], "label") %||%
                                binary_varname %>%
                                {stringr::str_glue("**{.}**")},

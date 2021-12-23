@@ -13,7 +13,7 @@ tbl_ae_binary(
   strata = NULL,
   id_df = NULL,
   statistic = "{n} ({p})",
-  include_label = NULL
+  label = NULL
 )
 }
 \arguments{
@@ -37,7 +37,7 @@ base n for the situation in which not all subjects experience adverse events}
 \item{statistic}{String indicating the statistics that will be reported.
 The default is \code{"{n} ({p})"}}
 
-\item{include_label}{A named list of labels that will be applied in the
+\item{label}{A named list of labels that will be applied in the
 resulting table. Names must be those passed in \verb{include=}. Default is
 NULL, and either the label attribute or the column name will be used.}
 }
@@ -48,6 +48,13 @@ a 'tbl_ae_binary' object
 Summarize AE data that is binary or dichotomous. For example, report the
 rate of patients that have an AE of Grade 3 or higher.
 }
+\section{Example Output}{
+
+\if{html}{Example 1}
+
+\if{html}{\figure{tbl_ae_binary_ex1.png}{options: width=70\%}}
+}
+
 \examples{
 # Example 1 -----------------------------------------------------------------
 tbl_ae_binary_ex1 <-
@@ -61,8 +68,9 @@ tbl_ae_binary_ex1 <-
     id = patient_id,
     ae = adverse_event,
     soc = system_organ_class,
-    include_label =
+    label =
       list(any_complication = "Any Grade Complication",
            grade3_complication = "Grade 3+ Complication")
-  )
+  ) \%>\%
+  bold_labels()
 }
