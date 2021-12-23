@@ -24,9 +24,9 @@
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
-#' \if{html}{\figure{add_overall_ex1.png}{options: width=35\%}}
+#' \if{html}{\figure{add_overall_ex1.png}{options: width=70\%}}
 
-add_overall.tbl_adverse_event <- function(x, by= FALSE, strata = FALSE, ...) {
+add_overall.tbl_adverse_event <- function(x, by = FALSE, strata = FALSE, ...) {
   # check inputs ---------------------------------------------------------------
   if (isTRUE(by) && isTRUE(strata)) {
     stop("Both `by=` and `strata=` cannot be TRUE.", call. = FALSE)
@@ -44,13 +44,23 @@ add_overall.tbl_adverse_event <- function(x, by= FALSE, strata = FALSE, ...) {
 
   # running data summary function ----------------------------------------------
   tbl_args <- x$inputs
-  tbl_args$header <- NULL
-  if (!isTRUE(by)) tbl_args$by <- NULL
+  if (!isTRUE(by)) {
+    tbl_args$by <- NULL
+    tbl_args$header <- NULL
+  }
   if (!isTRUE(strata)) tbl_args$strata <- NULL
 
   tbl_overall <- do.call(class(x)[1], tbl_args)
 
+  # add headers ----------------------------------------------------------------
+  if (isTRUE(by) && !isTRUE(strata)) {
+    tbl_overall <-
+      tbl_overall %>%
+      gtsummary::modify_spanning_header(gtsummary::all_stat_cols() ~ "**Overall**")
+  }
+
   # merging tbl_overall with original call -------------------------------------
-  gtsummary::tbl_merge(list(x, tbl_overall), tab_spanner = FALSE) %>%
-    gtsummary::modify_spanning_header(ends_with("_2") ~ "**Overall**")
+  tbl_final <- gtsummary::tbl_merge(list(x, tbl_overall), tab_spanner = FALSE)
+  class(tbl_final) <- class(x)
+  tbl_final
 }

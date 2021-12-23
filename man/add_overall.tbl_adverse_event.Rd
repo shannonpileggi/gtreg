@@ -27,7 +27,7 @@ Tabulate Overall Summary
 
 \if{html}{Example 1}
 
-\if{html}{\figure{add_overall_ex1.png}{options: width=35\%}}
+\if{html}{\figure{add_overall_ex1.png}{options: width=70\%}}
 }
 
 \examples{
