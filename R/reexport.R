@@ -90,3 +90,42 @@ gtsummary::inline_text
 #' @export
 gtsummary::add_overall
 
+#' @importFrom gtsummary modify_header
+#' @export
+gtsummary::modify_header
+
+#' @importFrom gtsummary modify_footnote
+#' @export
+gtsummary::modify_footnote
+
+#' @importFrom gtsummary modify_spanning_header
+#' @export
+gtsummary::modify_spanning_header
+
+#' @importFrom gtsummary modify_caption
+#' @export
+gtsummary::modify_caption
+
+#' @importFrom gtsummary modify_header
+#' @export
+gtsummary::modify_header
+
+#' @importFrom gtsummary bold_labels
+#' @export
+gtsummary::bold_labels
+
+#' @importFrom gtsummary bold_levels
+#' @export
+gtsummary::bold_levels
+
+#' @importFrom gtsummary italicize_labels
+#' @export
+gtsummary::italicize_labels
+
+#' @importFrom gtsummary italicize_labels
+#' @export
+gtsummary::italicize_labels
+
+#' @importFrom gtsummary bold_labels
+#' @export
+gtsummary::bold_labels
