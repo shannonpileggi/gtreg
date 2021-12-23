@@ -13,7 +13,7 @@ Imports:
     broom.helpers (>= 1.4.0),
     forcats (>= 0.5.1),
     dplyr (>= 1.0.7),
-    gtsummary (>= 1.5.0),
+    gtsummary (>= 1.5.0.9017),
     knitr (>= 1.36),
     purrr (>= 0.3.4),
     rlang (>= 0.4.12),
@@ -24,6 +24,8 @@ Suggests:
     covr (>= 3.5.1),
     gt (>= 0.3.1),
     testthat (>= 3.0.0)
+Remotes:
+    ddsjoberg/gtsummary
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
