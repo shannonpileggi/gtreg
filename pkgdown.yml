@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 2.0.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-12-22T02:24Z
+last_built: 2021-12-23T05:44Z
 urls:
   reference: https://shannonpileggi.github.io/gtreg/reference
   article: https://shannonpileggi.github.io/gtreg/articles
