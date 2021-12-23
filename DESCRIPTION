@@ -2,8 +2,7 @@ Package: gtreg
 Title: GT Backed Regulatory Tables For Clinical Research
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Shannon", "Pileggi", , "first.last@example.com", role = c("aut", "cre"),
-person("Shannon", "Pileggi", , "shannon@pipinghotdata.com", role = c("aut", "cre"),
+    person("Shannon", "Pileggi", , "shannon@pipinghotdata.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7732-4164")),
     person("Daniel D.", "Sjoberg", , "danield.sjoberg@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0003-0862-2018"))
