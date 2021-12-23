@@ -86,7 +86,6 @@ gtsummary::as_kable_extra
 #' @export
 gtsummary::inline_text
 
-
 #' @importFrom gtsummary add_overall
 #' @export
 gtsummary::add_overall
@@ -130,4 +129,3 @@ gtsummary::italicize_labels
 #' @importFrom gtsummary bold_labels
 #' @export
 gtsummary::bold_labels
-

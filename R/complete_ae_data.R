@@ -100,7 +100,7 @@
 
   # configuring the `by=` variable ---------------------------------------------
   if (is.null(by)) {
-    data$by <- factor("TRUE")
+    data$by <- factor("Overall")
   }
 
   if (!inherits(data$by, "factor")) {

@@ -4,7 +4,7 @@
 \name{gtreg-package}
 \alias{gtreg}
 \alias{gtreg-package}
-\title{gtreg: What the Package Does (One Line, Title Case)}
+\title{gtreg: 'gt' Backed Regulatory Tables For Clinical Research}
 \description{
 What the package does (one paragraph).
 }
@@ -16,7 +16,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Shannon Pileggi \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Shannon Pileggi \email{shannon@pipinghotdata.com} (\href{https://orcid.org/0000-0002-7732-4164}{ORCID})
 
 Authors:
 \itemize{
