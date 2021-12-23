@@ -1,4 +1,7 @@
-#' Tabluate AE Binary Summaries
+#' Tabulate AE Binary Summaries
+#'
+#' Summarize AE data that is binary or dichotomous. For example, report the
+#' rate of patients that have an AE of Grade 3 or higher.
 #'
 #' @inheritParams tbl_adverse_event
 #' @param include Vector of column names to summarize. Column names may be
@@ -29,7 +32,7 @@
 #'   )
 
 tbl_ae_binary <- function(data, include, id, ae, soc = NULL, strata = NULL,
-                          statistic = "{n} ({p})",
+                          id_df = NULL, statistic = "{n} ({p})",
                           include_label = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
@@ -67,7 +70,7 @@ tbl_ae_binary <- function(data, include, id, ae, soc = NULL, strata = NULL,
   # obtain the complete data ---------------------------------------------------
   data_complete <-
     .complete_ae_data(data, id = id, ae = ae, soc = soc, by = NULL,
-                      strata = strata, id_df = NULL, by_values = NULL) %>%
+                      strata = strata, id_df = id_df, by_values = NULL) %>%
     group_by(across(any_of("soc")))
 
   if (any(include %in% names(data_complete))) {

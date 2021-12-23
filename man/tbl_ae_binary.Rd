@@ -2,7 +2,7 @@
 % Please edit documentation in R/tbl_ae_binary.R
 \name{tbl_ae_binary}
 \alias{tbl_ae_binary}
-\title{Tabluate AE Binary Summaries}
+\title{Tabulate AE Binary Summaries}
 \usage{
 tbl_ae_binary(
   data,
@@ -11,6 +11,7 @@ tbl_ae_binary(
   ae,
   soc = NULL,
   strata = NULL,
+  id_df = NULL,
   statistic = "{n} ({p})",
   include_label = NULL
 )
@@ -30,6 +31,9 @@ quoted or unquoted. All columns must be class 'logical'.}
 \item{strata}{Variable to stratify results by, e.g. report AEs summaries
 by treatment group}
 
+\item{id_df}{Optional data frame of complete id values and strata to achieve correct
+base n for the situation in which not all subjects experience adverse events}
+
 \item{statistic}{String indicating the statistics that will be reported.
 The default is \code{"{n} ({p})"}}
 
@@ -41,7 +45,8 @@ NULL, and either the label attribute or the column name will be used.}
 a 'tbl_ae_binary' object
 }
 \description{
-Tabluate AE Binary Summaries
+Summarize AE data that is binary or dichotomous. For example, report the
+rate of patients that have an AE of Grade 3 or higher.
 }
 \examples{
 # Example 1 -----------------------------------------------------------------
