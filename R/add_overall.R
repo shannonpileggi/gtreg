@@ -5,6 +5,7 @@
 #' included in the overall table. Default is `FALSE`
 #' @param strata logical indicating whether the `strata=` argument should be
 #' included in the overall table. Default is `FALSE`
+#' @param ... Not used
 #'
 #' @return Summary object of class `"tbl_adverse_event"`
 #' @export
@@ -19,13 +20,13 @@
 #'     by = grade,
 #'     header = "**Grade {level}**"
 #'   ) %>%
-#'   add_overall.tbl_adverse_event()
+#'   add_overall()
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
 #' \if{html}{\figure{add_overall_ex1.png}{options: width=35\%}}
 
-add_overall.tbl_adverse_event <- function(x, by= FALSE, strata = FALSE) {
+add_overall.tbl_adverse_event <- function(x, by= FALSE, strata = FALSE, ...) {
   # check inputs ---------------------------------------------------------------
   if (isTRUE(by) && isTRUE(strata)) {
     stop("Both `by=` and `strata=` cannot be TRUE.", call. = FALSE)
@@ -50,5 +51,6 @@ add_overall.tbl_adverse_event <- function(x, by= FALSE, strata = FALSE) {
   tbl_overall <- do.call(class(x)[1], tbl_args)
 
   # merging tbl_overall with original call -------------------------------------
-  gtsummary::tbl_merge(list(x, tbl_overall))
+  gtsummary::tbl_merge(list(x, tbl_overall), tab_spanner = FALSE) %>%
+    gtsummary::modify_spanning_header(ends_with("_2") ~ "**Overall**")
 }

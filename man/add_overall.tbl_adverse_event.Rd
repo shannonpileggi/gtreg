@@ -4,7 +4,7 @@
 \alias{add_overall.tbl_adverse_event}
 \title{Tabulate Overall Summary}
 \usage{
-add_overall.tbl_adverse_event(x, by = FALSE, strata = FALSE)
+\method{add_overall}{tbl_adverse_event}(x, by = FALSE, strata = FALSE, ...)
 }
 \arguments{
 \item{x}{Object of class \code{"tbl_adverse_event"}}
@@ -14,6 +14,8 @@ included in the overall table. Default is \code{FALSE}}
 
 \item{strata}{logical indicating whether the \verb{strata=} argument should be
 included in the overall table. Default is \code{FALSE}}
+
+\item{...}{Not used}
 }
 \value{
 Summary object of class \code{"tbl_adverse_event"}
@@ -39,5 +41,5 @@ add_overall_ex1 <-
     by = grade,
     header = "**Grade {level}**"
   ) \%>\%
-  add_overall.tbl_adverse_event()
+  add_overall()
 }
