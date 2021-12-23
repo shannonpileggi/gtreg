@@ -96,16 +96,18 @@ tbl_adverse_event <- function(data, id, ae,
   # tablulate SOC --------------------------------------------------------------
   if (!is.null(soc)) {
     lst_tbl_soc <-
-      purrr::imap(
-        lst_data_complete,
-        function(df_soc, soc) {
+      purrr::map(
+        seq_len(length(lst_data_complete)),
+        function(index) {
           # keep observation that will be tabulated
-          df_soc <- filter(df_soc, .data$..soc..)
+          df_soc <-
+            filter(lst_data_complete[[index]], .data$..soc..) %>%
+            dplyr::rename("..soc{index}.." := .data$..soc..)
 
           fn_tbl_soc <-
             purrr::partial(fn_tbl,
-                           variable = "..soc..",
-                           label = soc,
+                           variable = stringr::str_glue("..soc{index}.."),
+                           label = names(lst_data_complete[index]),
                            statistic = statistic,
                            header = header,
                            remove_header_row = FALSE,
@@ -131,14 +133,16 @@ tbl_adverse_event <- function(data, id, ae,
   # tabulate AEs ---------------------------------------------------------------
   lst_tbl_ae <-
     purrr::map(
-      lst_data_complete,
-      function(df_ae) {
+      seq_len(length(lst_data_complete)),
+      function(index) {
         # keep observation that will be tabulated
-        df_ae <- filter(df_ae, .data$..ae..)
+        df_ae <-
+          filter(lst_data_complete[[index]], .data$..ae..) %>%
+          dplyr::rename("ae{index}" := .data$ae)
 
         fn_tbl_ae <-
           purrr::partial(fn_tbl,
-                         variable = "ae",
+                         variable = stringr::str_glue("ae{index}"),
                          statistic = statistic,
                          header = header,
                          remove_header_row = TRUE,
