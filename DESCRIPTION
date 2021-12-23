@@ -1,5 +1,5 @@
 Package: gtreg
-GT Backed Regulatory Tables For Clinical Research
+Title: GT Backed Regulatory Tables For Clinical Research
 Version: 0.0.0.9000
 Authors@R: c(
     person("Shannon", "Pileggi", , "first.last@example.com", role = c("aut", "cre"),
