@@ -10,18 +10,18 @@
 #' resulting table. Names must be those passed in `include=`. Default is
 #' NULL, and either the label attribute or the column name will be used.
 #'
-#' @return a 'tbl_ae_binary' object
+#' @return a 'tbl_ae_focus' object
 #' @export
 #'
 #' @examples
 #' # Example 1 -----------------------------------------------------------------
-#' tbl_ae_binary_ex1 <-
+#' tbl_ae_focus_ex1 <-
 #'   df_adverse_events %>%
 #'   dplyr::mutate(
 #'     any_complication = TRUE,
 #'     grade3_complication = grade >= 3
 #'   ) %>%
-#'   tbl_ae_binary(
+#'   tbl_ae_focus(
 #'     include = c(any_complication, grade3_complication),
 #'     id = patient_id,
 #'     ae = adverse_event,
@@ -34,9 +34,9 @@
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
-#' \if{html}{\figure{tbl_ae_binary_ex1.png}{options: width=70\%}}
+#' \if{html}{\figure{tbl_ae_focus_ex1.png}{options: width=70\%}}
 
-tbl_ae_binary <- function(data, include, id, ae, soc = NULL, strata = NULL,
+tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
                           id_df = NULL, statistic = "{n} ({p})",
                           label = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
@@ -70,7 +70,7 @@ tbl_ae_binary <- function(data, include, id, ae, soc = NULL, strata = NULL,
             stop("Columns indicated in `include=` must be class 'logical'.")))
 
   # will return inputs ---------------------------------------------------------
-  tbl_ae_binary_inputs <- as.list(environment())
+  tbl_ae_focus_inputs <- as.list(environment())
 
   # obtain the complete data ---------------------------------------------------
   data_complete <-
@@ -243,7 +243,7 @@ tbl_ae_binary <- function(data, include, id, ae, soc = NULL, strata = NULL,
     # removing the no longer needed data elements saved in the individual stacked/merged tbls
     gtsummary::tbl_butcher() %>%
     # return list with function's inputs
-    purrr::list_modify(inputs = tbl_ae_binary_inputs) %>%
+    purrr::list_modify(inputs = tbl_ae_focus_inputs) %>%
     # add class
     structure(class = c("tbl_adverse_event", "gtsummary"))
 }

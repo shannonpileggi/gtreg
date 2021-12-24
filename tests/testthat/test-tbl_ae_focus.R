@@ -6,11 +6,11 @@ df_adverse_events_binary <-
     grade3_complication = grade >= 3
   )
 
-test_that("tbl_ae_binary() works", {
+test_that("tbl_ae_focus() works", {
   expect_error(
     tbl1 <-
       df_adverse_events_binary %>%
-      tbl_ae_binary(
+      tbl_ae_focus(
         include = c(any_complication, grade3_complication),
         id = patient_id,
         ae = adverse_event,
@@ -51,7 +51,7 @@ test_that("tbl_ae_binary() works", {
   expect_error(
     tbl2 <-
       df_adverse_events_binary %>%
-      tbl_ae_binary(
+      tbl_ae_focus(
         include = c(any_complication, grade3_complication),
         id = patient_id,
         ae = adverse_event
@@ -61,7 +61,7 @@ test_that("tbl_ae_binary() works", {
 
   expect_error(
     df_adverse_events_binary %>%
-      tbl_ae_binary(
+      tbl_ae_focus(
         include = c(any_complication, system_organ_class),
         id = patient_id,
         ae = adverse_event
