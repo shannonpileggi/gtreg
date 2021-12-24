@@ -12,7 +12,6 @@ tbl_ae_count(
   strata = NULL,
   by_values = NULL,
   missing_text = "Unknown",
-  statistic = "{n}",
   header = "**{level}**"
 )
 }
@@ -35,18 +34,24 @@ event of a certain grade is not observed for a given soc}
 \item{missing_text}{String that will be shown for missing levels of \verb{by=},
 Default is \code{"Unknown"}}
 
-\item{statistic}{String indicating the statistics that will be reported.
-The default is \code{"{n} ({p})"}}
-
 \item{header}{String indicating the header to be placed in the table.
 Default is \code{"**{level}**"}}
 }
 \value{
-
+a 'tbl_ae_count' object
 }
 \description{
-Tabulate Raw AE Counts
+Create a table with the number of AE that were reported.
 }
 \examples{
-# add example
+# Example 1 -----------------------------------------------------------------
+tbl_ae_count_ex1 <-
+  tbl_ae_count(
+    data = df_adverse_events,
+    ae = adverse_event,
+    soc = system_organ_class,
+    strata = trt,
+    by = grade,
+    header = "**Grade {level}**"
+  )
 }
