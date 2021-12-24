@@ -2,7 +2,7 @@
 #'
 #' A data set containing reported AEs from a trial.
 #'
-#' @format A data frame with 200 rows--one row per patient
+#' @format A data frame with 100 rows--one row per patient per AE
 #' \describe{
 #'     \item{patient_id}{Patient ID}
 #'     \item{trt}{Treatment Group}
@@ -10,5 +10,17 @@
 #'     \item{adverse_event}{Adverse Event}
 #'     \item{grade}{Grade}
 #'     \item{drug_attribution}{Drug Attribution}
+#'     \item{any_complication}{Any Grade Complication}
+#'     \item{grade3_complication}{Grade 3+ Complication}
 #' }
 "df_adverse_events"
+
+#' Simulated Patient Characteristics Database
+#'
+#' @format A data frame with 100 rows--one row per patient
+#' \describe{
+#'     \item{patient_id}{Patient ID}
+#'     \item{trt}{Treatment Group}
+#'     \item{age}{Patient Age}
+#' }
+"df_patient_characteristics"

@@ -32,3 +32,4 @@ reference:
   - title: Data
   - contents:
       - df_adverse_events
+      - df_patient_characteristics

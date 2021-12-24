@@ -7,6 +7,7 @@ test_that("multiplication works", {
         ae = adverse_event,
         soc = system_organ_class,
         by = grade,
+        statistic = "{n}",
         header = "**Grade {level}**"
       ) %>%
       add_overall() %>%
@@ -14,10 +15,24 @@ test_that("multiplication works", {
     NA
   )
 
-  expect_equal(
-    tbl1$stat_2_2,
-    c('10 (100)', '7 (70)', '8 (80)', '7 (70)', '7 (70)', '10 (100)',
-      '8 (80)', '6 (60)', '7 (70)', '6 (60)', '7 (70)')
+  expect_true(
+    df_adverse_events %>%
+      dplyr::select(patient_id, adverse_event) %>%
+      dplyr::distinct() %>%
+      dplyr::group_by(adverse_event) %>%
+      dplyr::mutate(
+        n = dplyr::n() %>% as.character()
+      ) %>%
+      dplyr::select(label = adverse_event, n) %>%
+      dplyr::distinct() %>%
+      dplyr::ungroup() %>%
+      dplyr::inner_join(
+        tbl1 %>% dplyr::select(label, stat_2_2),
+        by = "label"
+      ) %>%
+      dplyr::mutate(check = n == stat_2_2) %>%
+      dplyr::pull(check) %>%
+      all()
   )
 
   expect_error(
@@ -51,7 +66,7 @@ test_that("multiplication works", {
       as_tibble(col_label = FALSE),
     NA
   )
-  
+
     expect_error(
     tbl1 <-
       df_adverse_events %>%
@@ -67,5 +82,5 @@ test_that("multiplication works", {
       as_tibble(col_label = FALSE),
     NA
   )
-  
+
 })

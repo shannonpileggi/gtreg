@@ -217,7 +217,7 @@ fn_tbl <- function(data, variable, label = NULL, statistic, header,
     filter(.data$by %in% "NOT OBSERVED") %>%
     purrr::pluck("by_col")
   if (!is.null(column_to_hide)) {
-    tbl <- gtsummary::modify_column_hide(tbl, columns = column_to_hide)
+    tbl <- gtsummary::modify_column_hide(tbl, columns = all_of(column_to_hide))
   }
 
   # remove the header row
