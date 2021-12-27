@@ -7,7 +7,8 @@ remotes::install_github("ddsjoberg/gt.doc.images")
 #    No packages should be loaded, not even gtreg.
 #    Any object that is in the global environment may be written over!
 
-# 4. Run the function below to save the images created in the help files
+# 4. Run the function below to save the images created in the help files.
+#    Only objects whose named in `_ex` or `_ex[:digit:]+` are saved.
 #    Files will be saved to "~/man/figures/<filename>.png", where the filename
 #    is the object name, i.e.'tbl_ae_count_ex1.png'. No example object
 #    may overlap throughout the entire package.
