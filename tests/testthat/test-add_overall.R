@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("add_overall() works", {
   expect_error(
     tbl1 <-
       df_adverse_events %>%
