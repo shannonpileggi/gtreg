@@ -54,7 +54,7 @@ df_patient_characteristics <-
   tibble::tibble(
     patient_id = paste("ID", 1:100),
     trt = sample(c("Drug A", "Drug B"), size = 100, replace = TRUE),
-    age = rnorm(100, 50, 10)
+    age = floor(rnorm(100, 50, 10))
   ) |>
   # forcing the patients to have the same trt as in the AE dataset
   dplyr::rows_update(
