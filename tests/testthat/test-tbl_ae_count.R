@@ -30,12 +30,13 @@ test_that("tbl_ae_count() works", {
 
   expect_equal(
     tbl1$table_body %>%
-      filter(label %in% "Anaemia") %>%
+      dplyr::filter(label %in% "Anaemia") %>%
       dplyr::select(gtsummary::all_stat_cols()) %>%
       c() %>%
       unname() %>%
       unlist(),
     df_adverse_events %>%
+      dplyr::mutate(grade = factor(grade, levels = 1:5)) %>%
       dplyr::filter(adverse_event %in% "Anaemia") %>%
       with(table(trt, grade)) %>%
       t() %>%
