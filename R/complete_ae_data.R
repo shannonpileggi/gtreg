@@ -61,7 +61,7 @@
       stop("The class of the `id` variable must match in both `data` and `id_df`.", call. = FALSE)
   }
 
-  # check strata between data and id_df --------------------------------------------
+  # check strata between data and id_df ----------------------------------------
   # Check the strata column names match `data=`
   if (!is.null(strata) && !is.null(id_df) && !(strata %in% names(id_df))) {
     stop("The `strata=` argument must be present in `id_df.`", call. = FALSE)
@@ -79,17 +79,6 @@
   initial_missing <- missing_text
   initial_dummy   <- "NOT OBSERVED"
 
-  if (!is.null(by) && any(c(initial_missing, initial_dummy) %in% data[[by]])) {
-    stringr::str_glue("Levels '{initial_missing}' and '{initial_dummy}' cannot ",
-                      "appear in the levels of the `by=` variable.") %>%
-      stop(call. = FALSE)
-  }
-  if (!is.null(by_values) && any(c(initial_missing, initial_dummy) %in% by_values)) {
-    stringr::str_glue("Levels '{initial_missing}' and '{initial_dummy}' cannot ",
-                      "appear in the levels of the `by_values=` argument.") %>%
-      stop(call. = FALSE)
-  }
-
   # list to rename variables----------------------------------------------------
   lst_name_recode <-
     list(id = id, strata = strata, ae = ae, soc = soc, by = by) %>%
@@ -99,31 +88,14 @@
   data <- data %>% dplyr::select(!!!lst_name_recode)
 
   # configuring the `by=` variable ---------------------------------------------
-  if (is.null(by)) {
-    data$by <- factor("Overall")
-  }
-
-  if (!inherits(data$by, "factor")) {
-    data$by <- factor(data$by)
-  }
-
-  if (!is.null(by_values)) {
-    if (!rlang::is_empty(setdiff(levels(data$by), by_values))) {
-      stop("All levels of `by=` variable must appear in  `by_values=`",
-           call. = FALSE)
-    }
-
-    # expanding by factor variable
-    data$by <- rlang::inject(forcats::fct_expand(data$by, !!!as.list(by_values)))
-
-    # re-leveling by variable by_values (to order the levels in the output table)
-    data$by <- rlang::inject(forcats::fct_relevel(data$by, !!!as.list(by_values)))
-  }
-
-  # adding missing level, as needed
-  if (any(is.na(data$by))) {
-    data$by <- forcats::fct_explicit_na(data$by, na_level = initial_missing)
-  }
+  data <-
+    .prepare_by_levels(
+      data = data,
+      by = by,
+      by_values = by_values,
+      initial_missing = initial_missing,
+      initial_dummy = initial_dummy
+    )
 
   # if data frame of ids is supplied, add IDs obs to data ----------------------
   if (!is.null(id_df)) {
@@ -182,3 +154,43 @@
   return(data_full)
 }
 
+.prepare_by_levels <- function(data, by, by_values, initial_missing, initial_dummy) {
+  if (!is.null(by) && any(c(initial_missing, initial_dummy) %in% data[[by]])) {
+    stringr::str_glue("Levels '{initial_missing}' and '{initial_dummy}' cannot ",
+                      "appear in the levels of the `by=` variable.") %>%
+      stop(call. = FALSE)
+  }
+  if (!is.null(by_values) && any(c(initial_missing, initial_dummy) %in% by_values)) {
+    stringr::str_glue("Levels '{initial_missing}' and '{initial_dummy}' cannot ",
+                      "appear in the levels of the `by_values=` argument.") %>%
+      stop(call. = FALSE)
+  }
+
+  if (is.null(by)) {
+    data$by <- factor("Overall")
+  }
+
+  if (!inherits(data$by, "factor")) {
+    data$by <- factor(data$by)
+  }
+
+  if (!is.null(by_values)) {
+    if (!rlang::is_empty(setdiff(levels(data$by), by_values))) {
+      stop("All levels of `by=` variable must appear in  `by_values=`",
+           call. = FALSE)
+    }
+
+    # expanding by factor variable
+    data$by <- rlang::inject(forcats::fct_expand(data$by, !!!as.list(by_values)))
+
+    # re-leveling by variable by_values (to order the levels in the output table)
+    data$by <- rlang::inject(forcats::fct_relevel(data$by, !!!as.list(by_values)))
+  }
+
+  # adding missing level, as needed
+  if (any(is.na(data$by))) {
+    data$by <- forcats::fct_explicit_na(data$by, na_level = initial_missing)
+  }
+
+  data
+}
