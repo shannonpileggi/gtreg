@@ -44,7 +44,7 @@ tbl <-
     strata = trt,
     header = "**Grade {level}**"
   ) %>%
-  gtsummary::bold_labels()
+  bold_labels()
 ```
 
 <img src="man/figures/README-example-tbl_adverse_event-1.png" width="100%" />
