@@ -1,6 +1,6 @@
 #' Tabulate AE Focused (Dichotomous) Summaries
 #'
-#' Summarize AE data that is binary or dichotomous. For example, report the
+#' Summarize dichotomous AE data. For example, report the
 #' rate of patients that have an AE of Grade 3 or higher.
 #'
 #' @inheritParams tbl_adverse_event
