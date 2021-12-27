@@ -59,10 +59,6 @@ rate of patients that have an AE of Grade 3 or higher.
 # Example 1 -----------------------------------------------------------------
 tbl_ae_focus_ex1 <-
   df_adverse_events \%>\%
-  dplyr::mutate(
-    any_complication = TRUE,
-    grade3_complication = grade >= 3
-  ) \%>\%
   tbl_ae_focus(
     include = c(any_complication, grade3_complication),
     id = patient_id,
