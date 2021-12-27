@@ -2,7 +2,7 @@
 % Please edit documentation in R/tbl_ae_focus.R
 \name{tbl_ae_focus}
 \alias{tbl_ae_focus}
-\title{Tabulate AE Binary Summaries}
+\title{Tabulate AE Focused (Dichotomous) Summaries}
 \usage{
 tbl_ae_focus(
   data,
@@ -45,7 +45,7 @@ NULL, and either the label attribute or the column name will be used.}
 a 'tbl_ae_focus' object
 }
 \description{
-Summarize AE data that is binary or dichotomous. For example, report the
+Summarize dichotomous AE data. For example, report the
 rate of patients that have an AE of Grade 3 or higher.
 }
 \section{Example Output}{
