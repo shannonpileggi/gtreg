@@ -5,7 +5,7 @@
 \alias{df_adverse_events}
 \title{Simulated Adverse Event Database}
 \format{
-A data frame with 200 rows--one row per patient
+A data frame with 100 rows--one row per patient per AE
 \describe{
 \item{patient_id}{Patient ID}
 \item{trt}{Treatment Group}
@@ -13,6 +13,8 @@ A data frame with 200 rows--one row per patient
 \item{adverse_event}{Adverse Event}
 \item{grade}{Grade}
 \item{drug_attribution}{Drug Attribution}
+\item{any_complication}{Any Grade Complication}
+\item{grade3_complication}{Grade 3+ Complication}
 }
 }
 \usage{
