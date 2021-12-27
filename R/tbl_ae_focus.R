@@ -71,15 +71,31 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
   # obtain the complete data ---------------------------------------------------
   data_complete <-
     .complete_ae_data(data, id = id, ae = ae, soc = soc, by = NULL,
-                      strata = strata, id_df = id_df, by_values = NULL) %>%
-    group_by(across(any_of("soc")))
-
+                      strata = strata, id_df = id_df, by_values = NULL)
   if (any(include %in% names(data_complete))) {
     stringr::str_glue(
       "'{intersect(include, names(data_complete))[1]}' is a protected name",
       "and cannot be used in `include=`.") %>%
       stop(call. = FALSE)
   }
+
+  # merge in the binary columns
+  lst_rename <- purrr::compact(list(id = id, ae = ae, soc = soc))
+  data_complete %>%
+    dplyr::left_join(
+      data %>%
+        select(!!!lst_rename, all_of(include)),
+      by = names(lst_rename)
+    ) %>%
+    group_by(across(any_of(names(lst_rename)))) %>%
+    mutate(
+      across(any_of(include), ~tidyr::replace_na(., FALSE)),
+      across(any_of(include), ~as.logical(max(.)))
+    ) %>%
+    dplyr::distinct() %>%
+    group_by(across(any_of("soc")))
+
+
 
   # merge in the `include=` variable to the complete data ----------------------
   # putting data into list of tibbles...one element per SOC
@@ -118,7 +134,7 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
                 dplyr::rename("..soc{index}.." := .data$..soc..)
 
               fn_tbl_soc <-
-                purrr::partial(fn_tbl,
+                purrr::partial(.fn_tbl,
                                variable = stringr::str_glue("..soc{index}.."),
                                label = names(lst_data_complete[index]),
                                by = binary_varname,
@@ -181,7 +197,7 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
               dplyr::rename("ae{index}" := .data$ae)
 
             fn_tbl_ae <-
-              purrr::partial(fn_tbl,
+              purrr::partial(.fn_tbl,
                              variable = stringr::str_glue("ae{index}"),
                              by = binary_varname,
                              by_level_to_hide = "FALSE",

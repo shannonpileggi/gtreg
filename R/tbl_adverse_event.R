@@ -96,73 +96,26 @@ tbl_adverse_event <- function(data, id, ae,
   # tabulate SOC ---------------------------------------------------------------
   if (!is.null(soc)) {
     lst_tbl_soc <-
-      purrr::map(
-        seq_len(length(lst_data_complete)),
-        function(index) {
-          # keep observation that will be tabulated
-          df_soc <-
-            filter(lst_data_complete[[index]], .data$..soc..) %>%
-            dplyr::rename("..soc{index}.." := .data$..soc..)
-
-          fn_tbl_soc <-
-            purrr::partial(fn_tbl,
-                           variable = stringr::str_glue("..soc{index}.."),
-                           label = names(lst_data_complete[index]),
-                           statistic = statistic,
-                           header = header,
-                           remove_header_row = FALSE,
-                           zero_symbol = NULL)
-
-          if ("strata" %in% names(df_soc)) {
-            tbl <-
-              gtsummary::tbl_strata(
-                data = df_soc,
-                strata = "strata",
-                .tbl_fun = ~fn_tbl_soc(data = .x)
-              )
-          }
-          else {
-            tbl <- fn_tbl_soc(data = df_soc)
-          }
-
-          tbl
-        }
-      )
+      .lst_of_tbls(lst_data = lst_data_complete,
+                   variable_summary = "..soc..",
+                   variable_filter = "..soc..",
+                   statistic = statistic,
+                   header = header,
+                   remove_header_row = FALSE,
+                   zero_symbol = NULL,
+                   labels = names(lst_data_complete))
   }
 
   # tabulate AEs ---------------------------------------------------------------
   lst_tbl_ae <-
-    purrr::map(
-      seq_len(length(lst_data_complete)),
-      function(index) {
-        # keep observation that will be tabulated
-        df_ae <-
-          filter(lst_data_complete[[index]], .data$..ae..) %>%
-          dplyr::rename("ae{index}" := .data$ae)
-
-        fn_tbl_ae <-
-          purrr::partial(fn_tbl,
-                         variable = stringr::str_glue("ae{index}"),
-                         statistic = statistic,
-                         header = header,
-                         remove_header_row = TRUE,
-                         zero_symbol = NULL)
-
-        if ("strata" %in% names(df_ae)) {
-          tbl <-
-            gtsummary::tbl_strata(
-              data = df_ae,
-              strata = "strata",
-              .tbl_fun = ~fn_tbl_ae(data = .x)
-            )
-        }
-        else {
-          tbl <- fn_tbl_ae(data = df_ae)
-        }
-
-        tbl
-      }
-    )
+    .lst_of_tbls(lst_data = lst_data_complete,
+                 variable_summary = "ae",
+                 variable_filter = "..ae..",
+                 statistic = statistic,
+                 header = header,
+                 remove_header_row = TRUE,
+                 zero_symbol = NULL,
+                 labels = NULL)
 
   # stacking tbls into big final AE table --------------------------------------
   if (!is.null(soc)) {
@@ -198,7 +151,7 @@ tbl_adverse_event <- function(data, id, ae,
 
 
 # define `tbl_summary()` function to tabulate SOC/AE
-fn_tbl <- function(data, variable, label = NULL, statistic, header,
+.fn_tbl <- function(data, variable, label = NULL, statistic, header,
                    remove_header_row, zero_symbol = NULL, by = "by",
                    by_level_to_hide = "NOT OBSERVED") {
   tbl <-
@@ -233,4 +186,42 @@ fn_tbl <- function(data, variable, label = NULL, statistic, header,
   }
 
   tbl
+}
+
+
+# this function returns a list of tbls, summarizing either AEs or SOC
+.lst_of_tbls <- function(lst_data, variable_summary, variable_filter, statistic,
+                        header, remove_header_row, zero_symbol = NULL, labels = NULL) {
+  purrr::map(
+    seq_len(length(lst_data)),
+    function(index) {
+      # keep observation that will be tabulated
+      df_ae <-
+        filter(lst_data[[index]], !!sym(variable_filter)) %>%
+        dplyr::rename("{variable_summary}{index}" := !!sym(variable_summary))
+
+      fn_tbl_ae <-
+        purrr::partial(.fn_tbl,
+                       variable = stringr::str_glue("{variable_summary}{index}"),
+                       label = labels[index],
+                       statistic = statistic,
+                       header = header,
+                       remove_header_row = TRUE,
+                       zero_symbol = NULL)
+
+      if ("strata" %in% names(df_ae)) {
+        tbl <-
+          gtsummary::tbl_strata(
+            data = df_ae,
+            strata = "strata",
+            .tbl_fun = ~fn_tbl_ae(data = .x)
+          )
+      }
+      else {
+        tbl <- fn_tbl_ae(data = df_ae)
+      }
+
+      tbl
+    }
+  )
 }

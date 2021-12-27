@@ -79,7 +79,7 @@ tbl_ae_count <- function(data, ae,
             dplyr::rename("..soc{index}.." := .data$..soc..)
 
           fn_tbl_soc <-
-            purrr::partial(fn_tbl,
+            purrr::partial(.fn_tbl,
                            variable = stringr::str_glue("..soc{index}.."),
                            label = names(lst_data[index]),
                            statistic = statistic,
@@ -115,7 +115,7 @@ tbl_ae_count <- function(data, ae,
           dplyr::rename("ae{index}" := .data$ae)
 
         fn_tbl_ae <-
-          purrr::partial(fn_tbl,
+          purrr::partial(.fn_tbl,
                          variable = stringr::str_glue("ae{index}"),
                          statistic = statistic,
                          header = header,
