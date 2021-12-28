@@ -2,7 +2,7 @@
 #'
 #' Create a table with the number of AE that were reported.
 #'
-#' @inheritParams tbl_adverse_event
+#' @inheritParams tbl_ae
 #'
 #' @return a 'tbl_ae_count' object
 #' @export

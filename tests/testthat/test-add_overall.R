@@ -2,7 +2,7 @@ test_that("add_overall() works", {
   expect_error(
     tbl1 <-
       df_adverse_events %>%
-      tbl_adverse_event(
+      tbl_ae(
         id = patient_id,
         ae = adverse_event,
         soc = system_organ_class,
@@ -38,7 +38,7 @@ test_that("add_overall() works", {
   expect_error(
     tbl2 <-
       df_adverse_events %>%
-      tbl_adverse_event(
+      tbl_ae(
         id = patient_id,
         ae = adverse_event,
         soc = system_organ_class,
@@ -54,7 +54,7 @@ test_that("add_overall() works", {
   expect_error(
     tbl3 <-
       df_adverse_events %>%
-      tbl_adverse_event(
+      tbl_ae(
         id = patient_id,
         ae = adverse_event,
         soc = system_organ_class,
@@ -70,7 +70,7 @@ test_that("add_overall() works", {
     expect_error(
     tbl1 <-
       df_adverse_events %>%
-      tbl_adverse_event(
+      tbl_ae(
         id = patient_id,
         ae = adverse_event,
         soc = system_organ_class,

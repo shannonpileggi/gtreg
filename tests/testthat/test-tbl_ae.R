@@ -19,7 +19,7 @@ test_that("df_adverse_events() single arm, single soc", {
     )
 
   e1 <-
-    tbl_adverse_event(
+    tbl_ae(
       data = df1,
       id = "patient_id",
       ae = "adverse_event",
@@ -63,7 +63,7 @@ test_that("counting rules", {
 
   expect_error(
     expected_ae_1 <-
-      tbl_adverse_event(
+      tbl_ae(
         data = ae_1,
         id = subject,
         ae = ae,
@@ -76,7 +76,7 @@ test_that("counting rules", {
 
   expect_error(
     expected_ae_2 <-
-      tbl_adverse_event(
+      tbl_ae(
         data = ae_2,
         id   = subject,
         ae = ae,
@@ -93,7 +93,7 @@ test_that("counting rules", {
 test_that("df_adverse_event() works", {
   expect_error(
     df_adverse_events %>%
-      tbl_adverse_event(
+      tbl_ae(
         id = patient_id,
         ae = adverse_event,
         soc = system_organ_class,
@@ -105,7 +105,7 @@ test_that("df_adverse_event() works", {
 
   expect_error(
     df_adverse_events %>%
-      tbl_adverse_event(
+      tbl_ae(
         id = patient_id,
         ae = adverse_event,
         soc = system_organ_class,
@@ -116,7 +116,7 @@ test_that("df_adverse_event() works", {
 
   expect_error(
     df_adverse_events %>%
-      tbl_adverse_event(
+      tbl_ae(
         id = patient_id,
         ae = adverse_event,
         by = grade
@@ -126,7 +126,7 @@ test_that("df_adverse_event() works", {
 
   expect_error(
     df_adverse_events %>%
-      tbl_adverse_event(
+      tbl_ae(
         id = patient_id,
         ae = adverse_event
       ),

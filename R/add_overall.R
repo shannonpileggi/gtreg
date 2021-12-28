@@ -1,19 +1,19 @@
 #' Tabulate Overall Summary
 #'
-#' @param x Object of class `"tbl_adverse_event"`
+#' @param x Object of class `"tbl_ae"`
 #' @param by logical indicating whether the `by=` argument should be
 #' included in the overall table. Default is `FALSE`
 #' @param strata logical indicating whether the `strata=` argument should be
 #' included in the overall table. Default is `FALSE`
 #' @param ... Not used
 #'
-#' @return Summary object of class `"tbl_adverse_event"`
+#' @return Summary object of class `"tbl_ae"`
 #' @export
 #' @examples
 #' # Example 1 -----------------------------------------------------------------
 #' add_overall_ex1 <-
 #'   df_adverse_events %>%
-#'   tbl_adverse_event(
+#'   tbl_ae(
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
@@ -26,7 +26,7 @@
 #'
 #' \if{html}{\figure{add_overall_ex1.png}{options: width=70\%}}
 
-add_overall.tbl_adverse_event <- function(x, by = FALSE, strata = FALSE, ...) {
+add_overall.tbl_ae <- function(x, by = FALSE, strata = FALSE, ...) {
   # check inputs ---------------------------------------------------------------
   if (isTRUE(by) && isTRUE(strata)) {
     stop("Both `by=` and `strata=` cannot be TRUE.", call. = FALSE)
