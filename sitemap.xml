@@ -25,7 +25,7 @@
     <loc>https://shannonpileggi.github.io/gtreg/index.html</loc>
   </url>
   <url>
-    <loc>https://shannonpileggi.github.io/gtreg/reference/add_overall.tbl_adverse_event.html</loc>
+    <loc>https://shannonpileggi.github.io/gtreg/reference/add_overall.tbl_ae.html</loc>
   </url>
   <url>
     <loc>https://shannonpileggi.github.io/gtreg/reference/df_adverse_events.html</loc>
@@ -46,7 +46,7 @@
     <loc>https://shannonpileggi.github.io/gtreg/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://shannonpileggi.github.io/gtreg/reference/tbl_adverse_event.html</loc>
+    <loc>https://shannonpileggi.github.io/gtreg/reference/tbl_ae.html</loc>
   </url>
   <url>
     <loc>https://shannonpileggi.github.io/gtreg/reference/tbl_ae_count.html</loc>
