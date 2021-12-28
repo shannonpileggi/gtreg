@@ -80,7 +80,7 @@
   }
 
   # 3. Check all ID/strata combos appear in `data=`
-  if (!is.null(id_df) && duplicated(id_df[c(id, strata)])) {
+  if (!is.null(id_df) && any(duplicated(id_df[c(id, strata)]))) {
     stop("Disallowed duplicate `id=`/`strata=` combinations found in `id_df=`.", call. = FALSE)
   }
   if (!is.null(id_df) &&

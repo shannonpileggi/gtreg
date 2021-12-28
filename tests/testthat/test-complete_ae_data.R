@@ -305,6 +305,14 @@ test_that("assess complete data single arm, single soc", {
 
   expect_error(
     .complete_ae_data(
+      data = df_adverse_events,
+      id_df = tibble::tibble(patient_id = c(letters, letters)),
+      id = "patient_id"
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
       data =
         df_adverse_events %>%
         dplyr::mutate(patient_id = ifelse(dplyr::row_number() == 1L, NA, patient_id)),
