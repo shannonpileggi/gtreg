@@ -2,25 +2,25 @@
 % Please edit documentation in R/add_overall.R
 \name{add_overall_tbl_ae}
 \alias{add_overall_tbl_ae}
-\alias{add_overall.tbl_adverse_event}
+\alias{add_overall.tbl_ae}
 \alias{add_overall.tbl_ae_count}
 \alias{add_overall.tbl_ae_focus}
 \title{Tabulate Overall Summary}
 \usage{
-\method{add_overall}{tbl_adverse_event}(x, type = c("both", "by", "strata"), ...)
+\method{add_overall}{tbl_ae}(x, type = c("both", "by", "strata"), ...)
 
 \method{add_overall}{tbl_ae_count}(x, type = c("both", "by", "strata"), ...)
 
 \method{add_overall}{tbl_ae_focus}(x, type = c("both", "by", "strata"), ...)
 }
 \arguments{
-\item{x}{Object of class \code{"tbl_adverse_event"}}
+\item{x}{Object of class \code{"tbl_ae"}, \code{"tbl_ae_focus"}, or \code{"tbl_ae_count"}}
 
 \item{type}{Specify the type of overall statistics to include.
 \itemize{
-\item \code{"by"} adds summary statistics across the \verb{by=} levels
-\item \code{"strata"} adds summary statistics across the \verb{strata=} levels
-\item \code{"both"} adds summary statistics across both the \verb{by=} and \verb{strata=} levels
+\item \code{"by"} adds summaries across the \verb{by=} levels
+\item \code{"strata"} adds summaries across the \verb{strata=} levels
+\item \code{"both"} adds summaries across both the \verb{by=} and \verb{strata=} levels
 Default it \code{"both"}
 }}
 
@@ -33,7 +33,7 @@ included in the overall table. Default is \code{FALSE}}
 included in the overall table. Default is \code{FALSE}}
 }
 \value{
-Summary object of class \code{"tbl_adverse_event"}
+Summary object of class \code{"tbl_ae"}
 }
 \description{
 Tabulate Overall Summary
@@ -63,7 +63,7 @@ the ordering of the columns may not be correct.
 # Example 1 -----------------------------------------------------------------
 add_overall_ex1 <-
   df_adverse_events \%>\%
-  tbl_adverse_event(
+  tbl_ae(
     id = patient_id,
     ae = adverse_event,
     soc = system_organ_class,

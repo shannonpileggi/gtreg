@@ -74,7 +74,7 @@ NULL
 
 #' @rdname add_overall_tbl_ae
 #' @export
-add_overall.tbl_adverse_event <- function(x, type = c("both", "by", "strata"), ...) {
+add_overall.tbl_ae <- function(x, type = c("both", "by", "strata"), ...) {
   # check inputs ---------------------------------------------------------------
   type <- match.arg(type)
   if (is.null(x$inputs$by) && is.null(x$inputs$strata)) {
@@ -175,8 +175,8 @@ add_overall.tbl_adverse_event <- function(x, type = c("both", "by", "strata"), .
 
 #' @rdname add_overall_tbl_ae
 #' @export
-add_overall.tbl_ae_count <- add_overall.tbl_adverse_event
+add_overall.tbl_ae_count <- add_overall.tbl_ae
 
 #' @rdname add_overall_tbl_ae
 #' @export
-add_overall.tbl_ae_focus <- add_overall.tbl_adverse_event
+add_overall.tbl_ae_focus <- add_overall.tbl_ae
