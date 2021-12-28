@@ -3,7 +3,7 @@
 #' Summarize dichotomous AE data. For example, report the
 #' rate of patients that have an AE of Grade 3 or higher.
 #'
-#' @inheritParams tbl_adverse_event
+#' @inheritParams tbl_ae
 #' @param include Vector of column names to summarize. Column names may be
 #' quoted or unquoted. All columns must be class 'logical'.
 #' @param label A named list of labels that will be applied in the
@@ -198,7 +198,7 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
     # return list with function's inputs
     purrr::list_modify(inputs = tbl_ae_focus_inputs) %>%
     # add class
-    structure(class = c("tbl_adverse_event", "gtsummary"))
+    structure(class = c("tbl_ae", "gtsummary"))
 }
 
 

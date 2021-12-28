@@ -36,7 +36,7 @@ gtsummary::theme_gtsummary_compact()
 
 tbl <- 
   df_adverse_events %>%
-  tbl_adverse_event(
+  tbl_ae(
     id = patient_id,
     ae = adverse_event,
     soc = system_organ_class, 
