@@ -10,6 +10,10 @@
         filter(lst_data[[index]], !!sym(variable_filter)) %>%
         dplyr::rename("{variable_summary}{index}" := !!sym(variable_summary))
 
+      if ("ae" %in% variable_summary) {
+        df_ae[[stringr::str_glue("{variable_summary}{index}")]] <-
+          factor(df_ae[[stringr::str_glue("{variable_summary}{index}")]])
+      }
       # ------------------------------------------------------------------------
       # TODO: Add frequency sorting codes here. Define a factor to sort AEs
       # ------------------------------------------------------------------------

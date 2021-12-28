@@ -138,7 +138,8 @@
       arrange(across(any_of(c("id", "strata", "soc", "by")))) %>%
       group_by(across(any_of(c("id", "strata", "soc")))) %>%
       mutate(
-        ..soc.. = dplyr::row_number() == dplyr::n()
+        ..soc.. = dplyr::row_number() == dplyr::n(),
+        soc = factor(.data$soc)
       ) %>%
       ungroup()
   }
