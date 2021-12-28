@@ -70,99 +70,33 @@ tbl_ae_count <- function(data, ae,
   # tablulate SOC --------------------------------------------------------------
   if (!is.null(soc)) {
     lst_tbl_soc <-
-      purrr::map(
-        seq_len(length(lst_data)),
-        function(index) {
-          # keep observation that will be tabulated
-          df_soc <-
-            filter(lst_data[[index]], .data$..soc..) %>%
-            dplyr::rename("..soc{index}.." := .data$..soc..)
-
-          fn_tbl_soc <-
-            purrr::partial(.fn_tbl,
-                           variable = stringr::str_glue("..soc{index}.."),
-                           label = names(lst_data[index]),
-                           statistic = statistic,
-                           header = header,
-                           remove_header_row = FALSE,
-                           zero_symbol = NULL)
-
-          if ("strata" %in% names(df_soc)) {
-            tbl <-
-              gtsummary::tbl_strata(
-                data = df_soc,
-                strata = "strata",
-                .tbl_fun = ~fn_tbl_soc(data = .x)
-              )
-          }
-          else {
-            tbl <- fn_tbl_soc(data = df_soc)
-          }
-
-          tbl
-        }
-      )
+      .lst_of_tbls(lst_data = lst_data,
+                   variable_summary = "..soc..",
+                   variable_filter = "..soc..",
+                   statistic = statistic,
+                   header = header,
+                   remove_header_row = FALSE,
+                   zero_symbol = NULL,
+                   labels = names(lst_data))
   }
 
   # tabulate AEs ---------------------------------------------------------------
   lst_tbl_ae <-
-    purrr::map(
-      seq_len(length(lst_data)),
-      function(index) {
-        # keep observation that will be tabulated
-        df_ae <-
-          filter(lst_data[[index]], .data$..ae..) %>%
-          dplyr::rename("ae{index}" := .data$ae)
-
-        fn_tbl_ae <-
-          purrr::partial(.fn_tbl,
-                         variable = stringr::str_glue("ae{index}"),
-                         statistic = statistic,
-                         header = header,
-                         remove_header_row = TRUE,
-                         zero_symbol = NULL)
-
-        if ("strata" %in% names(df_ae)) {
-          tbl <-
-            gtsummary::tbl_strata(
-              data = df_ae,
-              strata = "strata",
-              .tbl_fun = ~fn_tbl_ae(data = .x)
-            )
-        }
-        else {
-          tbl <- fn_tbl_ae(data = df_ae)
-        }
-
-        tbl
-      }
-    )
+    .lst_of_tbls(lst_data = lst_data,
+                 variable_summary = "ae",
+                 variable_filter = "..ae..",
+                 statistic = statistic,
+                 header = header,
+                 remove_header_row = TRUE,
+                 zero_symbol = NULL,
+                 labels = NULL)
 
   # stacking tbls into big final AE table --------------------------------------
-  if (!is.null(soc)) {
-    tbl_final <-
-      # stack SOC with AEs within that SOC, then stack all tbls
-      purrr::map2(lst_tbl_soc, lst_tbl_ae,
-                  ~gtsummary::tbl_stack(list(.x, .y), quiet = TRUE)) %>%
-      gtsummary::tbl_stack(quiet = TRUE)
-  }
-  else {
-    tbl_final <-
-      gtsummary::tbl_stack(lst_tbl_ae, quiet = TRUE) %>%
-      # remove indentation for AEs
-      gtsummary::modify_table_styling(
-        columns = "label",
-        text_format = "indent",
-        undo_text_format = TRUE
-      )
-  }
+  if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)
+  else tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae, lst_tbl_soc)
 
   # return final tbl -----------------------------------------------------------
   tbl_final %>%
-    # update labels
-    gtsummary::modify_header(label = "**Adverse Event**") %>%
-    # removing the no longer needed data elements saved in the individual stacked/merged tbls
-    gtsummary::tbl_butcher() %>%
     # return list with function's inputs and the complete data
     purrr::list_modify(inputs = tbl_ae_count_inputs) %>%
     # add class
