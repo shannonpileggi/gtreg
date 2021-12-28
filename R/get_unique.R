@@ -30,12 +30,21 @@
 #'
 get_unique <- function(data, var, drop_na = TRUE, keep_fct_levels = TRUE){
 
-  var_chr <- rlang::as_label(rlang::ensym(var))
+  var <-
+    .select_to_varnames({{ var }}, data = data,
+      arg_name = "var", select_single = TRUE)
+
+  # list to rename variables----------------------------------------------------
+  lst_name_recode <-
+    list(var = var)
+
+  # initial data renaming and trimming -----------------------------------------
+  data <- data %>% dplyr::select(!!!lst_name_recode)
 
   # check to see if variable is a factor and we want to return
   # all factor levels
-  if (inherits(data[[var_chr]], "factor") & keep_fct_levels) {
-    values <- levels(data[[var_chr]])
+  if (inherits(data[[var]], "factor") & keep_fct_levels) {
+    values <- levels(data[[var]])
     return(values)
   }
 
@@ -43,11 +52,12 @@ get_unique <- function(data, var, drop_na = TRUE, keep_fct_levels = TRUE){
   # is a factor but we only want factor levels observed in data to
   # be returned
   values <- data %>%
-    dplyr::distinct( {{var}} ) %>%
-    arrange( {{var}} ) %>%
-    {if ( drop_na ) tidyr::drop_na(., {{var}} ) else . } %>%
-    dplyr::pull( {{var}} )
+    dplyr::distinct(var) %>%
+    arrange(var) %>%
+    {if ( drop_na ) tidyr::drop_na(., var ) else . } %>%
+    dplyr::pull( var )
 
+  # if factor and do not wish to keep all factor levels
   if (inherits(values, "factor")) values <- as.character(values)
 
   return(values)
