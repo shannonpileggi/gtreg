@@ -10,6 +10,10 @@
         filter(lst_data[[index]], !!sym(variable_filter)) %>%
         dplyr::rename("{variable_summary}{index}" := !!sym(variable_summary))
 
+      # ------------------------------------------------------------------------
+      # TODO: Add frequency sorting codes here. Define a factor to sort AEs
+      # ------------------------------------------------------------------------
+
       fn_tbl_ae <-
         purrr::partial(.fn_tbl,
                        variable = stringr::str_glue("{variable_summary}{index}"),
