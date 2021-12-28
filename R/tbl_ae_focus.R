@@ -36,6 +36,9 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
                          id_df = NULL, statistic = "{n} ({p})",
                          label = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
+  if (is_missing(data) || is_missing(include) || is_missing(id) || is_missing(ae)) {
+    stop("Arguments `data=`, `include=`, `id=`, `ae=` must be specified.", call. = FALSE)
+  }
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
   }

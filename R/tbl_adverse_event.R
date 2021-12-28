@@ -60,7 +60,12 @@ tbl_adverse_event <- function(data, id, ae,
                                statistic = "{n} ({p})",
                                header = "**{level}**") {
   # evaluate bare selectors/check inputs ---------------------------------------
-  stopifnot(inherits(data, "data.frame"))
+  if (is_missing(data) || is_missing(id) || is_missing(ae)) {
+    stop("Arguments `data=`, `id=`, `ae=` must be specified.", call. = FALSE)
+  }
+  if(!inherits(data, "data.frame")) {
+    stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
+  }
   id <-
     .select_to_varnames({{ id }}, data = data,
                         arg_name = "id", select_single = TRUE)
