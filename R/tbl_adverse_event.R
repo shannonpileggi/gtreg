@@ -60,9 +60,6 @@ tbl_adverse_event <- function(data, id, ae,
                                statistic = "{n} ({p})",
                                header = "**{level}**") {
   # evaluate bare selectors/check inputs ---------------------------------------
-  if (is_missing(data) || is_missing(id) || is_missing(ae)) {
-    stop("Arguments `data=`, `id=`, `ae=` must be specified.", call. = FALSE)
-  }
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
   }
@@ -81,6 +78,9 @@ tbl_adverse_event <- function(data, id, ae,
   strata <-
     .select_to_varnames({{ strata }}, data = data,
                         arg_name = "strata", select_single = TRUE)
+  if (is.null(id) || is.null(ae)) {
+    stop("Arguments `id=`, `ae=` must be specified.", call. = FALSE)
+  }
 
   # will return inputs ---------------------------------------------------------
   tbl_adverse_event_inputs <- as.list(environment())

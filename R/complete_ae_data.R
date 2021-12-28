@@ -50,30 +50,45 @@
     stop("The `by_values=` argument must be a character vector.", call. = FALSE)
   }
 
-  # check ID between data and id_df --------------------------------------------
-  # Check the ID column names match `data=`
+  # check ID between data and id_df
+  # Check the id and strata column names match `data=`
   if (!is.null(id_df) && !(id %in% names(id_df))) {
-    stop("The `id=` argument must be present in `id_df.`", call. = FALSE)
+    stop("The `id=` column must be present in `id_df=`.", call. = FALSE)
+  }
+  if (!is.null(id_df) && !is.null(strata) && !(strata %in% names(id_df))) {
+    stop("The `strata=` column must be present in `id_df=`.", call. = FALSE)
   }
 
-  # Check the id type matches between `data=` and `id_df`
-  if (!is.null(id_df) && class(data[[id]]) != class(id_df[[id]])) {
-      stop("The class of the `id` variable must match in both `data` and `id_df`.", call. = FALSE)
+  # Check the id and strata type matches between `data=` and `id_df`
+  if (!is.null(id_df) && !identical(class(data[[id]]), class(id_df[[id]]))) {
+    stop("The class of the `id=` column must match in both `data=` and `id_df=`.", call. = FALSE)
+  }
+  if (!is.null(id_df) && !is.null(strata) && !identical(class(data[[strata]]), class(id_df[[strata]]))) {
+    stop("The class of the `strata=` column must match in both `data=` and `id_df=`.", call. = FALSE)
   }
 
-  # check strata between data and id_df ----------------------------------------
-  # Check the strata column names match `data=`
-  if (!is.null(strata) && !is.null(id_df) && !(strata %in% names(id_df))) {
-    stop("The `strata=` argument must be present in `id_df.`", call. = FALSE)
+  # Check the id and strata columns are not missing
+  if (any(is.na(data[[id]])) ||
+      ( !is.null(strata) && any(is.na(data[[strata]]))) ) {
+    stop("Columns `id=` and `strata=` cannot be missing in `data=`", call. = FALSE)
   }
-
-  # Check the strata type matches between `data=` and `id_df`
-  if (!is.null(strata) && !is.null(id_df) && class(data[[strata]]) != class(id_df[[strata]])) {
-    stop("The class of the `strata` variable must match in both `data` and `id_df`.", call. = FALSE)
+  # Check the id and strata columns are not missing
+  if (!is.null(id_df) &&
+      (any(is.na(id_df[[id]])) ||
+      ( !is.null(strata) && any(is.na(id_df[[strata]])))) ) {
+    stop("Columns `id=` and `strata=` cannot be missing in `id_df=`", call. = FALSE)
   }
 
   # 3. Check all ID/strata combos appear in `data=`
-  # i am not quite following what this check should be
+  if (!is.null(id_df) && duplicated(id_df[c(id, strata)])) {
+    stop("Disallowed duplicate `id=`/`strata=` combinations found in `id_df=`.", call. = FALSE)
+  }
+  if (!is.null(id_df) &&
+      nrow(dplyr::anti_join(dplyr::distinct(data[c(id, strata)]),
+                            id_df[c(id, strata)],
+                            by = c(id, strata))) > 0) {
+    stop("There are `id=`/`strata=` combinations in `data=` not found in `id_df=`.", call. = FALSE)
+  }
 
   # some default factor levels -------------------------------------------------
   initial_missing <- missing_text

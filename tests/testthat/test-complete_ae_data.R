@@ -266,4 +266,50 @@ test_that("assess complete data single arm, single soc", {
     ),
     NA
   )
+
+  # expect error messages
+  expect_error(
+    .complete_ae_data(
+      data = df_adverse_events,
+      id_df = tibble::tibble(id = letters),
+      id = "patient_id",
+      strata = "trt"
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data = df_adverse_events,
+      id_df = tibble::tibble(patient_id = letters),
+      id = "patient_id",
+      strata = "trt"
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data = df_adverse_events,
+      id_df = tibble::tibble(patient_id = factor(letters)),
+      id = "patient_id"
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data = df_adverse_events,
+      id_df = tibble::tibble(patient_id = letters, trt = factor(letters)),
+      id = "patient_id",
+      strata = "trt"
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data =
+        df_adverse_events %>%
+        dplyr::mutate(patient_id = ifelse(dplyr::row_number() == 1L, NA, patient_id)),
+      id = "patient_id",
+      strata = "trt"
+    )
+  )
 })

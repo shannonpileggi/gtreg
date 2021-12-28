@@ -36,9 +36,6 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
                          id_df = NULL, statistic = "{n} ({p})",
                          label = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
-  if (is_missing(data) || is_missing(include) || is_missing(id) || is_missing(ae)) {
-    stop("Arguments `data=`, `include=`, `id=`, `ae=` must be specified.", call. = FALSE)
-  }
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
   }
@@ -62,6 +59,9 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
                                 data = data,
                                 arg_name = "label",
                                 type_check = rlang::is_string)
+  if (is.null(include) || is.null(id) || is.null(ae)) {
+    stop("Arguments `include=`, `id=`, `ae=` must be specified.", call. = FALSE)
+  }
 
   purrr::walk(
     include,
