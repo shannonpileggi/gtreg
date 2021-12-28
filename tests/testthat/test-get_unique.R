@@ -12,4 +12,5 @@ test_that("get_unique() returns correct output", {
   expect_equal(get_unique(dat, y), c("A", "B"))
   expect_equal(get_unique(dat, z), c("dog", "cat"))
   expect_equal(get_unique(dat, u), c("dog", "pig", "cat"))
+  expect_equal(get_unique(dat, u, keep_fct_levels = FALSE), c("dog", "cat"))
 })

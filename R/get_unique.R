@@ -43,8 +43,8 @@ get_unique <- function(data, var, drop_na = TRUE, keep_fct_levels = TRUE){
 
   # check to see if variable is a factor and we want to return
   # all factor levels
-  if (inherits(data[[var]], "factor") & keep_fct_levels) {
-    values <- levels(data[[var]])
+  if (inherits(data[["var"]], "factor") & keep_fct_levels) {
+    values <- levels(data[["var"]])
     return(values)
   }
 
@@ -54,8 +54,8 @@ get_unique <- function(data, var, drop_na = TRUE, keep_fct_levels = TRUE){
   values <- data %>%
     dplyr::distinct(var) %>%
     arrange(var) %>%
-    {if ( drop_na ) tidyr::drop_na(., var ) else . } %>%
-    dplyr::pull( var )
+    {if(drop_na) tidyr::drop_na(., var) else . } %>%
+    dplyr::pull(var)
 
   # if factor and do not wish to keep all factor levels
   if (inherits(values, "factor")) values <- as.character(values)
