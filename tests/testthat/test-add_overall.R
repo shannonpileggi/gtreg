@@ -10,7 +10,7 @@ test_that("add_overall() works", {
         statistic = "{n}",
         header = "**Grade {level}**"
       ) %>%
-      add_overall() %>%
+      add_overall(type = 'by') %>%
       as_tibble(col_label = FALSE),
     NA
   )

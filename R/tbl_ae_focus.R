@@ -198,7 +198,7 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
     # return list with function's inputs
     purrr::list_modify(inputs = tbl_ae_focus_inputs) %>%
     # add class
-    structure(class = c("tbl_adverse_event", "gtsummary"))
+    structure(class = c("tbl_ae_focus", "gtsummary"))
 }
 
 
