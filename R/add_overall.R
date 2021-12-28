@@ -1,6 +1,6 @@
 #' Tabulate Overall Summary
 #'
-#' @param x Object of class `"tbl_adverse_event"`
+#' @param x Object of class `"tbl_ae"`, `"tbl_ae_focus"`, or `"tbl_ae_count"`
 #' @param type Specify the type of overall statistics to include.
 #' - `"by"` adds summaries across the `by=` levels
 #' - `"strata"` adds summaries across the `strata=` levels
@@ -12,18 +12,19 @@
 #' included in the overall table. Default is `FALSE`
 #' @param ... Not used
 #'
-#' @return Summary object of class `"tbl_adverse_event"`
 #' @name add_overall_tbl_ae
 #'
 #' @section Notes:
 #' If the spanning headers are modified prior to the call of `add_overall()`,
 #' the ordering of the columns may not be correct.
 #'
+#' @return Summary object of class `"tbl_ae"`
+
 #' @examples
 #' # Example 1 -----------------------------------------------------------------
 #' add_overall_ex1 <-
 #'   df_adverse_events %>%
-#'   tbl_adverse_event(
+#'   tbl_ae(
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     soc = system_organ_class,

@@ -3,7 +3,7 @@
 #' Summarize dichotomous AE data. For example, report the
 #' rate of patients that have an AE of Grade 3 or higher.
 #'
-#' @inheritParams tbl_adverse_event
+#' @inheritParams tbl_ae
 #' @param include Vector of column names to summarize. Column names may be
 #' quoted or unquoted. All columns must be class 'logical'.
 #' @param label A named list of labels that will be applied in the
