@@ -7,11 +7,11 @@
 \alias{inline_text.tbl_ae_focus}
 \title{Report Values from \code{tbl_ae()} in-line}
 \usage{
-\method{inline_text}{tbl_ae}(x, ae_or_soc, column, ...)
+\method{inline_text}{tbl_ae}(x, ae_or_soc, column = NULL, ...)
 
-\method{inline_text}{tbl_ae_count}(x, ae_or_soc, column, ...)
+\method{inline_text}{tbl_ae_count}(x, ae_or_soc, column = NULL, ...)
 
-\method{inline_text}{tbl_ae_focus}(x, ae_or_soc, column, ...)
+\method{inline_text}{tbl_ae_focus}(x, ae_or_soc, column = NULL, ...)
 }
 \arguments{
 \item{x}{an object of class \code{tbl_ae()}, \code{tbl_ae_count()}, \code{tbl_ae_focus()}}
@@ -30,5 +30,16 @@ string
 Report Values from \code{tbl_ae()} in-line
 }
 \examples{
-# add example
+tbl <-
+  df_adverse_events \%>\%
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    soc = system_organ_class,
+    by = grade,
+    header = "**Grade {level}**"
+  )
+show_header_names(tbl)
+
+inline_text(tbl, "Anaemia", column = stat_6)
 }

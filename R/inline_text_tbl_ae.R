@@ -10,14 +10,31 @@
 #' @name inline_text_tbl_ae
 #'
 #' @examples
-#' # add example
+#' tbl <-
+#'   df_adverse_events %>%
+#'   tbl_ae(
+#'     id = patient_id,
+#'     ae = adverse_event,
+#'     soc = system_organ_class,
+#'     by = grade,
+#'     header = "**Grade {level}**"
+#'   )
+#' show_header_names(tbl)
+#'
+#' inline_text(tbl, "Anaemia", column = stat_6)
 NULL
 
 #' @rdname inline_text_tbl_ae
 #' @export
-inline_text.tbl_ae <- function(x, ae_or_soc, column, ...) {
+inline_text.tbl_ae <- function(x, ae_or_soc, column = NULL, ...) {
   # check inputs ---------------------------------------------------------------
-  # rlang::check_dots_empty() # ADD THIS AFTER rlang v1.0.0 RELEASE!!
+  # TODO: rlang::check_dots_empty() # ADD THIS AFTER rlang v1.0.0 RELEASE!!
+  column <- rlang::enquo(column)
+  if (rlang::quo_is_null(column)) {
+    cli::cli_alert_danger("The {.code column=} argument is required.")
+    cli::cli_alert_info(
+      "Run {.code show_header_names(x)} to list the column names and headers.")
+  }
   if (!rlang::is_string(ae_or_soc)) {
     stop("Argument `ae_or_soc=` must be a string.", call. = FALSE)
   }
@@ -42,12 +59,11 @@ inline_text.tbl_ae <- function(x, ae_or_soc, column, ...) {
   variable_is_ae <- startsWith(variable, "ae")
 
   # return result --------------------------------------------------------------
-  browser()
   gtsummary::inline_text(
     x = structure(x, class = "gtsummary"), # forcing evaluation with `gtsummary::inline_text.gtsummary()`
     variable = variable,
     level = switch(variable_is_ae, ae_or_soc),
-    column = {{ column }}
+    column = !!column
   )
 }
 

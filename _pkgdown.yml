@@ -9,7 +9,7 @@ authors:
   Daniel D. Sjoberg:
     href: "https://www.danieldsjoberg.com/"
 
-# add this back after the first release
+# TODO: add this back after the first release
 # development:
 #   mode: auto
 #   version_label: default
@@ -24,6 +24,7 @@ reference:
   - contents:
       - starts_with("tbl_")
       - starts_with("add_")
+      - starts_with("inline_text")
 
   - title: Utility Functions
   - contents:
