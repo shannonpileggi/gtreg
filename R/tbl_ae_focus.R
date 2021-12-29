@@ -13,7 +13,7 @@
 #' @return a 'tbl_ae_focus' object
 #' @export
 #'
-#' @examples
+#' @examplesIf identical(Sys.getenv("NOT_CRAN"), "true")
 #' # Example 1 -----------------------------------------------------------------
 #' tbl_ae_focus_ex1 <-
 #'   df_adverse_events %>%

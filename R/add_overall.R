@@ -16,7 +16,7 @@
 #'
 #' @return Summary object of class `"tbl_ae"`
 
-#' @examples
+#' @examplesIf identical(Sys.getenv("NOT_CRAN"), "true")
 #' # Example 1 -----------------------------------------------------------------
 #' add_overall_ex1 <-
 #'   df_adverse_events %>%
@@ -72,6 +72,7 @@ NULL
 #' @export
 add_overall.tbl_ae <- function(x, type = c("both", "by", "strata"), ...) {
   # check inputs ---------------------------------------------------------------
+  # rlang::check_dots_empty() # ADD THIS AFTER rlang v1.0.0 RELEASE!!
   type <- match.arg(type)
   if (is.null(x$inputs$by) && is.null(x$inputs$strata)) {
     paste("Cannot use `add_overall()` when neither `by=` nor `strata=`",

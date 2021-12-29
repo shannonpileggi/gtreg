@@ -7,7 +7,7 @@
 #' @return a 'tbl_ae_count' object
 #' @export
 #'
-#' @examples
+#' @examplesIf identical(Sys.getenv("NOT_CRAN"), "true")
 #' # Example 1 -----------------------------------------------------------------
 #' tbl_ae_count_ex1 <-
 #'   tbl_ae_count(

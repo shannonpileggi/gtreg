@@ -54,6 +54,7 @@ the ordering of the columns may not be correct.
 }
 
 \examples{
+\dontshow{if (identical(Sys.getenv("NOT_CRAN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Example 1 -----------------------------------------------------------------
 add_overall_ex1 <-
   df_adverse_events \%>\%
@@ -90,5 +91,5 @@ add_overall_ex3 <-
     strata = trt
   ) \%>\%
   add_overall(type = 'strata')
-
+\dontshow{\}) # examplesIf}
 }
