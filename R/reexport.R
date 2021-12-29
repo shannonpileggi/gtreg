@@ -129,3 +129,7 @@ gtsummary::italicize_labels
 #' @importFrom gtsummary bold_labels
 #' @export
 gtsummary::bold_labels
+
+#' @importFrom gtsummary show_header_names
+#' @export
+gtsummary::show_header_names

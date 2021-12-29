@@ -16,7 +16,7 @@ Imports:
     broom.helpers (>= 1.4.0),
     dplyr (>= 1.0.7),
     forcats (>= 0.5.1),
-    gtsummary (>= 1.5.0.9017),
+    gtsummary (>= 1.5.0.9021),
     knitr (>= 1.36),
     purrr (>= 0.3.4),
     rlang (>= 0.4.12),
