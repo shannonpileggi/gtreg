@@ -10,7 +10,7 @@ test_that("add_overall() works", {
         statistic = "{n}",
         header = "**Grade {level}**"
       ) %>%
-      add_overall(type = 'by') %>%
+      add_overall(across = 'by') %>%
       as_tibble(col_label = FALSE),
     NA
   )
@@ -95,7 +95,8 @@ test_that("add_overall() works", {
           strata = trt,
           header = "**Grade {level}**"
         ) %>%
-        add_overall(across = 'overall-only')
+        add_overall(across = 'overall-only'),
+      NA
     )
 })
 
@@ -113,7 +114,7 @@ test_that("add_overall() warns", {
         header = "**Grade {level}**"
       ) %>%
       add_overall(),
-    "Using `type = 'by'` instead."
+    "Using `across = 'by'` instead."
   )
 
   expect_message(
@@ -126,8 +127,8 @@ test_that("add_overall() warns", {
         statistic = "{n}",
         header = "**Grade {level}**"
       ) %>%
-      add_overall(type = 'strata'),
-    "Using `type = 'by'` instead."
+      add_overall(across = 'strata'),
+    "Using `across = 'by'` instead."
   )
 
 
@@ -141,8 +142,8 @@ test_that("add_overall() warns", {
         statistic = "{n}",
         header = "**Grade {level}**"
       ) %>%
-      add_overall(type = 'by'),
-    "Using `type = 'strata'` instead."
+      add_overall(across = 'by'),
+    "Using `across = 'strata'` instead."
   )
 
   expect_message(
@@ -156,7 +157,7 @@ test_that("add_overall() warns", {
         header = "**Grade {level}**"
       ) %>%
       add_overall(),
-    "Using `type = 'strata'` instead."
+    "Using `across = 'strata'` instead."
   )
 
 })
