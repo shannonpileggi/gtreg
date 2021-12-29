@@ -35,6 +35,8 @@ test_that("add_overall() works", {
       all()
   )
 
+
+
   expect_error(
     tbl2 <-
       df_adverse_events %>%
@@ -84,3 +86,68 @@ test_that("add_overall() works", {
   )
 
 })
+
+
+test_that("add_overall() warns", {
+
+  expect_message(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        by = grade,
+        statistic = "{n}",
+        header = "**Grade {level}**"
+      ) %>%
+      add_overall(),
+    "Using `type = 'by'` instead."
+  )
+
+  expect_message(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        by = grade,
+        statistic = "{n}",
+        header = "**Grade {level}**"
+      ) %>%
+      add_overall(type = 'strata'),
+    "Using `type = 'by'` instead."
+  )
+
+
+  expect_message(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        strata = trt,
+        statistic = "{n}",
+        header = "**Grade {level}**"
+      ) %>%
+      add_overall(type = 'by'),
+    "Using `type = 'strata'` instead."
+  )
+
+  expect_message(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        strata = trt,
+        statistic = "{n}",
+        header = "**Grade {level}**"
+      ) %>%
+      add_overall(),
+    "Using `type = 'strata'` instead."
+  )
+
+})
+
+
+
