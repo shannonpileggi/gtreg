@@ -6,10 +6,6 @@
 #' - `"strata"` adds summaries across the `strata=` levels
 #' - `"both"` adds summaries across both the `by=` and `strata=` levels
 #' Default it `"both"`
-#' @param by logical indicating whether the `by=` argument should be
-#' included in the overall table. Default is `FALSE`
-#' @param strata logical indicating whether the `strata=` argument should be
-#' included in the overall table. Default is `FALSE`
 #' @param ... Not used
 #'
 #' @name add_overall_tbl_ae

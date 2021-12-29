@@ -25,12 +25,6 @@ Default it \code{"both"}
 }}
 
 \item{...}{Not used}
-
-\item{by}{logical indicating whether the \verb{by=} argument should be
-included in the overall table. Default is \code{FALSE}}
-
-\item{strata}{logical indicating whether the \verb{strata=} argument should be
-included in the overall table. Default is \code{FALSE}}
 }
 \value{
 Summary object of class \code{"tbl_ae"}
