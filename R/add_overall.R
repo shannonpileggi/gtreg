@@ -1,10 +1,11 @@
 #' Tabulate Overall Summary
 #'
 #' @param x Object of class `"tbl_ae"`, `"tbl_ae_focus"`, or `"tbl_ae_count"`
-#' @param type Specify the type of overall statistics to include.
+#' @param across Specify the type of overall statistics to include.
+#' - `"both"` adds summaries across both the `by=` and `strata=` levels (Default)
 #' - `"by"` adds summaries across the `by=` levels
 #' - `"strata"` adds summaries across the `strata=` levels
-#' - `"both"` adds summaries across both the `by=` and `strata=` levels
+#' - `"overall-only"` adds a single overall column
 #' Default it `"both"`
 #' @param ... Not used
 #'
@@ -15,23 +16,9 @@
 #' the ordering of the columns may not be correct.
 #'
 #' @return Summary object of class `"tbl_ae"`
-
-#' @examplesIf identical(Sys.getenv("NOT_CRAN"), "true")
+#' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
 #' # Example 1 -----------------------------------------------------------------
 #' add_overall_ex1 <-
-#'   df_adverse_events %>%
-#'   tbl_ae(
-#'     id = patient_id,
-#'     ae = adverse_event,
-#'     soc = system_organ_class,
-#'     by = grade,
-#'     header = "**Grade {level}**"
-#'   ) %>%
-#'   add_overall(type = 'by') %>%
-#'   bold_labels()
-#'
-#' # Example 2 -----------------------------------------------------------------
-#' add_overall_ex2 <-
 #'   df_adverse_events %>%
 #'   tbl_ae_count(
 #'     ae = adverse_event,
@@ -43,6 +30,19 @@
 #'   add_overall() %>%
 #'   bold_labels()
 #'
+#' # Example 2 -----------------------------------------------------------------
+#' add_overall_ex2 <-
+#'   df_adverse_events %>%
+#'   tbl_ae(
+#'     id = patient_id,
+#'     ae = adverse_event,
+#'     soc = system_organ_class,
+#'     by = grade,
+#'     header = "**Grade {level}**"
+#'   ) %>%
+#'   add_overall(across = 'by') %>%
+#'   bold_labels()
+#'
 #' # Example 3 -----------------------------------------------------------------
 #' add_overall_ex3 <-
 #'   df_adverse_events %>%
@@ -52,7 +52,22 @@
 #'     ae = adverse_event,
 #'     strata = trt
 #'   ) %>%
-#'   add_overall(type = 'strata')
+#'   add_overall(across = 'strata')
+#'
+#' # Example 4 -----------------------------------------------------------------
+#' add_overall_ex4 <-
+#'   df_adverse_events %>%
+#'   tbl_ae(
+#'     id = patient_id,
+#'     ae = adverse_event,
+#'     soc = system_organ_class,
+#'     by = grade,
+#'     strata = trt,
+#'     header = "**Grade {level}**"
+#'   ) %>%
+#'   add_overall(across = 'overall-only') %>%
+#'   bold_labels()
+#'
 #'
 #' @section Example Output:
 #' \if{html}{Example 1}
@@ -66,43 +81,46 @@
 #' \if{html}{Example 3}
 #'
 #' \if{html}{\figure{add_overall_ex3.png}{options: width=70\%}}
+#'
+#' \if{html}{Example 4}
+#'
+#' \if{html}{\figure{add_overall_ex4.png}{options: width=70\%}}
 NULL
 
 #' @rdname add_overall_tbl_ae
 #' @export
-add_overall.tbl_ae <- function(x, type = c("both", "by", "strata"), ...) {
+add_overall.tbl_ae <- function(x, across = c("both", "by", "strata", "overall-only"), ...) {
   # check inputs ---------------------------------------------------------------
   # rlang::check_dots_empty() # ADD THIS AFTER rlang v1.0.0 RELEASE!!
-  type <- match.arg(type)
+  across <- match.arg(across)
   if (is.null(x$inputs$by) && is.null(x$inputs$strata)) {
     paste("Cannot use `add_overall()` when neither `by=` nor `strata=`",
           "were used the in the original summary table call.") %>%
       stop(call. = FALSE)
   }
-  if (type %in% c("both", "strata") && is.null(x$inputs$strata)) {
-    paste("Cannot summarize {.code type = c('both', 'strata')}",
+  if (across %in% c("both", "strata") && is.null(x$inputs$strata)) {
+    paste("Cannot summarize {.code across = c('both', 'strata')}",
           "when original summary table call doesn't have",
           "{.code strata=} specified.") %>%
       cli::cli_alert_danger()
-    cli::cli_alert_info("Using {.code type = 'by'} instead.")
-    type <- 'by'
+    cli::cli_alert_info("Using {.code across = 'by'} instead.")
+    across <- 'by'
   }
-  if (type %in% c("both", "by") && is.null(x$inputs$by)) {
-    paste("Cannot summarize {.code type = c('both', 'by')}",
+  if (across %in% c("both", "by") && is.null(x$inputs$by)) {
+    paste("Cannot summarize {.code across = c('both', 'by')}",
           "when original summary table call doesn't have",
           "{.code by=} specified.") %>%
       cli::cli_alert_danger()
-    cli::cli_alert_info("Using {.code type = 'strata'} instead.")
-    type <- 'strata'
+    cli::cli_alert_info("Using {.code across = 'strata'} instead.")
+    across <- 'strata'
   }
 
   # running data summary function ----------------------------------------------
   tbl_args <- x$inputs
-  if (type %in% "both") {
+  if (across %in% "both") {
     # table without by variable
     tbl_args_by <- tbl_args
-    tbl_args_by$by <- NULL
-    tbl_args_by$header <- NULL
+    tbl_args_by$by <- tbl_args_by$header <- NULL
     tbl_overall_by <- do.call(class(x)[1], tbl_args_by)
 
     # table without strata variable
@@ -115,9 +133,7 @@ add_overall.tbl_ae <- function(x, type = c("both", "by", "strata"), ...) {
       )
 
     # table with neither by nor strata variables
-    tbl_args$by <- NULL
-    tbl_args$header <- NULL
-    tbl_args$strata <- NULL
+    tbl_args$by <-  tbl_args$header <- tbl_args$strata <- NULL
     tbl_overall_neither <-
       do.call(class(x)[1], tbl_args) %>%
       gtsummary::modify_spanning_header(
@@ -128,13 +144,16 @@ add_overall.tbl_ae <- function(x, type = c("both", "by", "strata"), ...) {
       list(tbl_overall_by, tbl_overall_strata, tbl_overall_neither) %>%
       gtsummary::tbl_merge(tab_spanner = FALSE)
   }
-  else if (type %in% "by") {
-    tbl_args$by <- NULL
-    tbl_args$header <- NULL
+  else if (across %in% "overall-only") {
+    tbl_args$by <- tbl_args$header <- tbl_args$strata <- NULL
+    tbl_overall <- do.call(class(x)[1], tbl_args)
+  }
+  else if (across %in% "by") {
+    tbl_args$by <- tbl_args$header <- NULL
     tbl_overall <-
       do.call(class(x)[1], tbl_args)
   }
-  else if (type %in% "strata") {
+  else if (across %in% "strata") {
     tbl_args$strata <- NULL
     tbl_overall <-
       do.call(class(x)[1], tbl_args) %>%
@@ -147,7 +166,7 @@ add_overall.tbl_ae <- function(x, type = c("both", "by", "strata"), ...) {
   tbl_final <- gtsummary::tbl_merge(list(x, tbl_overall), tab_spanner = FALSE)
 
   # grouping columns with same spanning header together ------------------------
-  if (type %in% c("both", "by") && !is.null(x$inputs$strata)) {
+  if (across %in% c("both", "by") && !is.null(x$inputs$strata)) {
     column_order <-
       unique(tbl_final$table_styling$header$spanning_header) %>%
       stats::na.omit() %>%

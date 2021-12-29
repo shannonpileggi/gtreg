@@ -7,20 +7,21 @@
 \alias{add_overall.tbl_ae_focus}
 \title{Tabulate Overall Summary}
 \usage{
-\method{add_overall}{tbl_ae}(x, type = c("both", "by", "strata"), ...)
+\method{add_overall}{tbl_ae}(x, across = c("both", "by", "strata", "overall-only"), ...)
 
-\method{add_overall}{tbl_ae_count}(x, type = c("both", "by", "strata"), ...)
+\method{add_overall}{tbl_ae_count}(x, across = c("both", "by", "strata", "overall-only"), ...)
 
-\method{add_overall}{tbl_ae_focus}(x, type = c("both", "by", "strata"), ...)
+\method{add_overall}{tbl_ae_focus}(x, across = c("both", "by", "strata", "overall-only"), ...)
 }
 \arguments{
 \item{x}{Object of class \code{"tbl_ae"}, \code{"tbl_ae_focus"}, or \code{"tbl_ae_count"}}
 
-\item{type}{Specify the type of overall statistics to include.
+\item{across}{Specify the type of overall statistics to include.
 \itemize{
+\item \code{"both"} adds summaries across both the \verb{by=} and \verb{strata=} levels (Default)
 \item \code{"by"} adds summaries across the \verb{by=} levels
 \item \code{"strata"} adds summaries across the \verb{strata=} levels
-\item \code{"both"} adds summaries across both the \verb{by=} and \verb{strata=} levels
+\item \code{"overall-only"} adds a single overall column
 Default it \code{"both"}
 }}
 
@@ -51,25 +52,16 @@ the ordering of the columns may not be correct.
 \if{html}{Example 3}
 
 \if{html}{\figure{add_overall_ex3.png}{options: width=70\%}}
+
+\if{html}{Example 4}
+
+\if{html}{\figure{add_overall_ex4.png}{options: width=70\%}}
 }
 
 \examples{
-\dontshow{if (identical(Sys.getenv("NOT_CRAN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Example 1 -----------------------------------------------------------------
 add_overall_ex1 <-
-  df_adverse_events \%>\%
-  tbl_ae(
-    id = patient_id,
-    ae = adverse_event,
-    soc = system_organ_class,
-    by = grade,
-    header = "**Grade {level}**"
-  ) \%>\%
-  add_overall(type = 'by') \%>\%
-  bold_labels()
-
-# Example 2 -----------------------------------------------------------------
-add_overall_ex2 <-
   df_adverse_events \%>\%
   tbl_ae_count(
     ae = adverse_event,
@@ -81,6 +73,19 @@ add_overall_ex2 <-
   add_overall() \%>\%
   bold_labels()
 
+# Example 2 -----------------------------------------------------------------
+add_overall_ex2 <-
+  df_adverse_events \%>\%
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    soc = system_organ_class,
+    by = grade,
+    header = "**Grade {level}**"
+  ) \%>\%
+  add_overall(across = 'by') \%>\%
+  bold_labels()
+
 # Example 3 -----------------------------------------------------------------
 add_overall_ex3 <-
   df_adverse_events \%>\%
@@ -90,6 +95,21 @@ add_overall_ex3 <-
     ae = adverse_event,
     strata = trt
   ) \%>\%
-  add_overall(type = 'strata')
+  add_overall(across = 'strata')
+
+# Example 4 -----------------------------------------------------------------
+add_overall_ex4 <-
+  df_adverse_events \%>\%
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    soc = system_organ_class,
+    by = grade,
+    strata = trt,
+    header = "**Grade {level}**"
+  ) \%>\%
+  add_overall(across = 'overall-only') \%>\%
+  bold_labels()
+
 \dontshow{\}) # examplesIf}
 }

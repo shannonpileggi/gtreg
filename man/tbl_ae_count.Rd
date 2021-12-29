@@ -44,7 +44,7 @@ a 'tbl_ae_count' object
 Create a table with the number of AE that were reported.
 }
 \examples{
-\dontshow{if (identical(Sys.getenv("NOT_CRAN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Example 1 -----------------------------------------------------------------
 tbl_ae_count_ex1 <-
   tbl_ae_count(
