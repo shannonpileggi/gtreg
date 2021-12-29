@@ -17,6 +17,7 @@ NULL
 #' @export
 inline_text.tbl_ae <- function(x, ae_or_soc, column, ...) {
   # check inputs ---------------------------------------------------------------
+  # rlang::check_dots_empty() # ADD THIS AFTER rlang v1.0.0 RELEASE!!
   if (!rlang::is_string(ae_or_soc)) {
     stop("Argument `ae_or_soc=` must be a string.", call. = FALSE)
   }
