@@ -34,6 +34,7 @@ inline_text.tbl_ae <- function(x, ae_or_soc, column = NULL, ...) {
     cli::cli_alert_danger("The {.code column=} argument is required.")
     cli::cli_alert_info(
       "Run {.code show_header_names(x)} to list the column names and headers.")
+    return(invisible())
   }
   if (!rlang::is_string(ae_or_soc)) {
     stop("Argument `ae_or_soc=` must be a string.", call. = FALSE)
