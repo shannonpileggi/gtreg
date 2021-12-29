@@ -91,7 +91,8 @@ test_that("add_overall() works", {
           id = patient_id,
           ae = adverse_event,
           soc = system_organ_class,
-          by = grade, strata = trt,
+          by = grade,
+          strata = trt,
           header = "**Grade {level}**"
         ) %>%
         add_overall(across = 'overall-only')
