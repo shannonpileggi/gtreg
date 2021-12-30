@@ -25,7 +25,9 @@ tbl_ae_count <- function(data, ae,
                          missing_text = "Unknown",
                          header = "**{level}**") {
   # evaluate bare selectors/check inputs ---------------------------------------
-  stopifnot(inherits(data, "data.frame"))
+  if(!inherits(data, "data.frame")) {
+    stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
+  }
   ae <-
     .select_to_varnames({{ ae }}, data = data,
                         arg_name = "ae", select_single = TRUE)
@@ -38,6 +40,10 @@ tbl_ae_count <- function(data, ae,
   strata <-
     .select_to_varnames({{ strata }}, data = data,
                         arg_name = "strata", select_single = TRUE)
+
+  if (is.null(ae)) {
+    stop("Argument `ae=` must be specified.", call. = FALSE)
+  }
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_count_inputs <- as.list(environment())

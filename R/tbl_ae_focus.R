@@ -59,6 +59,9 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
                                 data = data,
                                 arg_name = "label",
                                 type_check = rlang::is_string)
+  if (is.null(include) || is.null(id) || is.null(ae)) {
+    stop("Arguments `include=`, `id=`, `ae=` must be specified.", call. = FALSE)
+  }
 
   purrr::walk(
     include,

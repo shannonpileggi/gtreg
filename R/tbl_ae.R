@@ -60,7 +60,9 @@ tbl_ae <- function(data, id, ae,
                                statistic = "{n} ({p})",
                                header = "**{level}**") {
   # evaluate bare selectors/check inputs ---------------------------------------
-  stopifnot(inherits(data, "data.frame"))
+  if(!inherits(data, "data.frame")) {
+    stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
+  }
   id <-
     .select_to_varnames({{ id }}, data = data,
                         arg_name = "id", select_single = TRUE)
@@ -76,6 +78,9 @@ tbl_ae <- function(data, id, ae,
   strata <-
     .select_to_varnames({{ strata }}, data = data,
                         arg_name = "strata", select_single = TRUE)
+  if (is.null(id) || is.null(ae)) {
+    stop("Arguments `id=`, `ae=` must be specified.", call. = FALSE)
+  }
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_inputs <- as.list(environment())
