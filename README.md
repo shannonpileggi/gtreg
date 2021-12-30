@@ -64,10 +64,11 @@ tbl_ae_count <-
     by = drug_attribution
   ) %>%
   modify_spanning_header(all_stat_cols() ~ "**Drug Attribution**") %>%
+  add_overall(across = "by") %>%
   bold_labels()
 ```
 
-<img src="man/figures/README-example-tbl_ae_count-1.png" width="70%" />
+<img src="man/figures/README-example-tbl_ae_count-1.png" width="76%" />
 
 Focus on rates of high grade complications with `tbl_ae_focus()`
 
