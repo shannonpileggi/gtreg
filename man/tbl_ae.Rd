@@ -59,6 +59,7 @@ Similarly, if tabulations within system organ class are requested, the
 AE within SOC associated with the highest grade will be tabulated.
 }
 \examples{
+\dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Example 1 -----------------------------------------------------------------
 df_adverse_events \%>\%
   tbl_ae(
@@ -80,4 +81,5 @@ df_adverse_events \%>\%
     header = "**Grade {level}**"
   ) \%>\%
   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
+\dontshow{\}) # examplesIf}
 }
