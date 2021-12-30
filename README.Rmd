@@ -16,10 +16,10 @@ knitr::opts_chunk$set(
 # gtreg
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/shannonpileggi/gtreg/workflows/R-CMD-check/badge.svg)](https://github.com/shannonpileggi/gtreg/actions)
 [![Codecov test coverage](https://codecov.io/gh/shannonpileggi/gtreg/branch/main/graph/badge.svg)](https://app.codecov.io/gh/shannonpileggi/gtreg?branch=main)
 [![CRAN status](https://www.r-pkg.org/badges/version/gtreg)](https://CRAN.R-project.org/package=gtreg)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The {gtreg} package creates tabular data summaries appropriate for regulatory submissions.
@@ -36,13 +36,17 @@ devtools::install_github("shannonpileggi/gtreg")
 
 ## Example
 
+Summarize Adverse Events by Grade.
+The denominators preesnted are out of the number of patients in the study.
+
 ```{r example}
 library(gtreg)
 gtsummary::theme_gtsummary_compact()
 
-tbl <- 
+tbl_ae <- 
   df_adverse_events %>%
   tbl_ae(
+    id_df = df_patient_characteristics,
     id = patient_id,
     ae = adverse_event,
     soc = system_organ_class, 
@@ -53,9 +57,9 @@ tbl <-
   bold_labels()
 ```
 
-```{r example-tbl_adverse_event, include = FALSE}
+```{r example-tbl_ae, include = FALSE}
 # Had to manually save images in temp file, not sure if better way.
-gt::gtsave(as_gt(tbl), file = file.path(tempdir(), "temp.png"))
+gt::gtsave(as_gt(tbl_ae), file = file.path(tempdir(), "temp.png"))
 ```
 
 ```{r out.width = "100%", echo = FALSE}
@@ -63,9 +67,67 @@ gt::gtsave(as_gt(tbl), file = file.path(tempdir(), "temp.png"))
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
   as_gt(tbl)
 } else {
-  knitr::include_graphics("man/figures/README-example-tbl_adverse_event-1.png")
+  knitr::include_graphics("man/figures/README-example-tbl_ae-1.png")
 } 
 ```
+
+Summarize Raw Adverse Counts
+
+```{r example2}
+tbl_ae_count <- 
+  df_adverse_events %>%
+  tbl_ae_count(
+    ae = adverse_event,
+    soc = system_organ_class, 
+    by = grade, 
+    header = "**Grade {level}**"
+  ) %>%
+  bold_labels()
+```
+
+```{r example-tbl_ae_count, include = FALSE}
+# Had to manually save images in temp file, not sure if better way.
+gt::gtsave(as_gt(tbl_ae_count), file = file.path(tempdir(), "temp2.png"))
+```
+
+```{r out.width = "65%", echo = FALSE}
+# Have to do this workaround since the README needs markdown format for GitHub page but a different format for the website.
+if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
+  as_gt(tbl)
+} else {
+  knitr::include_graphics("man/figures/README-example-tbl_ae_count-1.png")
+} 
+```
+
+Focus on rates of high grade complications with `tbl_ae_focus()`
+
+```{r example3}
+tbl_ae_focus <- 
+  df_adverse_events %>%
+  tbl_ae_focus(
+    id_df = df_patient_characteristics,
+    id = patient_id,
+    ae = adverse_event,
+    include = c(any_complication, grade3_complication)
+  )
+```
+
+```{r example-tbl_ae_focus, include = FALSE}
+# Had to manually save images in temp file, not sure if better way.
+gt::gtsave(as_gt(tbl_ae_focus), file = file.path(tempdir(), "temp3.png"))
+```
+
+```{r out.width = "62%", echo = FALSE}
+# Have to do this workaround since the README needs markdown format for GitHub page but a different format for the website.
+if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
+  as_gt(tbl)
+} else {
+  knitr::include_graphics("man/figures/README-example-tbl_ae_focus-1.png")
+} 
+```
+
+
+
 
 ## Code of Conduct
 

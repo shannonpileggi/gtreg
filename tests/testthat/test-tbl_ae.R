@@ -1,23 +1,21 @@
 
+# no factor inputs
+df1 <-
+  tibble::tibble(
+    patient_id = paste0("ID", c(1,1,2,3)),
+    system_organ_class = "Blood and lymphatic system disorders",
+    adverse_event = c("Anaemia", "Anaemia", "Anaemia", "Increased tendency to bruise"),
+    grade = c(1, 1, 1, 2),
+    trt = rep("A", 4)
+  )
+
+id_valid <-
+  tibble::tibble(
+    patient_id = paste0("ID", 1:5),
+    trt = c(rep("A", 3),rep("B", 2))
+  )
 
 test_that("df_adverse_events() single arm, single soc", {
-
-  # no factor inputs
-  df1 <-
-    tibble::tibble(
-      patient_id = paste0("ID", c(1,1,2,3)),
-      system_organ_class = "Blood and lymphatic system disorders",
-      adverse_event = c("Anaemia", "Anaemia", "Anaemia", "Increased tendency to bruise"),
-      grade = c(1, 1, 1, 2),
-      trt = rep("A", 4)
-    )
-
-  id_valid <-
-    tibble::tibble(
-      patient_id = paste0("ID", 1:5),
-      trt = c(rep("A", 3),rep("B", 2))
-    )
-
   e1 <-
     tbl_ae(
       data = df1,
@@ -132,4 +130,29 @@ test_that("df_adverse_event() works", {
       ),
     NA
   )
+
+  # check zero_symbol output
+  expect_equal(
+    tbl_ae(data = df1,
+           id = "patient_id",
+           ae = "adverse_event",
+           soc = "system_organ_class",
+           by = "grade",
+    ) %>%
+      purrr::pluck("table_body") %>%
+      dplyr::select(gtsummary::all_stat_cols()) %>%
+      dplyr::mutate(dplyr::across(dplyr::everything(), is.na)),
+    tbl_ae(data = df1,
+           id = "patient_id",
+           ae = "adverse_event",
+           soc = "system_organ_class",
+           statistic = "{n}",
+           by = "grade",
+           zero_symbol = NULL
+    ) %>%
+      purrr::pluck("table_body") %>%
+      dplyr::select(gtsummary::all_stat_cols()) %>%
+      dplyr::mutate(dplyr::across(dplyr::everything(), ~ . == "0"))
+  )
+
 })

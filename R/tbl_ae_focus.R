@@ -34,7 +34,7 @@
 
 tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
                          id_df = NULL, statistic = "{n} ({p})",
-                         label = NULL) {
+                         label = NULL, zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -142,7 +142,7 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
             .x %>%
             {stringr::str_glue("**{.}**")},
           remove_header_row = FALSE,
-          zero_symbol = NULL,
+          zero_symbol = zero_symbol,
           labels = names(lst_data_complete)
         )
       )
@@ -176,7 +176,7 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
           .x %>%
           {stringr::str_glue("**{.}**")},
         remove_header_row = TRUE,
-        zero_symbol = NULL
+        zero_symbol = zero_symbol
       )
     )
 

@@ -5,13 +5,13 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/shannonpileggi/gtreg/workflows/R-CMD-check/badge.svg)](https://github.com/shannonpileggi/gtreg/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/shannonpileggi/gtreg/branch/main/graph/badge.svg)](https://app.codecov.io/gh/shannonpileggi/gtreg?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/gtreg)](https://CRAN.R-project.org/package=gtreg)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The {gtreg} package creates tabular data summaries appropriate for
@@ -29,14 +29,18 @@ devtools::install_github("shannonpileggi/gtreg")
 
 ## Example
 
+Summarize Adverse Events by Grade. The denominators preesnted are out of
+the number of patients in the study.
+
 ``` r
 library(gtreg)
 gtsummary::theme_gtsummary_compact()
 #> Setting theme `Compact`
 
-tbl <- 
+tbl_ae <- 
   df_adverse_events %>%
   tbl_ae(
+    id_df = df_patient_characteristics,
     id = patient_id,
     ae = adverse_event,
     soc = system_organ_class, 
@@ -47,7 +51,38 @@ tbl <-
   bold_labels()
 ```
 
-<img src="man/figures/README-example-tbl_adverse_event-1.png" width="100%" />
+<img src="man/figures/README-example-tbl_ae-1.png" width="100%" />
+
+Summarize Raw Adverse Counts
+
+``` r
+tbl_ae_count <- 
+  df_adverse_events %>%
+  tbl_ae_count(
+    ae = adverse_event,
+    soc = system_organ_class, 
+    by = grade, 
+    header = "**Grade {level}**"
+  ) %>%
+  bold_labels()
+```
+
+<img src="man/figures/README-example-tbl_ae_count-1.png" width="65%" />
+
+Focus on rates of high grade complications with `tbl_ae_focus()`
+
+``` r
+tbl_ae_focus <- 
+  df_adverse_events %>%
+  tbl_ae_focus(
+    id_df = df_patient_characteristics,
+    id = patient_id,
+    ae = adverse_event,
+    include = c(any_complication, grade3_complication)
+  )
+```
+
+<img src="man/figures/README-example-tbl_ae_focus-1.png" width="62%" />
 
 ## Code of Conduct
 

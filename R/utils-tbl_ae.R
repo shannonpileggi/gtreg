@@ -25,7 +25,7 @@
                        statistic = statistic,
                        header = header,
                        remove_header_row = TRUE,
-                       zero_symbol = NULL)
+                       zero_symbol = zero_symbol)
 
       if ("strata" %in% names(df_ae)) {
         tbl <-
@@ -74,9 +74,40 @@
   }
 
   if (!is.null(zero_symbol)) {
-    # TODO: Add code to make zero count cells NA,
-    # then use `modify_table_styling()` to make these columns the zero_symbol.
-    # Look in `x$meta_data$df_stats` for the counts
+    # data frame of zero-count cells
+    df_zero_columns <-
+      tbl$meta_data$df_stats[[1]] %>%
+      filter(.data$n == 0L) %>%
+      select(.data$label, .data$col_name) %>%
+      tidyr::nest(data = .data$label)
+
+    # if any zero count cells, then set to missing and format
+    if (nrow(df_zero_columns) > 0) {
+      # create expression with code to set zero count data to NA
+      expr_zero_to_NA <-
+        purrr::map2(
+          df_zero_columns$col_name,
+          purrr::map(df_zero_columns$data, ~unlist(.x) %>% unname()),
+          function(col_name, labels) {
+            rlang::expr(
+              dplyr::across(dplyr::all_of(!!col_name),
+                            ~ifelse(.data$label %in% !!labels, NA, .))
+            )
+          }
+        )
+
+      tbl <-
+        tbl %>%
+        # setting cells with zero count to missing
+        gtsummary::modify_table_body(
+          ~ dplyr::mutate(.x, !!!expr_zero_to_NA)
+        ) %>%
+        # formatting missing values with 'zero_symbol'
+        gtsummary::modify_table_styling(
+          columns = gtsummary::all_stat_cols(),
+          missing_symbol = zero_symbol
+        )
+    }
   }
 
   tbl
