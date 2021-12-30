@@ -29,8 +29,8 @@ devtools::install_github("shannonpileggi/gtreg")
 
 ## Example
 
-Summarize Adverse Events by Grade. The denominators preesnted are out of
-the number of patients in the study.
+Summarize Adverse Events by Grade. The denominators in the table are the
+number of patients in the study.
 
 ``` r
 library(gtreg)
