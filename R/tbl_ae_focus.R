@@ -3,7 +3,7 @@
 #' Summarize dichotomous AE data. For example, report the
 #' rate of patients that have an AE of Grade 3 or higher.
 #'
-#' @inheritParams tbl_adverse_event
+#' @inheritParams tbl_ae
 #' @param include Vector of column names to summarize. Column names may be
 #' quoted or unquoted. All columns must be class 'logical'.
 #' @param label A named list of labels that will be applied in the
@@ -13,7 +13,7 @@
 #' @return a 'tbl_ae_focus' object
 #' @export
 #'
-#' @examples
+#' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
 #' # Example 1 -----------------------------------------------------------------
 #' tbl_ae_focus_ex1 <-
 #'   df_adverse_events %>%
@@ -33,8 +33,8 @@
 #' \if{html}{\figure{tbl_ae_focus_ex1.png}{options: width=70\%}}
 
 tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
-                          id_df = NULL, statistic = "{n} ({p})",
-                          label = NULL) {
+                         id_df = NULL, statistic = "{n} ({p})",
+                         label = NULL, zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -59,6 +59,9 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
                                 data = data,
                                 arg_name = "label",
                                 type_check = rlang::is_string)
+  if (is.null(include) || is.null(id) || is.null(ae)) {
+    stop("Arguments `include=`, `id=`, `ae=` must be specified.", call. = FALSE)
+  }
 
   purrr::walk(
     include,
@@ -71,8 +74,7 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
   # obtain the complete data ---------------------------------------------------
   data_complete <-
     .complete_ae_data(data, id = id, ae = ae, soc = soc, by = NULL,
-                      strata = strata, id_df = id_df, by_values = NULL) %>%
-    group_by(across(any_of("soc")))
+                      strata = strata, id_df = id_df, by_values = NULL)
 
   if (any(include %in% names(data_complete))) {
     stringr::str_glue(
@@ -82,7 +84,33 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
   }
 
   # merge in the `include=` variable to the complete data ----------------------
-  # putting data into list of tibbles...one element per SOC
+  lst_rename <- purrr::compact(list(id = id, ae = ae, soc = soc))
+
+  data_complete <-
+    purrr::map(
+      include,
+      ~data %>%
+        select(!!!lst_rename, all_of(.x)) %>%
+        group_by(across(all_of(names(lst_rename)))) %>%
+        mutate(
+          across(all_of(.x),
+                 ~tidyr::replace_na(., FALSE) %>%
+                   max() %>%
+                   as.logical() %>%
+                   factor(levels = c(FALSE, TRUE), ordered = TRUE))
+        ) %>%
+        arrange(across(all_of(.x))) %>%
+        dplyr::slice_tail() %>%
+        ungroup()
+    ) %>%
+    purrr::reduce(
+      .f = ~dplyr::left_join(.x, .y, by = names(lst_rename)),
+      .init = data_complete
+    )  %>%
+    mutate(across(all_of(include), ~tidyr::replace_na(., "FALSE"))) %>%
+    group_by(across(any_of("soc")))
+
+  # putting data into list of tibbles...one element per SOC --------------------
   lst_data_complete <-
     data_complete %>%
     dplyr::group_split() %>%
@@ -90,158 +118,90 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
 
   # tabulate SOC ---------------------------------------------------------------
   if (!is.null(soc)) {
-    lst_tbl_soc <-
+    lst_tbl_soc_wide <-
       purrr::map(
-        seq_len(length(lst_data_complete)),
-        function(index) {
-          purrr::map(
-            include,
-            function(binary_varname) {
-              # keep observation that will be tabulated
-              df_soc <-
-                lst_data_complete[[index]] %>%
-                dplyr::left_join(
-                  data %>%
-                    select(any_of(c(id, ae, soc, binary_varname))) %>%
-                    dplyr::rename(!!!purrr::compact(list(id = id, ae = ae, soc = soc))),
-                  by = names(purrr::compact(list(id = id, ae = ae, soc = soc)))
-                ) %>%
-                group_by(.data$id, .data$soc) %>%
-                mutate(
-                  across(any_of(binary_varname), ~tidyr::replace_na(., FALSE)),
-                  across(any_of(binary_varname), ~as.logical(max(.))),
-                  across(any_of(binary_varname), ~factor(., levels = c(FALSE, TRUE)))
-                ) %>%
-                dplyr::ungroup() %>%
-                dplyr::distinct() %>%
-                filter(.data$..soc..) %>%
-                dplyr::rename("..soc{index}.." := .data$..soc..)
-
-              fn_tbl_soc <-
-                purrr::partial(fn_tbl,
-                               variable = stringr::str_glue("..soc{index}.."),
-                               label = names(lst_data_complete[index]),
-                               by = binary_varname,
-                               by_level_to_hide = "FALSE",
-                               statistic = statistic,
-                               header =
-                                 label[[binary_varname]] %||%
-                                 attr(data[[binary_varname]], "label") %||%
-                                 binary_varname %>%
-                                 {stringr::str_glue("**{.}**")},
-                               remove_header_row = FALSE,
-                               zero_symbol = NULL)
-
-              if ("strata" %in% names(df_soc)) {
-                tbl <-
-                  gtsummary::tbl_strata(
-                    data = df_soc,
-                    strata = "strata",
-                    .tbl_fun = ~fn_tbl_soc(data = .x)
-                  )
+        include,
+        ~ .lst_of_tbls(
+          lst_data =
+            purrr::map(
+              lst_data_complete,
+              function(data) {
+                group_by(data, .data$soc) %>%
+                  mutate(across(any_of(.x), ~max(.))) %>%
+                  dplyr::ungroup()
               }
-              else {
-                tbl <- fn_tbl_soc(data = df_soc)
-              }
+            ),
+          variable_summary = "..soc..",
+          variable_filter = "..soc..",
+          by = .x,
+          by_level_to_hide = "FALSE",
+          statistic = statistic,
+          header =
+            label[[.x]] %||%
+            attr(data[[.x]], "label") %||%
+            .x %>%
+            {stringr::str_glue("**{.}**")},
+          remove_header_row = FALSE,
+          zero_symbol = zero_symbol,
+          labels = names(lst_data_complete)
+        )
+      )
 
-              tbl
-            }
-          ) %>%
-            gtsummary::tbl_merge(tab_spanner = FALSE)
-        }
+    # merge tbls to put `include=` variables side by side
+    lst_tbl_soc <-
+      purrr::pmap(
+        purrr::map(seq_len(length(include)), ~lst_tbl_soc_wide[[.x]]),
+        list
+      ) %>%
+      purrr::map(
+        gtsummary::tbl_merge,
+        tab_spanner = FALSE
       )
   }
 
   # tabulate AEs ---------------------------------------------------------------
-  lst_tbl_ae <-
+  lst_tbl_ae_wide <-
     purrr::map(
-      seq_len(length(lst_data_complete)),
-      function(index) {
-        purrr::map(
-          include,
-          function(binary_varname) {
-            # keep observation that will be tabulated
-            df_ae <-
-              lst_data_complete[[index]] %>%
-              dplyr::left_join(
-                data %>%
-                  select(any_of(c(id, ae, soc, binary_varname))) %>%
-                  dplyr::rename(!!!purrr::compact(list(id = id, ae = ae, soc = soc))),
-                by = names(purrr::compact(list(id = id, ae = ae, soc = soc)))
-              ) %>%
-              group_by(.data$id, .data$ae) %>%
-              mutate(
-                across(any_of(binary_varname), ~tidyr::replace_na(., FALSE)),
-                across(any_of(binary_varname), ~as.logical(max(.))),
-                across(any_of(binary_varname), ~factor(., levels = c(FALSE, TRUE)))
-              ) %>%
-              dplyr::ungroup() %>%
-              dplyr::distinct() %>%
-              filter(.data$..ae..) %>%
-              dplyr::rename("ae{index}" := .data$ae)
+      include,
+      ~ .lst_of_tbls(
+        lst_data = lst_data_complete,
+        variable_summary = "ae",
+        variable_filter = "..ae..",
+        by = .x,
+        by_level_to_hide = "FALSE",
+        statistic = statistic,
+        header =
+          label[[.x]] %||%
+          attr(data[[.x]], "label") %||%
+          .x %>%
+          {stringr::str_glue("**{.}**")},
+        remove_header_row = TRUE,
+        zero_symbol = zero_symbol
+      )
+    )
 
-            fn_tbl_ae <-
-              purrr::partial(fn_tbl,
-                             variable = stringr::str_glue("ae{index}"),
-                             by = binary_varname,
-                             by_level_to_hide = "FALSE",
-                             statistic = statistic,
-                             header =
-                               label[[binary_varname]] %||%
-                               attr(data[[binary_varname]], "label") %||%
-                               binary_varname %>%
-                               {stringr::str_glue("**{.}**")},
-                             remove_header_row = TRUE,
-                             zero_symbol = NULL)
 
-            if ("strata" %in% names(df_ae)) {
-              tbl <-
-                gtsummary::tbl_strata(
-                  data = df_ae,
-                  strata = "strata",
-                  .tbl_fun = ~fn_tbl_ae(data = .x)
-                )
-            }
-            else {
-              tbl <- fn_tbl_ae(data = df_ae)
-            }
-
-            tbl
-          }
-        ) %>%
-          gtsummary::tbl_merge(tab_spanner = FALSE)
-      }
+  # merge tbls to put `include=` variables side by side
+  lst_tbl_ae <-
+    purrr::pmap(
+      purrr::map(seq_len(length(include)), ~lst_tbl_ae_wide[[.x]]),
+      list
+    ) %>%
+    purrr::map(
+      gtsummary::tbl_merge,
+      tab_spanner = FALSE
     )
 
   # stacking tbls into big final AE table --------------------------------------
-  if (!is.null(soc)) {
-    tbl_final <-
-      # stack SOC with AEs within that SOC, then stack all tbls
-      purrr::map2(lst_tbl_soc, lst_tbl_ae,
-                  ~gtsummary::tbl_stack(list(.x, .y), quiet = TRUE)) %>%
-      gtsummary::tbl_stack(quiet = TRUE)
-  }
-  else {
-    tbl_final <-
-      gtsummary::tbl_stack(lst_tbl_ae, quiet = TRUE) %>%
-      # remove indentation for AEs
-      gtsummary::modify_table_styling(
-        columns = "label",
-        text_format = "indent",
-        undo_text_format = TRUE
-      )
-  }
+  if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)
+  else tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae, lst_tbl_soc)
 
   # return final tbl -----------------------------------------------------------
   tbl_final %>%
-    # update labels
-    gtsummary::modify_header(label = "**Adverse Event**") %>%
-    # removing the no longer needed data elements saved in the individual stacked/merged tbls
-    gtsummary::tbl_butcher() %>%
     # return list with function's inputs
     purrr::list_modify(inputs = tbl_ae_focus_inputs) %>%
     # add class
-    structure(class = c("tbl_adverse_event", "gtsummary"))
+    structure(class = c("tbl_ae_focus", "gtsummary"))
 }
 
 

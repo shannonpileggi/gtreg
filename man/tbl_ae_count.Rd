@@ -12,7 +12,8 @@ tbl_ae_count(
   strata = NULL,
   by_values = NULL,
   missing_text = "Unknown",
-  header = "**{level}**"
+  header = "**{level}**",
+  zero_symbol = "—"
 )
 }
 \arguments{
@@ -36,6 +37,10 @@ Default is \code{"Unknown"}}
 
 \item{header}{String indicating the header to be placed in the table.
 Default is \code{"**{level}**"}}
+
+\item{zero_symbol}{String used to represent cells with zero counts. Default
+is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
+zero count statistics, e.g. \code{"0 (0)"}}
 }
 \value{
 a 'tbl_ae_count' object
@@ -44,6 +49,7 @@ a 'tbl_ae_count' object
 Create a table with the number of AE that were reported.
 }
 \examples{
+\dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Example 1 -----------------------------------------------------------------
 tbl_ae_count_ex1 <-
   tbl_ae_count(
@@ -54,4 +60,5 @@ tbl_ae_count_ex1 <-
     by = grade,
     header = "**Grade {level}**"
   )
+\dontshow{\}) # examplesIf}
 }
