@@ -30,7 +30,7 @@
 #' Default is `"**{level}**"`
 #'
 #' @export
-#' @examples
+#' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
 #' # Example 1 -----------------------------------------------------------------
 #' df_adverse_events %>%
 #'   tbl_ae(

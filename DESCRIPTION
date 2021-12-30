@@ -13,20 +13,22 @@ URL: https://shannonpileggi.github.io/gtreg
 Depends: 
     R (>= 3.4)
 Imports: 
-    broom.helpers (>= 1.4.0),
+    broom.helpers (>= 1.5.0),
+    cli (>= 3.1.0),
     dplyr (>= 1.0.7),
     forcats (>= 0.5.1),
-    gtsummary (>= 1.5.0.9017),
-    knitr (>= 1.36),
+    gtsummary (>= 1.5.0.9021),
+    knitr (>= 1.37),
     purrr (>= 0.3.4),
     rlang (>= 0.4.12),
     stringr (>= 1.4.0),
     tibble (>= 3.1.6),
     tidyr (>= 1.1.4)
 Suggests: 
+    spelling (>= 2.2),
     covr (>= 3.5.1),
     gt (>= 0.3.1),
-    testthat (>= 3.0.0)
+    testthat (>= 3.1.1)
 Remotes:
     ddsjoberg/gtsummary
 Config/testthat/edition: 3
@@ -34,3 +36,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Language: en-US

@@ -13,7 +13,7 @@
 #' @return a 'tbl_ae_focus' object
 #' @export
 #'
-#' @examples
+#' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
 #' # Example 1 -----------------------------------------------------------------
 #' tbl_ae_focus_ex1 <-
 #'   df_adverse_events %>%
@@ -198,7 +198,7 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
     # return list with function's inputs
     purrr::list_modify(inputs = tbl_ae_focus_inputs) %>%
     # add class
-    structure(class = c("tbl_ae", "gtsummary"))
+    structure(class = c("tbl_ae_focus", "gtsummary"))
 }
 
 
