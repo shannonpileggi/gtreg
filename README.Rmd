@@ -79,9 +79,9 @@ tbl_ae_count <-
   tbl_ae_count(
     ae = adverse_event,
     soc = system_organ_class, 
-    by = grade, 
-    header = "**Grade {level}**"
+    by = drug_attribution
   ) %>%
+  modify_spanning_header(all_stat_cols() ~ "**Drug Attribution**") %>%
   bold_labels()
 ```
 
@@ -90,7 +90,7 @@ tbl_ae_count <-
 gt::gtsave(as_gt(tbl_ae_count), file = file.path(tempdir(), "temp2.png"))
 ```
 
-```{r out.width = "65%", echo = FALSE}
+```{r out.width = "70%", echo = FALSE}
 # Have to do this workaround since the README needs markdown format for GitHub page but a different format for the website.
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
   as_gt(tbl)

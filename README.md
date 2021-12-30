@@ -61,13 +61,13 @@ tbl_ae_count <-
   tbl_ae_count(
     ae = adverse_event,
     soc = system_organ_class, 
-    by = grade, 
-    header = "**Grade {level}**"
+    by = drug_attribution
   ) %>%
+  modify_spanning_header(all_stat_cols() ~ "**Drug Attribution**") %>%
   bold_labels()
 ```
 
-<img src="man/figures/README-example-tbl_ae_count-1.png" width="65%" />
+<img src="man/figures/README-example-tbl_ae_count-1.png" width="70%" />
 
 Focus on rates of high grade complications with `tbl_ae_focus()`
 
