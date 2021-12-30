@@ -133,3 +133,23 @@ gtsummary::bold_labels
 #' @importFrom gtsummary show_header_names
 #' @export
 gtsummary::show_header_names
+
+#' @importFrom gtsummary all_stat_cols
+#' @export
+gtsummary::all_stat_cols
+
+#' @importFrom gtsummary all_continuous
+#' @export
+gtsummary::all_continuous
+
+#' @importFrom gtsummary all_categorical
+#' @export
+gtsummary::all_categorical
+
+#' @importFrom gtsummary all_categorical
+#' @export
+gtsummary::all_categorical
+
+#' @importFrom gtsummary all_dichotomous
+#' @export
+gtsummary::all_dichotomous

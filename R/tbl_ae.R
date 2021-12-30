@@ -28,6 +28,9 @@
 #' The default is `"{n} ({p})"`
 #' @param header String indicating the header to be placed in the table.
 #' Default is `"**{level}**"`
+#' @param zero_symbol String used to represent cells with zero counts. Default
+#' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
+#' zero count statistics, e.g. `"0 (0)"`
 #'
 #' @export
 #' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
@@ -54,11 +57,12 @@
 #'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 
 tbl_ae <- function(data, id, ae,
-                               soc = NULL, by = NULL, strata = NULL,
-                               id_df = NULL, by_values = NULL,
-                               missing_text = "Unknown",
-                               statistic = "{n} ({p})",
-                               header = "**{level}**") {
+                   soc = NULL, by = NULL, strata = NULL,
+                   id_df = NULL, by_values = NULL,
+                   missing_text = "Unknown",
+                   statistic = "{n} ({p})",
+                   header = "**{level}**",
+                   zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -107,7 +111,7 @@ tbl_ae <- function(data, id, ae,
                    statistic = statistic,
                    header = header,
                    remove_header_row = FALSE,
-                   zero_symbol = NULL,
+                   zero_symbol = zero_symbol,
                    labels = names(lst_data_complete))
   }
 
@@ -119,7 +123,7 @@ tbl_ae <- function(data, id, ae,
                  statistic = statistic,
                  header = header,
                  remove_header_row = TRUE,
-                 zero_symbol = NULL,
+                 zero_symbol = zero_symbol,
                  labels = NULL)
 
   # stacking tbls into big final AE table --------------------------------------
