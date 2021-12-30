@@ -129,3 +129,23 @@ gtsummary::italicize_labels
 #' @importFrom gtsummary bold_labels
 #' @export
 gtsummary::bold_labels
+
+#' @importFrom gtsummary all_stat_cols
+#' @export
+gtsummary::all_stat_cols
+
+#' @importFrom gtsummary all_continuous
+#' @export
+gtsummary::all_continuous
+
+#' @importFrom gtsummary all_categorical
+#' @export
+gtsummary::all_categorical
+
+#' @importFrom gtsummary all_categorical
+#' @export
+gtsummary::all_categorical
+
+#' @importFrom gtsummary all_dichotomous
+#' @export
+gtsummary::all_dichotomous

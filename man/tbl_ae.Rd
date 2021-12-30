@@ -15,7 +15,8 @@ tbl_ae(
   by_values = NULL,
   missing_text = "Unknown",
   statistic = "{n} ({p})",
-  header = "**{level}**"
+  header = "**{level}**",
+  zero_symbol = "—"
 )
 }
 \arguments{
@@ -47,6 +48,10 @@ The default is \code{"{n} ({p})"}}
 
 \item{header}{String indicating the header to be placed in the table.
 Default is \code{"**{level}**"}}
+
+\item{zero_symbol}{String used to represent cells with zero counts. Default
+is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
+zero count statistics, e.g. \code{"0 (0)"}}
 }
 \description{
 The function tabulates adverse events. One AE per ID will be counted in the

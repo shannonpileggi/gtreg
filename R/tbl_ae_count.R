@@ -23,7 +23,8 @@ tbl_ae_count <- function(data, ae,
                          soc = NULL, by = NULL, strata = NULL,
                          by_values = NULL,
                          missing_text = "Unknown",
-                         header = "**{level}**") {
+                         header = "**{level}**",
+                         zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -82,7 +83,7 @@ tbl_ae_count <- function(data, ae,
                    statistic = statistic,
                    header = header,
                    remove_header_row = FALSE,
-                   zero_symbol = NULL,
+                   zero_symbol = zero_symbol,
                    labels = names(lst_data))
   }
 
@@ -94,7 +95,7 @@ tbl_ae_count <- function(data, ae,
                  statistic = statistic,
                  header = header,
                  remove_header_row = TRUE,
-                 zero_symbol = NULL,
+                 zero_symbol = zero_symbol,
                  labels = NULL)
 
   # stacking tbls into big final AE table --------------------------------------
