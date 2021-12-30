@@ -155,4 +155,57 @@ test_that("df_adverse_event() works", {
       dplyr::mutate(dplyr::across(dplyr::everything(), ~ . == "0"))
   )
 
+  # default statistic, default zero_symbol
+  expect_error(
+    tbl_ae(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      soc = "system_organ_class",
+      by = "grade",
+      ),
+    NA
+    )
+
+  # modified statistic, default zero_symbol
+  expect_error(
+    tbl_ae(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      soc = "system_organ_class",
+      statistic = "{n}",
+      by = "grade",
+    ),
+    NA
+  )
+
+  # modified statistic, modified zero_symbol
+  expect_error(
+    tbl_ae(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      soc = "system_organ_class",
+      statistic = "{n}",
+      by = "grade",
+      zero_symbol = "*"
+    ),
+    NA
+  )
+
+  # modified statistic, NULL zero_symbol
+  expect_error(
+    tbl_ae(
+      data = df1,
+      id = "patient_id",
+      ae = "adverse_event",
+      soc = "system_organ_class",
+      statistic = "{n} / {N} ({p}%)",
+      by = "grade",
+      zero_symbol = NULL
+    ),
+    NA
+  )
+
 })
