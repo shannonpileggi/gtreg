@@ -13,7 +13,8 @@ tbl_ae_focus(
   strata = NULL,
   id_df = NULL,
   statistic = "{n} ({p})",
-  label = NULL
+  label = NULL,
+  zero_symbol = "—"
 )
 }
 \arguments{
@@ -40,6 +41,10 @@ The default is \code{"{n} ({p})"}}
 \item{label}{A named list of labels that will be applied in the
 resulting table. Names must be those passed in \verb{include=}. Default is
 NULL, and either the label attribute or the column name will be used.}
+
+\item{zero_symbol}{String used to represent cells with zero counts. Default
+is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
+zero count statistics, e.g. \code{"0 (0)"}}
 }
 \value{
 a 'tbl_ae_focus' object
@@ -56,6 +61,7 @@ rate of patients that have an AE of Grade 3 or higher.
 }
 
 \examples{
+\dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Example 1 -----------------------------------------------------------------
 tbl_ae_focus_ex1 <-
   df_adverse_events \%>\%
@@ -69,4 +75,5 @@ tbl_ae_focus_ex1 <-
            grade3_complication = "Grade 3+ Complication")
   ) \%>\%
   bold_labels()
+\dontshow{\}) # examplesIf}
 }
