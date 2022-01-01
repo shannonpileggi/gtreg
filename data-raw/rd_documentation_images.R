@@ -1,5 +1,9 @@
 # 1. install pkg that will run and save the documentation images
-remotes::install_github("ddsjoberg/gt.doc.images")
+install.packages(
+  'gt.doc.images',
+  repos = c(ddsjoberg = 'https://ddsjoberg.r-universe.dev',
+            CRAN = 'https://cloud.r-project.org')
+)
 
 # 2. Install the most recent version of gtreg
 
