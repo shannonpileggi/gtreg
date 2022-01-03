@@ -1,6 +1,6 @@
 # this function returns a list of tbls, summarizing either AEs or SOC
 .lst_of_tbls <- function(lst_data, variable_summary, variable_filter, statistic,
-                         header, remove_header_row, zero_symbol = NULL,
+                         header_by, remove_header_row, zero_symbol = NULL,
                          labels = NULL, by = "by",  by_level_to_hide = "NOT OBSERVED") {
   purrr::map(
     seq_len(length(lst_data)),
@@ -23,7 +23,7 @@
                        variable = stringr::str_glue("{variable_summary}{index}"),
                        label = labels[index],
                        statistic = statistic,
-                       header = header,
+                       header_by = header_by,
                        remove_header_row = TRUE,
                        zero_symbol = zero_symbol)
 
@@ -45,7 +45,7 @@
 }
 
 # define `tbl_summary()` function to tabulate SOC/AE
-.fn_tbl <- function(data, variable, label = NULL, statistic, header,
+.fn_tbl <- function(data, variable, label = NULL, statistic, header_by,
                     remove_header_row, zero_symbol = NULL, by = "by",
                     by_level_to_hide = "NOT OBSERVED") {
   tbl <-
@@ -57,7 +57,7 @@
       statistic = everything() ~ statistic,
       include = all_of(variable)
     ) %>%
-    gtsummary::modify_header(gtsummary::all_stat_cols() ~ header)
+    gtsummary::modify_header(gtsummary::all_stat_cols() ~ header_by)
 
   # hide the column for unobserved data
   column_to_hide <-
@@ -139,5 +139,26 @@
     gtsummary::tbl_butcher()
 }
 
+
+# convert the complete data df to a df with the Ns within each stratum
+.complete_data_to_df_strata <- function(data) {
+  browser()
+  if (!"strata" %in% names(data)) {
+    return(NULL)
+  }
+
+  data %>%
+    select(all_of(c("id", "strata"))) %>%
+    dplyr::distinct() %>%
+    mutate(N = dplyr::n()) %>%
+    group_by(.data$strata) %>%
+    mutate(
+      n = dplyr::n(),
+      p = .data$n / .data$N
+    ) %>%
+    dplyr::ungroup() %>%
+    select(level = .data$strata, .data$n, .data$N, .data$p) %>%
+    dplyr::distinct()
+}
 
 

@@ -16,14 +16,14 @@
 #'     soc = system_organ_class,
 #'     strata = trt,
 #'     by = grade,
-#'     header = "**Grade {level}**"
+#'     header_by = "**Grade {level}**"
 #'   )
 
 tbl_ae_count <- function(data, ae,
                          soc = NULL, by = NULL, strata = NULL,
                          by_values = NULL,
                          missing_text = "Unknown",
-                         header = "**{level}**",
+                         header_by = "**{level}**",
                          zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
@@ -81,7 +81,7 @@ tbl_ae_count <- function(data, ae,
                    variable_summary = "..soc..",
                    variable_filter = "..soc..",
                    statistic = statistic,
-                   header = header,
+                   header_by = header_by,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
                    labels = names(lst_data))
@@ -93,7 +93,7 @@ tbl_ae_count <- function(data, ae,
                  variable_summary = "ae",
                  variable_filter = "..ae..",
                  statistic = statistic,
-                 header = header,
+                 header_by = header_by,
                  remove_header_row = TRUE,
                  zero_symbol = zero_symbol,
                  labels = NULL)

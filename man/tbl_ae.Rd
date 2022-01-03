@@ -15,7 +15,7 @@ tbl_ae(
   by_values = NULL,
   missing_text = "Unknown",
   statistic = "{n} ({p})",
-  header = "**{level}**",
+  header_by = "**{level}**",
   zero_symbol = "—"
 )
 }
@@ -46,7 +46,7 @@ Default is \code{"Unknown"}}
 \item{statistic}{String indicating the statistics that will be reported.
 The default is \code{"{n} ({p})"}}
 
-\item{header}{String indicating the header to be placed in the table.
+\item{header_by}{String indicating the header to be placed in the table.
 Default is \code{"**{level}**"}}
 
 \item{zero_symbol}{String used to represent cells with zero counts. Default
@@ -73,7 +73,7 @@ df_adverse_events \%>\%
     soc = system_organ_class,
     by = grade,
     strata = trt,
-    header = "**Grade {level}**"
+    header_by = "**Grade {level}**"
   ) \%>\%
   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 
@@ -83,7 +83,7 @@ df_adverse_events \%>\%
     id = patient_id,
     ae = adverse_event,
     by = grade,
-    header = "**Grade {level}**"
+    header_by = "**Grade {level}**"
   ) \%>\%
   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 \dontshow{\}) # examplesIf}

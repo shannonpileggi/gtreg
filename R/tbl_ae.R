@@ -26,7 +26,7 @@
 #' Default is `"Unknown"`
 #' @param statistic String indicating the statistics that will be reported.
 #' The default is `"{n} ({p})"`
-#' @param header String indicating the header to be placed in the table.
+#' @param header_by String indicating the header to be placed in the table.
 #' Default is `"**{level}**"`
 #' @param zero_symbol String used to represent cells with zero counts. Default
 #' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
@@ -42,7 +42,7 @@
 #'     soc = system_organ_class,
 #'     by = grade,
 #'     strata = trt,
-#'     header = "**Grade {level}**"
+#'     header_by = "**Grade {level}**"
 #'   ) %>%
 #'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 #'
@@ -52,7 +52,7 @@
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     by = grade,
-#'     header = "**Grade {level}**"
+#'     header_by = "**Grade {level}**"
 #'   ) %>%
 #'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 
@@ -61,7 +61,8 @@ tbl_ae <- function(data, id, ae,
                    id_df = NULL, by_values = NULL,
                    missing_text = "Unknown",
                    statistic = "{n} ({p})",
-                   header = "**{level}**",
+                   header_by = "**{level}**",
+                   header_strata = "**{level}**, N = {n}",
                    zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
@@ -95,6 +96,7 @@ tbl_ae <- function(data, id, ae,
                       strata = strata, id_df = id_df, by_values = by_values,
                       missing_text = missing_text) %>%
     group_by(across(any_of("soc")))
+  df_strata <- .complete_data_to_df_strata(data_complete)
 
   # putting data into list of tibbles...one element per SOC --------------------
   lst_data_complete <-
@@ -109,7 +111,7 @@ tbl_ae <- function(data, id, ae,
                    variable_summary = "..soc..",
                    variable_filter = "..soc..",
                    statistic = statistic,
-                   header = header,
+                   header_by = header_by,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
                    labels = names(lst_data_complete))
@@ -121,7 +123,7 @@ tbl_ae <- function(data, id, ae,
                  variable_summary = "ae",
                  variable_filter = "..ae..",
                  statistic = statistic,
-                 header = header,
+                 header_by = header_by,
                  remove_header_row = TRUE,
                  zero_symbol = zero_symbol,
                  labels = NULL)
@@ -134,7 +136,9 @@ tbl_ae <- function(data, id, ae,
   tbl_final %>%
     # return list with function's inputs and the complete data
     purrr::list_modify(inputs = tbl_ae_inputs,
-                       data_complete = dplyr::ungroup(data_complete)) %>%
+                       data_complete = dplyr::ungroup(data_complete),
+                       df_strata = df_strata) %>%
+    purrr::compact() %>%
     # add class
     structure(class = c("tbl_ae", "gtsummary"))
 }
