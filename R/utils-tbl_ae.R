@@ -1,6 +1,7 @@
 # this function returns a list of tbls, summarizing either AEs or SOC
 .lst_of_tbls <- function(lst_data, variable_summary, variable_filter, statistic,
-                         header_by, remove_header_row, zero_symbol = NULL,
+                         header_by, header_strata = NULL, remove_header_row,
+                         zero_symbol = NULL,
                          labels = NULL, by = "by",  by_level_to_hide = "NOT OBSERVED") {
   purrr::map(
     seq_len(length(lst_data)),
@@ -32,7 +33,10 @@
           gtsummary::tbl_strata(
             data = df_ae,
             strata = "strata",
-            .tbl_fun = ~fn_tbl_ae(data = .x)
+            .tbl_fun = ~fn_tbl_ae(data = .x),
+            .combine_with = "tbl_merge",
+            .combine_args =
+              switch(!is.null(header_strata), list(tab_spanner = header_strata))
           )
       }
       else {
@@ -142,17 +146,19 @@
 
 # convert the complete data df to a df with the Ns within each stratum
 .complete_data_to_df_strata <- function(data) {
-  browser()
   if (!"strata" %in% names(data)) {
     return(NULL)
   }
 
   data %>%
+    dplyr::ungroup() %>%
     select(all_of(c("id", "strata"))) %>%
     dplyr::distinct() %>%
+    arrange(.data$strata) %>%
     mutate(N = dplyr::n()) %>%
     group_by(.data$strata) %>%
     mutate(
+      strata = as.character(.data$strata),
       n = dplyr::n(),
       p = .data$n / .data$N
     ) %>%

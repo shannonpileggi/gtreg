@@ -28,6 +28,8 @@
 #' The default is `"{n} ({p})"`
 #' @param header_by String indicating the header to be placed in the table.
 #' Default is `"**{level}**"`
+#' @param header_strata String indicating the strata header to be placed in the table.
+#' Default is `"**{level}**, N = {n}"`
 #' @param zero_symbol String used to represent cells with zero counts. Default
 #' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
 #' zero count statistics, e.g. `"0 (0)"`
@@ -96,7 +98,15 @@ tbl_ae <- function(data, id, ae,
                       strata = strata, id_df = id_df, by_values = by_values,
                       missing_text = missing_text) %>%
     group_by(across(any_of("soc")))
-  df_strata <- .complete_data_to_df_strata(data_complete)
+
+  # prepare strata headers -----------------------------------------------------
+  vct_header_strata <-
+    switch(
+      !is.null(strata),
+      .complete_data_to_df_strata(data_complete) %>%
+        stringr::str_glue_data(header_strata) %>%
+        as.character()
+    )
 
   # putting data into list of tibbles...one element per SOC --------------------
   lst_data_complete <-
@@ -112,6 +122,7 @@ tbl_ae <- function(data, id, ae,
                    variable_filter = "..soc..",
                    statistic = statistic,
                    header_by = header_by,
+                   header_strata = vct_header_strata,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
                    labels = names(lst_data_complete))
@@ -124,6 +135,7 @@ tbl_ae <- function(data, id, ae,
                  variable_filter = "..ae..",
                  statistic = statistic,
                  header_by = header_by,
+                 header_strata = vct_header_strata,
                  remove_header_row = TRUE,
                  zero_symbol = zero_symbol,
                  labels = NULL)
@@ -136,8 +148,7 @@ tbl_ae <- function(data, id, ae,
   tbl_final %>%
     # return list with function's inputs and the complete data
     purrr::list_modify(inputs = tbl_ae_inputs,
-                       data_complete = dplyr::ungroup(data_complete),
-                       df_strata = df_strata) %>%
+                       data_complete = dplyr::ungroup(data_complete)) %>%
     purrr::compact() %>%
     # add class
     structure(class = c("tbl_ae", "gtsummary"))

@@ -33,8 +33,11 @@
 #' \if{html}{\figure{tbl_ae_focus_ex1.png}{options: width=70\%}}
 
 tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
-                         id_df = NULL, statistic = "{n} ({p})",
-                         label = NULL, zero_symbol = "\U2014") {
+                         id_df = NULL,
+                         statistic = "{n} ({p})",
+                         label = NULL,
+                         header_strata = "**{level}**, N = {n}",
+                         zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -82,6 +85,15 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
       "and cannot be used in `include=`.") %>%
       stop(call. = FALSE)
   }
+
+  # prepare strata headers -----------------------------------------------------
+  vct_header_strata <-
+    switch(
+      !is.null(strata),
+      .complete_data_to_df_strata(data_complete) %>%
+        stringr::str_glue_data(header_strata) %>%
+        as.character()
+    )
 
   # merge in the `include=` variable to the complete data ----------------------
   lst_rename <- purrr::compact(list(id = id, ae = ae, soc = soc))
@@ -136,11 +148,12 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
           by = .x,
           by_level_to_hide = "FALSE",
           statistic = statistic,
-          header =
+          header_by =
             label[[.x]] %||%
             attr(data[[.x]], "label") %||%
             .x %>%
             {stringr::str_glue("**{.}**")},
+          header_strata = vct_header_strata,
           remove_header_row = FALSE,
           zero_symbol = zero_symbol,
           labels = names(lst_data_complete)
@@ -170,11 +183,12 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
         by = .x,
         by_level_to_hide = "FALSE",
         statistic = statistic,
-        header =
+        header_by =
           label[[.x]] %||%
           attr(data[[.x]], "label") %||%
           .x %>%
           {stringr::str_glue("**{.}**")},
+        header_strata = vct_header_strata,
         remove_header_row = TRUE,
         zero_symbol = zero_symbol
       )
