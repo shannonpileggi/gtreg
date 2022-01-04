@@ -62,7 +62,7 @@ inline_text.tbl_ae <- function(x, row, column = NULL, ...) {
   # return result --------------------------------------------------------------
   gtsummary::inline_text(
     x = structure(x, class = "gtsummary"), # forcing evaluation with `gtsummary::inline_text.gtsummary()`
-    variable = variable,
+    variable = all_of(variable),
     level = switch(variable_is_ae, row),
     column = !!column
   )

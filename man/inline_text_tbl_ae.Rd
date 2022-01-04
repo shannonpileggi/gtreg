@@ -7,16 +7,16 @@
 \alias{inline_text.tbl_ae_focus}
 \title{Report Values from \code{tbl_ae()} in-line}
 \usage{
-\method{inline_text}{tbl_ae}(x, ae_or_soc, column = NULL, ...)
+\method{inline_text}{tbl_ae}(x, row, column = NULL, ...)
 
-\method{inline_text}{tbl_ae_count}(x, ae_or_soc, column = NULL, ...)
+\method{inline_text}{tbl_ae_count}(x, row, column = NULL, ...)
 
-\method{inline_text}{tbl_ae_focus}(x, ae_or_soc, column = NULL, ...)
+\method{inline_text}{tbl_ae_focus}(x, row, column = NULL, ...)
 }
 \arguments{
 \item{x}{an object of class \code{tbl_ae()}, \code{tbl_ae_count()}, \code{tbl_ae_focus()}}
 
-\item{ae_or_soc}{string indicating the AE or SOC to report}
+\item{row}{string indicating the AE or SOC to report}
 
 \item{column}{column name of cell to report. Use \code{show_header_names(x)}
 to print all column names beside the current header.}
