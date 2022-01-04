@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("inline text works", {
   expect_equal(
     df_adverse_events %>%
       tbl_ae(
