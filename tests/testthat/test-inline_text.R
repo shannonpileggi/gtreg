@@ -43,4 +43,17 @@ test_that("multiplication works", {
       inline_text(ae_or_soc = "Anaemia"),
     NULL
   )
+
+  expect_equal(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        soc = system_organ_class,
+        ae = adverse_event,
+        by = grade,
+        header = "**Grade {level}**"
+      ) %>%
+      inline_text(ae_or_soc = "Blood and lymphatic system disorders", column = stat_6),
+    "7 (70)"
+  )
 })
