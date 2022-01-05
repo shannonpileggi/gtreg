@@ -5,7 +5,6 @@
 #' @inheritParams tbl_ae
 #'
 #' @return a 'tbl_ae_count' object
-#' @export
 #'
 #' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
 #' # Example 1 -----------------------------------------------------------------
@@ -18,7 +17,18 @@
 #'     by = grade,
 #'     header = "**Grade {level}**"
 #'   )
-
+#' @section Example Output:
+#' \if{html}{Example 1}
+#'
+#' \if{html}{\figure{tbl_ae_count_ex1.png}{options: width=70\%}}
+#'
+#' \if{html}{Example 2}
+#'
+#' \if{html}{\figure{tbl_ae_count_ex2.png}{options: width=70\%}}
+NULL
+#'
+#' @export
+#'
 tbl_ae_count <- function(data, ae,
                          soc = NULL, by = NULL, strata = NULL,
                          by_values = NULL,
