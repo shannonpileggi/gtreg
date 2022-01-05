@@ -130,6 +130,10 @@ gtsummary::italicize_labels
 #' @export
 gtsummary::bold_labels
 
+#' @importFrom gtsummary show_header_names
+#' @export
+gtsummary::show_header_names
+
 #' @importFrom gtsummary all_stat_cols
 #' @export
 gtsummary::all_stat_cols
