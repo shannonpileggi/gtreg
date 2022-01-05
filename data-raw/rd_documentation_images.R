@@ -17,3 +17,6 @@ install.packages(
 #    is the object name, i.e.'tbl_ae_count_ex1.png'. No example object
 #    may overlap throughout the entire package.
 gt.doc.images::save_help_file_images(pkg = "gtreg")
+
+# 5. Shrink png files
+gt.doc.images::shrink_help_file_images(pkg = "gtreg")
