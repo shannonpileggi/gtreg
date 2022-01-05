@@ -4,14 +4,15 @@
 \name{gtreg-package}
 \alias{gtreg}
 \alias{gtreg-package}
-\title{gtreg: 'gt' Backed Regulatory Tables For Clinical Research}
+\title{gtreg: Regulatory Tables For Clinical Research with 'gtsummary'}
 \description{
-What the package does (one paragraph).
+Creates tables suitable for regulatory agency submission using the 'gtsummary' package as the backend. Tables can be exported to HTML, RTF, Word, PDF and more. Highly customizable outputs are available by utilizing existing styling function from 'gtsummary' as well as custom options designed for regulatory tables.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://shannonpileggi.github.io/gtreg}
+  \item Report bugs at \url{https://github.com/shannonpileggi/gtreg/issues}
 }
 
 }

@@ -63,4 +63,35 @@ test_that("tbl_ae_focus() works", {
         ae = adverse_event
       )
   )
+
+
+  expect_error(
+    tbl_ae_focus(
+      data = letters,
+      include = c(any_complication, grade3_complication),
+      id = patient_id,
+      ae = adverse_event,
+      soc = system_organ_class
+    )
+  )
+
+  expect_error(
+    df_adverse_events %>%
+      dplyr::rename(by = any_complication) %>%
+      tbl_ae_focus(
+        include = by,
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class
+      )
+  )
+
+  expect_error(
+    tbl_ae_focus(
+      data = df_adverse_events,
+      include = c(any_complication, grade3_complication),
+      ae = adverse_event,
+      soc = system_organ_class
+    )
+  )
 })

@@ -56,4 +56,19 @@ test_that("inline text works", {
       inline_text(row = "Blood and lymphatic system disorders", column = stat_6),
     "7 (70)"
   )
+
+  tbl <-
+    df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      soc = system_organ_class,
+      ae = adverse_event,
+      by = grade,
+      header = "**Grade {level}**"
+    )
+
+  expect_error(inline_text(tbl, row = 1L, column = stat_2))
+  expect_error(inline_text(tbl, row = "not an AE", column = stat_2))
+
+
 })
