@@ -24,7 +24,8 @@ tbl_ae_count <- function(data, ae,
                          by_values = NULL,
                          missing_text = "Unknown",
                          header = "**{level}**",
-                         zero_symbol = "\U2014") {
+                         zero_symbol = "\U2014",
+                         digits = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -84,7 +85,8 @@ tbl_ae_count <- function(data, ae,
                    header = header,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
-                   labels = names(lst_data))
+                   labels = names(lst_data),
+                   digits = digits)
   }
 
   # tabulate AEs ---------------------------------------------------------------
@@ -96,7 +98,8 @@ tbl_ae_count <- function(data, ae,
                  header = header,
                  remove_header_row = TRUE,
                  zero_symbol = zero_symbol,
-                 labels = NULL)
+                 labels = NULL,
+                 digits = digits)
 
   # stacking tbls into big final AE table --------------------------------------
   if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)

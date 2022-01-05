@@ -1,7 +1,9 @@
 # this function returns a list of tbls, summarizing either AEs or SOC
 .lst_of_tbls <- function(lst_data, variable_summary, variable_filter, statistic,
                          header, remove_header_row, zero_symbol = NULL,
-                         labels = NULL, by = "by",  by_level_to_hide = "NOT OBSERVED") {
+                         labels = NULL,
+                         by = "by",  by_level_to_hide = "NOT OBSERVED",
+                         digits = NULL) {
   purrr::map(
     seq_len(length(lst_data)),
     function(index) {
@@ -25,7 +27,8 @@
                        statistic = statistic,
                        header = header,
                        remove_header_row = TRUE,
-                       zero_symbol = zero_symbol)
+                       zero_symbol = zero_symbol,
+                       digits = digits)
 
       if ("strata" %in% names(df_ae)) {
         tbl <-
@@ -47,7 +50,7 @@
 # define `tbl_summary()` function to tabulate SOC/AE
 .fn_tbl <- function(data, variable, label = NULL, statistic, header,
                     remove_header_row, zero_symbol = NULL, by = "by",
-                    by_level_to_hide = "NOT OBSERVED") {
+                    by_level_to_hide = "NOT OBSERVED", digits = NULL) {
   tbl <-
     gtsummary::tbl_summary(
       data = data,
@@ -55,7 +58,8 @@
       percent = "row",
       label = switch(!is.null(label), everything() ~ label),
       statistic = everything() ~ statistic,
-      include = all_of(variable)
+      include = all_of(variable),
+      digits = switch(!is.null(digits), everything() ~ digits)
     ) %>%
     gtsummary::modify_header(gtsummary::all_stat_cols() ~ header)
 

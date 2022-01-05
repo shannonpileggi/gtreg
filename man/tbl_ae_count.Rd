@@ -13,7 +13,8 @@ tbl_ae_count(
   by_values = NULL,
   missing_text = "Unknown",
   header = "**{level}**",
-  zero_symbol = "—"
+  zero_symbol = "—",
+  digits = NULL
 )
 }
 \arguments{
@@ -41,6 +42,15 @@ Default is \code{"**{level}**"}}
 \item{zero_symbol}{String used to represent cells with zero counts. Default
 is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
 zero count statistics, e.g. \code{"0 (0)"}}
+
+\item{digits}{Specifies the number of decimal places to round the summary statistics.
+By default integers are shown to zero decimal places, and percentages are
+formatted with \code{style_percent()}. If you would like to modify either
+of these, pass a vector of integers indicating the number of decimal
+places to round the statistics. For example, if the statistic being
+calculated is \code{"{n} ({p}\%)"} and you want the percent rounded to
+2 decimal places use \code{digits = c(0, 2)}.
+User may also pass a styling function: \code{digits = style_sigfig}}
 }
 \value{
 a 'tbl_ae_count' object
