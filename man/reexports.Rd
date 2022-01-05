@@ -32,6 +32,7 @@
 \alias{bold_labels}
 \alias{bold_levels}
 \alias{italicize_labels}
+\alias{show_header_names}
 \alias{all_stat_cols}
 \alias{all_continuous}
 \alias{all_categorical}
@@ -45,7 +46,7 @@ below to see their documentation.
 \describe{
   \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}, \code{\link[dplyr:reexports]{all_of}}, \code{\link[dplyr:reexports]{any_of}}, \code{\link[dplyr:reexports]{contains}}, \code{\link[dplyr:reexports]{ends_with}}, \code{\link[dplyr:reexports]{everything}}, \code{\link[dplyr:reexports]{last_col}}, \code{\link[dplyr:reexports]{matches}}, \code{\link[dplyr:reexports]{num_range}}, \code{\link[dplyr:reexports]{one_of}}, \code{\link[dplyr]{select}}, \code{\link[dplyr:reexports]{starts_with}}, \code{\link[dplyr]{vars}}}
 
-  \item{gtsummary}{\code{\link[gtsummary]{add_overall}}, \code{\link[gtsummary:select_helpers]{all_categorical}}, \code{\link[gtsummary:select_helpers]{all_categorical}}, \code{\link[gtsummary:select_helpers]{all_continuous}}, \code{\link[gtsummary:select_helpers]{all_dichotomous}}, \code{\link[gtsummary:select_helpers]{all_stat_cols}}, \code{\link[gtsummary]{as_flex_table}}, \code{\link[gtsummary]{as_gt}}, \code{\link[gtsummary]{as_hux_table}}, \code{\link[gtsummary]{as_kable}}, \code{\link[gtsummary]{as_kable_extra}}, \code{\link[gtsummary:bold_italicize_labels_levels]{bold_labels}}, \code{\link[gtsummary:bold_italicize_labels_levels]{bold_labels}}, \code{\link[gtsummary:bold_italicize_labels_levels]{bold_levels}}, \code{\link[gtsummary]{inline_text}}, \code{\link[gtsummary:bold_italicize_labels_levels]{italicize_labels}}, \code{\link[gtsummary:bold_italicize_labels_levels]{italicize_labels}}, \code{\link[gtsummary:modify]{modify_caption}}, \code{\link[gtsummary:modify]{modify_footnote}}, \code{\link[gtsummary:modify]{modify_header}}, \code{\link[gtsummary:modify]{modify_header}}, \code{\link[gtsummary:modify]{modify_spanning_header}}}
+  \item{gtsummary}{\code{\link[gtsummary]{add_overall}}, \code{\link[gtsummary:select_helpers]{all_categorical}}, \code{\link[gtsummary:select_helpers]{all_categorical}}, \code{\link[gtsummary:select_helpers]{all_continuous}}, \code{\link[gtsummary:select_helpers]{all_dichotomous}}, \code{\link[gtsummary:select_helpers]{all_stat_cols}}, \code{\link[gtsummary]{as_flex_table}}, \code{\link[gtsummary]{as_gt}}, \code{\link[gtsummary]{as_hux_table}}, \code{\link[gtsummary]{as_kable}}, \code{\link[gtsummary]{as_kable_extra}}, \code{\link[gtsummary:bold_italicize_labels_levels]{bold_labels}}, \code{\link[gtsummary:bold_italicize_labels_levels]{bold_labels}}, \code{\link[gtsummary:bold_italicize_labels_levels]{bold_levels}}, \code{\link[gtsummary]{inline_text}}, \code{\link[gtsummary:bold_italicize_labels_levels]{italicize_labels}}, \code{\link[gtsummary:bold_italicize_labels_levels]{italicize_labels}}, \code{\link[gtsummary:modify]{modify_caption}}, \code{\link[gtsummary:modify]{modify_footnote}}, \code{\link[gtsummary:modify]{modify_header}}, \code{\link[gtsummary:modify]{modify_header}}, \code{\link[gtsummary:modify]{modify_spanning_header}}, \code{\link[gtsummary:modify]{show_header_names}}}
 
   \item{knitr}{\code{\link[knitr]{knit_print}}}
 
