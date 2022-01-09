@@ -50,7 +50,7 @@
   strata <span class="op">=</span> <span class="cn">NULL</span>,
   by_values <span class="op">=</span> <span class="cn">NULL</span>,
   missing_text <span class="op">=</span> <span class="st">"Unknown"</span>,
-  header <span class="op">=</span> <span class="st">"**{level}**"</span>,
+  header_by <span class="op">=</span> <span class="cn">NULL</span>,
   zero_symbol <span class="op">=</span> <span class="st">"—"</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -75,9 +75,9 @@ event of a certain grade is not observed for a given soc</p></dd>
 <dt>missing_text</dt>
 <dd><p>String that will be shown for missing levels of <code>by=</code>,
 Default is <code>"Unknown"</code></p></dd>
-<dt>header</dt>
+<dt>header_by</dt>
 <dd><p>String indicating the header to be placed in the table.
-Default is <code>"**{level}**"</code></p></dd>
+Default is <code>"**{level}**"</code> and only used when <code>by=</code> is specified.</p></dd>
 <dt>zero_symbol</dt>
 <dd><p>String used to represent cells with zero counts. Default
 is the em-dash (<code>"\U2014"</code>). Using <code>zero_symbol = NULL</code> will print the
@@ -98,7 +98,7 @@ zero count statistics, e.g. <code>"0 (0)"</code></p></dd>
 <span class="r-in">    soc <span class="op">=</span> <span class="va">system_organ_class</span>,</span>
 <span class="r-in">    strata <span class="op">=</span> <span class="va">trt</span>,</span>
 <span class="r-in">    by <span class="op">=</span> <span class="va">grade</span>,</span>
-<span class="r-in">    header <span class="op">=</span> <span class="st">"**Grade {level}**"</span></span>
+<span class="r-in">    header_by <span class="op">=</span> <span class="st">"**Grade {level}**"</span></span>
 <span class="r-in">  <span class="op">)</span></span>
 </code></pre></div>
     </div>
