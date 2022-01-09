@@ -14,7 +14,7 @@ tbl_ae_focus(
   id_df = NULL,
   statistic = "{n} ({p})",
   label = NULL,
-  header_strata = "**{level}**, N = {n}",
+  header_strata = NULL,
   zero_symbol = "—"
 )
 }
@@ -44,7 +44,7 @@ resulting table. Names must be those passed in \verb{include=}. Default is
 NULL, and either the label attribute or the column name will be used.}
 
 \item{header_strata}{String indicating the strata header to be placed in the table.
-Default is \code{"**{level}**, N = {n}"}}
+Default is \code{"**{level}**, N = {n}"} and only used when \verb{strata=} is specified.}
 
 \item{zero_symbol}{String used to represent cells with zero counts. Default
 is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the

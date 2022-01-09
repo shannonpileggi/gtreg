@@ -23,7 +23,7 @@ tbl_ae_count <- function(data, ae,
                          soc = NULL, by = NULL, strata = NULL,
                          by_values = NULL,
                          missing_text = "Unknown",
-                         header_by = "**{level}**",
+                         header_by = NULL,
                          zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
@@ -45,9 +45,16 @@ tbl_ae_count <- function(data, ae,
   if (is.null(ae)) {
     stop("Argument `ae=` must be specified.", call. = FALSE)
   }
+  if (!is.null(header_by) && is.null(by)) {
+    stop("Cannot specify `header_by=` when `by=` is NULL.", call. = FALSE)
+  }
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_count_inputs <- as.list(environment())
+
+  # adding default header values -----------------------------------------------
+  header_by <- header_by %||% "**{level}**"
+
   statistic <- "{n}"
 
   # setting structure similar to that of data after `.complete_ae_data()` ------

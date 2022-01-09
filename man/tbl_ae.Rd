@@ -15,8 +15,8 @@ tbl_ae(
   by_values = NULL,
   missing_text = "Unknown",
   statistic = "{n} ({p})",
-  header_by = "**{level}**",
-  header_strata = "**{level}**, N = {n}",
+  header_by = NULL,
+  header_strata = NULL,
   zero_symbol = "—"
 )
 }
@@ -48,10 +48,10 @@ Default is \code{"Unknown"}}
 The default is \code{"{n} ({p})"}}
 
 \item{header_by}{String indicating the header to be placed in the table.
-Default is \code{"**{level}**"}}
+Default is \code{"**{level}**"} and only used when \verb{by=} is specified.}
 
 \item{header_strata}{String indicating the strata header to be placed in the table.
-Default is \code{"**{level}**, N = {n}"}}
+Default is \code{"**{level}**, N = {n}"} and only used when \verb{strata=} is specified.}
 
 \item{zero_symbol}{String used to represent cells with zero counts. Default
 is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the

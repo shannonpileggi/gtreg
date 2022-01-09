@@ -27,9 +27,9 @@
 #' @param statistic String indicating the statistics that will be reported.
 #' The default is `"{n} ({p})"`
 #' @param header_by String indicating the header to be placed in the table.
-#' Default is `"**{level}**"`
+#' Default is `"**{level}**"` and only used when `by=` is specified.
 #' @param header_strata String indicating the strata header to be placed in the table.
-#' Default is `"**{level}**, N = {n}"`
+#' Default is `"**{level}**, N = {n}"` and only used when `strata=` is specified.
 #' @param zero_symbol String used to represent cells with zero counts. Default
 #' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
 #' zero count statistics, e.g. `"0 (0)"`
@@ -63,8 +63,8 @@ tbl_ae <- function(data, id, ae,
                    id_df = NULL, by_values = NULL,
                    missing_text = "Unknown",
                    statistic = "{n} ({p})",
-                   header_by = "**{level}**",
-                   header_strata = "**{level}**, N = {n}",
+                   header_by = NULL,
+                   header_strata = NULL,
                    zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
@@ -88,9 +88,19 @@ tbl_ae <- function(data, id, ae,
   if (is.null(id) || is.null(ae)) {
     stop("Arguments `id=`, `ae=` must be specified.", call. = FALSE)
   }
+  if (!is.null(header_by) && is.null(by)) {
+    stop("Cannot specify `header_by=` when `by=` is NULL.", call. = FALSE)
+  }
+  if (!is.null(header_strata) && is.null(strata)) {
+    stop("Cannot specify `header_strata=` when `strata=` is NULL.", call. = FALSE)
+  }
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_inputs <- as.list(environment())
+
+  # adding default header values -----------------------------------------------
+  header_by <- header_by %||% "**{level}**"
+  header_strata <- header_strata %||% "**{level}**, N = {n}"
 
   # obtain the complete data ---------------------------------------------------
   data_complete <-

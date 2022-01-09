@@ -36,7 +36,7 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
                          id_df = NULL,
                          statistic = "{n} ({p})",
                          label = NULL,
-                         header_strata = "**{level}**, N = {n}",
+                         header_strata = NULL,
                          zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
@@ -65,6 +65,9 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
   if (is.null(include) || is.null(id) || is.null(ae)) {
     stop("Arguments `include=`, `id=`, `ae=` must be specified.", call. = FALSE)
   }
+  if (!is.null(header_strata) && is.null(strata)) {
+    stop("Cannot specify `header_strata=` when `strata=` is NULL.", call. = FALSE)
+  }
 
   purrr::walk(
     include,
@@ -73,6 +76,9 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_focus_inputs <- as.list(environment())
+
+  # adding default header values -----------------------------------------------
+  header_strata <- header_strata %||% "**{level}**, N = {n}"
 
   # obtain the complete data ---------------------------------------------------
   data_complete <-

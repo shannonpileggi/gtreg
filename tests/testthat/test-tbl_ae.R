@@ -163,9 +163,9 @@ test_that("df_adverse_event() works", {
       ae = "adverse_event",
       soc = "system_organ_class",
       by = "grade",
-      ),
+    ),
     NA
-    )
+  )
 
   # modified statistic, default zero_symbol
   expect_error(
@@ -286,7 +286,7 @@ test_that("tbl_ae() headers", {
     ) %>%
     add_overall(across = 'strata')
 
-   expect_equal(length(intersect(tbl_strata1$table_styling$header$spanning_header, strata_by1)), 3)
+  expect_equal(length(intersect(tbl_strata1$table_styling$header$spanning_header, strata_by1)), 3)
 
 
 
@@ -322,27 +322,20 @@ test_that("tbl_ae() headers", {
         ae = adverse_event,
         statistic = "{n}",
         strata_by = "**Cohort {level}**"
-      ),
-    NA
+      )
   )
 
   # strata with header_by ------------------------------------------------------
-  # what behavior should we expect here??
-  #expect_error(
-  #  df_adverse_events %>%
-  #    tbl_ae(
-  #      id = patient_id,
-  #      ae = adverse_event,
-  #      statistic = "{n}",
-  #      strata = trt,
-  #      header_by = "**Cohort {level}**"
-  #    ),
-  #  NA
-  #)
-
-
-
-
-  })
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        strata = trt,
+        header_by = "**Cohort {level}**"
+      )
+  )
+})
 
 
