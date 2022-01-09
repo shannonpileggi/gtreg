@@ -243,32 +243,30 @@ test_that("tbl_ae() headers", {
   expect_equal(length(intersect(tbl_by2$table_styling$header$label, h_by2)), 6)
 
   # header_by without by -------------------------------------------------------
-  # does not currently yield warning/message
-  # expect_error(
-  #   df_adverse_events %>%
-  #     tbl_ae(
-  #       id = patient_id,
-  #       ae = adverse_event,
-  #       statistic = "{n}",
-  #       header_by = "**Grade {level}**"
-  #     ),
-  #   NA
-  # )
+   expect_message(
+     df_adverse_events %>%
+       tbl_ae(
+         id = patient_id,
+         ae = adverse_event,
+         statistic = "{n}",
+         header_by = "**Grade {level}**"
+       ),
+     NA
+   )
 
 
   # by with header_strata ------------------------------------------------------
-  # does not currently yield warning/message
-  # expect_error(
-  #  df_adverse_events %>%
-  #    tbl_ae(
-  #      id = patient_id,
-  #      ae = adverse_event,
-  #      statistic = "{n}",
-  #      by = grade,
-  #      header_strata = "**Cohort {level}**"
-  #    ),
-  #  NA
-  # )
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        by = grade,
+        header_strata = "**Cohort {level}**"
+      ),
+    NA
+   )
 
 
   # ----------------------------------------------------------------------------
@@ -326,7 +324,7 @@ test_that("tbl_ae() headers", {
   )
 
   # strata with header_by ------------------------------------------------------
-  expect_error(
+  expect_message(
     df_adverse_events %>%
       tbl_ae(
         id = patient_id,
