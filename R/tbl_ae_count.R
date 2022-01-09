@@ -16,14 +16,14 @@
 #'     soc = system_organ_class,
 #'     strata = trt,
 #'     by = grade,
-#'     header = "**Grade {level}**"
+#'     header_by = "**Grade {level}**"
 #'   )
 
 tbl_ae_count <- function(data, ae,
                          soc = NULL, by = NULL, strata = NULL,
                          by_values = NULL,
                          missing_text = "Unknown",
-                         header = "**{level}**",
+                         header_by = NULL,
                          zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
@@ -45,9 +45,16 @@ tbl_ae_count <- function(data, ae,
   if (is.null(ae)) {
     stop("Argument `ae=` must be specified.", call. = FALSE)
   }
+  if (!is.null(header_by) && is.null(by)) {
+    stop("Cannot specify `header_by=` when `by=` is NULL.", call. = FALSE)
+  }
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_count_inputs <- as.list(environment())
+
+  # adding default header values -----------------------------------------------
+  header_by <- header_by %||% "**{level}**"
+
   statistic <- "{n}"
 
   # setting structure similar to that of data after `.complete_ae_data()` ------
@@ -81,7 +88,8 @@ tbl_ae_count <- function(data, ae,
                    variable_summary = "..soc..",
                    variable_filter = "..soc..",
                    statistic = statistic,
-                   header = header,
+                   header_by = header_by,
+                   header_strata = NULL,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
                    labels = names(lst_data))
@@ -93,7 +101,8 @@ tbl_ae_count <- function(data, ae,
                  variable_summary = "ae",
                  variable_filter = "..ae..",
                  statistic = statistic,
-                 header = header,
+                 header_by = header_by,
+                 header_strata = NULL,
                  remove_header_row = TRUE,
                  zero_symbol = zero_symbol,
                  labels = NULL)
