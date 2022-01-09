@@ -264,8 +264,7 @@ test_that("tbl_ae() headers", {
         statistic = "{n}",
         by = grade,
         header_strata = "**Cohort {level}**"
-      ),
-    NA
+      )
    )
 
 
