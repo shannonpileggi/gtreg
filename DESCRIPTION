@@ -22,7 +22,7 @@ Imports:
     cli (>= 3.1.0),
     dplyr (>= 1.0.7),
     forcats (>= 0.5.1),
-    gtsummary (>= 1.5.0.9021),
+    gtsummary (>= 1.5.0.9025),
     knitr (>= 1.37),
     purrr (>= 0.3.4),
     rlang (>= 0.4.12),

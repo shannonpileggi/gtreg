@@ -7,7 +7,7 @@ test_that("tbl_ae_count() works", {
         soc = system_organ_class,
         strata = trt,
         by = grade,
-        header = "**Grade {level}**",
+        header_by = "**Grade {level}**",
         zero_symbol = NULL
       ),
     NA

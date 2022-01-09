@@ -68,7 +68,7 @@ add_overall_ex1 <-
     soc = system_organ_class,
     by = grade,
     strata = trt,
-    header = "**Grade {level}**"
+    header_by = "**Grade {level}**"
   ) \%>\%
   add_overall() \%>\%
   bold_labels()
@@ -81,7 +81,7 @@ add_overall_ex2 <-
     ae = adverse_event,
     soc = system_organ_class,
     by = grade,
-    header = "**Grade {level}**"
+    header_by = "**Grade {level}**"
   ) \%>\%
   add_overall(across = 'by') \%>\%
   bold_labels()
@@ -106,7 +106,7 @@ add_overall_ex4 <-
     soc = system_organ_class,
     by = grade,
     strata = trt,
-    header = "**Grade {level}**"
+    header_by = "**Grade {level}**"
   ) \%>\%
   add_overall(across = 'overall-only') \%>\%
   bold_labels()

@@ -17,7 +17,7 @@
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
 #'     by = grade,
-#'     header = "**Grade {level}**"
+#'     header_by = "**Grade {level}**"
 #'   )
 #' show_header_names(tbl)
 #'

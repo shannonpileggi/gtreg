@@ -5,7 +5,7 @@ test_that("inline text works", {
         id = patient_id,
         ae = adverse_event,
         by = grade,
-        header = "**Grade {level}**"
+        header_by = "**Grade {level}**"
       ) %>%
       inline_text(row = "Anaemia", column = stat_6),
     "3 (30)"
@@ -16,7 +16,7 @@ test_that("inline text works", {
       tbl_ae_count(
         ae = adverse_event,
         by = grade,
-        header = "**Grade {level}**"
+        header_by = "**Grade {level}**"
       ) %>%
       inline_text(row = "Anaemia", column = stat_5),
     "3"
@@ -51,7 +51,7 @@ test_that("inline text works", {
         soc = system_organ_class,
         ae = adverse_event,
         by = grade,
-        header = "**Grade {level}**"
+        header_by = "**Grade {level}**"
       ) %>%
       inline_text(row = "Blood and lymphatic system disorders", column = stat_6),
     "7 (70)"
@@ -64,7 +64,7 @@ test_that("inline text works", {
       soc = system_organ_class,
       ae = adverse_event,
       by = grade,
-      header = "**Grade {level}**"
+      header_by = "**Grade {level}**"
     )
 
   expect_error(inline_text(tbl, row = 1L, column = stat_2))
