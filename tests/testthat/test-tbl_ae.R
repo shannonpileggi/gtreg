@@ -9,6 +9,15 @@ df1 <-
     trt = rep("A", 4)
   )
 
+df2 <-
+  tibble::tibble(
+    patient_id = paste0("ID", 1:9),
+    system_organ_class = c("Fruit", "Fruit", "Fruit", "Veg", "Veg", "Veg", "Veg", "Bread", "Bread"),
+    adverse_event = c("apple",  "banana", "banana", "artichoke", "spinach", "spinach", "spinach", "ciabatta", "sourdough"),
+    grade = rep(1, 9),
+    trt = rep("A", 9)
+  )
+
 id_valid <-
   tibble::tibble(
     patient_id = paste0("ID", 1:5),
@@ -354,17 +363,6 @@ test_that("tbl_ae() headers", {
   )
 
 
-  expect_error(
-    tbl <-
-      df_adverse_events %>%
-      tbl_ae(
-        id = patient_id,
-        ae = adverse_event,
-        statistic = "{n}",
-        sort = "frequency"
-      ) %>%
-      as_tibble(col_labels = FALSE)
-  )
   expect_equal(
     tbl %>% dplyr::slice_head(n = 2),
     tibble::tibble(
@@ -373,5 +371,93 @@ test_that("tbl_ae() headers", {
     )
   )
 })
+
+
+
+test_that("tbl_ae() sorting", {
+
+expect_error(
+  tbl <-
+    df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      statistic = "{n}",
+      sort = "frequency"
+    ) %>%
+    as_tibble(col_labels = FALSE)
+)
+
+#  tbl_ae(
+#    df2,
+#    id = patient_id,
+#    ae = adverse_event,
+#    soc = system_organ_class,
+#    statistic = "{n}"
+#  )
+#
+#  tbl_ae(
+#    df2,
+#    id = patient_id,
+#    ae = adverse_event,
+#    soc = system_organ_class,
+#    statistic = "{n}",
+#    sort = "frequency"
+#  )
+#
+#  # check ordering when soc is input as factor
+#  df2 %>%
+#    mutate(
+#      system_organ_class = forcats::fct_rev(system_organ_class)
+#    ) %>%
+#    tbl_ae(
+#    id = patient_id,
+#    ae = adverse_event,
+#    soc = system_organ_class,
+#    statistic = "{n}",
+#    sort = "alphanumeric"
+#  )
+#
+#  # check ordering when ae is input as factor
+#  df2 %>%
+#    mutate(
+#      adverse_event = forcats::fct_relevel(adverse_event, "sourdough", "banana")
+#    ) %>%
+#    tbl_ae(
+#      id = patient_id,
+#      ae = adverse_event,
+#      statistic = "{n}"
+#    )
+#
+#
+#  # check ordering when ae is input as factor
+#  df2 %>%
+#    mutate(
+#      adverse_event = forcats::fct_relevel(adverse_event, "sourdough", "banana")
+#    ) %>%
+#    tbl_ae(
+#      id = patient_id,
+#      ae = adverse_event,
+#      statistic = "{n}",
+#      sort = "frequency"
+#    )
+#
+#  # check ordering when ae is input as factor
+#  df2 %>%
+#    mutate(
+#      adverse_event = forcats::fct_relevel(adverse_event, "sourdough", "banana")
+#    ) %>%
+#    tbl_ae(
+#      id = patient_id,
+#      ae = adverse_event,
+#      statistic = "{n}",
+#      sort = "alphanumeric"
+#    )
+#
+
+
+})
+
+
 
 
