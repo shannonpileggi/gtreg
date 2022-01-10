@@ -41,7 +41,7 @@
           factor(df_ae[[stringr::str_glue("{variable_summary}{index}")]])
 
         # sorting the factor by frequency, if requested
-        if (sort %in% "frequency" || TRUE) {
+        if (sort %in% "frequency") {
           # vector of levels in descending frequency order
           freg_levels <-
             df_ae %>%
