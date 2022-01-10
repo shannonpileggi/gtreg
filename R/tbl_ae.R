@@ -33,6 +33,9 @@
 #' @param zero_symbol String used to represent cells with zero counts. Default
 #' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
 #' zero count statistics, e.g. `"0 (0)"`
+#' @param sort Controls order AEs and SOCs appear in the tables. Default is
+#'  `"alphanumeric"`. `sort = "frequency"` will sort in decreasing frequency
+#'  order.
 #' @param digits Specifies the number of decimal places to round the summary statistics.
 #'  By default integers are shown to zero decimal places, and percentages are
 #'  formatted with `style_percent()`. If you would like to modify either
@@ -41,9 +44,6 @@
 #'  calculated is `"{n} ({p}%)"` and you want the percent rounded to
 #'  2 decimal places use `digits = c(0, 2)`.
 #'  User may also pass a styling function: `digits = style_sigfig`
-#'  @param sort Order AEs and SOCs appear in the tables. Default is
-#'  `"alphanumeric"`. `sort = "frequency"` will sort in decreasing frequency
-#'  order.
 #'
 #' @export
 #' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
