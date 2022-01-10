@@ -45,6 +45,7 @@
 #' @export
 #' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
 #' # Example 1 -----------------------------------------------------------------
+#' tbl_ae_ex1 <-
 #' df_adverse_events %>%
 #'   tbl_ae(
 #'     id = patient_id,
@@ -56,6 +57,7 @@
 #'   )
 #'
 #' # Example 2 -----------------------------------------------------------------
+#' tbl_ae_ex2 <-
 #' df_adverse_events %>%
 #'   tbl_ae(
 #'     id = patient_id,
