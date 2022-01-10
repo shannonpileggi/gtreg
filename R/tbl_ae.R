@@ -33,17 +33,19 @@
 #' @param zero_symbol String used to represent cells with zero counts. Default
 #' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
 #' zero count statistics, e.g. `"0 (0)"`
-#' @param sort Controls order AEs appear.  When `ae` is specified without `soc`, applies to AEs overall. When `ae` is #' specified with `soc`, applies to AEs within SOCs.  Default is
-#'  `"alphanumeric"` for alphabetical sorting. `sort = "frequency"` will sort in decreasing frequency
-#'  order.
+#' @param sort Controls order AEs appear.  When `ae` is specified without `soc`,
+#' applies to AEs overall.
+#' When `ae` is specified with `soc`, applies to AEs within SOCs.  Default is
+#' `"alphanumeric"` for alphabetical sorting. `sort = "frequency"` will
+#' sort in decreasing frequency order.
 #' @param digits Specifies the number of decimal places to round the summary statistics.
-#'  By default integers are shown to zero decimal places, and percentages are
-#'  formatted with `style_percent()`. If you would like to modify either
-#'  of these, pass a vector of integers indicating the number of decimal
-#'  places to round the statistics. For example, if the statistic being
-#'  calculated is `"{n} ({p}%)"` and you want the percent rounded to
-#'  2 decimal places use `digits = c(0, 2)`.
-#'  User may also pass a styling function: `digits = style_sigfig`
+#' By default integers are shown to zero decimal places, and percentages are
+#' formatted with `style_percent()`. If you would like to modify either
+#' of these, pass a vector of integers indicating the number of decimal
+#' places to round the statistics. For example, if the statistic being
+#' calculated is `"{n} ({p}%)"` and you want the percent rounded to
+#' 2 decimal places use `digits = c(0, 2)`.
+#' User may also pass a styling function: `digits = style_sigfig`
 #'
 #' @export
 #' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))

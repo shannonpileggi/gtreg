@@ -68,9 +68,11 @@ calculated is \code{"{n} ({p}\%)"} and you want the percent rounded to
 2 decimal places use \code{digits = c(0, 2)}.
 User may also pass a styling function: \code{digits = style_sigfig}}
 
-\item{sort}{Controls order AEs and SOCs appear in the tables. Default is
-\code{"alphanumeric"}. \code{sort = "frequency"} will sort in decreasing frequency
-order.}
+\item{sort}{Controls order AEs appear.  When \code{ae} is specified without \code{soc},
+applies to AEs overall.
+When \code{ae} is specified with \code{soc}, applies to AEs within SOCs.  Default is
+\code{"alphanumeric"} for alphabetical sorting. \code{sort = "frequency"} will
+sort in decreasing frequency order.}
 }
 \description{
 The function tabulates adverse events. One AE per ID will be counted in the
