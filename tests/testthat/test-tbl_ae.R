@@ -352,6 +352,26 @@ test_that("tbl_ae() headers", {
         header_by = "**Cohort {level}**"
       )
   )
+
+
+  expect_error(
+    tbl <-
+      df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        sort = "frequency"
+      ) %>%
+      as_tibble(col_labels = FALSE)
+  )
+  expect_equal(
+    tbl %>% dplyr::slice_head(n = 2),
+    tibble::tibble(
+      label = c("Non-erosive reflux disease", "Thrombocytopenia"),
+      stat_2 = c("10", "9")
+    )
+  )
 })
 
 
