@@ -18,7 +18,11 @@
 #'     by = grade,
 #'     header_by = "**Grade {level}**"
 #'   )
-
+#' @section Example Output:
+#' \if{html}{Example 1}
+#'
+#' \if{html}{\figure{tbl_ae_count_ex1.png}{options: width=90\%}}
+#'
 tbl_ae_count <- function(data, ae,
                          soc = NULL,
                          by = NULL,

@@ -78,7 +78,7 @@ rate of patients that have an AE of Grade 3 or higher.
 
 \if{html}{Example 1}
 
-\if{html}{\figure{tbl_ae_focus_ex1.png}{options: width=70\%}}
+\if{html}{\figure{tbl_ae_focus_ex1.png}{options: width=75\%}}
 }
 
 \examples{

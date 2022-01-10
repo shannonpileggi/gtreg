@@ -50,6 +50,7 @@
 #' @export
 #' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
 #' # Example 1 -----------------------------------------------------------------
+#' tbl_ae_ex1 <-
 #' df_adverse_events %>%
 #'   tbl_ae(
 #'     id = patient_id,
@@ -58,18 +59,26 @@
 #'     by = grade,
 #'     strata = trt,
 #'     header_by = "**Grade {level}**"
-#'   ) %>%
-#'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
+#'   )
 #'
 #' # Example 2 -----------------------------------------------------------------
+#' tbl_ae_ex2 <-
 #' df_adverse_events %>%
 #'   tbl_ae(
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     by = grade,
 #'     header_by = "**Grade {level}**"
-#'   ) %>%
-#'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
+#'   )
+#'
+#' @section Example Output:
+#' \if{html}{Example 1}
+#'
+#' \if{html}{\figure{tbl_ae_ex1.png}{options: width=95\%}}
+#'
+#' \if{html}{Example 2}
+#'
+#' \if{html}{\figure{tbl_ae_ex2.png}{options: width=65\%}}
 
 tbl_ae <- function(data, id, ae,
                    soc = NULL, by = NULL, strata = NULL,
