@@ -53,8 +53,7 @@
 #'     by = grade,
 #'     strata = trt,
 #'     header_by = "**Grade {level}**"
-#'   ) %>%
-#'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
+#'   )
 #'
 #' # Example 2 -----------------------------------------------------------------
 #' df_adverse_events %>%
@@ -63,9 +62,12 @@
 #'     ae = adverse_event,
 #'     by = grade,
 #'     header_by = "**Grade {level}**"
-#'   ) %>%
-#'   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
-
+#'   )
+#'
+#'
+#'  @section Example Output:
+#'
+#'
 tbl_ae <- function(data, id, ae,
                    soc = NULL, by = NULL, strata = NULL,
                    id_df = NULL, by_values = NULL,
