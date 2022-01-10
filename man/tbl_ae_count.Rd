@@ -58,6 +58,17 @@ a 'tbl_ae_count' object
 \description{
 Create a table with the number of AE that were reported.
 }
+\section{Example Output}{
+
+\if{html}{Example 1}
+
+\if{html}{\figure{tbl_ae_count_ex1.png}{options: width=70\%}}
+
+\if{html}{Example 2}
+
+\if{html}{\figure{tbl_ae_count_ex2.png}{options: width=70\%}}
+}
+
 \examples{
 \dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Example 1 -----------------------------------------------------------------
