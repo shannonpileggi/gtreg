@@ -33,6 +33,14 @@
 #' @param zero_symbol String used to represent cells with zero counts. Default
 #' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
 #' zero count statistics, e.g. `"0 (0)"`
+#' @param digits Specifies the number of decimal places to round the summary statistics.
+#'  By default integers are shown to zero decimal places, and percentages are
+#'  formatted with `style_percent()`. If you would like to modify either
+#'  of these, pass a vector of integers indicating the number of decimal
+#'  places to round the statistics. For example, if the statistic being
+#'  calculated is `"{n} ({p}%)"` and you want the percent rounded to
+#'  2 decimal places use `digits = c(0, 2)`.
+#'  User may also pass a styling function: `digits = style_sigfig`
 #'
 #' @export
 #' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
@@ -65,7 +73,8 @@ tbl_ae <- function(data, id, ae,
                    statistic = "{n} ({p})",
                    header_by = NULL,
                    header_strata = NULL,
-                   zero_symbol = "\U2014") {
+                   zero_symbol = "\U2014",
+                   digits = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -135,7 +144,8 @@ tbl_ae <- function(data, id, ae,
                    header_strata = vct_header_strata,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
-                   labels = names(lst_data_complete))
+                   labels = names(lst_data_complete),
+                   digits = digits)
   }
 
   # tabulate AEs ---------------------------------------------------------------
@@ -148,7 +158,8 @@ tbl_ae <- function(data, id, ae,
                  header_strata = vct_header_strata,
                  remove_header_row = TRUE,
                  zero_symbol = zero_symbol,
-                 labels = NULL)
+                 labels = NULL,
+                 digits = digits)
 
   # stacking tbls into big final AE table --------------------------------------
   if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)

@@ -208,6 +208,26 @@ test_that("df_adverse_event() works", {
     NA
   )
 
+  # checking digits argument
+  expect_error(
+    tbl <-
+      tbl_ae(
+        data = df1,
+        id = "patient_id",
+        ae = "adverse_event",
+        soc = "system_organ_class",
+        statistic = "{n} / {N} ({p}%)",
+        by = "grade",
+        zero_symbol = NULL,
+        digits = c(1, 1, 2)
+      ),
+    NA
+  )
+  expect_equal(
+    as_tibble(tbl, col_labels = FALSE)$stat_2,
+    c("2.0 / 3.0 (66.67%)", "2.0 / 3.0 (66.67%)", "0.0 / 3.0 (0.00%)")
+  )
+
 })
 
 

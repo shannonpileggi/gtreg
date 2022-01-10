@@ -32,12 +32,18 @@
 #'
 #' \if{html}{\figure{tbl_ae_focus_ex1.png}{options: width=70\%}}
 
-tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
+tbl_ae_focus <- function(data,
+                         include,
+                         id,
+                         ae,
+                         soc = NULL,
+                         strata = NULL,
                          id_df = NULL,
                          statistic = "{n} ({p})",
                          label = NULL,
                          header_strata = NULL,
-                         zero_symbol = "\U2014") {
+                         zero_symbol = "\U2014",
+                         digits = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -162,7 +168,8 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
           header_strata = vct_header_strata,
           remove_header_row = FALSE,
           zero_symbol = zero_symbol,
-          labels = names(lst_data_complete)
+          labels = names(lst_data_complete),
+          digits = digits
         )
       )
 
@@ -196,7 +203,8 @@ tbl_ae_focus <- function(data, include, id, ae, soc = NULL, strata = NULL,
           {stringr::str_glue("**{.}**")},
         header_strata = vct_header_strata,
         remove_header_row = TRUE,
-        zero_symbol = zero_symbol
+        zero_symbol = zero_symbol,
+        digits = digits
       )
     )
 
