@@ -18,7 +18,8 @@ tbl_ae(
   header_by = NULL,
   header_strata = NULL,
   zero_symbol = "—",
-  digits = NULL
+  digits = NULL,
+  sort = c("alphanumeric", "frequency")
 )
 }
 \arguments{
@@ -65,7 +66,10 @@ of these, pass a vector of integers indicating the number of decimal
 places to round the statistics. For example, if the statistic being
 calculated is \code{"{n} ({p}\%)"} and you want the percent rounded to
 2 decimal places use \code{digits = c(0, 2)}.
-User may also pass a styling function: \code{digits = style_sigfig}}
+User may also pass a styling function: \code{digits = style_sigfig}
+@param sort Order AEs and SOCs appear in the tables. Default is
+\code{"alphanumeric"}. \code{sort = "frequency"} will sort in decreasing frequency
+order.}
 }
 \description{
 The function tabulates adverse events. One AE per ID will be counted in the

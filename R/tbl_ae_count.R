@@ -27,11 +27,14 @@ tbl_ae_count <- function(data, ae,
                          missing_text = "Unknown",
                          header_by = NULL,
                          zero_symbol = "\U2014",
-                         digits = NULL) {
+                         digits = NULL,
+                         sort = c("alphanumeric", "frequency")) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
   }
+  sort <- match.arg(sort)
+
   ae <-
     .select_to_varnames({{ ae }}, data = data,
                         arg_name = "ae", select_single = TRUE)
@@ -110,7 +113,8 @@ tbl_ae_count <- function(data, ae,
                  remove_header_row = TRUE,
                  zero_symbol = zero_symbol,
                  labels = NULL,
-                 digits = digits)
+                 digits = digits,
+                 sort = sort)
 
   # stacking tbls into big final AE table --------------------------------------
   if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)

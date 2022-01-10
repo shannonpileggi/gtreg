@@ -10,7 +10,24 @@
                          labels = NULL,
                          by = "by",
                          by_level_to_hide = "NOT OBSERVED",
-                         digits = NULL) {
+                         digits = NULL,
+                         sort = "alphanumeric") {
+  # order SOC if needed --------------------------------------------------------
+  if (length(lst_data) > 1 && sort %in% "frequency") {
+    ordered_names <-
+      purrr::imap(
+        lst_data,
+        ~ .x %>%
+          filter(!.data$by %in% "NOT OBSERVED") %>%
+          nrow()
+      ) %>%
+      unlist() %>%
+      sort(decreasing = TRUE) %>%
+      names()
+
+    lst_data <- lst_data[ordered_names]
+  }
+
   purrr::map(
     seq_len(length(lst_data)),
     function(index) {
@@ -22,10 +39,28 @@
       if ("ae" %in% variable_summary) {
         df_ae[[stringr::str_glue("{variable_summary}{index}")]] <-
           factor(df_ae[[stringr::str_glue("{variable_summary}{index}")]])
+
+        # sorting the factor by frequency, if requested
+        if (sort %in% "frequency" || TRUE) {
+          # vector of levels in descending frequency order
+          freg_levels <-
+            df_ae %>%
+            filter(!.data$by %in% "NOT OBSERVED") %>%
+            mutate(
+              "{variable_summary}{index}" :=
+                forcats::fct_infreq(
+                  .data[[stringr::str_glue("{variable_summary}{index}")]])
+            ) %>%
+            dplyr::pull(.data[[stringr::str_glue("{variable_summary}{index}")]]) %>%
+            levels()
+
+          # re-order AEs by frequency
+          df_ae[[stringr::str_glue("{variable_summary}{index}")]] <-
+            factor(
+              df_ae[[stringr::str_glue("{variable_summary}{index}")]],
+              levels = freg_levels)
+        }
       }
-      # ------------------------------------------------------------------------
-      # TODO: Add frequency sorting codes here. Define a factor to sort AEs
-      # ------------------------------------------------------------------------
 
       fn_tbl_ae <-
         purrr::partial(.fn_tbl,
