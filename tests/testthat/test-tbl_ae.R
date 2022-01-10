@@ -376,7 +376,8 @@ test_that("tbl_ae() sorting", {
         statistic = "{n}",
         sort = "frequency"
       ) %>%
-      as_tibble(col_labels = FALSE)
+      as_tibble(col_labels = FALSE),
+    NA
   )
   expect_equal(
     tbl %>% dplyr::slice_head(n = 2),
