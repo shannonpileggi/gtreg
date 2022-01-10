@@ -25,7 +25,7 @@
 #'     soc = system_organ_class,
 #'     by = grade,
 #'     strata = trt,
-#'     header = "**Grade {level}**"
+#'     header_by = "**Grade {level}**"
 #'   ) %>%
 #'   add_overall() %>%
 #'   bold_labels()
@@ -38,7 +38,7 @@
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
 #'     by = grade,
-#'     header = "**Grade {level}**"
+#'     header_by = "**Grade {level}**"
 #'   ) %>%
 #'   add_overall(across = 'by') %>%
 #'   bold_labels()
@@ -63,7 +63,7 @@
 #'     soc = system_organ_class,
 #'     by = grade,
 #'     strata = trt,
-#'     header = "**Grade {level}**"
+#'     header_by = "**Grade {level}**"
 #'   ) %>%
 #'   add_overall(across = 'overall-only') %>%
 #'   bold_labels()
@@ -120,46 +120,39 @@ add_overall.tbl_ae <- function(x, across = c("both", "by", "strata", "overall-on
   if (across %in% "both") {
     # table without by variable
     tbl_args_by <- tbl_args
-    tbl_args_by$by <- tbl_args_by$header <- NULL
+    tbl_args_by$by <- tbl_args_by$header_by <- NULL
     tbl_overall_by <- do.call(class(x)[1], tbl_args_by)
 
     # table without strata variable
     tbl_args_strata <- tbl_args
-    tbl_args_strata$strata <- NULL
-    tbl_overall_strata <-
-      do.call(class(x)[1], tbl_args_strata) %>%
-      gtsummary::modify_spanning_header(
-        gtsummary::all_stat_cols() ~ "**Overall**"
-      )
+    tbl_args_strata$data[[tbl_args_strata$strata]] <- "Overall"
+
+    tbl_overall_strata <- do.call(class(x)[1], tbl_args_strata)
 
     # table with neither by nor strata variables
-    tbl_args$by <-  tbl_args$header <- tbl_args$strata <- NULL
-    tbl_overall_neither <-
-      do.call(class(x)[1], tbl_args) %>%
-      gtsummary::modify_spanning_header(
-        gtsummary::all_stat_cols() ~ "**Overall**"
-      )
+    tbl_args_neither <- tbl_args
+    tbl_args_neither$data[[tbl_args_neither$strata]] <- "Overall"
+    tbl_args_neither$by <- tbl_args_neither$header_by <- NULL
+
+    tbl_overall_neither <- do.call(class(x)[1], tbl_args_neither)
 
     tbl_overall <-
       list(tbl_overall_by, tbl_overall_strata, tbl_overall_neither) %>%
       gtsummary::tbl_merge(tab_spanner = FALSE)
   }
   else if (across %in% "overall-only") {
-    tbl_args$by <- tbl_args$header <- tbl_args$strata <- NULL
+    tbl_args$by <- tbl_args$header_by <- tbl_args$strata <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
   }
   else if (across %in% "by") {
-    tbl_args$by <- tbl_args$header <- NULL
+    tbl_args$by <- tbl_args$header_by <- NULL
     tbl_overall <-
       do.call(class(x)[1], tbl_args)
   }
   else if (across %in% "strata") {
-    tbl_args$strata <- NULL
-    tbl_overall <-
-      do.call(class(x)[1], tbl_args) %>%
-      gtsummary::modify_spanning_header(
-        gtsummary::all_stat_cols() ~ "**Overall**"
-      )
+    tbl_args$data[[tbl_args$strata]] <- "Overall"
+
+    tbl_overall <- do.call(class(x)[1], tbl_args)
   }
 
   # merging tbl_overall with original call -------------------------------------
@@ -186,7 +179,8 @@ add_overall.tbl_ae <- function(x, across = c("both", "by", "strata", "overall-on
 
   # return merged tables -------------------------------------------------------
   class(tbl_final) <- class(x)
-  tbl_final
+  tbl_final %>%
+    gtsummary::tbl_butcher()
 }
 
 #' @rdname add_overall_tbl_ae

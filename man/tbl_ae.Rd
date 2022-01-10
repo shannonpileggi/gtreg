@@ -15,8 +15,10 @@ tbl_ae(
   by_values = NULL,
   missing_text = "Unknown",
   statistic = "{n} ({p})",
-  header = "**{level}**",
-  zero_symbol = "—"
+  header_by = NULL,
+  header_strata = NULL,
+  zero_symbol = "—",
+  digits = NULL
 )
 }
 \arguments{
@@ -46,12 +48,24 @@ Default is \code{"Unknown"}}
 \item{statistic}{String indicating the statistics that will be reported.
 The default is \code{"{n} ({p})"}}
 
-\item{header}{String indicating the header to be placed in the table.
-Default is \code{"**{level}**"}}
+\item{header_by}{String indicating the header to be placed in the table.
+Default is \code{"**{level}**"} and only used when \verb{by=} is specified.}
+
+\item{header_strata}{String indicating the strata header to be placed in the table.
+Default is \code{"**{level}**, N = {n}"} and only used when \verb{strata=} is specified.}
 
 \item{zero_symbol}{String used to represent cells with zero counts. Default
 is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
 zero count statistics, e.g. \code{"0 (0)"}}
+
+\item{digits}{Specifies the number of decimal places to round the summary statistics.
+By default integers are shown to zero decimal places, and percentages are
+formatted with \code{style_percent()}. If you would like to modify either
+of these, pass a vector of integers indicating the number of decimal
+places to round the statistics. For example, if the statistic being
+calculated is \code{"{n} ({p}\%)"} and you want the percent rounded to
+2 decimal places use \code{digits = c(0, 2)}.
+User may also pass a styling function: \code{digits = style_sigfig}}
 }
 \description{
 The function tabulates adverse events. One AE per ID will be counted in the
@@ -73,7 +87,7 @@ df_adverse_events \%>\%
     soc = system_organ_class,
     by = grade,
     strata = trt,
-    header = "**Grade {level}**"
+    header_by = "**Grade {level}**"
   ) \%>\%
   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 
@@ -83,7 +97,7 @@ df_adverse_events \%>\%
     id = patient_id,
     ae = adverse_event,
     by = grade,
-    header = "**Grade {level}**"
+    header_by = "**Grade {level}**"
   ) \%>\%
   as_kable() # UPDATE THIS WITH PROPER gt image at some point.
 \dontshow{\}) # examplesIf}

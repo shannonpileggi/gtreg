@@ -163,9 +163,9 @@ test_that("df_adverse_event() works", {
       ae = "adverse_event",
       soc = "system_organ_class",
       by = "grade",
-      ),
+    ),
     NA
-    )
+  )
 
   # modified statistic, default zero_symbol
   expect_error(
@@ -208,4 +208,150 @@ test_that("df_adverse_event() works", {
     NA
   )
 
+  # checking digits argument
+  expect_error(
+    tbl <-
+      tbl_ae(
+        data = df1,
+        id = "patient_id",
+        ae = "adverse_event",
+        soc = "system_organ_class",
+        statistic = "{n} / {N} ({p}%)",
+        by = "grade",
+        zero_symbol = NULL,
+        digits = c(1, 1, 2)
+      ),
+    NA
+  )
+  expect_equal(
+    as_tibble(tbl, col_labels = FALSE)$stat_2,
+    c("2.0 / 3.0 (66.67%)", "2.0 / 3.0 (66.67%)", "0.0 / 3.0 (0.00%)")
+  )
+
 })
+
+
+test_that("tbl_ae() headers", {
+
+  # header_by modified ---------------------------------------------------------
+  h_by1 <- c("**Grade 1**", "**Grade 2**", "**Grade 3**","**Grade 4**", "**Grade 5**", "**Overall**")
+  tbl_by1 <-
+    df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      by = grade,
+      statistic = "{n}",
+      header_by = "**Grade {level}**"
+    ) %>%
+    add_overall(across = 'by')
+
+  expect_equal(length(intersect(tbl_by1$table_styling$header$label, h_by1)), 6)
+
+  # header_by default ---------------------------------------------------------
+  h_by2 <- c("**1**", "**2**", "**3**","**4**", "**5**", "**Overall**")
+  tbl_by2 <-
+    df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      by = grade,
+      statistic = "{n}"
+    ) %>%
+    add_overall(across = 'by')
+
+  expect_equal(length(intersect(tbl_by2$table_styling$header$label, h_by2)), 6)
+
+  # header_by without by -------------------------------------------------------
+   expect_error(
+     df_adverse_events %>%
+       tbl_ae(
+         id = patient_id,
+         ae = adverse_event,
+         statistic = "{n}",
+         header_by = "**Grade {level}**"
+       )
+   )
+
+
+  # by with header_strata ------------------------------------------------------
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        by = grade,
+        header_strata = "**Cohort {level}**"
+      )
+   )
+
+
+  # ----------------------------------------------------------------------------
+  # strata default with overall and header_by -------------------------------
+  strata_by1 <- c("**Drug A**, N = 3", "**Drug B**, N = 7", "**Overall**, N = 10")
+  tbl_strata1 <-
+    df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      by = grade,
+      strata = trt,
+      statistic = "{n}",
+      header_by = "**Grade {level}**"
+    ) %>%
+    add_overall(across = 'strata')
+
+  expect_equal(length(intersect(tbl_strata1$table_styling$header$spanning_header, strata_by1)), 3)
+
+
+
+  # strata_by default, no header_by no overall ---------------------------------
+  strata_by2 <- c("**Drug A**, N = 3", "**Drug B**, N = 7")
+  tbl_strata2 <-
+    df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      strata = trt
+    )
+  expect_equal(length(intersect(tbl_strata2$table_styling$header$spanning_header, strata_by2)), 2)
+
+  # strata_by default with overall ---------------------------------------------
+  strata_by3 <- c("**Drug A**, N = 3", "**Drug B**, N = 7", "**Overall**, N = 10")
+  tbl_strata3 <-
+    df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      strata = trt
+    ) %>%
+    add_overall(across = 'strata')
+
+  expect_equal(length(intersect(tbl_strata3$table_styling$header$spanning_header, strata_by3)), 3)
+
+  # strata_by without strata----------------------------------------------------
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        strata_by = "**Cohort {level}**"
+      )
+  )
+
+  # strata with header_by ------------------------------------------------------
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        strata = trt,
+        header_by = "**Cohort {level}**"
+      )
+  )
+})
+
+

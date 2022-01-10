@@ -1,7 +1,16 @@
 # this function returns a list of tbls, summarizing either AEs or SOC
-.lst_of_tbls <- function(lst_data, variable_summary, variable_filter, statistic,
-                         header, remove_header_row, zero_symbol = NULL,
-                         labels = NULL, by = "by",  by_level_to_hide = "NOT OBSERVED") {
+.lst_of_tbls <- function(lst_data,
+                         variable_summary,
+                         variable_filter,
+                         statistic,
+                         header_by,
+                         header_strata = NULL,
+                         remove_header_row,
+                         zero_symbol = NULL,
+                         labels = NULL,
+                         by = "by",
+                         by_level_to_hide = "NOT OBSERVED",
+                         digits = NULL) {
   purrr::map(
     seq_len(length(lst_data)),
     function(index) {
@@ -23,16 +32,20 @@
                        variable = stringr::str_glue("{variable_summary}{index}"),
                        label = labels[index],
                        statistic = statistic,
-                       header = header,
+                       header_by = header_by,
                        remove_header_row = TRUE,
-                       zero_symbol = zero_symbol)
+                       zero_symbol = zero_symbol,
+                       digits = digits)
 
       if ("strata" %in% names(df_ae)) {
         tbl <-
           gtsummary::tbl_strata(
             data = df_ae,
             strata = "strata",
-            .tbl_fun = ~fn_tbl_ae(data = .x)
+            .tbl_fun = ~fn_tbl_ae(data = .x),
+            .combine_with = "tbl_merge",
+            .combine_args =
+              switch(!is.null(header_strata), list(tab_spanner = header_strata))
           )
       }
       else {
@@ -45,9 +58,9 @@
 }
 
 # define `tbl_summary()` function to tabulate SOC/AE
-.fn_tbl <- function(data, variable, label = NULL, statistic, header,
+.fn_tbl <- function(data, variable, label = NULL, statistic, header_by,
                     remove_header_row, zero_symbol = NULL, by = "by",
-                    by_level_to_hide = "NOT OBSERVED") {
+                    by_level_to_hide = "NOT OBSERVED", digits = NULL) {
   tbl <-
     gtsummary::tbl_summary(
       data = data,
@@ -55,9 +68,10 @@
       percent = "row",
       label = switch(!is.null(label), everything() ~ label),
       statistic = everything() ~ statistic,
-      include = all_of(variable)
+      include = all_of(variable),
+      digits = switch(!is.null(digits), everything() ~ digits)
     ) %>%
-    gtsummary::modify_header(gtsummary::all_stat_cols() ~ header)
+    gtsummary::modify_header(gtsummary::all_stat_cols() ~ header_by)
 
   # hide the column for unobserved data
   column_to_hide <-
@@ -139,5 +153,28 @@
     gtsummary::tbl_butcher()
 }
 
+
+# convert the complete data df to a df with the Ns within each stratum
+.complete_data_to_df_strata <- function(data) {
+  if (!"strata" %in% names(data)) {
+    return(NULL)
+  }
+
+  data %>%
+    dplyr::ungroup() %>%
+    select(all_of(c("id", "strata"))) %>%
+    dplyr::distinct() %>%
+    arrange(.data$strata) %>%
+    mutate(N = dplyr::n()) %>%
+    group_by(.data$strata) %>%
+    mutate(
+      strata = as.character(.data$strata),
+      n = dplyr::n(),
+      p = .data$n / .data$N
+    ) %>%
+    dplyr::ungroup() %>%
+    select(level = .data$strata, .data$n, .data$N, .data$p) %>%
+    dplyr::distinct()
+}
 
 

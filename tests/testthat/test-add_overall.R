@@ -5,10 +5,9 @@ test_that("add_overall() works", {
       tbl_ae(
         id = patient_id,
         ae = adverse_event,
-        soc = system_organ_class,
         by = grade,
         statistic = "{n}",
-        header = "**Grade {level}**"
+        header_by = "**Grade {level}**"
       ) %>%
       add_overall(across = 'by') %>%
       as_tibble(col_label = FALSE),
@@ -35,9 +34,7 @@ test_that("add_overall() works", {
       all()
   )
 
-
-
-    expect_error(
+  expect_error(
     tbl1 <-
       df_adverse_events %>%
       tbl_ae(
@@ -46,40 +43,40 @@ test_that("add_overall() works", {
         soc = system_organ_class,
         by = grade,
         strata = trt,
-        header = "**Grade {level}**"
+        header_by = "**Grade {level}**"
       ) %>%
       add_overall() %>%
       as_tibble(col_label = FALSE),
     NA
   )
 
-    expect_error(
-      df_adverse_events %>%
-        tbl_ae(
-          id = patient_id,
-          ae = adverse_event,
-          soc = system_organ_class,
-          by = grade,
-          strata = trt,
-          header = "**Grade {level}**"
-        ) %>%
-        add_overall(across = 'strata'),
-      NA
-    )
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        by = grade,
+        strata = trt,
+        header_by = "**Grade {level}**"
+      ) %>%
+      add_overall(across = 'strata'),
+    NA
+  )
 
-    expect_error(
-      df_adverse_events %>%
-        tbl_ae(
-          id = patient_id,
-          ae = adverse_event,
-          soc = system_organ_class,
-          by = grade,
-          strata = trt,
-          header = "**Grade {level}**"
-        ) %>%
-        add_overall(across = 'overall-only'),
-      NA
-    )
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        by = grade,
+        strata = trt,
+        header_by = "**Grade {level}**"
+      ) %>%
+      add_overall(across = 'overall-only'),
+    NA
+  )
 })
 
 
@@ -93,7 +90,7 @@ test_that("add_overall() warns", {
         soc = system_organ_class,
         by = grade,
         statistic = "{n}",
-        header = "**Grade {level}**"
+        header_by = "**Grade {level}**"
       ) %>%
       add_overall(),
     "Using `across = 'by'` instead."
@@ -107,7 +104,7 @@ test_that("add_overall() warns", {
         soc = system_organ_class,
         by = grade,
         statistic = "{n}",
-        header = "**Grade {level}**"
+        header_by = "**Grade {level}**"
       ) %>%
       add_overall(across = 'strata'),
     "Using `across = 'by'` instead."
@@ -121,8 +118,7 @@ test_that("add_overall() warns", {
         ae = adverse_event,
         soc = system_organ_class,
         strata = trt,
-        statistic = "{n}",
-        header = "**Grade {level}**"
+        statistic = "{n}"
       ) %>%
       add_overall(across = 'by'),
     "Using `across = 'strata'` instead."
@@ -135,8 +131,7 @@ test_that("add_overall() warns", {
         ae = adverse_event,
         soc = system_organ_class,
         strata = trt,
-        statistic = "{n}",
-        header = "**Grade {level}**"
+        statistic = "{n}"
       ) %>%
       add_overall(),
     "Using `across = 'strata'` instead."

@@ -7,7 +7,7 @@ test_that("tbl_ae_count() works", {
         soc = system_organ_class,
         strata = trt,
         by = grade,
-        header = "**Grade {level}**",
+        header_by = "**Grade {level}**",
         zero_symbol = NULL
       ),
     NA
@@ -64,10 +64,14 @@ test_that("tbl_ae_count() works", {
     NA
   )
   expect_error(
-    tbl_ae_count(
-      data = df_adverse_events,
-      ae = adverse_event
-    ),
+    tbl <-
+      tbl_ae_count(
+        data = df_adverse_events,
+        ae = adverse_event,
+        digits = function(x) style_number(x, digits = 2)
+      ),
     NA
   )
+  expect_equal(as_tibble(tbl, col_labels = FALSE)$stat_1[1:3],
+               c("10.00", "5.00", "9.00"))
 })

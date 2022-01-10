@@ -12,8 +12,9 @@ tbl_ae_count(
   strata = NULL,
   by_values = NULL,
   missing_text = "Unknown",
-  header = "**{level}**",
-  zero_symbol = "—"
+  header_by = NULL,
+  zero_symbol = "—",
+  digits = NULL
 )
 }
 \arguments{
@@ -35,12 +36,21 @@ event of a certain grade is not observed for a given soc}
 \item{missing_text}{String that will be shown for missing levels of \verb{by=},
 Default is \code{"Unknown"}}
 
-\item{header}{String indicating the header to be placed in the table.
-Default is \code{"**{level}**"}}
+\item{header_by}{String indicating the header to be placed in the table.
+Default is \code{"**{level}**"} and only used when \verb{by=} is specified.}
 
 \item{zero_symbol}{String used to represent cells with zero counts. Default
 is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
 zero count statistics, e.g. \code{"0 (0)"}}
+
+\item{digits}{Specifies the number of decimal places to round the summary statistics.
+By default integers are shown to zero decimal places, and percentages are
+formatted with \code{style_percent()}. If you would like to modify either
+of these, pass a vector of integers indicating the number of decimal
+places to round the statistics. For example, if the statistic being
+calculated is \code{"{n} ({p}\%)"} and you want the percent rounded to
+2 decimal places use \code{digits = c(0, 2)}.
+User may also pass a styling function: \code{digits = style_sigfig}}
 }
 \value{
 a 'tbl_ae_count' object
@@ -58,7 +68,7 @@ tbl_ae_count_ex1 <-
     soc = system_organ_class,
     strata = trt,
     by = grade,
-    header = "**Grade {level}**"
+    header_by = "**Grade {level}**"
   )
 \dontshow{\}) # examplesIf}
 }

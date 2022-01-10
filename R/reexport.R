@@ -138,18 +138,15 @@ gtsummary::show_header_names
 #' @export
 gtsummary::all_stat_cols
 
-#' @importFrom gtsummary all_continuous
+#' @importFrom gtsummary style_number
 #' @export
-gtsummary::all_continuous
+gtsummary::style_number
 
-#' @importFrom gtsummary all_categorical
+#' @importFrom gtsummary style_sigfig
 #' @export
-gtsummary::all_categorical
+gtsummary::style_sigfig
 
-#' @importFrom gtsummary all_categorical
+#' @importFrom gtsummary style_percent
 #' @export
-gtsummary::all_categorical
+gtsummary::style_percent
 
-#' @importFrom gtsummary all_dichotomous
-#' @export
-gtsummary::all_dichotomous

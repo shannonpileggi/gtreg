@@ -320,4 +320,87 @@ test_that("assess complete data single arm, single soc", {
       strata = "trt"
     )
   )
+
+  expect_error(
+    .complete_ae_data(
+      data = df_adverse_events,
+      id = "patient_id",
+      strata = "trt",
+      by_levels = letters
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data = df_adverse_events %>% dplyr::mutate(trt = factor(trt)),
+      id = "patient_id",
+      strata = "trt",
+      by_levels = letters
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data =
+        df_adverse_events %>%
+        dplyr::mutate(patient_id = ifelse(dplyr::row_number() == 1L, NA, patient_id)),
+      id = "patient_id",
+      ae = "adverse_event",
+      strata = "trt"
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data = df_adverse_events,
+      id = "patient_id",
+      ae = "adverse_event",
+      strata = "trt",
+      missing_text = 1L
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data = df_adverse_events,
+      ae = "adverse_event",
+      id = "patient_id",
+      id_df = tibble::tibble(patient_id = "adsf")
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data =
+        df_adverse_events %>%
+        dplyr::mutate(grade = ifelse(dplyr::row_number() == 1L, NA, grade)),
+      ae = "adverse_event",
+      id = "patient_id",
+      by = "grade",
+      missing_text = "1"
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data =
+        df_adverse_events %>%
+        dplyr::mutate(grade = ifelse(dplyr::row_number() == 1L, NA, grade)),
+      ae = "adverse_event",
+      id = "patient_id",
+      by = "grade",
+      missing_text = "6",
+      by_values = as.character(1:6)
+    )
+  )
+
+  expect_error(
+    .complete_ae_data(
+      data = df_adverse_events,
+      ae = "adverse_event",
+      id = "patient_id",
+      by = "grade",
+      by_values = as.character(5:6)
+    )
+  )
 })
