@@ -21,12 +21,8 @@
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
-#' \if{html}{\figure{tbl_ae_count_ex1.png}{options: width=70\%}}
+#' \if{html}{\figure{tbl_ae_count_ex1.png}{options: width=90\%}}
 #'
-#' \if{html}{Example 2}
-#'
-#' \if{html}{\figure{tbl_ae_count_ex2.png}{options: width=70\%}}
-
 tbl_ae_count <- function(data, ae,
                          soc = NULL,
                          by = NULL,

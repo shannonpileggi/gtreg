@@ -69,11 +69,11 @@
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
-#' \if{html}{\figure{tbl_ae_ex1.png}{options: width=70\%}}
+#' \if{html}{\figure{tbl_ae_ex1.png}{options: width=95\%}}
 #'
 #' \if{html}{Example 2}
 #'
-#' \if{html}{\figure{tbl_ae_ex2.png}{options: width=70\%}}
+#' \if{html}{\figure{tbl_ae_ex2.png}{options: width=65\%}}
 
 tbl_ae <- function(data, id, ae,
                    soc = NULL, by = NULL, strata = NULL,

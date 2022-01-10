@@ -43,7 +43,7 @@ the ordering of the columns may not be correct.
 
 \if{html}{Example 1}
 
-\if{html}{\figure{add_overall_ex1.png}{options: width=70\%}}
+\if{html}{\figure{add_overall_ex1.png}{options: width=100\%}}
 
 \if{html}{Example 2}
 
@@ -51,11 +51,11 @@ the ordering of the columns may not be correct.
 
 \if{html}{Example 3}
 
-\if{html}{\figure{add_overall_ex3.png}{options: width=70\%}}
+\if{html}{\figure{add_overall_ex3.png}{options: width=90\%}}
 
 \if{html}{Example 4}
 
-\if{html}{\figure{add_overall_ex4.png}{options: width=70\%}}
+\if{html}{\figure{add_overall_ex4.png}{options: width=90\%}}
 }
 
 \examples{
