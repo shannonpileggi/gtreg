@@ -9,6 +9,15 @@ df1 <-
     trt = rep("A", 4)
   )
 
+df2 <-
+  tibble::tibble(
+    patient_id = paste0("ID", 1:9),
+    system_organ_class = c("Fruit", "Fruit", "Fruit", "Veg", "Veg", "Veg", "Veg", "Bread", "Bread"),
+    adverse_event = c("apple",  "banana", "banana", "artichoke", "spinach", "spinach", "spinach", "ciabatta", "sourdough"),
+    grade = rep(1, 9),
+    trt = rep("A", 9)
+  )
+
 id_valid <-
   tibble::tibble(
     patient_id = paste0("ID", 1:5),
@@ -266,15 +275,15 @@ test_that("tbl_ae() headers", {
   expect_equal(length(intersect(tbl_by2$table_styling$header$label, h_by2)), 6)
 
   # header_by without by -------------------------------------------------------
-   expect_error(
-     df_adverse_events %>%
-       tbl_ae(
-         id = patient_id,
-         ae = adverse_event,
-         statistic = "{n}",
-         header_by = "**Grade {level}**"
-       )
-   )
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        header_by = "**Grade {level}**"
+      )
+  )
 
 
   # by with header_strata ------------------------------------------------------
@@ -287,7 +296,7 @@ test_that("tbl_ae() headers", {
         by = grade,
         header_strata = "**Cohort {level}**"
       )
-   )
+  )
 
 
   # ----------------------------------------------------------------------------
@@ -356,5 +365,96 @@ test_that("tbl_ae() headers", {
       )
   )
 })
+
+
+
+test_that("tbl_ae() sorting", {
+
+  expect_error(
+    tbl <-
+      df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        sort = "frequency"
+      ) %>%
+      as_tibble(col_labels = FALSE),
+    NA
+  )
+
+  expect_equal(
+    tbl %>%
+      dplyr::slice_head(n = 2),
+      tibble::tibble(
+        label = c("Non-erosive reflux disease", "Thrombocytopenia"),
+        stat_1 = c("10", "9")
+      )
+    )
+
+  expect_equal(
+    tbl_ae(
+        data = df2,
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        statistic = "{n}"
+      ) %>%
+      as_tibble(col_labels = FALSE) %>%
+      .$stat_1,
+    c("2", "1", "1", "3", "1", "2", "4", "1", "3")
+  )
+
+  expect_equal(
+    tbl_ae(
+      df2,
+      id = patient_id,
+      ae = adverse_event,
+      soc = system_organ_class,
+      statistic = "{n}",
+      sort = "frequency"
+    ) %>%
+    as_tibble(col_labels = FALSE) %>%
+      .$stat_1,
+    c("2", "3", "1", "3", "2", "1", "4", "1", "1")
+  )
+
+  # check ordering when soc is input as factor
+  expect_equal(
+    df2 %>%
+      mutate(
+        system_organ_class = forcats::fct_rev(system_organ_class)
+      ) %>%
+      tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      soc = system_organ_class,
+      statistic = "{n}",
+      sort = "alphanumeric"
+    ) %>%
+    as_tibble(col_labels = FALSE) %>%
+      .$stat_1,
+    c("4", "1", "3", "3", "1", "2", "2", "1", "1")
+  )
+
+    # check ordering when ae is input as factor
+  expect_equal(
+    df2 %>%
+      mutate(
+        adverse_event = forcats::fct_relevel(adverse_event, "sourdough", "banana")
+      ) %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}"
+      ) %>%
+      as_tibble(col_labels = FALSE) %>%
+      .$stat_1,
+    c("1", "2", "1", "1", "1", "3")
+  )
+
+})
+
+
 
 

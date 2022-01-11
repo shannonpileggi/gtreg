@@ -43,11 +43,14 @@ tbl_ae_focus <- function(data,
                          label = NULL,
                          header_strata = NULL,
                          zero_symbol = "\U2014",
-                         digits = NULL) {
+                         digits = NULL,
+                         sort = c("alphanumeric", "frequency")) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
   }
+  sort <- match.arg(sort)
+
   id <-
     .select_to_varnames({{ id }}, data = data,
                         arg_name = "id", select_single = TRUE)
@@ -204,7 +207,8 @@ tbl_ae_focus <- function(data,
         header_strata = vct_header_strata,
         remove_header_row = TRUE,
         zero_symbol = zero_symbol,
-        digits = digits
+        digits = digits,
+        sort = sort
       )
     )
 
