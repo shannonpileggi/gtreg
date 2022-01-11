@@ -87,7 +87,7 @@
         tbl <- fn_tbl_ae(data = df_ae)
       }
 
-      tbl
+      gtsummary::tbl_butcher(tbl)
     }
   )
 }
@@ -150,19 +150,17 @@
         # setting cells with zero count to missing
         gtsummary::modify_table_body(
           ~ dplyr::mutate(.x, !!!expr_zero_to_NA)
-        ) %>%
-        # formatting missing values with 'zero_symbol'
-        gtsummary::modify_table_styling(
-          columns = gtsummary::all_stat_cols(),
-          missing_symbol = zero_symbol
         )
     }
   }
 
+  # removing footnote
+  tbl$table_styling$footnote <- dplyr::filter(tbl$table_styling$footnote, FALSE)
+
   tbl
 }
 
-.stack_soc_ae_tbls <- function(lst_tbl_ae, lst_tbl_soc = NULL) {
+.stack_soc_ae_tbls <- function(lst_tbl_ae, lst_tbl_soc = NULL, zero_symbol = NULL) {
   if (!is.null(lst_tbl_soc)) {
     tbl_final <-
       # stack SOC with AEs within that SOC, then stack all tbls
@@ -178,6 +176,15 @@
         columns = "label",
         text_format = "indent",
         undo_text_format = TRUE
+      )
+  }
+
+  if (!is.null(zero_symbol)) {
+    tbl_final %>%
+      gtsummary::modify_table_styling(
+        columns = gtsummary::all_stat_cols(),
+        rows = !is.na(.data$variable),
+        missing_symbol = zero_symbol
       )
   }
 
