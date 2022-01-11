@@ -41,5 +41,5 @@ tbl <-
   )
 show_header_names(tbl)
 
-inline_text(tbl, "Anaemia", column = stat_6)
+inline_text(tbl, "Anaemia", column = stat_5)
 }

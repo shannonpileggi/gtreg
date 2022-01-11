@@ -52,7 +52,7 @@ test_that("tbl_ae_focus() works", {
       ),
     NA
   )
-  expect_equal(as_tibble(tbl2, col_labels = FALSE)$stat_2_1[1:2],
+  expect_equal(as_tibble(tbl2, col_labels = FALSE)$stat_1_1[1:2],
                c("7.0 (70.0)", "5.0 (50.0)"))
 
   expect_error(
