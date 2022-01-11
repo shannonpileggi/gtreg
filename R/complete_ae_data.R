@@ -167,6 +167,12 @@
     ) %>%
     ungroup()
 
+  # move unobserved level to the end of the `by=` level
+  if (initial_dummy %in% levels(data_full[["by"]])) {
+    data_full[["by"]] <-
+      forcats::fct_relevel(data_full[["by"]], initial_dummy, after = Inf)
+  }
+
   return(data_full)
 }
 

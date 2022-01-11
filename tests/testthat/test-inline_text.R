@@ -7,7 +7,7 @@ test_that("inline text works", {
         by = grade,
         header_by = "**Grade {level}**"
       ) %>%
-      inline_text(row = "Anaemia", column = stat_6),
+      inline_text(row = "Anaemia", column = stat_5),
     "3 (30)"
   )
 
@@ -18,7 +18,7 @@ test_that("inline text works", {
         by = grade,
         header_by = "**Grade {level}**"
       ) %>%
-      inline_text(row = "Anaemia", column = stat_5),
+      inline_text(row = "Anaemia", column = stat_4),
     "3"
   )
 
@@ -29,7 +29,7 @@ test_that("inline text works", {
         ae = adverse_event,
         include = grade3_complication
       ) %>%
-      inline_text(row = "Anaemia", column = stat_2_1),
+      inline_text(row = "Anaemia", column = stat_1_1),
     "7 (70)"
   )
 
@@ -53,7 +53,7 @@ test_that("inline text works", {
         by = grade,
         header_by = "**Grade {level}**"
       ) %>%
-      inline_text(row = "Blood and lymphatic system disorders", column = stat_6),
+      inline_text(row = "Blood and lymphatic system disorders", column = stat_5),
     "7 (70)"
   )
 
@@ -67,8 +67,8 @@ test_that("inline text works", {
       header_by = "**Grade {level}**"
     )
 
-  expect_error(inline_text(tbl, row = 1L, column = stat_2))
-  expect_error(inline_text(tbl, row = "not an AE", column = stat_2))
+  expect_error(inline_text(tbl, row = 1L, column = stat_1))
+  expect_error(inline_text(tbl, row = "not an AE", column = stat_1))
 
 
 })
