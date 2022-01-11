@@ -46,7 +46,7 @@ tbl_ae <-
     soc = system_organ_class, 
     by = grade, 
     strata = trt,
-    header = "**Grade {level}**"
+    header_by = "**Grade {level}**"
   ) %>%
   bold_labels()
 ```
