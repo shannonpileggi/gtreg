@@ -26,10 +26,10 @@ test_that("add_overall() works", {
       dplyr::distinct() %>%
       dplyr::ungroup() %>%
       dplyr::inner_join(
-        tbl1 %>% dplyr::select(label, stat_2_2),
+        tbl1 %>% dplyr::select(label, stat_1_2),
         by = "label"
       ) %>%
-      dplyr::mutate(check = n == stat_2_2) %>%
+      dplyr::mutate(check = n == stat_1_2) %>%
       dplyr::pull(check) %>%
       all()
   )

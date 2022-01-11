@@ -111,9 +111,9 @@ test_that("assess complete data single arm, single soc", {
 
 
   #expect_equal(dim(e1), c(11, 7))
-  expect_equal(levels(e1$by), c("NOT OBSERVED", "1", "2", "3", "4", "5"))
-  expect_equal(levels(e2$by), c("NOT OBSERVED", "Unknown", "1", "2", "3", "4", "5"))
-  expect_equal(levels(e2a$by), c("NOT OBSERVED", "who dat", "1", "2", "3", "4", "5"))
+  expect_equal(levels(e1$by), c("1", "2", "3", "4", "5", "NOT OBSERVED"))
+  expect_equal(levels(e2$by), c("Unknown", "1", "2", "3", "4", "5", "NOT OBSERVED"))
+  expect_equal(levels(e2a$by), c("who dat", "1", "2", "3", "4", "5", "NOT OBSERVED"))
 
   # specifications that should result in an error ------------------------------
   # patient id variable name does not match

@@ -37,12 +37,15 @@ test_that("df_adverse_events() single arm, single soc", {
       by_values = as.character(c(1:5))
     )
 
-  expect_equal(e1[["table_body"]][["stat_1_1"]][3], "2 (67)")
-  expect_equal(e1[["table_body"]][["stat_1_1"]][2], "1 (33)")
-  expect_equal(e1[["table_body"]][["stat_2_1"]][1], "2 (67)")
-  expect_equal(e1[["table_body"]][["stat_2_1"]][2], "2 (67)")
-  expect_equal(e1[["table_body"]][["stat_3_1"]][1], "1 (33)")
-  expect_equal(e1[["table_body"]][["stat_3_1"]][3], "1 (33)")
+  expect_equal(e1[["table_body"]][["stat_6_1"]][3], "2 (67)")
+  expect_equal(e1[["table_body"]][["stat_6_1"]][2], "1 (33)")
+
+  expect_equal(e1[["table_body"]][["stat_1_1"]][1], "2 (67)")
+  expect_equal(e1[["table_body"]][["stat_1_1"]][2], "2 (67)")
+
+  expect_equal(e1[["table_body"]][["stat_2_1"]][1], "1 (33)")
+  expect_equal(e1[["table_body"]][["stat_2_1"]][3], "1 (33)")
+
   expect_equal(
     e1[["table_body"]][["label"]],
     c("Blood and lymphatic system disorders", "Anaemia", "Increased tendency to bruise")
@@ -233,7 +236,7 @@ test_that("df_adverse_event() works", {
     NA
   )
   expect_equal(
-    as_tibble(tbl, col_labels = FALSE)$stat_2,
+    as_tibble(tbl, col_labels = FALSE)$stat_1,
     c("2.0 / 3.0 (66.67%)", "2.0 / 3.0 (66.67%)", "0.0 / 3.0 (0.00%)")
   )
 
