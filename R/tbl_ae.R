@@ -33,11 +33,12 @@
 #' @param zero_symbol String used to represent cells with zero counts. Default
 #' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
 #' zero count statistics, e.g. `"0 (0)"`
-#' @param sort Controls order AEs appear.  When `ae` is specified without `soc`,
-#' applies to AEs overall.
-#' When `ae` is specified with `soc`, applies to AEs within SOCs.  Default is
-#' `"alphanumeric"` for alphabetical sorting. `sort = "frequency"` will
-#' sort in decreasing frequency order.
+#' @param sort Controls order of AEs in output table.  The default is `"alphanumeric"`,
+#' which results in factor level ordering for factor inputs, or for alphanumeric
+#' sorting for character or numeric inputs. `sort = "frequency"` will sort in
+#' decreasing frequency order. When `ae` is specified without `soc`,
+#' applies to AEs overall. When `ae` is specified with `soc`, applies to AEs
+#' within SOCs.
 #' @param digits Specifies the number of decimal places to round the summary statistics.
 #' By default integers are shown to zero decimal places, and percentages are
 #' formatted with `style_percent()`. If you would like to modify either
