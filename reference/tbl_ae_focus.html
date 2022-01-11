@@ -111,11 +111,12 @@ calculated is <code>"{n} ({p}%)"</code> and you want the percent rounded to
 2 decimal places use <code>digits = c(0, 2)</code>.
 User may also pass a styling function: <code>digits = style_sigfig</code></p></dd>
 <dt>sort</dt>
-<dd><p>Controls order AEs appear.  When <code>ae</code> is specified without <code>soc</code>,
-applies to AEs overall.
-When <code>ae</code> is specified with <code>soc</code>, applies to AEs within SOCs.  Default is
-<code>"alphanumeric"</code> for alphabetical sorting. <code>sort = "frequency"</code> will
-sort in decreasing frequency order.</p></dd>
+<dd><p>Controls order of AEs in output table.  The default is <code>"alphanumeric"</code>,
+which results in factor level ordering for factor inputs, or for alphanumeric
+sorting for character or numeric inputs. <code>sort = "frequency"</code> will sort in
+decreasing frequency order. When <code>ae</code> is specified without <code>soc</code>,
+applies to AEs overall. When <code>ae</code> is specified with <code>soc</code>, applies to AEs
+within SOCs.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
