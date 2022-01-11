@@ -169,22 +169,30 @@
       gtsummary::tbl_stack(quiet = TRUE)
   }
   else {
-    tbl_final <-
-      gtsummary::tbl_stack(lst_tbl_ae, quiet = TRUE) %>%
-      # remove indentation for AEs
-      gtsummary::modify_table_styling(
-        columns = "label",
-        text_format = "indent",
-        undo_text_format = TRUE
-      )
+    tbl_final <- gtsummary::tbl_stack(lst_tbl_ae, quiet = TRUE)
   }
 
+  # adding zero print symbol
   if (!is.null(zero_symbol)) {
     tbl_final %>%
       gtsummary::modify_table_styling(
         columns = gtsummary::all_stat_cols(),
         rows = !is.na(.data$variable),
         missing_symbol = zero_symbol
+      )
+  }
+
+  # setting indentation rules
+  tbl_final$table_styling$text_format <-
+    tbl_final$table_styling$text_format %>%
+    filter(!(.data$column %in% "label" & .data$format_type %in% "indent"))
+  if (!is.null(lst_tbl_soc)) {
+    tbl_final <-
+      gtsummary::modify_table_styling(
+        x = tbl_final,
+        columns = "label",
+        rows = startsWith(.data$variable, "ae"),
+        text_format = "indent"
       )
   }
 
