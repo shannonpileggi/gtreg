@@ -8,6 +8,7 @@
 
 Checklist for PR reviewer
 
+- [ ] Ensure all package dependencies are installed by running `renv::install()`
 - [ ] PR branch has pulled the most recent updates from master branch. Ensure the pull request branch and your local version match and both have the latest updates from the master branch.
 - [ ] If a new function was added, function included in `_pkgdown.yml`
 - [ ] If a bug was fixed, a unit test was added for the bug check
