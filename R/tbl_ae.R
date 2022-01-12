@@ -182,9 +182,9 @@ tbl_ae <- function(data, id, ae,
 
   # stacking tbls into big final AE table --------------------------------------
   if (is.null(soc))
-    tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae, zero_symbol = zero_symbol)
+    tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)
   else
-    tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae, lst_tbl_soc, zero_symbol = zero_symbol)
+    tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae, lst_tbl_soc)
 
   # return final tbl -----------------------------------------------------------
   tbl_final %>%

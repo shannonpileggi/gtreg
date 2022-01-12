@@ -132,7 +132,7 @@
 
     # if any zero count cells, then set to missing and format
     if (nrow(df_zero_columns) > 0) {
-      # create expression with code to set zero count data to NA
+      # create expression with code to set zero count data to the zero_symbol
       expr_zero_to_NA <-
         purrr::map2(
           df_zero_columns$col_name,
@@ -140,7 +140,7 @@
           function(col_name, labels) {
             rlang::expr(
               dplyr::across(dplyr::all_of(!!col_name),
-                            ~ifelse(.data$label %in% !!labels, NA, .))
+                            ~ifelse(.data$label %in% !!labels, !!zero_symbol, .))
             )
           }
         )
@@ -160,7 +160,7 @@
   tbl
 }
 
-.stack_soc_ae_tbls <- function(lst_tbl_ae, lst_tbl_soc = NULL, zero_symbol = NULL) {
+.stack_soc_ae_tbls <- function(lst_tbl_ae, lst_tbl_soc = NULL) {
   if (!is.null(lst_tbl_soc)) {
     tbl_final <-
       # stack SOC with AEs within that SOC, then stack all tbls
@@ -170,16 +170,6 @@
   }
   else {
     tbl_final <- gtsummary::tbl_stack(lst_tbl_ae, quiet = TRUE)
-  }
-
-  # adding zero print symbol
-  if (!is.null(zero_symbol)) {
-    tbl_final %>%
-      gtsummary::modify_table_styling(
-        columns = gtsummary::all_stat_cols(),
-        rows = !is.na(.data$variable),
-        missing_symbol = zero_symbol
-      )
   }
 
   # setting indentation rules
