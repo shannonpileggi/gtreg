@@ -150,10 +150,11 @@ test_that("df_adverse_event() works", {
            ae = "adverse_event",
            soc = "system_organ_class",
            by = "grade",
+           zero_symbol = "."
     ) %>%
       purrr::pluck("table_body") %>%
       dplyr::select(gtsummary::all_stat_cols()) %>%
-      dplyr::mutate(dplyr::across(dplyr::everything(), is.na)),
+      dplyr::mutate(dplyr::across(dplyr::everything(), ~. == ".")),
     tbl_ae(data = df1,
            id = "patient_id",
            ae = "adverse_event",
