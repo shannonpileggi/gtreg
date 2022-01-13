@@ -417,7 +417,7 @@ test_that("tbl_ae() sorting", {
     ) %>%
     as_tibble(col_labels = FALSE) %>%
       .$stat_1,
-    c("2", "3", "1", "3", "2", "1", "4", "1", "1")
+    c("4", "3", "1", "3", "2", "1", "2", "1", "1")
   )
 
   # check ordering when soc is input as factor

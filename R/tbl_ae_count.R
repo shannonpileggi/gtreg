@@ -89,7 +89,8 @@ tbl_ae_count <- function(data, ae,
   lst_data <-
     data %>%
     dplyr::group_split() %>%
-    rlang::set_names(dplyr::group_keys(data) %>% purrr::pluck(1))
+    rlang::set_names(dplyr::group_keys(data) %>% purrr::pluck(1)) %>%
+    .sort_lst_of_soc_tibbles(sort = sort)
 
   # tablulate SOC --------------------------------------------------------------
   if (!is.null(soc)) {

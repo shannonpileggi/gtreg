@@ -149,7 +149,8 @@ tbl_ae <- function(data, id, ae,
   lst_data_complete <-
     data_complete %>%
     dplyr::group_split() %>%
-    rlang::set_names(dplyr::group_keys(data_complete) %>% purrr::pluck(1))
+    rlang::set_names(dplyr::group_keys(data_complete) %>% purrr::pluck(1)) %>%
+    .sort_lst_of_soc_tibbles(sort = sort)
 
   # tabulate SOC ---------------------------------------------------------------
   if (!is.null(soc)) {

@@ -12,23 +12,7 @@
                          by_level_to_hide = "NOT OBSERVED",
                          digits = NULL,
                          sort = "alphanumeric") {
-  # order SOC if needed --------------------------------------------------------
-  if (length(lst_data) > 1 && sort %in% "frequency") {
-    ordered_names <-
-      purrr::imap(
-        lst_data,
-        ~ .x %>%
-          filter(!.data$by %in% "NOT OBSERVED") %>%
-          nrow()
-      ) %>%
-      unlist() %>%
-      sort(decreasing = TRUE) %>%
-      names()
-
-    lst_data <- lst_data[ordered_names]
-  }
-
-  purrr::map(
+   purrr::map(
     seq_len(length(lst_data)),
     function(index) {
       # keep observation that will be tabulated
@@ -217,4 +201,24 @@
     dplyr::distinct()
 }
 
+
+.sort_lst_of_soc_tibbles <- function(lst_data, sort) {
+  # if not SOC or only one SOC, and not frequency sorted return unaltered
+  if (!(length(lst_data) > 1 && sort %in% "frequency")) {
+    return(lst_data)
+  }
+
+  ordered_names <-
+    purrr::imap(
+      lst_data,
+      ~ .x %>%
+        filter(!.data$by %in% "NOT OBSERVED") %>%
+        nrow()
+    ) %>%
+    unlist() %>%
+    sort(decreasing = TRUE) %>%
+    names()
+
+  lst_data <- lst_data[ordered_names]
+}
 
