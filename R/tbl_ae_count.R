@@ -32,12 +32,14 @@ tbl_ae_count <- function(data, ae,
                          header_by = NULL,
                          zero_symbol = "\U2014",
                          digits = NULL,
-                         sort = c("alphanumeric", "frequency")) {
+                         sort = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
   }
-  sort <- match.arg(sort)
+  if (!is.null(sort)) {
+    sort <- match.arg(sort, choices = c("ae", "soc"), several.ok = TRUE)
+  }
 
   ae <-
     .select_to_varnames({{ ae }}, data = data,

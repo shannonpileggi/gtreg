@@ -378,7 +378,7 @@ test_that("tbl_ae() sorting", {
         id = patient_id,
         ae = adverse_event,
         statistic = "{n}",
-        sort = "frequency"
+        sort = c("ae", "soc")
       ) %>%
       as_tibble(col_labels = FALSE),
     NA
@@ -413,7 +413,7 @@ test_that("tbl_ae() sorting", {
       ae = adverse_event,
       soc = system_organ_class,
       statistic = "{n}",
-      sort = "frequency"
+      sort = c("ae", "soc")
     ) %>%
     as_tibble(col_labels = FALSE) %>%
       .$stat_1,
@@ -431,7 +431,7 @@ test_that("tbl_ae() sorting", {
       ae = adverse_event,
       soc = system_organ_class,
       statistic = "{n}",
-      sort = "alphanumeric"
+      sort = NULL
     ) %>%
     as_tibble(col_labels = FALSE) %>%
       .$stat_1,

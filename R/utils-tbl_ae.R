@@ -11,7 +11,7 @@
                          by = "by",
                          by_level_to_hide = "NOT OBSERVED",
                          digits = NULL,
-                         sort = "alphanumeric") {
+                         sort = NULL) {
    purrr::map(
     seq_len(length(lst_data)),
     function(index) {
@@ -25,7 +25,7 @@
           factor(df_ae[[stringr::str_glue("{variable_summary}{index}")]])
 
         # sorting the factor by frequency, if requested
-        if (sort %in% "frequency") {
+        if ("ae" %in% sort) {
           # vector of levels in descending frequency order
           freg_levels <-
             df_ae %>%
@@ -204,7 +204,7 @@
 
 .sort_lst_of_soc_tibbles <- function(lst_data, sort) {
   # if not SOC or only one SOC, and not frequency sorted return unaltered
-  if (!(length(lst_data) > 1 && sort %in% "frequency")) {
+  if (!(length(lst_data) > 1 && "soc" %in% sort)) {
     return(lst_data)
   }
 
