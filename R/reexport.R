@@ -150,3 +150,7 @@ gtsummary::style_sigfig
 #' @export
 gtsummary::style_percent
 
+#' @importFrom gtsummary tbl_split
+#' @export
+gtsummary::tbl_split
+

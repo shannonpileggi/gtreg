@@ -11,24 +11,8 @@
                          by = "by",
                          by_level_to_hide = "NOT OBSERVED",
                          digits = NULL,
-                         sort = "alphanumeric") {
-  # order SOC if needed --------------------------------------------------------
-  if (length(lst_data) > 1 && sort %in% "frequency") {
-    ordered_names <-
-      purrr::imap(
-        lst_data,
-        ~ .x %>%
-          filter(!.data$by %in% "NOT OBSERVED") %>%
-          nrow()
-      ) %>%
-      unlist() %>%
-      sort(decreasing = TRUE) %>%
-      names()
-
-    lst_data <- lst_data[ordered_names]
-  }
-
-  purrr::map(
+                         sort = NULL) {
+   purrr::map(
     seq_len(length(lst_data)),
     function(index) {
       # keep observation that will be tabulated
@@ -41,7 +25,7 @@
           factor(df_ae[[stringr::str_glue("{variable_summary}{index}")]])
 
         # sorting the factor by frequency, if requested
-        if (sort %in% "frequency") {
+        if ("ae" %in% sort) {
           # vector of levels in descending frequency order
           freg_levels <-
             df_ae %>%
@@ -87,7 +71,7 @@
         tbl <- fn_tbl_ae(data = df_ae)
       }
 
-      tbl
+      gtsummary::tbl_butcher(tbl)
     }
   )
 }
@@ -132,7 +116,7 @@
 
     # if any zero count cells, then set to missing and format
     if (nrow(df_zero_columns) > 0) {
-      # create expression with code to set zero count data to NA
+      # create expression with code to set zero count data to the zero_symbol
       expr_zero_to_NA <-
         purrr::map2(
           df_zero_columns$col_name,
@@ -140,7 +124,7 @@
           function(col_name, labels) {
             rlang::expr(
               dplyr::across(dplyr::all_of(!!col_name),
-                            ~ifelse(.data$label %in% !!labels, NA, .))
+                            ~ifelse(.data$label %in% !!labels, !!zero_symbol, .))
             )
           }
         )
@@ -150,14 +134,12 @@
         # setting cells with zero count to missing
         gtsummary::modify_table_body(
           ~ dplyr::mutate(.x, !!!expr_zero_to_NA)
-        ) %>%
-        # formatting missing values with 'zero_symbol'
-        gtsummary::modify_table_styling(
-          columns = gtsummary::all_stat_cols(),
-          missing_symbol = zero_symbol
         )
     }
   }
+
+  # removing footnote
+  tbl$table_styling$footnote <- dplyr::filter(tbl$table_styling$footnote, FALSE)
 
   tbl
 }
@@ -171,13 +153,20 @@
       gtsummary::tbl_stack(quiet = TRUE)
   }
   else {
+    tbl_final <- gtsummary::tbl_stack(lst_tbl_ae, quiet = TRUE)
+  }
+
+  # setting indentation rules
+  tbl_final$table_styling$text_format <-
+    tbl_final$table_styling$text_format %>%
+    filter(!(.data$column %in% "label" & .data$format_type %in% "indent"))
+  if (!is.null(lst_tbl_soc)) {
     tbl_final <-
-      gtsummary::tbl_stack(lst_tbl_ae, quiet = TRUE) %>%
-      # remove indentation for AEs
       gtsummary::modify_table_styling(
+        x = tbl_final,
         columns = "label",
-        text_format = "indent",
-        undo_text_format = TRUE
+        rows = startsWith(.data$variable, "ae"),
+        text_format = "indent"
       )
   }
 
@@ -212,4 +201,24 @@
     dplyr::distinct()
 }
 
+
+.sort_lst_of_soc_tibbles <- function(lst_data, sort) {
+  # if not SOC or only one SOC, and not frequency sorted return unaltered
+  if (!(length(lst_data) > 1 && "soc" %in% sort)) {
+    return(lst_data)
+  }
+
+  ordered_names <-
+    purrr::imap(
+      lst_data,
+      ~ .x %>%
+        filter(!.data$by %in% "NOT OBSERVED") %>%
+        nrow()
+    ) %>%
+    unlist() %>%
+    sort(decreasing = TRUE) %>%
+    names()
+
+  lst_data <- lst_data[ordered_names]
+}
 

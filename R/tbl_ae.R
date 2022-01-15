@@ -33,12 +33,12 @@
 #' @param zero_symbol String used to represent cells with zero counts. Default
 #' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
 #' zero count statistics, e.g. `"0 (0)"`
-#' @param sort Controls order of AEs in output table.  The default is `"alphanumeric"`,
-#' which results in factor level ordering for factor inputs, or for alphanumeric
-#' sorting for character or numeric inputs. `sort = "frequency"` will sort in
-#' decreasing frequency order. When `ae` is specified without `soc`,
-#' applies to AEs overall. When `ae` is specified with `soc`, applies to AEs
-#' within SOCs.
+#' @param sort Controls order of AEs and SOCs in output table.
+#' The default is `NULL`, where AEs and SOCs are sorted alphanumerically
+#' (and factors sorted according to their factor level).
+#' Use `sort = "ae"` to sort AEs in decreasing frequency order, `sort = "soc"`
+#' to sort SOCs in decreasing order, and `sort = c("ae", "soc")` to sort both.
+#' AEs are sorted within SOC.
 #' @param digits Specifies the number of decimal places to round the summary statistics.
 #' By default integers are shown to zero decimal places, and percentages are
 #' formatted with `style_percent()`. If you would like to modify either
@@ -90,12 +90,14 @@ tbl_ae <- function(data, id, ae,
                    header_strata = NULL,
                    zero_symbol = "\U2014",
                    digits = NULL,
-                   sort = c("alphanumeric", "frequency")) {
+                   sort = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
   }
-  sort <- match.arg(sort)
+  if (!is.null(sort)) {
+    sort <- match.arg(sort, choices = c("ae", "soc"), several.ok = TRUE)
+  }
 
   id <-
     .select_to_varnames({{ id }}, data = data,
@@ -149,7 +151,8 @@ tbl_ae <- function(data, id, ae,
   lst_data_complete <-
     data_complete %>%
     dplyr::group_split() %>%
-    rlang::set_names(dplyr::group_keys(data_complete) %>% purrr::pluck(1))
+    rlang::set_names(dplyr::group_keys(data_complete) %>% purrr::pluck(1)) %>%
+    .sort_lst_of_soc_tibbles(sort = sort)
 
   # tabulate SOC ---------------------------------------------------------------
   if (!is.null(soc)) {

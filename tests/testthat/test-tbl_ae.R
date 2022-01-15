@@ -150,10 +150,11 @@ test_that("df_adverse_event() works", {
            ae = "adverse_event",
            soc = "system_organ_class",
            by = "grade",
+           zero_symbol = "."
     ) %>%
       purrr::pluck("table_body") %>%
       dplyr::select(gtsummary::all_stat_cols()) %>%
-      dplyr::mutate(dplyr::across(dplyr::everything(), is.na)),
+      dplyr::mutate(dplyr::across(dplyr::everything(), ~. == ".")),
     tbl_ae(data = df1,
            id = "patient_id",
            ae = "adverse_event",
@@ -377,7 +378,7 @@ test_that("tbl_ae() sorting", {
         id = patient_id,
         ae = adverse_event,
         statistic = "{n}",
-        sort = "frequency"
+        sort = c("ae", "soc")
       ) %>%
       as_tibble(col_labels = FALSE),
     NA
@@ -412,11 +413,11 @@ test_that("tbl_ae() sorting", {
       ae = adverse_event,
       soc = system_organ_class,
       statistic = "{n}",
-      sort = "frequency"
+      sort = c("ae", "soc")
     ) %>%
     as_tibble(col_labels = FALSE) %>%
       .$stat_1,
-    c("2", "3", "1", "3", "2", "1", "4", "1", "1")
+    c("4", "3", "1", "3", "2", "1", "2", "1", "1")
   )
 
   # check ordering when soc is input as factor
@@ -430,7 +431,7 @@ test_that("tbl_ae() sorting", {
       ae = adverse_event,
       soc = system_organ_class,
       statistic = "{n}",
-      sort = "alphanumeric"
+      sort = NULL
     ) %>%
     as_tibble(col_labels = FALSE) %>%
       .$stat_1,
