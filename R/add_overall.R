@@ -141,7 +141,8 @@ add_overall.tbl_ae <- function(x, across = c("both", "by", "strata", "overall-on
       gtsummary::tbl_merge(tab_spanner = FALSE)
   }
   else if (across %in% "overall-only") {
-    tbl_args$by <- tbl_args$header_by <- tbl_args$strata <- NULL
+    tbl_args$by <- tbl_args$header_by <-
+      tbl_args$strata <- tbl_args$header_strata <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
   }
   else if (across %in% "by") {
