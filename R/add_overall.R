@@ -91,7 +91,7 @@ NULL
 #' @export
 add_overall.tbl_ae <- function(x, across = c("both", "by", "strata", "overall-only"), ...) {
   # check inputs ---------------------------------------------------------------
-  # rlang::check_dots_empty() # ADD THIS AFTER rlang v1.0.0 RELEASE!!
+  rlang::check_dots_empty()
   across <- match.arg(across)
   if (is.null(x$inputs$by) && is.null(x$inputs$strata)) {
     paste("Cannot use `add_overall()` when neither `by=` nor `strata=`",
