@@ -100,7 +100,7 @@ test_that("counting rules", {
 })
 
 # ------------------------------------------------------------------------------
-test_that("df_adverse_event() works", {
+test_that("tbl_ae() works", {
   expect_error(
     df_adverse_events %>%
       tbl_ae(
@@ -299,6 +299,17 @@ test_that("tbl_ae() headers", {
       )
   )
 
+  # bad call to missing_location= ----------------------------------------------
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        by = grade,
+        missing_location = "NOPE"
+      )
+  )
 
   # ----------------------------------------------------------------------------
   # strata default with overall and header_by -------------------------------

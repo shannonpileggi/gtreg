@@ -13,7 +13,8 @@
   strata = NULL,
   id_df = NULL,
   by_values = NULL,
-  missing_text = "Unknown"
+  missing_text = "Unknown",
+  missing_location = "first"
 )
 }
 \arguments{
@@ -39,6 +40,10 @@ event of a certain grade is not observed for a given soc}
 
 \item{missing_text}{String that will be shown for missing levels of \verb{by=},
 Default is \code{"Unknown"}}
+
+\item{missing_location}{location where the column summarizing values with
+missing levels \verb{by=} will be located in the final table. Must be
+one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
 }
 \description{
 Returns a data frame that has an observation for each patient in the study,
