@@ -25,13 +25,14 @@ Imports:
     gtsummary (>= 1.5.0.9025),
     knitr (>= 1.37),
     purrr (>= 0.3.4),
-    rlang (>= 0.4.12),
+    rlang (>= 1.0.0),
     stringr (>= 1.4.0),
     tibble (>= 3.1.6),
     tidyr (>= 1.1.4)
 Suggests: 
     covr (>= 3.5.1),
     gt (>= 0.3.1),
+    kableExtra,
     spelling (>= 2.2),
     testthat (>= 3.1.1)
 Remotes:
