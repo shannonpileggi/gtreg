@@ -139,5 +139,57 @@ test_that("add_overall() warns", {
 
 })
 
+test_that("add_overall(missing_location=) works", {
+  expect_error(
+    tbl <-
+      df_adverse_events %>%
+      dplyr::mutate(
+        grade = ifelse(dplyr::row_number() == 1, NA, grade)
+      ) %>%
+      tbl_ae(
+        ae = adverse_event,
+        id = patient_id,
+        soc = system_organ_class,
+        by = grade,
+        strata = trt,
+        header_by = "**Grade {level}**",
+        missing_location = "first"
+      ) %>%
+      add_overall(),
+    NA
+  )
+  expect_equal(
+    tbl$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
+    c("**Adverse Event**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**", "**Grade 3**",
+      "**Grade 4**", "**Grade 5**", "**Overall**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Overall**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Overall**")
+  )
 
+  expect_error(
+    tbl <-
+      df_adverse_events %>%
+      dplyr::mutate(
+        grade = ifelse(dplyr::row_number() == 1, NA, grade)
+      ) %>%
+      tbl_ae(
+        ae = adverse_event,
+        id = patient_id,
+        soc = system_organ_class,
+        by = grade,
+        strata = trt,
+        header_by = "**Grade {level}**",
+        missing_location = "last"
+      ) %>%
+      add_overall(),
+    NA
+  )
+  expect_equal(
+    tbl$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
+    c("**Adverse Event**", "**Grade 1**", "**Grade 2**", "**Grade 3**",
+      "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Overall**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Overall**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Overall**")
+  )
+})
 

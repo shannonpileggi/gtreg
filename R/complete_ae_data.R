@@ -21,6 +21,7 @@
 #' event of a certain grade is not observed for a given soc
 #' @param missing_text String that will be shown for missing levels of `by=`,
 #' Default is `"Unknown"`
+#' @inheritParams tbl_ae
 #'
 #' @export
 #' @examples
@@ -35,7 +36,7 @@
 
 .complete_ae_data <- function(data, id, ae, soc = NULL, by = NULL, strata = NULL,
                           id_df = NULL, by_values = NULL,
-                          missing_text = "Unknown") {
+                          missing_text = "Unknown", missing_location = "first") {
 
   # check inputs ---------------------------------------------------------------
   if (is.null(by) && !is.null(by_values))
@@ -166,6 +167,13 @@
       ..ae.. = dplyr::row_number() == dplyr::n()
     ) %>%
     ungroup()
+
+  # moving missing by level to end if requested
+  if (missing_location %in% "last" &&
+      initial_missing %in% levels(data_full[["by"]])) {
+    data_full[["by"]] <-
+      forcats::fct_relevel(data_full[["by"]], initial_missing, after = Inf)
+  }
 
   # move unobserved level to the end of the `by=` level
   if (initial_dummy %in% levels(data_full[["by"]])) {

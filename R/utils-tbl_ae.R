@@ -11,7 +11,9 @@
                          by = "by",
                          by_level_to_hide = "NOT OBSERVED",
                          digits = NULL,
-                         sort = NULL) {
+                         sort = NULL,
+                         missing_location = "first",
+                         missing_text = "Unknown") {
    purrr::map(
     seq_len(length(lst_data)),
     function(index) {
@@ -54,7 +56,9 @@
                        header_by = header_by,
                        remove_header_row = TRUE,
                        zero_symbol = zero_symbol,
-                       digits = digits)
+                       digits = digits,
+                       missing_location = missing_location,
+                       missing_text = missing_text)
 
       if ("strata" %in% names(df_ae)) {
         tbl <-
@@ -79,7 +83,9 @@
 # define `tbl_summary()` function to tabulate SOC/AE
 .fn_tbl <- function(data, variable, label = NULL, statistic, header_by,
                     remove_header_row, zero_symbol = NULL, by = "by",
-                    by_level_to_hide = "NOT OBSERVED", digits = NULL) {
+                    by_level_to_hide = "NOT OBSERVED", digits = NULL,
+                    missing_location = "first",
+                    missing_text = "Unknown") {
   tbl <-
     gtsummary::tbl_summary(
       data = data,
@@ -93,12 +99,24 @@
     gtsummary::modify_header(gtsummary::all_stat_cols() ~ header_by)
 
   # hide the column for unobserved data
-  column_to_hide <-
-    tbl$df_by %>%
-    filter(.data$by %in% by_level_to_hide) %>%
-    purrr::pluck("by_col")
-  if (!is.null(column_to_hide)) {
+  if (by_level_to_hide %in% tbl$df_by$by) {
+    column_to_hide <-
+      tbl$df_by %>%
+      filter(.data$by %in% by_level_to_hide) %>%
+      purrr::pluck("by_col")
+
     tbl <- gtsummary::modify_column_hide(tbl, columns = all_of(column_to_hide))
+  }
+
+  # hiding unknown column if requested
+  if (missing_location %in% "hide" && missing_text %in% tbl$df_by$by) {
+    missing_column_name <-
+      tbl$df_by %>%
+      filter(.data$by %in% missing_text) %>%
+      purrr::pluck("by_col")
+
+    tbl <-
+      gtsummary::modify_column_hide(tbl, dplyr::all_of(missing_column_name))
   }
 
   # remove the header row

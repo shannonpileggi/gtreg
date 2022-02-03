@@ -28,7 +28,7 @@ NULL
 #' @export
 inline_text.tbl_ae <- function(x, row, column = NULL, ...) {
   # check inputs ---------------------------------------------------------------
-  # TODO: rlang::check_dots_empty() # ADD THIS AFTER rlang v1.0.0 RELEASE!!
+  rlang::check_dots_empty()
   column <- rlang::enquo(column)
   if (rlang::quo_is_null(column)) {
     cli::cli_alert_danger("The {.code column=} argument is required.")
