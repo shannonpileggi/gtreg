@@ -29,6 +29,7 @@ tbl_ae_count <- function(data, ae,
                          strata = NULL,
                          by_values = NULL,
                          missing_text = "Unknown",
+                         missing_location = c("first", "last", "hide"),
                          header_by = NULL,
                          zero_symbol = "\U2014",
                          digits = NULL,
@@ -40,6 +41,7 @@ tbl_ae_count <- function(data, ae,
   if (!is.null(sort)) {
     sort <- match.arg(sort, choices = c("ae", "soc"), several.ok = TRUE)
   }
+  missing_location <- match.arg(missing_location)
 
   ae <-
     .select_to_varnames({{ ae }}, data = data,
@@ -86,6 +88,11 @@ tbl_ae_count <- function(data, ae,
     ) %>%
     mutate(..ae.. = TRUE, ..soc.. = TRUE) %>%
     group_by(across(any_of("soc")))
+
+  # moving missing by level to end if requested
+  if (missing_location %in% "last" && missing_text %in% levels(data[["by"]])) {
+    data[["by"]] <- forcats::fct_relevel(data[["by"]], missing_text, after = Inf)
+  }
 
   # putting data into list of tibbles...one element per SOC --------------------
   lst_data <-

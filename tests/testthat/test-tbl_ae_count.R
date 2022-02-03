@@ -74,4 +74,14 @@ test_that("tbl_ae_count() works", {
   )
   expect_equal(as_tibble(tbl, col_labels = FALSE)$stat_1[1:3],
                c("10.00", "5.00", "9.00"))
+
+  # bad call to missing_location= ----------------------------------------------
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae_count(
+        ae = adverse_event,
+        by = grade,
+        missing_location = "NOPE"
+      )
+  )
 })

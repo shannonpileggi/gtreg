@@ -14,6 +14,7 @@ tbl_ae(
   id_df = NULL,
   by_values = NULL,
   missing_text = "Unknown",
+  missing_location = c("first", "last", "hide"),
   statistic = "{n} ({p})",
   header_by = NULL,
   header_strata = NULL,
@@ -45,6 +46,10 @@ event of a certain grade is not observed for a given soc}
 
 \item{missing_text}{String that will be shown for missing levels of \verb{by=},
 Default is \code{"Unknown"}}
+
+\item{missing_location}{location where the column summarizing values with
+missing levels \verb{by=} will be located in the final table. Must be
+one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
 
 \item{statistic}{String indicating the statistics that will be reported.
 The default is \code{"{n} ({p})"}}

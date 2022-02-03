@@ -24,6 +24,9 @@
 #' event of a certain grade is not observed for a given soc
 #' @param missing_text String that will be shown for missing levels of `by=`,
 #' Default is `"Unknown"`
+#' @param missing_location location where the column summarizing values with
+#' missing levels `by=` will be located in the final table. Must be
+#' one of `c("first", "last", "hide)`. Default is `"first"`
 #' @param statistic String indicating the statistics that will be reported.
 #' The default is `"{n} ({p})"`
 #' @param header_by String indicating the header to be placed in the table.
@@ -85,6 +88,7 @@ tbl_ae <- function(data, id, ae,
                    soc = NULL, by = NULL, strata = NULL,
                    id_df = NULL, by_values = NULL,
                    missing_text = "Unknown",
+                   missing_location = c("first", "last", "hide"),
                    statistic = "{n} ({p})",
                    header_by = NULL,
                    header_strata = NULL,
@@ -98,6 +102,7 @@ tbl_ae <- function(data, id, ae,
   if (!is.null(sort)) {
     sort <- match.arg(sort, choices = c("ae", "soc"), several.ok = TRUE)
   }
+  missing_location <- match.arg(missing_location)
 
   id <-
     .select_to_varnames({{ id }}, data = data,
@@ -135,7 +140,7 @@ tbl_ae <- function(data, id, ae,
   data_complete <-
     .complete_ae_data(data, id = id, ae = ae, soc = soc, by = by,
                       strata = strata, id_df = id_df, by_values = by_values,
-                      missing_text = missing_text) %>%
+                      missing_text = missing_text, missing_location = missing_location) %>%
     group_by(across(any_of("soc")))
 
   # prepare strata headers -----------------------------------------------------
@@ -166,7 +171,9 @@ tbl_ae <- function(data, id, ae,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
                    labels = names(lst_data_complete),
-                   digits = digits)
+                   digits = digits,
+                   missing_location = missing_location,
+                   missing_text = missing_text)
   }
 
   # tabulate AEs ---------------------------------------------------------------
@@ -181,7 +188,9 @@ tbl_ae <- function(data, id, ae,
                  zero_symbol = zero_symbol,
                  labels = NULL,
                  digits = digits,
-                 sort = sort)
+                 sort = sort,
+                 missing_location = missing_location,
+                 missing_text = missing_text)
 
   # stacking tbls into big final AE table --------------------------------------
   if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)
