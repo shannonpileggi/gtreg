@@ -12,6 +12,7 @@ tbl_ae_count(
   strata = NULL,
   by_values = NULL,
   missing_text = "Unknown",
+  missing_location = c("first", "last", "hide"),
   header_by = NULL,
   zero_symbol = "—",
   digits = NULL,
@@ -36,6 +37,10 @@ event of a certain grade is not observed for a given soc}
 
 \item{missing_text}{String that will be shown for missing levels of \verb{by=},
 Default is \code{"Unknown"}}
+
+\item{missing_location}{location where the column summarizing values with
+missing levels \verb{by=} will be located in the final table. Must be
+one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
 
 \item{header_by}{String indicating the header to be placed in the table.
 Default is \code{"**{level}**"} and only used when \verb{by=} is specified.}

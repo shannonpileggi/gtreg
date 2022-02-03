@@ -9,10 +9,9 @@ authors:
   Daniel D. Sjoberg:
     href: "https://www.danieldsjoberg.com/"
 
-# TODO: add this back after the first release
-# development:
-#   mode: auto
-#   version_label: default
+development:
+  mode: auto
+  version_label: default
 
 navbar:
   structure:

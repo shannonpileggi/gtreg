@@ -9,6 +9,16 @@ df1 <-
     trt = rep("A", 4)
   )
 
+# with missing values
+df1_miss <-
+  tibble::tibble(
+    patient_id = paste0("ID", c(1,1,2,3)),
+    system_organ_class = "Blood and lymphatic system disorders",
+    adverse_event = c("Anaemia", "Anaemia", "Anaemia", "Increased tendency to bruise"),
+    grade = c(1, 1, NA, NA),
+    trt = rep("A", 4)
+  )
+
 df2 <-
   tibble::tibble(
     patient_id = paste0("ID", 1:9),
@@ -100,7 +110,7 @@ test_that("counting rules", {
 })
 
 # ------------------------------------------------------------------------------
-test_that("df_adverse_event() works", {
+test_that("tbl_ae() works", {
   expect_error(
     df_adverse_events %>%
       tbl_ae(
@@ -298,6 +308,85 @@ test_that("tbl_ae() headers", {
         header_strata = "**Cohort {level}**"
       )
   )
+
+  # bad call to missing_location= ----------------------------------------------
+  expect_error(
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        statistic = "{n}",
+        by = grade,
+        missing_location = "NOPE"
+      )
+  )
+
+  # missing_location FIRST------- ----------------------------------------------
+  miss_first <- df1_miss %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      statistic = "{n}",
+      by = grade
+    )
+  expect_equal(
+    miss_first$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
+    c("**Adverse Event**", "**Unknown**", "**1**")
+  )
+
+  # missing_location FIRST------------------------------------------------------
+  miss_last <- df1_miss %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      statistic = "{n}",
+      by = grade,
+      missing_location = "last"
+    )
+  expect_equal(
+    miss_last$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
+    c("**Adverse Event**", "**1**", "**Unknown**")
+  )
+
+  # missing_location HIDE------------------------------------------------------
+  miss_hide <- df1_miss %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      statistic = "{n}",
+      by = grade,
+      missing_location = "hide"
+    )
+  expect_equal(
+    miss_hide$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
+    c("**Adverse Event**", "**1**")
+  )
+
+  # missing_location COMPLEX ---------------------------------------------------
+  miss_complex <- df_adverse_events %>%
+    dplyr::mutate(
+      grade = dplyr::case_when(
+        dplyr::row_number() %in% 1:5 ~ NA_integer_,
+        TRUE ~ grade
+      )
+    ) %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      statistic = "{n}",
+      by = grade,
+      strata = trt,
+      by_values = as.character(1:6),
+      missing_location = "last",
+      missing_text = "UNK"
+    ) %>%
+    .$table_styling %>%
+    .$header %>%
+    dplyr::filter(!hide) %>%
+    dplyr::pull(label)
+
+    expect_equal(length(miss_complex), 15)
+    expect_equal(which(miss_complex == "**UNK**"), c(8, 15))
 
 
   # ----------------------------------------------------------------------------
