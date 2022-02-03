@@ -1,9 +1,11 @@
 #' Make linebreak in LaTeX Table cells with gtsummary
 #'
 #' This function creates a call to `kableExtra::linebreak()`, and is meant to used in
-#' `as_kable_extra(x, col.names = linebreak_gtsummary(x), escape = FALSE, format = "latex")`.
+#' `as_kable_extra(x, col.names = .linebreak_gtsummary(x), escape = FALSE, format = "latex")`.
+#' Note that `escape = FALSE` and `format = "latex"` are required.
 #'  - the default `align=` argument is taken from the gtsummary object
-#'  - the markdown double-star bold syntax is converted to LaTeX, `\textbf{}`
+#'  - the markdown double-star and double-underscore bold syntax is converted to LaTeX, `\textbf{}`
+#'  - the markdown single-star and single-underscore italic syntax is converted to LaTeX, `\textit{}`
 #'
 #' @param x a gtsummary table
 #' @param align instruction passed to `kableExtra::linebreak(align=)`. Default
@@ -47,12 +49,33 @@
     x =
       dplyr::filter(x$table_styling$header, !.data$hide) %>%
       dplyr::pull(.data$label) %>%
-      stringr::str_replace_all(
-        pattern = "\\*\\*(.*?)\\*\\*",
-        replacement = "\\\\textbf{\\1}"
-      ),
+      .markdown_to_latex(),
     align = align,
     double_escape = double_escape,
     linebreaker = linebreaker
   )
+}
+
+.markdown_to_latex <- function(x) {
+  x %>%
+    # convert bold ** to \textbf{}
+    stringr::str_replace_all(
+      pattern = "\\*\\*(.*?)\\*\\*",
+      replacement = "\\\\textbf{\\1}"
+    ) %>%
+    # convert bold __ to \textbf{}
+    stringr::str_replace_all(
+      pattern = "\\_\\_(.*?)\\_\\_",
+      replacement = "\\\\textbf{\\1}"
+    ) %>%
+    # convert italic * to \textit{}
+    stringr::str_replace_all(
+      pattern = "\\*(.*?)\\*",
+      replacement = "\\\\textit{\\1}"
+    ) %>%
+    # convert italic _ to \textit{}
+    stringr::str_replace_all(
+      pattern = "\\_(.*?)\\_",
+      replacement = "\\\\textit{\\1}"
+    )
 }

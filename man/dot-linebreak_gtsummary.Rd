@@ -27,10 +27,12 @@ string of column names in LaTeX format
 }
 \description{
 This function creates a call to \code{kableExtra::linebreak()}, and is meant to used in
-\code{as_kable_extra(x, col.names = linebreak_gtsummary(x), escape = FALSE, format = "latex")}.
+\code{as_kable_extra(x, col.names = .linebreak_gtsummary(x), escape = FALSE, format = "latex")}.
+Note that \code{escape = FALSE} and \code{format = "latex"} are required.
 \itemize{
 \item the default \verb{align=} argument is taken from the gtsummary object
-\item the markdown double-star bold syntax is converted to LaTeX, \verb{\\textbf\{\}}
+\item the markdown double-star and double-underscore bold syntax is converted to LaTeX, \verb{\\textbf\{\}}
+\item the markdown single-star and single-underscore italic syntax is converted to LaTeX, \verb{\\textit\{\}}
 }
 }
 \examples{

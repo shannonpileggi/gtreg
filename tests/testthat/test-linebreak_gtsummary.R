@@ -22,4 +22,10 @@ test_that(".linebreak_gtsummary() works", {
       ),
     NA
   )
+
+  # both star and underscore notation result in same latex code
+  expect_equal(
+    .markdown_to_latex("**bold this** not this *italia!*, and finally ***both***"),
+    .markdown_to_latex("__bold this__ not this _italia!_, and finally ___both___")
+  )
 })
