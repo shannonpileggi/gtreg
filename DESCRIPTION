@@ -13,7 +13,7 @@ Description: Creates tables suitable for regulatory agency submission
     available by utilizing existing styling function from 'gtsummary' as
     well as custom options designed for regulatory tables.
 License: MIT + file LICENSE
-URL: https://shannonpileggi.github.io/gtreg
+URL: https://www.pipinghotdata.com/gtreg
 BugReports: https://github.com/shannonpileggi/gtreg/issues
 Depends: 
     R (>= 3.4)
