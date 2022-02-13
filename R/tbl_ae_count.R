@@ -23,15 +23,16 @@
 #'
 #' \if{html}{\figure{tbl_ae_count_ex1.png}{options: width=90\%}}
 #'
-tbl_ae_count <- function(data, ae,
+tbl_ae_count <- function(data,
+                         ae,
                          soc = NULL,
                          by = NULL,
                          strata = NULL,
                          by_values = NULL,
-                         missing_location = c("first", "last", "hide"),
-                         zero_symbol = "\U2014",
                          digits = NULL,
-                         sort = NULL) {
+                         sort = NULL,
+                         zero_symbol = "\U2014",
+                         missing_location = c("first", "last", "hide")) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)

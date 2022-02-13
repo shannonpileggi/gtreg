@@ -78,14 +78,19 @@
 #'
 #' \if{html}{\figure{tbl_ae_ex2.png}{options: width=65\%}}
 
-tbl_ae <- function(data, id, ae,
-                   soc = NULL, by = NULL, strata = NULL,
-                   id_df = NULL, by_values = NULL,
-                   missing_location = c("first", "last", "hide"),
+tbl_ae <- function(data,
+                   id,
+                   ae,
+                   soc = NULL,
+                   by = NULL,
+                   strata = NULL,
+                   id_df = NULL,
                    statistic = "{n} ({p})",
-                   zero_symbol = "\U2014",
+                   by_values = NULL,
                    digits = NULL,
-                   sort = NULL) {
+                   sort = NULL,
+                   zero_symbol = "\U2014",
+                   missing_location = c("first", "last", "hide")) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)

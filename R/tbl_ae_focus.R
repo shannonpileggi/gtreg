@@ -38,12 +38,12 @@ tbl_ae_focus <- function(data,
                          ae,
                          soc = NULL,
                          strata = NULL,
+                         label = NULL,
                          id_df = NULL,
                          statistic = "{n} ({p})",
-                         label = NULL,
-                         zero_symbol = "\U2014",
                          digits = NULL,
-                         sort = NULL) {
+                         sort = NULL,
+                         zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)

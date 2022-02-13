@@ -11,7 +11,7 @@ Creates tables suitable for regulatory agency submission using the 'gtsummary' p
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://shannonpileggi.github.io/gtreg}
+  \item \url{https://www.pipinghotdata.com/gtreg}
   \item Report bugs at \url{https://github.com/shannonpileggi/gtreg/issues}
 }
 

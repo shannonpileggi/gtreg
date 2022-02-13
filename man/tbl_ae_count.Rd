@@ -11,10 +11,10 @@ tbl_ae_count(
   by = NULL,
   strata = NULL,
   by_values = NULL,
-  missing_location = c("first", "last", "hide"),
-  zero_symbol = "—",
   digits = NULL,
-  sort = NULL
+  sort = NULL,
+  zero_symbol = "—",
+  missing_location = c("first", "last", "hide")
 )
 }
 \arguments{
@@ -33,14 +33,6 @@ by treatment group}
 to achieve correct table structure for the situation in which an adverse
 event of a certain grade is not observed for a given soc}
 
-\item{missing_location}{location where the column summarizing values with
-missing levels \verb{by=} will be located in the final table. Must be
-one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
-
-\item{zero_symbol}{String used to represent cells with zero counts. Default
-is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
-zero count statistics, e.g. \code{"0 (0)"}}
-
 \item{digits}{Specifies the number of decimal places to round the summary statistics.
 By default integers are shown to zero decimal places, and percentages are
 formatted with \code{style_percent()}. If you would like to modify either
@@ -56,6 +48,14 @@ The default is \code{NULL}, where AEs and SOCs are sorted alphanumerically
 Use \code{sort = "ae"} to sort AEs in decreasing frequency order, \code{sort = "soc"}
 to sort SOCs in decreasing order, and \code{sort = c("ae", "soc")} to sort both.
 AEs are sorted within SOC.}
+
+\item{zero_symbol}{String used to represent cells with zero counts. Default
+is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
+zero count statistics, e.g. \code{"0 (0)"}}
+
+\item{missing_location}{location where the column summarizing values with
+missing levels \verb{by=} will be located in the final table. Must be
+one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
 }
 \value{
 a 'tbl_ae_count' object
