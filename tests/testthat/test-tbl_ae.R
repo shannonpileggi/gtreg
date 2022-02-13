@@ -284,7 +284,7 @@ test_that("tbl_ae() headers", {
 
   expect_equal(length(intersect(tbl_by2$table_styling$header$label, h_by2)), 6)
 
-  # header_by without by -------------------------------------------------------
+  # place holder for potential tests--------------------------------------------
   #expect_error(
   #  t1 <- df_adverse_events %>%
   #    tbl_ae(
