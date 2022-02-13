@@ -37,6 +37,9 @@ syntax.
 \item \code{"{N}"} total number of patients
 \item \code{"{p}"} proportion of patients within a stratum (on the zero-one scale)
 }
+
+The \code{"{n}"}, \code{"{N}"}, and \code{"{p}"} statistics are not available for
+\code{tbl_ae_count()} objects.
 }
 
 \examples{

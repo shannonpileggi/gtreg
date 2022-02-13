@@ -19,6 +19,9 @@
 #'   - `"{N}"` total number of patients
 #'   - `"{p}"` proportion of patients within a stratum (on the zero-one scale)
 #'
+#' The `"{n}"`, `"{N}"`, and `"{p}"` statistics are not available for
+#' `tbl_ae_count()` objects.
+#'
 #' @examples
 #' modify_ae_header_ex1 <-
 #'   df_adverse_events %>%
