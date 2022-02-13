@@ -34,6 +34,10 @@
 #'   ) %>%
 #'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
 #'   modify_ae_spanning_header(all_ae_cols() ~ "**{strata}** N = {n} / {N}")
+#' @section Example Output:
+#' \if{html}{Example 1}
+#'
+#' \if{html}{\figure{modify_ae_header_ex1.png}{options: width=65\%}}
 NULL
 
 

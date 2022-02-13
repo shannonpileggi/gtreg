@@ -42,6 +42,13 @@ The \code{"{n}"}, \code{"{N}"}, and \code{"{p}"} statistics are not available fo
 \code{tbl_ae_count()} objects.
 }
 
+\section{Example Output}{
+
+\if{html}{Example 1}
+
+\if{html}{\figure{modify_ae_header_ex1.png}{options: width=65\%}}
+}
+
 \examples{
 modify_ae_header_ex1 <-
   df_adverse_events \%>\%

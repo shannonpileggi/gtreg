@@ -16,7 +16,7 @@
 #'
 #' @seealso `gtsummary::all_stat_cols()`
 #' @examples
-#' modify_ae_header_ex1 <-
+#' selectors_ex1 <-
 #'   df_adverse_events %>%
 #'   dplyr::mutate(grade = ifelse(dplyr::row_number() == 1L, NA, grade)) %>%
 #'   tbl_ae(
@@ -25,11 +25,16 @@
 #'     soc = system_organ_class,
 #'     by = grade
 #'   ) %>%
+#'   add_overall(across = 'by') %>%
 #'   modify_ae_header(
 #'     all_ae_cols() ~ "**Grade {by}**",
 #'     all_overall_cols() ~ "**Total**",
 #'     all_unknown_cols() ~ "**Unknown Grade**"
 #'   )
+#' @section Example Output:
+#' \if{html}{Example 1}
+#'
+#' \if{html}{\figure{selectors_ex1.png}{options: width=65\%}}
 NULL
 
 #' @export
