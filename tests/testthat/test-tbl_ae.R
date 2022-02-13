@@ -253,7 +253,6 @@ test_that("tbl_ae() works", {
 
 })
 
-
 test_that("tbl_ae() headers", {
 
   # header_by modified ---------------------------------------------------------
@@ -286,28 +285,21 @@ test_that("tbl_ae() headers", {
   expect_equal(length(intersect(tbl_by2$table_styling$header$label, h_by2)), 6)
 
   # header_by without by -------------------------------------------------------
-  expect_error(
-    df_adverse_events %>%
-      tbl_ae(
-        id = patient_id,
-        ae = adverse_event,
-        statistic = "{n}",
-        header_by = "**Grade {level}**"
-      )
-  )
+  #expect_error(
+  #  t1 <- df_adverse_events %>%
+  #    tbl_ae(
+  #      id = patient_id,
+  #      ae = adverse_event,
+  #      statistic = "{n}"
+  #    )
+  #
+  #  t1 %>% modify_ae_header(all_stat_cols() ~ "**Grade {by}**")
+  #  t1 %>% modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+  #  t1 %>% modify_ae_header(all_strata_cols() ~ "**Grade {by}**")
+  #  t1 %>% modify_ae_header(all_unknown_cols() ~ "**Grade {by}**")
+  #
+  #  )
 
-
-  # by with header_strata ------------------------------------------------------
-  expect_error(
-    df_adverse_events %>%
-      tbl_ae(
-        id = patient_id,
-        ae = adverse_event,
-        statistic = "{n}",
-        by = grade,
-        header_strata = "**Cohort {level}**"
-      )
-  )
 
   # bad call to missing_location= ----------------------------------------------
   expect_error(
