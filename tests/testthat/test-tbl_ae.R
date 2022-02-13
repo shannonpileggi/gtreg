@@ -284,22 +284,6 @@ test_that("tbl_ae() headers", {
 
   expect_equal(length(intersect(tbl_by2$table_styling$header$label, h_by2)), 6)
 
-  # place holder for potential tests--------------------------------------------
-  #expect_error(
-  #  t1 <- df_adverse_events %>%
-  #    tbl_ae(
-  #      id = patient_id,
-  #      ae = adverse_event,
-  #      statistic = "{n}"
-  #    )
-  #
-  #  t1 %>% modify_ae_header(all_stat_cols() ~ "**Grade {by}**")
-  #  t1 %>% modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
-  #  t1 %>% modify_ae_header(all_strata_cols() ~ "**Grade {by}**")
-  #  t1 %>% modify_ae_header(all_unknown_cols() ~ "**Grade {by}**")
-  #
-  #  )
-
 
   # bad call to missing_location= ----------------------------------------------
   expect_error(

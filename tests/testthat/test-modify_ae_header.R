@@ -71,3 +71,21 @@ test_that("modify_ae_header() works", {
       "**Unknown Grade**", "**Grade 1**", "**Grade 2**", "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Total**")
   )
 })
+
+
+# place holder for potential tests--------------------------------------------
+#expect_error(
+#  t1 <- df_adverse_events %>%
+#    tbl_ae(
+#      id = patient_id,
+#      ae = adverse_event,
+#      statistic = "{n}"
+#    )
+#
+#  t1 %>% modify_ae_header(all_stat_cols() ~ "**Grade {by}**")
+#  t1 %>% modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+#  t1 %>% modify_ae_header(all_strata_cols() ~ "**Grade {by}**")
+#  t1 %>% modify_ae_header(all_unknown_cols() ~ "**Grade {by}**")
+#
+#  )
+
