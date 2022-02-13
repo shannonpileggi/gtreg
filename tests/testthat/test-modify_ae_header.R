@@ -73,19 +73,27 @@ test_that("modify_ae_header() works", {
 })
 
 
-# place holder for potential tests--------------------------------------------
-#expect_error(
-#  t1 <- df_adverse_events %>%
-#    tbl_ae(
-#      id = patient_id,
-#      ae = adverse_event,
-#      statistic = "{n}"
-#    )
-#
-#  t1 %>% modify_ae_header(all_stat_cols() ~ "**Grade {by}**")
-#  t1 %>% modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
-#  t1 %>% modify_ae_header(all_strata_cols() ~ "**Grade {by}**")
-#  t1 %>% modify_ae_header(all_unknown_cols() ~ "**Grade {by}**")
-#
-#  )
 
+# modify_ae_header works -------------------------------------------------------------------
+t1 <- df_adverse_events %>%
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    statistic = "{n}"
+  )
+
+expect_error(
+  t1 %>% modify_ae_header(all_stat_cols() ~ "**Grade {by}**"),
+  NA
+)
+
+
+# modify_ae_header errors -------------------------------------------------------------------
+# expect_error(
+#  t1 %>% modify_ae_header(all_strata_cols() ~ "**Grade {by}**"),
+#  "Cannot use selector 'all_strata_cols()' in this context."
+#)
+
+# saving for later-  there be messaging on these?
+#t1 %>% modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+#t1 %>% modify_ae_header(all_unknown_cols() ~ "**Grade {by}**")
