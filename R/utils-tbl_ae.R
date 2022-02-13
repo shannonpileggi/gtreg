@@ -18,8 +18,8 @@
     function(index) {
       # keep observation that will be tabulated
       df_ae <-
-        filter(lst_data[[index]], !!rlang::sym(variable_filter)) %>%
-        dplyr::rename("{variable_summary}{index}" := !!rlang::sym(variable_summary))
+        filter(lst_data[[index]], !!sym(variable_filter)) %>%
+        dplyr::rename("{variable_summary}{index}" := !!sym(variable_summary))
 
       if ("ae" %in% variable_summary) {
         df_ae[[stringr::str_glue("{variable_summary}{index}")]] <-
