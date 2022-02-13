@@ -284,7 +284,7 @@
 
   data %>%
     dplyr::mutate(
-      overall = FALSE,
+      overall = is.null(x$inputs$strata) && is.null(x$inputs$strata) && is.null(x$inputs$include),
       unknown = .data$by %in% "Unknown"
     ) %>%
     dplyr::select(any_of(c("column", "strata", "by",
