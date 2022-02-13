@@ -11,9 +11,7 @@ tbl_ae_count(
   by = NULL,
   strata = NULL,
   by_values = NULL,
-  missing_text = "Unknown",
   missing_location = c("first", "last", "hide"),
-  header_by = NULL,
   zero_symbol = "—",
   digits = NULL,
   sort = NULL
@@ -35,15 +33,9 @@ by treatment group}
 to achieve correct table structure for the situation in which an adverse
 event of a certain grade is not observed for a given soc}
 
-\item{missing_text}{String that will be shown for missing levels of \verb{by=},
-Default is \code{"Unknown"}}
-
 \item{missing_location}{location where the column summarizing values with
 missing levels \verb{by=} will be located in the final table. Must be
 one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
-
-\item{header_by}{String indicating the header to be placed in the table.
-Default is \code{"**{level}**"} and only used when \verb{by=} is specified.}
 
 \item{zero_symbol}{String used to represent cells with zero counts. Default
 is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
@@ -87,8 +79,8 @@ tbl_ae_count_ex1 <-
     ae = adverse_event,
     soc = system_organ_class,
     strata = trt,
-    by = grade,
-    header_by = "**Grade {level}**"
-  )
+    by = grade
+  ) \%>\%
+  modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
 \dontshow{\}) # examplesIf}
 }

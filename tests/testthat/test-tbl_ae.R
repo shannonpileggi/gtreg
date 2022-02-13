@@ -264,9 +264,9 @@ test_that("tbl_ae() headers", {
       id = patient_id,
       ae = adverse_event,
       by = grade,
-      statistic = "{n}",
-      header_by = "**Grade {level}**"
+      statistic = "{n}"
     ) %>%
+    modify_ae_header(all_stat_cols() ~ "**Grade {by}**") %>%
     add_overall(across = 'by')
 
   expect_equal(length(intersect(tbl_by1$table_styling$header$label, h_by1)), 6)
@@ -377,8 +377,7 @@ test_that("tbl_ae() headers", {
       by = grade,
       strata = trt,
       by_values = as.character(1:6),
-      missing_location = "last",
-      missing_text = "UNK"
+      missing_location = "last"
     ) %>%
     .$table_styling %>%
     .$header %>%
@@ -386,8 +385,6 @@ test_that("tbl_ae() headers", {
     dplyr::pull(label)
 
     expect_equal(length(miss_complex), 15)
-    expect_equal(which(miss_complex == "**UNK**"), c(8, 15))
-
 
   # ----------------------------------------------------------------------------
   # strata default with overall and header_by -------------------------------
@@ -399,9 +396,9 @@ test_that("tbl_ae() headers", {
       ae = adverse_event,
       by = grade,
       strata = trt,
-      statistic = "{n}",
-      header_by = "**Grade {level}**"
+      statistic = "{n}"
     ) %>%
+    modify_ae_header(all_stat_cols() ~ "**Grade {by}**") %>%
     add_overall(across = 'strata')
 
   expect_equal(length(intersect(tbl_strata1$table_styling$header$spanning_header, strata_by1)), 3)
