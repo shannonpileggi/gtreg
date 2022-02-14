@@ -9,7 +9,7 @@ test_that("add_overall() works", {
         statistic = "{n}"
       ) %>%
       add_overall(across = 'by') %>%
-      modify_ae_header(all_stat_cols() ~ "**Grade {by}**") %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
       as_tibble(col_label = FALSE),
     NA
   )
@@ -45,7 +45,7 @@ test_that("add_overall() works", {
         strata = trt
       ) %>%
       add_overall() %>%
-      modify_ae_header(all_stat_cols() ~ "**Grade {by}**") %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
       as_tibble(col_label = FALSE),
     NA
   )
@@ -60,7 +60,7 @@ test_that("add_overall() works", {
         strata = trt
       ) %>%
       add_overall(across = 'strata') %>%
-      modify_ae_header(all_stat_cols() ~ "**Grade {by}**"),
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     NA
   )
 
@@ -91,7 +91,7 @@ test_that("add_overall() warns", {
         statistic = "{n}"
       ) %>%
       add_overall() %>%
-      modify_ae_header(all_stat_cols() ~ "**Grade {by}**"),
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     "Using `across = 'by'` instead."
   )
 
@@ -105,7 +105,7 @@ test_that("add_overall() warns", {
         statistic = "{n}"
       ) %>%
       add_overall(across = 'strata') %>%
-      modify_ae_header(all_stat_cols() ~ "**Grade {by}**"),
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     "Using `across = 'by'` instead."
   )
 
@@ -154,7 +154,7 @@ test_that("add_overall(missing_location=) works", {
         missing_location = "first"
       ) %>%
       add_overall() %>%
-      modify_ae_header(all_stat_cols() ~ "**Grade {by}**"),
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     NA
   )
   expect_equal(
@@ -180,7 +180,7 @@ test_that("add_overall(missing_location=) works", {
         missing_location = "last"
       ) %>%
       add_overall() %>%
-      modify_ae_header(all_stat_cols() ~ "**Grade {by}**"),
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     NA
   )
   expect_equal(

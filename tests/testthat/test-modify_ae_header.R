@@ -83,7 +83,7 @@ t1 <- df_adverse_events %>%
   )
 
 expect_error(
-  t1 %>% modify_ae_header(all_stat_cols() ~ "**Grade {by}**"),
+  t1 %>% modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
   NA
 )
 

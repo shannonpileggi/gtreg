@@ -265,7 +265,7 @@ test_that("tbl_ae() headers", {
       by = grade,
       statistic = "{n}"
     ) %>%
-    modify_ae_header(all_stat_cols() ~ "**Grade {by}**") %>%
+    modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
     add_overall(across = 'by')
 
   expect_equal(length(intersect(tbl_by1$table_styling$header$label, h_by1)), 6)
@@ -374,7 +374,7 @@ test_that("tbl_ae() headers", {
       strata = trt,
       statistic = "{n}"
     ) %>%
-    modify_ae_header(all_stat_cols() ~ "**Grade {by}**") %>%
+    modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
     add_overall(across = 'strata')
 
   expect_equal(length(intersect(tbl_strata1$table_styling$header$spanning_header, strata_by1)), 3)
