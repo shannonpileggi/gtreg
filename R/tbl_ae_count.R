@@ -15,25 +15,24 @@
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
 #'     strata = trt,
-#'     by = grade,
-#'     header_by = "**Grade {level}**"
-#'   )
+#'     by = grade
+#'   ) %>%
+#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
 #' \if{html}{\figure{tbl_ae_count_ex1.png}{options: width=90\%}}
 #'
-tbl_ae_count <- function(data, ae,
+tbl_ae_count <- function(data,
+                         ae,
                          soc = NULL,
                          by = NULL,
                          strata = NULL,
                          by_values = NULL,
-                         missing_text = "Unknown",
-                         missing_location = c("first", "last", "hide"),
-                         header_by = NULL,
-                         zero_symbol = "\U2014",
                          digits = NULL,
-                         sort = NULL) {
+                         sort = NULL,
+                         zero_symbol = "\U2014",
+                         missing_location = c("first", "last", "hide")) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -59,17 +58,13 @@ tbl_ae_count <- function(data, ae,
   if (is.null(ae)) {
     stop("Argument `ae=` must be specified.", call. = FALSE)
   }
-  if (!is.null(header_by) && is.null(by)) {
-    stop("Cannot specify `header_by=` when `by=` is NULL.", call. = FALSE)
-  }
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_count_inputs <- as.list(environment())
 
-  # adding default header values -----------------------------------------------
-  header_by <- header_by %||% "**{level}**"
-
+  # adding default statistic ---------------------------------------------------
   statistic <- "{n}"
+  missing_text <- "Unknown"
 
   # setting structure similar to that of data after `.complete_ae_data()` ------
   lst_name_recode <-
@@ -83,7 +78,7 @@ tbl_ae_count <- function(data, ae,
     .prepare_by_levels(
       by = by,
       by_values = by_values,
-      initial_missing = missing_text,
+      initial_missing = "Unknown",
       initial_dummy = "NOT OBSERVED"
     ) %>%
     mutate(..ae.. = TRUE, ..soc.. = TRUE) %>%
@@ -108,8 +103,6 @@ tbl_ae_count <- function(data, ae,
                    variable_summary = "..soc..",
                    variable_filter = "..soc..",
                    statistic = statistic,
-                   header_by = header_by,
-                   header_strata = NULL,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
                    labels = names(lst_data),
@@ -122,8 +115,6 @@ tbl_ae_count <- function(data, ae,
                  variable_summary = "ae",
                  variable_filter = "..ae..",
                  statistic = statistic,
-                 header_by = header_by,
-                 header_strata = NULL,
                  remove_header_row = TRUE,
                  zero_symbol = zero_symbol,
                  labels = NULL,
@@ -138,6 +129,14 @@ tbl_ae_count <- function(data, ae,
   tbl_final %>%
     # return list with function's inputs and the complete data
     purrr::list_modify(inputs = tbl_ae_count_inputs) %>%
+    purrr::list_modify(header_info = .header_info(.)) %>%
     # add class
-    structure(class = c("tbl_ae_count", "gtsummary"))
+    structure(class = c("tbl_ae_count", "gtsummary")) %>%
+    # add default headers
+    modify_ae_header(gtsummary::all_stat_cols() ~ "**{by}**") %>%
+    purrr::when(
+      !is.null(strata) ~
+        modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**"),
+      TRUE ~ .
+    )
 }

@@ -12,15 +12,12 @@ tbl_ae(
   by = NULL,
   strata = NULL,
   id_df = NULL,
-  by_values = NULL,
-  missing_text = "Unknown",
-  missing_location = c("first", "last", "hide"),
   statistic = "{n} ({p})",
-  header_by = NULL,
-  header_strata = NULL,
-  zero_symbol = "—",
+  by_values = NULL,
   digits = NULL,
-  sort = NULL
+  sort = NULL,
+  zero_symbol = "—",
+  missing_location = c("first", "last", "hide")
 )
 }
 \arguments{
@@ -40,29 +37,12 @@ by treatment group}
 \item{id_df}{Optional data frame of complete id values and strata to achieve correct
 base n for the situation in which not all subjects experience adverse events}
 
-\item{by_values}{Optional vector of complete by values, listed in desired order,
-to achieve correct table structure for the situation in which an adverse
-event of a certain grade is not observed for a given soc}
-
-\item{missing_text}{String that will be shown for missing levels of \verb{by=},
-Default is \code{"Unknown"}}
-
-\item{missing_location}{location where the column summarizing values with
-missing levels \verb{by=} will be located in the final table. Must be
-one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
-
 \item{statistic}{String indicating the statistics that will be reported.
 The default is \code{"{n} ({p})"}}
 
-\item{header_by}{String indicating the header to be placed in the table.
-Default is \code{"**{level}**"} and only used when \verb{by=} is specified.}
-
-\item{header_strata}{String indicating the strata header to be placed in the table.
-Default is \code{"**{level}**, N = {n}"} and only used when \verb{strata=} is specified.}
-
-\item{zero_symbol}{String used to represent cells with zero counts. Default
-is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
-zero count statistics, e.g. \code{"0 (0)"}}
+\item{by_values}{Optional vector of complete by values, listed in desired order,
+to achieve correct table structure for the situation in which an adverse
+event of a certain grade is not observed for a given soc}
 
 \item{digits}{Specifies the number of decimal places to round the summary statistics.
 By default integers are shown to zero decimal places, and percentages are
@@ -79,6 +59,14 @@ The default is \code{NULL}, where AEs and SOCs are sorted alphanumerically
 Use \code{sort = "ae"} to sort AEs in decreasing frequency order, \code{sort = "soc"}
 to sort SOCs in decreasing order, and \code{sort = c("ae", "soc")} to sort both.
 AEs are sorted within SOC.}
+
+\item{zero_symbol}{String used to represent cells with zero counts. Default
+is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
+zero count statistics, e.g. \code{"0 (0)"}}
+
+\item{missing_location}{location where the column summarizing values with
+missing levels \verb{by=} will be located in the final table. Must be
+one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
 }
 \description{
 The function tabulates adverse events. One AE per ID will be counted in the
@@ -111,9 +99,9 @@ df_adverse_events \%>\%
     ae = adverse_event,
     soc = system_organ_class,
     by = grade,
-    strata = trt,
-    header_by = "**Grade {level}**"
-  )
+    strata = trt
+  ) \%>\%
+  modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
 
 # Example 2 -----------------------------------------------------------------
 tbl_ae_ex2 <-
@@ -121,8 +109,8 @@ df_adverse_events \%>\%
   tbl_ae(
     id = patient_id,
     ae = adverse_event,
-    by = grade,
-    header_by = "**Grade {level}**"
-  )
+    by = grade
+  ) \%>\%
+  modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
 \dontshow{\}) # examplesIf}
 }

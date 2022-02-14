@@ -3,11 +3,10 @@
                          variable_summary,
                          variable_filter,
                          statistic,
-                         header_by,
-                         header_strata = NULL,
                          remove_header_row,
                          zero_symbol = NULL,
                          labels = NULL,
+                         header_by = "{level}",
                          by = "by",
                          by_level_to_hide = "NOT OBSERVED",
                          digits = NULL,
@@ -67,8 +66,7 @@
             strata = "strata",
             .tbl_fun = ~fn_tbl_ae(data = .x),
             .combine_with = "tbl_merge",
-            .combine_args =
-              switch(!is.null(header_strata), list(tab_spanner = header_strata))
+            .header = "{strata}"
           )
       }
       else {
@@ -81,8 +79,9 @@
 }
 
 # define `tbl_summary()` function to tabulate SOC/AE
-.fn_tbl <- function(data, variable, label = NULL, statistic, header_by,
+.fn_tbl <- function(data, variable, label = NULL, statistic,
                     remove_header_row, zero_symbol = NULL, by = "by",
+                    header_by = "{level}",
                     by_level_to_hide = "NOT OBSERVED", digits = NULL,
                     missing_location = "first",
                     missing_text = "Unknown") {
@@ -238,5 +237,58 @@
     names()
 
   lst_data <- lst_data[ordered_names]
+}
+
+
+# calculate Ns within stratum and overall
+.header_info <- function(x) {
+  data <-
+    x$inputs$id_df %||%
+    x$inputs$data %>%
+    select(any_of(c(x$inputs$id, x$inputs$strata))) %>%
+    dplyr::distinct()
+
+  # only calcualte Ns when patient is defined (e.g. not `tbl_ae_count()`)
+  if (!is.null(x$inputs$id)) {
+    data <-
+      data %>%
+      dplyr::group_by(across(any_of(x$inputs$strata))) %>%
+      dplyr::count() %>%
+      dplyr::ungroup() %>%
+      dplyr::mutate(
+        N = sum(.data$n),
+        p = .data$n / .data$N
+      )
+  }
+
+  if (isTRUE(x$inputs$strata %in% names(data))) {
+    data <-
+      data %>%
+      dplyr::rename(strata = all_of(x$inputs$strata)) %>%
+      dplyr::left_join(
+        x$table_styling$header %>%
+          dplyr::filter(startsWith(.data$column, "stat")) %>%
+          dplyr::select(.data$column, by = .data$label, strata = .data$spanning_header),
+        by = "strata"
+      )
+  }
+  else {
+    data <-
+      data %>%
+      dplyr::bind_cols(
+        x$table_styling$header %>%
+          dplyr::filter(startsWith(.data$column, "stat")) %>%
+          dplyr::select(.data$column, by = .data$label)
+      )
+  }
+
+  data %>%
+    dplyr::mutate(
+      overall = is.null(x$inputs$strata) && is.null(x$inputs$by) && is.null(x$inputs$include),
+      unknown = .data$by %in% "Unknown"
+    ) %>%
+    dplyr::select(any_of(c("column", "strata", "by",
+                           "overall", "unknown",
+                           "n", "N", "p")))
 }
 
