@@ -75,15 +75,12 @@ AE within SOC associated with the highest grade will be tabulated.</p>
   by <span class="op">=</span> <span class="cn">NULL</span>,
   strata <span class="op">=</span> <span class="cn">NULL</span>,
   id_df <span class="op">=</span> <span class="cn">NULL</span>,
-  by_values <span class="op">=</span> <span class="cn">NULL</span>,
-  missing_text <span class="op">=</span> <span class="st">"Unknown"</span>,
-  missing_location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"last"</span>, <span class="st">"hide"</span><span class="op">)</span>,
   statistic <span class="op">=</span> <span class="st">"{n} ({p})"</span>,
-  header_by <span class="op">=</span> <span class="cn">NULL</span>,
-  header_strata <span class="op">=</span> <span class="cn">NULL</span>,
-  zero_symbol <span class="op">=</span> <span class="st">"—"</span>,
+  by_values <span class="op">=</span> <span class="cn">NULL</span>,
   digits <span class="op">=</span> <span class="cn">NULL</span>,
-  sort <span class="op">=</span> <span class="cn">NULL</span>
+  sort <span class="op">=</span> <span class="cn">NULL</span>,
+  zero_symbol <span class="op">=</span> <span class="st">"—"</span>,
+  missing_location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"last"</span>, <span class="st">"hide"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -105,30 +102,13 @@ by treatment group</p></dd>
 <dt>id_df</dt>
 <dd><p>Optional data frame of complete id values and strata to achieve correct
 base n for the situation in which not all subjects experience adverse events</p></dd>
+<dt>statistic</dt>
+<dd><p>String indicating the statistics that will be reported.
+The default is <code>"{n} ({p})"</code></p></dd>
 <dt>by_values</dt>
 <dd><p>Optional vector of complete by values, listed in desired order,
 to achieve correct table structure for the situation in which an adverse
 event of a certain grade is not observed for a given soc</p></dd>
-<dt>missing_text</dt>
-<dd><p>String that will be shown for missing levels of <code>by=</code>,
-Default is <code>"Unknown"</code></p></dd>
-<dt>missing_location</dt>
-<dd><p>location where the column summarizing values with
-missing levels <code>by=</code> will be located in the final table. Must be
-one of <code>c("first", "last", "hide)</code>. Default is <code>"first"</code></p></dd>
-<dt>statistic</dt>
-<dd><p>String indicating the statistics that will be reported.
-The default is <code>"{n} ({p})"</code></p></dd>
-<dt>header_by</dt>
-<dd><p>String indicating the header to be placed in the table.
-Default is <code>"**{level}**"</code> and only used when <code>by=</code> is specified.</p></dd>
-<dt>header_strata</dt>
-<dd><p>String indicating the strata header to be placed in the table.
-Default is <code>"**{level}**, N = {n}"</code> and only used when <code>strata=</code> is specified.</p></dd>
-<dt>zero_symbol</dt>
-<dd><p>String used to represent cells with zero counts. Default
-is the em-dash (<code>"\U2014"</code>). Using <code>zero_symbol = NULL</code> will print the
-zero count statistics, e.g. <code>"0 (0)"</code></p></dd>
 <dt>digits</dt>
 <dd><p>Specifies the number of decimal places to round the summary statistics.
 By default integers are shown to zero decimal places, and percentages are
@@ -145,6 +125,14 @@ The default is <code>NULL</code>, where AEs and SOCs are sorted alphanumerically
 Use <code>sort = "ae"</code> to sort AEs in decreasing frequency order, <code>sort = "soc"</code>
 to sort SOCs in decreasing order, and <code>sort = c("ae", "soc")</code> to sort both.
 AEs are sorted within SOC.</p></dd>
+<dt>zero_symbol</dt>
+<dd><p>String used to represent cells with zero counts. Default
+is the em-dash (<code>"\U2014"</code>). Using <code>zero_symbol = NULL</code> will print the
+zero count statistics, e.g. <code>"0 (0)"</code></p></dd>
+<dt>missing_location</dt>
+<dd><p>location where the column summarizing values with
+missing levels <code>by=</code> will be located in the final table. Must be
+one of <code>c("first", "last", "hide)</code>. Default is <code>"first"</code></p></dd>
 </dl></div>
     <div id="example-output">
     <h2>Example Output</h2>
@@ -166,9 +154,9 @@ AEs are sorted within SOC.</p></dd>
 <span class="r-in">    ae <span class="op">=</span> <span class="va">adverse_event</span>,</span>
 <span class="r-in">    soc <span class="op">=</span> <span class="va">system_organ_class</span>,</span>
 <span class="r-in">    by <span class="op">=</span> <span class="va">grade</span>,</span>
-<span class="r-in">    strata <span class="op">=</span> <span class="va">trt</span>,</span>
-<span class="r-in">    header_by <span class="op">=</span> <span class="st">"**Grade {level}**"</span></span>
-<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in">    strata <span class="op">=</span> <span class="va">trt</span></span>
+<span class="r-in">  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="modify_ae_header.html">modify_ae_header</a></span><span class="op">(</span><span class="fu"><a href="selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Example 2 -----------------------------------------------------------------</span></span>
 <span class="r-in"><span class="va">tbl_ae_ex2</span> <span class="op">&lt;-</span></span>
@@ -176,9 +164,9 @@ AEs are sorted within SOC.</p></dd>
 <span class="r-in">  <span class="fu">tbl_ae</span><span class="op">(</span></span>
 <span class="r-in">    id <span class="op">=</span> <span class="va">patient_id</span>,</span>
 <span class="r-in">    ae <span class="op">=</span> <span class="va">adverse_event</span>,</span>
-<span class="r-in">    by <span class="op">=</span> <span class="va">grade</span>,</span>
-<span class="r-in">    header_by <span class="op">=</span> <span class="st">"**Grade {level}**"</span></span>
-<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in">    by <span class="op">=</span> <span class="va">grade</span></span>
+<span class="r-in">  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span class="r-in">  <span class="fu"><a href="modify_ae_header.html">modify_ae_header</a></span><span class="op">(</span><span class="fu"><a href="selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span></span>
 </code></pre></div>
     </div>
   </div>

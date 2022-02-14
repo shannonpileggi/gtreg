@@ -88,30 +88,29 @@ to print all column names beside the current header.</p></dd>
 <span class="r-in">    id <span class="op">=</span> <span class="va">patient_id</span>,</span>
 <span class="r-in">    ae <span class="op">=</span> <span class="va">adverse_event</span>,</span>
 <span class="r-in">    soc <span class="op">=</span> <span class="va">system_organ_class</span>,</span>
-<span class="r-in">    by <span class="op">=</span> <span class="va">grade</span>,</span>
-<span class="r-in">    header_by <span class="op">=</span> <span class="st">"**Grade {level}**"</span></span>
+<span class="r-in">    by <span class="op">=</span> <span class="va">grade</span></span>
 <span class="r-in">  <span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">show_header_names</a></span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> As a usage guide, the code below re-creates the current column headers.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">modify_header</span><span style="color: #BBBB00;">(</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   label = <span style="color: #BBBB00;">'**Adverse Event**'</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_1 = <span style="color: #BBBB00;">'**Grade 1**'</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_2 = <span style="color: #BBBB00;">'**Grade 2**'</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_3 = <span style="color: #BBBB00;">'**Grade 3**'</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_4 = <span style="color: #BBBB00;">'**Grade 4**'</span>,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_5 = <span style="color: #BBBB00;">'**Grade 5**'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_1 = <span style="color: #BBBB00;">'**1**'</span>,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_2 = <span style="color: #BBBB00;">'**2**'</span>,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_3 = <span style="color: #BBBB00;">'**3**'</span>,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_4 = <span style="color: #BBBB00;">'**4**'</span>,</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   stat_5 = <span style="color: #BBBB00;">'**5**'</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Column Name   Column Header     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------  ------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> label         **Adverse Event** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> stat_1        **Grade 1**       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> stat_2        **Grade 2**       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> stat_3        **Grade 3**       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> stat_4        **Grade 4**       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> stat_5        **Grade 5**       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stat_1        **1**             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stat_2        **2**             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stat_3        **3**             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stat_4        **4**             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stat_5        **5**             </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">tbl</span>, <span class="st">"Anaemia"</span>, column <span class="op">=</span> <span class="va">stat_5</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "3 (30)"</span>

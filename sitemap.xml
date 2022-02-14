@@ -52,7 +52,13 @@
     <loc>https://www.pipinghotdata.com/gtreg/reference/inline_text_tbl_ae.html</loc>
   </url>
   <url>
+    <loc>https://www.pipinghotdata.com/gtreg/reference/modify_ae_header.html</loc>
+  </url>
+  <url>
     <loc>https://www.pipinghotdata.com/gtreg/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://www.pipinghotdata.com/gtreg/reference/selectors.html</loc>
   </url>
   <url>
     <loc>https://www.pipinghotdata.com/gtreg/reference/tbl_ae.html</loc>
