@@ -22,17 +22,11 @@
 #' @param by_values Optional vector of complete by values, listed in desired order,
 #' to achieve correct table structure for the situation in which an adverse
 #' event of a certain grade is not observed for a given soc
-#' @param missing_text String that will be shown for missing levels of `by=`,
-#' Default is `"Unknown"`
 #' @param missing_location location where the column summarizing values with
 #' missing levels `by=` will be located in the final table. Must be
 #' one of `c("first", "last", "hide)`. Default is `"first"`
 #' @param statistic String indicating the statistics that will be reported.
 #' The default is `"{n} ({p})"`
-#' @param header_by String indicating the header to be placed in the table.
-#' Default is `"**{level}**"` and only used when `by=` is specified.
-#' @param header_strata String indicating the strata header to be placed in the table.
-#' Default is `"**{level}**, N = {n}"` and only used when `strata=` is specified.
 #' @param zero_symbol String used to represent cells with zero counts. Default
 #' is the em-dash (`"\U2014"`). Using `zero_symbol = NULL` will print the
 #' zero count statistics, e.g. `"0 (0)"`
@@ -61,9 +55,9 @@
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
 #'     by = grade,
-#'     strata = trt,
-#'     header_by = "**Grade {level}**"
-#'   )
+#'     strata = trt
+#'   ) %>%
+#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
 #'
 #' # Example 2 -----------------------------------------------------------------
 #' tbl_ae_ex2 <-
@@ -71,9 +65,9 @@
 #'   tbl_ae(
 #'     id = patient_id,
 #'     ae = adverse_event,
-#'     by = grade,
-#'     header_by = "**Grade {level}**"
-#'   )
+#'     by = grade
+#'   ) %>%
+#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
 #'
 #' @section Example Output:
 #' \if{html}{Example 1}
@@ -84,17 +78,19 @@
 #'
 #' \if{html}{\figure{tbl_ae_ex2.png}{options: width=65\%}}
 
-tbl_ae <- function(data, id, ae,
-                   soc = NULL, by = NULL, strata = NULL,
-                   id_df = NULL, by_values = NULL,
-                   missing_text = "Unknown",
-                   missing_location = c("first", "last", "hide"),
+tbl_ae <- function(data,
+                   id,
+                   ae,
+                   soc = NULL,
+                   by = NULL,
+                   strata = NULL,
+                   id_df = NULL,
                    statistic = "{n} ({p})",
-                   header_by = NULL,
-                   header_strata = NULL,
-                   zero_symbol = "\U2014",
+                   by_values = NULL,
                    digits = NULL,
-                   sort = NULL) {
+                   sort = NULL,
+                   zero_symbol = "\U2014",
+                   missing_location = c("first", "last", "hide")) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -122,35 +118,16 @@ tbl_ae <- function(data, id, ae,
   if (is.null(id) || is.null(ae)) {
     stop("Arguments `id=`, `ae=` must be specified.", call. = FALSE)
   }
-  if (!is.null(header_by) && is.null(by)) {
-    stop("Cannot specify `header_by=` when `by=` is NULL.", call. = FALSE)
-  }
-  if (!is.null(header_strata) && is.null(strata)) {
-    stop("Cannot specify `header_strata=` when `strata=` is NULL.", call. = FALSE)
-  }
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_inputs <- as.list(environment())
-
-  # adding default header values -----------------------------------------------
-  header_by <- header_by %||% "**{level}**"
-  header_strata <- header_strata %||% "**{level}**, N = {n}"
 
   # obtain the complete data ---------------------------------------------------
   data_complete <-
     .complete_ae_data(data, id = id, ae = ae, soc = soc, by = by,
                       strata = strata, id_df = id_df, by_values = by_values,
-                      missing_text = missing_text, missing_location = missing_location) %>%
+                      missing_location = missing_location) %>%
     group_by(across(any_of("soc")))
-
-  # prepare strata headers -----------------------------------------------------
-  vct_header_strata <-
-    switch(
-      !is.null(strata),
-      .complete_data_to_df_strata(data_complete) %>%
-        stringr::str_glue_data(header_strata) %>%
-        as.character()
-    )
 
   # putting data into list of tibbles...one element per SOC --------------------
   lst_data_complete <-
@@ -166,14 +143,11 @@ tbl_ae <- function(data, id, ae,
                    variable_summary = "..soc..",
                    variable_filter = "..soc..",
                    statistic = statistic,
-                   header_by = header_by,
-                   header_strata = vct_header_strata,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
                    labels = names(lst_data_complete),
                    digits = digits,
-                   missing_location = missing_location,
-                   missing_text = missing_text)
+                   missing_location = missing_location)
   }
 
   # tabulate AEs ---------------------------------------------------------------
@@ -182,15 +156,12 @@ tbl_ae <- function(data, id, ae,
                  variable_summary = "ae",
                  variable_filter = "..ae..",
                  statistic = statistic,
-                 header_by = header_by,
-                 header_strata = vct_header_strata,
                  remove_header_row = TRUE,
                  zero_symbol = zero_symbol,
                  labels = NULL,
                  digits = digits,
                  sort = sort,
-                 missing_location = missing_location,
-                 missing_text = missing_text)
+                 missing_location = missing_location)
 
   # stacking tbls into big final AE table --------------------------------------
   if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)
@@ -199,9 +170,16 @@ tbl_ae <- function(data, id, ae,
   # return final tbl -----------------------------------------------------------
   tbl_final %>%
     # return list with function's inputs and the complete data
-    purrr::list_modify(inputs = tbl_ae_inputs,
-                       data_complete = dplyr::ungroup(data_complete)) %>%
-    purrr::compact() %>%
+    purrr::list_modify(inputs = tbl_ae_inputs) %>%
+    purrr::list_modify(header_info = .header_info(.)) %>%
+    purrr::compact()  %>%
     # add class
-    structure(class = c("tbl_ae", "gtsummary"))
+    structure(class = c("tbl_ae", "gtsummary")) %>%
+    # add default headers
+    modify_ae_header(gtsummary::all_stat_cols() ~ "**{by}**") %>%
+    purrr::when(
+      !is.null(strata) ~
+        modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**, N = {n}"),
+      TRUE ~ .
+    )
 }

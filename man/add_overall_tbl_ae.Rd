@@ -67,10 +67,10 @@ add_overall_ex1 <-
     ae = adverse_event,
     soc = system_organ_class,
     by = grade,
-    strata = trt,
-    header_by = "**Grade {level}**"
+    strata = trt
   ) \%>\%
   add_overall() \%>\%
+  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
   bold_labels()
 
 # Example 2 -----------------------------------------------------------------
@@ -80,10 +80,10 @@ add_overall_ex2 <-
     id = patient_id,
     ae = adverse_event,
     soc = system_organ_class,
-    by = grade,
-    header_by = "**Grade {level}**"
+    by = grade
   ) \%>\%
   add_overall(across = 'by') \%>\%
+  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
   bold_labels()
 
 # Example 3 -----------------------------------------------------------------
@@ -105,11 +105,10 @@ add_overall_ex4 <-
     ae = adverse_event,
     soc = system_organ_class,
     by = grade,
-    strata = trt,
-    header_by = "**Grade {level}**"
+    strata = trt
   ) \%>\%
   add_overall(across = 'overall-only') \%>\%
+  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
   bold_labels()
-
 \dontshow{\}) # examplesIf}
 }

@@ -1,7 +1,8 @@
-url: https://shannonpileggi.github.io/gtreg
+url: https://www.pipinghotdata.com/gtreg
+
 template:
-  bootstrap: 5
-  bootswatch: litera
+  params:
+    bootswatch: flatly
 
 authors:
   Shannon Pileggi:
@@ -24,6 +25,14 @@ reference:
       - starts_with("tbl_")
       - starts_with("add_")
       - starts_with("inline_text")
+
+  - title: Table Headers
+  - contents:
+      - modify_ae_header
+
+  - title: Column Selectors
+  - contents:
+      - selectors
 
   - title: Utility Functions
   - contents:

@@ -36,8 +36,7 @@ tbl <-
     id = patient_id,
     ae = adverse_event,
     soc = system_organ_class,
-    by = grade,
-    header_by = "**Grade {level}**"
+    by = grade
   )
 show_header_names(tbl)
 

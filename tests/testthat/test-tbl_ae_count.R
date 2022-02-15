@@ -7,9 +7,9 @@ test_that("tbl_ae_count() works", {
         soc = system_organ_class,
         strata = trt,
         by = grade,
-        header_by = "**Grade {level}**",
         zero_symbol = NULL
-      ),
+      ) %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     NA
   )
 
