@@ -92,7 +92,7 @@ test_that("add_overall() warns", {
         statistic = "{n}",
         header_by = "**Grade {level}**"
       ) %>%
-      add_overall(across = "both"),
+      add_overall(),
     "Using `across = 'by'` instead."
   )
 
@@ -133,7 +133,7 @@ test_that("add_overall() warns", {
         strata = trt,
         statistic = "{n}"
       ) %>%
-      add_overall(across = "both"),
+      add_overall(),
     "Using `across = 'strata'` instead."
   )
 
