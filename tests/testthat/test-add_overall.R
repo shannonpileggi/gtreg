@@ -6,10 +6,10 @@ test_that("add_overall() works", {
         id = patient_id,
         ae = adverse_event,
         by = grade,
-        statistic = "{n}",
-        header_by = "**Grade {level}**"
+        statistic = "{n}"
       ) %>%
       add_overall(across = 'by') %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
       as_tibble(col_label = FALSE),
     NA
   )
@@ -42,10 +42,10 @@ test_that("add_overall() works", {
         ae = adverse_event,
         soc = system_organ_class,
         by = grade,
-        strata = trt,
-        header_by = "**Grade {level}**"
+        strata = trt
       ) %>%
       add_overall() %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
       as_tibble(col_label = FALSE),
     NA
   )
@@ -57,10 +57,10 @@ test_that("add_overall() works", {
         ae = adverse_event,
         soc = system_organ_class,
         by = grade,
-        strata = trt,
-        header_by = "**Grade {level}**"
+        strata = trt
       ) %>%
-      add_overall(across = 'strata'),
+      add_overall(across = 'strata') %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     NA
   )
 
@@ -71,8 +71,7 @@ test_that("add_overall() works", {
         ae = adverse_event,
         soc = system_organ_class,
         by = grade,
-        strata = trt,
-        header_by = "**Grade {level}**"
+        strata = trt
       ) %>%
       add_overall(across = 'overall-only'),
     NA
@@ -89,10 +88,10 @@ test_that("add_overall() warns", {
         ae = adverse_event,
         soc = system_organ_class,
         by = grade,
-        statistic = "{n}",
-        header_by = "**Grade {level}**"
+        statistic = "{n}"
       ) %>%
-      add_overall(),
+      add_overall() %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     "Using `across = 'by'` instead."
   )
 
@@ -103,10 +102,10 @@ test_that("add_overall() warns", {
         ae = adverse_event,
         soc = system_organ_class,
         by = grade,
-        statistic = "{n}",
-        header_by = "**Grade {level}**"
+        statistic = "{n}"
       ) %>%
-      add_overall(across = 'strata'),
+      add_overall(across = 'strata') %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     "Using `across = 'by'` instead."
   )
 
@@ -152,18 +151,18 @@ test_that("add_overall(missing_location=) works", {
         soc = system_organ_class,
         by = grade,
         strata = trt,
-        header_by = "**Grade {level}**",
         missing_location = "first"
       ) %>%
-      add_overall(),
+      add_overall() %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     NA
   )
   expect_equal(
     tbl$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
     c("**Adverse Event**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**", "**Grade 3**",
-      "**Grade 4**", "**Grade 5**", "**Overall**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Overall**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Overall**")
+      "**Grade 4**", "**Grade 5**", "**Grade Overall**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**","**Grade Overall**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Overall**")
   )
 
   expect_error(
@@ -178,18 +177,18 @@ test_that("add_overall(missing_location=) works", {
         soc = system_organ_class,
         by = grade,
         strata = trt,
-        header_by = "**Grade {level}**",
         missing_location = "last"
       ) %>%
-      add_overall(),
+      add_overall() %>%
+      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     NA
   )
   expect_equal(
     tbl$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
     c("**Adverse Event**", "**Grade 1**", "**Grade 2**", "**Grade 3**",
-      "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Overall**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Overall**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Overall**")
+      "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Grade Overall**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Grade Overall**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Grade Overall**")
   )
 })
 
