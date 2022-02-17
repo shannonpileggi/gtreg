@@ -6,8 +6,8 @@
 #'
 #' @return a 'tbl_ae_count' object
 #' @export
-#'\donttest{
 #' @examples
+#' \donttest{
 #' # Example 1 -----------------------------------------------------------------
 #' tbl_ae_count_ex1 <-
 #'   tbl_ae_count(

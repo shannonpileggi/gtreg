@@ -12,8 +12,8 @@
 #'
 #' @return a 'tbl_ae_focus' object
 #' @export
-#' \donttest{
 #' @examples
+#' \donttest{
 #' # Example 1 -----------------------------------------------------------------
 #' tbl_ae_focus_ex1 <-
 #'   df_adverse_events %>%
