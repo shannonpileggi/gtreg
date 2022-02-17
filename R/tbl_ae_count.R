@@ -6,8 +6,8 @@
 #'
 #' @return a 'tbl_ae_count' object
 #' @export
-#'
-#' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
+#'\donttest{
+#' @examples
 #' # Example 1 -----------------------------------------------------------------
 #' tbl_ae_count_ex1 <-
 #'   tbl_ae_count(
@@ -18,6 +18,7 @@
 #'     by = grade
 #'   ) %>%
 #'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+#'   }
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
