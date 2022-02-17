@@ -18,5 +18,10 @@ install.packages(
 #    may overlap throughout the entire package.
 gt.doc.images::save_help_file_images(pkg = "gtreg")
 
+gt.doc.images::save_help_file_images(
+  pkg = "gtreg",
+  rd_files = c("selectors.Rd", "modify_ae_header.Rd")
+)
+
 # 5. Shrink png files
 gt.doc.images::shrink_help_file_images(pkg = "gtreg")

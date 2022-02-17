@@ -90,25 +90,13 @@ gtsummary::inline_text
 #' @export
 gtsummary::add_overall
 
-#' @importFrom gtsummary modify_header
-#' @export
-gtsummary::modify_header
-
 #' @importFrom gtsummary modify_footnote
 #' @export
 gtsummary::modify_footnote
 
-#' @importFrom gtsummary modify_spanning_header
-#' @export
-gtsummary::modify_spanning_header
-
 #' @importFrom gtsummary modify_caption
 #' @export
 gtsummary::modify_caption
-
-#' @importFrom gtsummary modify_header
-#' @export
-gtsummary::modify_header
 
 #' @importFrom gtsummary bold_labels
 #' @export
@@ -134,10 +122,6 @@ gtsummary::bold_labels
 #' @export
 gtsummary::show_header_names
 
-#' @importFrom gtsummary all_stat_cols
-#' @export
-gtsummary::all_stat_cols
-
 #' @importFrom gtsummary style_number
 #' @export
 gtsummary::style_number
@@ -149,8 +133,3 @@ gtsummary::style_sigfig
 #' @importFrom gtsummary style_percent
 #' @export
 gtsummary::style_percent
-
-#' @importFrom gtsummary tbl_split
-#' @export
-gtsummary::tbl_split
-

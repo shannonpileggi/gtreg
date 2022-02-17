@@ -24,10 +24,10 @@
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
 #'     by = grade,
-#'     strata = trt,
-#'     header_by = "**Grade {level}**"
+#'     strata = trt
 #'   ) %>%
 #'   add_overall() %>%
+#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
 #'   bold_labels()
 #'
 #' # Example 2 -----------------------------------------------------------------
@@ -37,10 +37,10 @@
 #'     id = patient_id,
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
-#'     by = grade,
-#'     header_by = "**Grade {level}**"
+#'     by = grade
 #'   ) %>%
 #'   add_overall(across = 'by') %>%
+#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
 #'   bold_labels()
 #'
 #' # Example 3 -----------------------------------------------------------------
@@ -62,12 +62,11 @@
 #'     ae = adverse_event,
 #'     soc = system_organ_class,
 #'     by = grade,
-#'     strata = trt,
-#'     header_by = "**Grade {level}**"
+#'     strata = trt
 #'   ) %>%
 #'   add_overall(across = 'overall-only') %>%
+#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
 #'   bold_labels()
-#'
 #'
 #' @section Example Output:
 #' \if{html}{Example 1}
@@ -128,44 +127,52 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
   if (across %in% "both") {
     # table without by variable
     tbl_args_by <- tbl_args
-    tbl_args_by$by <- tbl_args_by$header_by <- NULL
+    tbl_args_by$by <- NULL
     tbl_overall_by <- do.call(class(x)[1], tbl_args_by)
+    tbl_overall_by$header_info$overall <- TRUE
 
     # table without strata variable
     tbl_args_strata <- tbl_args
     tbl_args_strata$data[[tbl_args_strata$strata]] <- "Overall"
+    if (!is.null(tbl_args_strata$id_df))
+      tbl_args_strata$id_df[[tbl_args_strata$strata]] <- "Overall"
 
     tbl_overall_strata <- do.call(class(x)[1], tbl_args_strata)
 
     # table with neither by nor strata variables
     tbl_args_neither <- tbl_args
     tbl_args_neither$data[[tbl_args_neither$strata]] <- "Overall"
-    tbl_args_neither$by <- tbl_args_neither$header_by <- NULL
+    if (!is.null(tbl_args_neither$id_df))
+      tbl_args_neither$id_df[[tbl_args_neither$strata]] <- "Overall"
+    tbl_args_neither$by <- NULL
 
     tbl_overall_neither <- do.call(class(x)[1], tbl_args_neither)
+    tbl_overall_neither$header_info$overall <- TRUE
 
     tbl_overall <-
       list(tbl_overall_by, tbl_overall_strata, tbl_overall_neither) %>%
-      gtsummary::tbl_merge(tab_spanner = FALSE)
+      .tbl_ae_merge(tab_spanner = FALSE)
   }
   else if (across %in% "overall-only") {
-    tbl_args$by <- tbl_args$header_by <-
-      tbl_args$strata <- tbl_args$header_strata <- NULL
+    tbl_args$by <- tbl_args$strata <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
+    tbl_overall$header_info$overall <- TRUE
   }
   else if (across %in% "by") {
-    tbl_args$by <- tbl_args$header_by <- NULL
-    tbl_overall <-
-      do.call(class(x)[1], tbl_args)
+    tbl_args$by <- NULL
+    tbl_overall <- do.call(class(x)[1], tbl_args)
+    tbl_overall$header_info$overall <- TRUE
   }
   else if (across %in% "strata") {
     tbl_args$data[[tbl_args$strata]] <- "Overall"
+    if (!is.null(tbl_args$id_df))
+      tbl_args$id_df[[tbl_args$strata]] <- "Overall"
 
     tbl_overall <- do.call(class(x)[1], tbl_args)
   }
 
   # merging tbl_overall with original call -------------------------------------
-  tbl_final <- gtsummary::tbl_merge(list(x, tbl_overall), tab_spanner = FALSE)
+  tbl_final <- .tbl_ae_merge(list(x, tbl_overall), tab_spanner = FALSE)
 
   # grouping columns with same spanning header together ------------------------
   if (across %in% c("both", "by") && !is.null(x$inputs$strata)) {
@@ -189,7 +196,11 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
   # return merged tables -------------------------------------------------------
   class(tbl_final) <- class(x)
   tbl_final %>%
-    gtsummary::tbl_butcher()
+    gtsummary::tbl_butcher() %>%
+    purrr::list_modify(
+      inputs = x$inputs,
+      header_info = tbl_final$header_info
+    )
 }
 
 #' @rdname add_overall_tbl_ae
@@ -199,3 +210,31 @@ add_overall.tbl_ae_count <- add_overall.tbl_ae
 #' @rdname add_overall_tbl_ae
 #' @export
 add_overall.tbl_ae_focus <- add_overall.tbl_ae
+
+
+# simple wrapper for `tbl_merge()` that also handles the `.$header_info` object
+.tbl_ae_merge <- function(tbls, ...) {
+  # merge the tbls together
+  tbl <- gtsummary::tbl_merge(tbls, ...)
+
+  # update the column names in `.$header_info` and stack the resulting tibbles
+  tbl$header_info <-
+    purrr::map_dfr(
+      seq_len(length(tbls)),
+      ~ purrr::pluck(tbls, .x, "header_info") %>%
+        mutate(
+          column =
+            ifelse(
+              .data$column %in% c("variable", "row_type", "var_label", "label"),
+              .data$column,
+              paste(.data$column, .x, sep = "_")
+            )
+        )
+    ) %>%
+    dplyr::group_by(.data$column) %>%
+    dplyr::filter(dplyr::row_number() == 1L) %>%
+    dplyr::ungroup()
+
+  # return merged tbl
+  tbl
+}

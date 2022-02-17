@@ -11,13 +11,12 @@ tbl_ae_focus(
   ae,
   soc = NULL,
   strata = NULL,
+  label = NULL,
   id_df = NULL,
   statistic = "{n} ({p})",
-  label = NULL,
-  header_strata = NULL,
-  zero_symbol = "—",
   digits = NULL,
-  sort = NULL
+  sort = NULL,
+  zero_symbol = "—"
 )
 }
 \arguments{
@@ -35,22 +34,15 @@ quoted or unquoted. All columns must be class 'logical'.}
 \item{strata}{Variable to stratify results by, e.g. report AEs summaries
 by treatment group}
 
+\item{label}{A named list of labels that will be applied in the
+resulting table. Names must be those passed in \verb{include=}. Default is
+NULL, and either the label attribute or the column name will be used.}
+
 \item{id_df}{Optional data frame of complete id values and strata to achieve correct
 base n for the situation in which not all subjects experience adverse events}
 
 \item{statistic}{String indicating the statistics that will be reported.
 The default is \code{"{n} ({p})"}}
-
-\item{label}{A named list of labels that will be applied in the
-resulting table. Names must be those passed in \verb{include=}. Default is
-NULL, and either the label attribute or the column name will be used.}
-
-\item{header_strata}{String indicating the strata header to be placed in the table.
-Default is \code{"**{level}**, N = {n}"} and only used when \verb{strata=} is specified.}
-
-\item{zero_symbol}{String used to represent cells with zero counts. Default
-is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
-zero count statistics, e.g. \code{"0 (0)"}}
 
 \item{digits}{Specifies the number of decimal places to round the summary statistics.
 By default integers are shown to zero decimal places, and percentages are
@@ -67,6 +59,10 @@ The default is \code{NULL}, where AEs and SOCs are sorted alphanumerically
 Use \code{sort = "ae"} to sort AEs in decreasing frequency order, \code{sort = "soc"}
 to sort SOCs in decreasing order, and \code{sort = c("ae", "soc")} to sort both.
 AEs are sorted within SOC.}
+
+\item{zero_symbol}{String used to represent cells with zero counts. Default
+is the em-dash (\code{"\\U2014"}). Using \code{zero_symbol = NULL} will print the
+zero count statistics, e.g. \code{"0 (0)"}}
 }
 \value{
 a 'tbl_ae_focus' object

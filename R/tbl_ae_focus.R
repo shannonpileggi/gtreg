@@ -38,13 +38,12 @@ tbl_ae_focus <- function(data,
                          ae,
                          soc = NULL,
                          strata = NULL,
+                         label = NULL,
                          id_df = NULL,
                          statistic = "{n} ({p})",
-                         label = NULL,
-                         header_strata = NULL,
-                         zero_symbol = "\U2014",
                          digits = NULL,
-                         sort = NULL) {
+                         sort = NULL,
+                         zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -76,9 +75,6 @@ tbl_ae_focus <- function(data,
   if (is.null(include) || is.null(id) || is.null(ae)) {
     stop("Arguments `include=`, `id=`, `ae=` must be specified.", call. = FALSE)
   }
-  if (!is.null(header_strata) && is.null(strata)) {
-    stop("Cannot specify `header_strata=` when `strata=` is NULL.", call. = FALSE)
-  }
 
   purrr::walk(
     include,
@@ -87,9 +83,6 @@ tbl_ae_focus <- function(data,
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_focus_inputs <- as.list(environment())
-
-  # adding default header values -----------------------------------------------
-  header_strata <- header_strata %||% "**{level}**, N = {n}"
 
   # obtain the complete data ---------------------------------------------------
   data_complete <-
@@ -102,15 +95,6 @@ tbl_ae_focus <- function(data,
       "and cannot be used in `include=`.") %>%
       stop(call. = FALSE)
   }
-
-  # prepare strata headers -----------------------------------------------------
-  vct_header_strata <-
-    switch(
-      !is.null(strata),
-      .complete_data_to_df_strata(data_complete) %>%
-        stringr::str_glue_data(header_strata) %>%
-        as.character()
-    )
 
   # merge in the `include=` variable to the complete data ----------------------
   lst_rename <- purrr::compact(list(id = id, ae = ae, soc = soc))
@@ -171,7 +155,6 @@ tbl_ae_focus <- function(data,
             attr(data[[.x]], "label") %||%
             .x %>%
             {stringr::str_glue("**{.}**")},
-          header_strata = vct_header_strata,
           remove_header_row = FALSE,
           zero_symbol = zero_symbol,
           labels = names(lst_data_complete),
@@ -207,7 +190,6 @@ tbl_ae_focus <- function(data,
           attr(data[[.x]], "label") %||%
           .x %>%
           {stringr::str_glue("**{.}**")},
-        header_strata = vct_header_strata,
         remove_header_row = TRUE,
         zero_symbol = zero_symbol,
         digits = digits,
@@ -231,12 +213,30 @@ tbl_ae_focus <- function(data,
   if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)
   else tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae, lst_tbl_soc)
 
+  # grouping stratum together in final tbl -------------------------------------
+  if (!is.null(strata)) {
+    column_order <-
+      tibble::tibble(
+        spanning_header = unique(tbl_final$table_styling$header$spanning_header)
+      ) %>%
+      dplyr::left_join(tbl_final$table_styling$header, by = "spanning_header") %>%
+      dplyr::pull(.data$column)
+    tbl_final <- tbl_final %>% gtsummary::modify_table_body(~.x[column_order])
+  }
+
   # return final tbl -----------------------------------------------------------
   tbl_final %>%
     # return list with function's inputs
     purrr::list_modify(inputs = tbl_ae_focus_inputs) %>%
+    purrr::list_modify(header_info = .header_info(.)) %>%
     # add class
-    structure(class = c("tbl_ae_focus", "gtsummary"))
+    structure(class = c("tbl_ae_focus", "gtsummary")) %>%
+    # add default headers
+    purrr::when(
+      !is.null(strata) ~
+        modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**, N = {n}"),
+      TRUE ~ .
+    )
 }
 
 
