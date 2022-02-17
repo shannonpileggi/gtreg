@@ -30,6 +30,7 @@ Imports:
     tibble (>= 3.1.6),
     tidyr (>= 1.1.4)
 Suggests: 
+    rmarkdown,
     covr (>= 3.5.1),
     gt (>= 0.3.1),
     spelling (>= 2.2),
@@ -40,3 +41,4 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+VignetteBuilder: knitr
