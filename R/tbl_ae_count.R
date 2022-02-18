@@ -84,8 +84,11 @@ tbl_ae_count <- function(data,
     mutate(..ae.. = TRUE, ..soc.. = TRUE) %>%
     group_by(across(any_of("soc")))
 
-  # moving missing by level to end if requested
-  if (missing_location %in% "last" && missing_text %in% levels(data[["by"]])) {
+  # moving missing by level as requested
+  if (missing_location %in% "first" && missing_text %in% levels(data[["by"]])) {
+    data[["by"]] <- forcats::fct_relevel(data[["by"]], missing_text, after = 0L)
+  }
+  else if (missing_location %in% "last" && missing_text %in% levels(data[["by"]])) {
     data[["by"]] <- forcats::fct_relevel(data[["by"]], missing_text, after = Inf)
   }
 
@@ -106,7 +109,8 @@ tbl_ae_count <- function(data,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
                    labels = names(lst_data),
-                   digits = digits)
+                   digits = digits,
+                   missing_location = missing_location)
   }
 
   # tabulate AEs ---------------------------------------------------------------
@@ -119,7 +123,8 @@ tbl_ae_count <- function(data,
                  zero_symbol = zero_symbol,
                  labels = NULL,
                  digits = digits,
-                 sort = sort)
+                 sort = sort,
+                 missing_location = missing_location)
 
   # stacking tbls into big final AE table --------------------------------------
   if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)
