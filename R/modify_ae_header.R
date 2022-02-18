@@ -23,6 +23,7 @@
 #' `tbl_ae_count()` objects.
 #'
 #' @examples
+#' \donttest{
 #' modify_ae_header_ex1 <-
 #'   df_adverse_events %>%
 #'   tbl_ae(
@@ -34,6 +35,7 @@
 #'   ) %>%
 #'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
 #'   modify_ae_spanning_header(all_ae_cols() ~ "**{strata}** N = {n} / {N}")
+#'   }
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
