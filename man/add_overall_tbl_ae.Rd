@@ -7,22 +7,22 @@
 \alias{add_overall.tbl_ae_focus}
 \title{Tabulate Overall Summary}
 \usage{
-\method{add_overall}{tbl_ae}(x, across = c("both", "by", "strata", "overall-only"), ...)
+\method{add_overall}{tbl_ae}(x, across = NULL, ...)
 
-\method{add_overall}{tbl_ae_count}(x, across = c("both", "by", "strata", "overall-only"), ...)
+\method{add_overall}{tbl_ae_count}(x, across = NULL, ...)
 
-\method{add_overall}{tbl_ae_focus}(x, across = c("both", "by", "strata", "overall-only"), ...)
+\method{add_overall}{tbl_ae_focus}(x, across = NULL, ...)
 }
 \arguments{
 \item{x}{Object of class \code{"tbl_ae"}, \code{"tbl_ae_focus"}, or \code{"tbl_ae_count"}}
 
 \item{across}{Specify the type of overall statistics to include.
 \itemize{
-\item \code{"both"} adds summaries across both the \verb{by=} and \verb{strata=} levels (Default)
+\item \code{"both"} adds summaries across both the \verb{by=} and \verb{strata=} levels
 \item \code{"by"} adds summaries across the \verb{by=} levels
 \item \code{"strata"} adds summaries across the \verb{strata=} levels
 \item \code{"overall-only"} adds a single overall column
-Default it \code{"both"}
+Default is all possible overall types.
 }}
 
 \item{...}{Not used}

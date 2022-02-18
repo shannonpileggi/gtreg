@@ -103,8 +103,7 @@ test_that("tbl_ae_count() works", {
 
   expect_equal(
     dat %>%
-      tbl_ae(
-        id = subject,
+      tbl_ae_count(
         ae = ae,
         soc = soc,
         by = grade,
@@ -117,8 +116,7 @@ test_that("tbl_ae_count() works", {
 
   expect_equal(
     dat %>%
-      tbl_ae(
-        id = subject,
+      tbl_ae_count(
         ae = ae,
         soc = soc,
         by = grade,
@@ -129,10 +127,22 @@ test_that("tbl_ae_count() works", {
     c("**Adverse Event**", "**Unknown**", "**1**", "**2**")
   )
 
+  # using default missing location
   expect_equal(
     dat %>%
-      tbl_ae(
-        id = subject,
+      tbl_ae_count(
+        ae = ae,
+        soc = soc,
+        by = grade
+      ) %>%
+      as_tibble() %>%
+      names(),
+    c("**Adverse Event**", "**Unknown**", "**1**", "**2**")
+  )
+
+  expect_equal(
+    dat %>%
+      tbl_ae_count(
         ae = ae,
         soc = soc,
         by = grade,
@@ -143,7 +153,6 @@ test_that("tbl_ae_count() works", {
     c("**Adverse Event**", "**1**", "**2**", "**Unknown**")
   )
 
-
   # error messaging with by levels ---------------------------------------------
   expect_error(
     dat %>%
@@ -151,8 +160,22 @@ test_that("tbl_ae_count() works", {
         grade = ifelse(dplyr::row_number() == 1L, "Unknown", grade)
       ) %>%
       tbl_ae_count(
+        ae = ae,
+        soc = soc,
         by = grade
       )
   )
-
+  expect_error( # no error when no NA present
+    dat %>%
+      tidyr::drop_na() %>%
+      dplyr::mutate(
+        grade = ifelse(dplyr::row_number() == 1L, "Unknown", grade)
+      ) %>%
+      tbl_ae_count(
+        ae = ae,
+        soc = soc,
+        by = grade
+      ),
+    NA
+  )
 })
