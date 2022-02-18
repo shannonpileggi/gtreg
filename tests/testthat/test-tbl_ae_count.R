@@ -178,4 +178,26 @@ test_that("tbl_ae_count() works", {
       ),
     NA
   )
+
+
+  expect_error(
+    dat %>%
+      tbl_ae_count(
+        ae = ae,
+        soc = soc,
+        by = grade,
+        by_values = c("Unknown", 1:5)
+      )
+  )
+  expect_error( # no error when no NA present
+    dat %>%
+      tidyr::drop_na() %>%
+      tbl_ae_count(
+        ae = ae,
+        soc = soc,
+        by = grade,
+        by_values = c("Unknown", 1:5)
+      ),
+    NA
+  )
 })
