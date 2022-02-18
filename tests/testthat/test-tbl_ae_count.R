@@ -84,4 +84,63 @@ test_that("tbl_ae_count() works", {
         missing_location = "NOPE"
       )
   )
+
+  dat <- tibble::tribble(
+    ~subject, ~visit,  ~soc, ~ae, ~grade,
+    # Subject 1 ----------------------------------------------------------------
+    "001", 1, "Eye disorders", "Eye irritation", 1,
+    "001", 1, "Gastrointestinal disorders", "Difficult digestion", 1,
+    "001", 2, "Eye disorders", "Eye irritation", 1,
+    "001", 3, "Eye disorders", "Eye irritation", 2,
+    "001", 4, "Eye disorders", "Vision blurred", 2,
+    # Subject 2 ----------------------------------------------------------------
+    "002", 1, "Gastrointestinal disorders", "Difficult digestion", 2,
+    "002", 1, "Gastrointestinal disorders", "Reflux", 2,
+    "002", 2, "Eye disorders", "Vision blurred", 2,
+    "002", 2, "Gastrointestinal disorders", "Reflux", 2,
+    "002", 3, "Gastrointestinal disorders", "Reflux", NA
+  )
+
+  expect_equal(
+    dat %>%
+      tbl_ae(
+        id = subject,
+        ae = ae,
+        soc = soc,
+        by = grade,
+        missing_location = "hide"
+      ) %>%
+      as_tibble() %>%
+      names(),
+    c("**Adverse Event**", "**1**", "**2**")
+  )
+
+  expect_equal(
+    dat %>%
+      tbl_ae(
+        id = subject,
+        ae = ae,
+        soc = soc,
+        by = grade,
+        missing_location = "first"
+      ) %>%
+      as_tibble() %>%
+      names(),
+    c("**Adverse Event**", "**Unknown**", "**1**", "**2**")
+  )
+
+  expect_equal(
+    dat %>%
+      tbl_ae(
+        id = subject,
+        ae = ae,
+        soc = soc,
+        by = grade,
+        missing_location = "last"
+      ) %>%
+      as_tibble() %>%
+      names(),
+    c("**Adverse Event**", "**1**", "**2**", "**Unknown**")
+  )
+
 })
