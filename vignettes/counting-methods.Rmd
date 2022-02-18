@@ -31,7 +31,7 @@ standardized terminology and specific counting methods for adverse events.
 Providing standardized terminology is not in the scope of this package. Standardized
 terminology adheres to a hierarchy of terms from specific to general, as discussed
 in the [MedDRA Hierarchy](https://www.meddra.org/how-to-use/basics/hierarchy) 
-documentation. In `gtreg`, we facilitate reporting of a single term 
+documentation. In {gtreg}, we facilitate reporting of a single term 
 (i.e., `ae`, or adverse event), or a lower level term within a higher level term 
 (i.e., `ae` within `soc`, system organ class). 
 
@@ -81,7 +81,7 @@ In this case, we have two subjects which experienced a total of 5 eye disorders 
 gastrointestinal disorders over the course of multiple time points. The only statistic 
 allowed in `tbl_ae_count()` is `n`.
 
-# Counting By Maximum
+# Counting By Maximum Grade
 
 Rather than counting all events, it is typical in regulatory reporting to count
 one event per subject by the maximum grade experienced. To count the maximum grade 
@@ -111,6 +111,11 @@ resulting in a count of `1` for eye irritation.
 
 * Subject `001` and Subject `002` both experienced grade 2 vision blurred, resulting
 in a count of `2` of vision blurred.
+
+Note that the input `by` variable can be numeric (e.g., grade 1, 2, 3) or factor
+(e.g. attribution unlikely, possible, definite). In the respective cases,
+the maximum value observed would be according to numeric order or factor
+level order.
 
 ## Counts With Percents
 
