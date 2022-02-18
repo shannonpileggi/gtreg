@@ -90,7 +90,7 @@ test_that("add_overall() warns", {
         by = grade,
         statistic = "{n}"
       ) %>%
-      add_overall() %>%
+      add_overall(across = "both") %>%
       modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
     "Using `across = 'by'` instead."
   )
@@ -132,7 +132,7 @@ test_that("add_overall() warns", {
         strata = trt,
         statistic = "{n}"
       ) %>%
-      add_overall(),
+      add_overall(across = "both"),
     "Using `across = 'strata'` instead."
   )
 
