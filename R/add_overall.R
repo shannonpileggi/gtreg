@@ -2,11 +2,11 @@
 #'
 #' @param x Object of class `"tbl_ae"`, `"tbl_ae_focus"`, or `"tbl_ae_count"`
 #' @param across Specify the type of overall statistics to include.
-#' - `"both"` adds summaries across both the `by=` and `strata=` levels (Default)
+#' - `"both"` adds summaries across both the `by=` and `strata=` levels
 #' - `"by"` adds summaries across the `by=` levels
 #' - `"strata"` adds summaries across the `strata=` levels
 #' - `"overall-only"` adds a single overall column
-#' Default it `"both"`
+#' Default is all possible overall types.
 #' @param ... Not used
 #'
 #' @name add_overall_tbl_ae
@@ -88,10 +88,18 @@ NULL
 
 #' @rdname add_overall_tbl_ae
 #' @export
-add_overall.tbl_ae <- function(x, across = c("both", "by", "strata", "overall-only"), ...) {
+add_overall.tbl_ae <- function(x, across = NULL, ...) {
   # check inputs ---------------------------------------------------------------
   rlang::check_dots_empty()
-  across <- match.arg(across)
+
+  # assign default value if `across=` not specified
+  across <-
+    across %||%
+    dplyr::case_when(is.null(x$inputs$strata) ~ "by",
+                     is.null(x$inputs$by) ~  "strata",
+                     TRUE ~ "both")
+  across <- match.arg(across, choices = c("both", "by", "strata", "overall-only"))
+
   if (is.null(x$inputs$by) && is.null(x$inputs$strata)) {
     paste("Cannot use `add_overall()` when neither `by=` nor `strata=`",
           "were used the in the original summary table call.") %>%
