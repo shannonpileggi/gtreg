@@ -378,6 +378,27 @@ test_that("tbl_ae() works", {
 
 test_that("tbl_ae() headers", {
 
+  # spanning header without strata ---------------------------------------------
+  tbl_no_strata <- df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      by = grade
+    )
+
+  expect_equal(
+    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide),
+    tibble::tribble(
+      ~column, ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header, ~spanning_header,
+      "label", FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",               NA,
+      "stat_1", FALSE, "center",         "gt::md",             "**1**",                   "gt::md",         "N = 10",
+      "stat_2", FALSE, "center",         "gt::md",             "**2**",                   "gt::md",         "N = 10",
+      "stat_3", FALSE, "center",         "gt::md",             "**3**",                   "gt::md",         "N = 10",
+      "stat_4", FALSE, "center",         "gt::md",             "**4**",                   "gt::md",         "N = 10",
+      "stat_5", FALSE, "center",         "gt::md",             "**5**",                   "gt::md",         "N = 10"
+    )
+  )
+
   # header_by modified ---------------------------------------------------------
   h_by1 <- c("**Grade 1**", "**Grade 2**", "**Grade 3**","**Grade 4**", "**Grade 5**", "**Overall**")
   tbl_by1 <-
