@@ -90,7 +90,7 @@ AE within SOC associated with the highest grade will be tabulated.
 }
 
 \examples{
-\dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\donttest{
 # Example 1 -----------------------------------------------------------------
 tbl_ae_ex1 <-
 df_adverse_events \%>\%
@@ -112,5 +112,5 @@ df_adverse_events \%>\%
     by = grade
   ) \%>\%
   modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
-\dontshow{\}) # examplesIf}
+}
 }

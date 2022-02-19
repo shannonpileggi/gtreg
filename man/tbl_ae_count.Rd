@@ -71,7 +71,7 @@ Create a table with the number of AE that were reported.
 }
 
 \examples{
-\dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\donttest{
 # Example 1 -----------------------------------------------------------------
 tbl_ae_count_ex1 <-
   tbl_ae_count(
@@ -82,5 +82,5 @@ tbl_ae_count_ex1 <-
     by = grade
   ) \%>\%
   modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
-\dontshow{\}) # examplesIf}
+  }
 }
