@@ -94,4 +94,46 @@ test_that("tbl_ae_focus() works", {
       soc = system_organ_class
     )
   )
+
+  # spanning header without strata ---------------------------------------------
+  tbl_no_strata <- df_adverse_events %>%
+    tbl_ae_focus(
+      id = patient_id,
+      include = c(any_complication, grade3_complication),
+      ae = adverse_event
+    )
+
+  expect_equal(
+    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide),
+    tibble::tribble(
+      ~column, ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header, ~spanning_header,
+      "label", FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",               NA,
+      "stat_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md",         "N = 10",
+      "stat_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md",         "N = 10"
+    )
+  )
+
+
+  # spanning header with strata ---------------------------------------------
+  tbl_w_strata <- df_adverse_events %>%
+    tbl_ae_focus(
+      id = patient_id,
+      strata = trt,
+      include = c(any_complication, grade3_complication),
+      ae = adverse_event
+    )
+
+  expect_equal(
+    tbl_w_strata$table_styling$header %>% dplyr::filter(!hide),
+    tibble::tribble(
+      ~column, ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,    ~spanning_header,
+      "label", FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                  NA,
+      "stat_1_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug A**, N = 3",
+      "stat_1_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug A**, N = 3",
+      "stat_1_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug B**, N = 7",
+      "stat_1_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug B**, N = 7"
+    )
+  )
+
+
 })
