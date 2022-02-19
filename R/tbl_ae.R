@@ -46,7 +46,8 @@
 #' User may also pass a styling function: `digits = style_sigfig`
 #'
 #' @export
-#' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
+#' @examples
+#' \donttest{
 #' # Example 1 -----------------------------------------------------------------
 #' tbl_ae_ex1 <-
 #' df_adverse_events %>%
@@ -68,7 +69,7 @@
 #'     by = grade
 #'   ) %>%
 #'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
-#'
+#' }
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'

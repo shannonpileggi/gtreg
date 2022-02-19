@@ -8,8 +8,8 @@
 #'
 #' @return string
 #' @name inline_text_tbl_ae
-#'
 #' @examples
+#' \donttest{
 #' tbl <-
 #'   df_adverse_events %>%
 #'   tbl_ae(
@@ -21,6 +21,7 @@
 #' show_header_names(tbl)
 #'
 #' inline_text(tbl, "Anaemia", column = stat_5)
+#'}
 NULL
 
 #' @rdname inline_text_tbl_ae

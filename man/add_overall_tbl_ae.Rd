@@ -59,7 +59,7 @@ the ordering of the columns may not be correct.
 }
 
 \examples{
-\dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\donttest{
 # Example 1 -----------------------------------------------------------------
 add_overall_ex1 <-
   df_adverse_events \%>\%
@@ -110,5 +110,5 @@ add_overall_ex4 <-
   add_overall(across = 'overall-only') \%>\%
   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
   bold_labels()
-\dontshow{\}) # examplesIf}
+}
 }

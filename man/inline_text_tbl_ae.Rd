@@ -30,6 +30,7 @@ string
 Report Values from \code{tbl_ae()} in-line
 }
 \examples{
+\donttest{
 tbl <-
   df_adverse_events \%>\%
   tbl_ae(
@@ -41,4 +42,5 @@ tbl <-
 show_header_names(tbl)
 
 inline_text(tbl, "Anaemia", column = stat_5)
+}
 }
