@@ -94,4 +94,18 @@ test_that("tbl_ae_focus() works", {
       soc = system_organ_class
     )
   )
+
+  # include vars cannot be NA
+  expect_error(
+    df_adverse_events %>%
+      dplyr::mutate(
+        any_complication = ifelse(dplyr::row_number() == 1L, NA, any_complication)
+      ) %>%
+      tbl_ae_focus(
+        id = patient_id,
+        include = c(any_complication, grade3_complication),
+        ae = adverse_event,
+        soc = system_organ_class
+      )
+  )
 })
