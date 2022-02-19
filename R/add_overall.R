@@ -16,7 +16,8 @@
 #' the ordering of the columns may not be correct.
 #'
 #' @return Summary object of class `"tbl_ae"`
-#' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
+#' @examples
+#' \donttest{
 #' # Example 1 -----------------------------------------------------------------
 #' add_overall_ex1 <-
 #'   df_adverse_events %>%
@@ -67,7 +68,7 @@
 #'   add_overall(across = 'overall-only') %>%
 #'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
 #'   bold_labels()
-#'
+#'}
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'

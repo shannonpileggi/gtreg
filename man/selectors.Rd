@@ -44,6 +44,7 @@ selected columns
 }
 
 \examples{
+\donttest{
 selectors_ex1 <-
   df_adverse_events \%>\%
   dplyr::mutate(grade = ifelse(dplyr::row_number() == 1L, NA, grade)) \%>\%
@@ -59,6 +60,7 @@ selectors_ex1 <-
     all_overall_cols() ~ "**Total**",
     all_unknown_cols() ~ "**Unknown Grade**"
   )
+}
 }
 \seealso{
 \code{gtsummary::all_stat_cols()}
