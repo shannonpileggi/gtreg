@@ -108,8 +108,8 @@ test_that("tbl_ae_focus() works", {
     tibble::tribble(
       ~column, ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header, ~spanning_header,
       "label", FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",               NA,
-      "stat_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md",         "N = 10",
-      "stat_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md",         "N = 10"
+      "stat_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                "gt::md",         "**N = 10**",
+      "stat_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                "gt::md",         "**N = 10**"
     )
   )
 

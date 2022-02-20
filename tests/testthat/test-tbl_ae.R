@@ -391,11 +391,11 @@ test_that("tbl_ae() headers", {
     tibble::tribble(
       ~column, ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header, ~spanning_header,
       "label", FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",               NA,
-      "stat_1", FALSE, "center",         "gt::md",             "**1**",                   "gt::md",         "N = 10",
-      "stat_2", FALSE, "center",         "gt::md",             "**2**",                   "gt::md",         "N = 10",
-      "stat_3", FALSE, "center",         "gt::md",             "**3**",                   "gt::md",         "N = 10",
-      "stat_4", FALSE, "center",         "gt::md",             "**4**",                   "gt::md",         "N = 10",
-      "stat_5", FALSE, "center",         "gt::md",             "**5**",                   "gt::md",         "N = 10"
+      "stat_1", FALSE, "center",         "gt::md",             "**1**",                   "gt::md",         "**N = 10**",
+      "stat_2", FALSE, "center",         "gt::md",             "**2**",                   "gt::md",         "**N = 10**",
+      "stat_3", FALSE, "center",         "gt::md",             "**3**",                   "gt::md",         "**N = 10**",
+      "stat_4", FALSE, "center",         "gt::md",             "**4**",                   "gt::md",         "**N = 10**",
+      "stat_5", FALSE, "center",         "gt::md",             "**5**",                   "gt::md",         "**N = 10**"
     )
   )
 
