@@ -185,14 +185,25 @@
 }
 
 .prepare_by_levels <- function(data, by, by_values, initial_missing, initial_dummy) {
-  if (!is.null(by) && any(c(initial_missing, initial_dummy) %in% data[["by"]])) {
-    stringr::str_glue("Levels '{initial_missing}' and '{initial_dummy}' cannot ",
+  if (!is.null(by) && initial_dummy %in% data[["by"]]) {
+    stringr::str_glue("Level '{initial_dummy}' cannot ",
                       "appear in the levels of the `by=` variable.") %>%
       stop(call. = FALSE)
   }
-  if (!is.null(by_values) && any(c(initial_missing, initial_dummy) %in% by_values)) {
-    stringr::str_glue("Levels '{initial_missing}' and '{initial_dummy}' cannot ",
-                      "appear in the levels of the `by_values=` argument.") %>%
+  if (!is.null(by) && initial_missing %in% data[["by"]] && any(is.na(data[["by"]]))) {
+    stringr::str_glue("Level '{initial_missing}' cannot appear in the levels ",
+                      "of the `by=` variable when missing data present.") %>%
+      stop(call. = FALSE)
+  }
+
+  if (!is.null(by_values) && initial_dummy %in% by_values) {
+    stringr::str_glue("Level '{initial_dummy}' cannot ",
+                      "appear in the levels of the `by_values=` argument") %>%
+      stop(call. = FALSE)
+  }
+  if (!is.null(by_values) && initial_missing %in% by_values && any(is.na(data[["by"]]))) {
+    stringr::str_glue("Level '{initial_missing}' cannot appear in the levels ",
+                      "of the `by_values=` argument when missing data present.") %>%
       stop(call. = FALSE)
   }
 
