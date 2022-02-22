@@ -103,8 +103,7 @@ test_that("tbl_ae_count() works", {
 
   expect_equal(
     dat %>%
-      tbl_ae(
-        id = subject,
+      tbl_ae_count(
         ae = ae,
         soc = soc,
         by = grade,
@@ -117,8 +116,7 @@ test_that("tbl_ae_count() works", {
 
   expect_equal(
     dat %>%
-      tbl_ae(
-        id = subject,
+      tbl_ae_count(
         ae = ae,
         soc = soc,
         by = grade,
