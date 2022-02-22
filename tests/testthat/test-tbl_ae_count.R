@@ -127,10 +127,22 @@ test_that("tbl_ae_count() works", {
     c("**Adverse Event**", "**Unknown**", "**1**", "**2**")
   )
 
+  # using default missing location
   expect_equal(
     dat %>%
-      tbl_ae(
-        id = subject,
+      tbl_ae_count(
+        ae = ae,
+        soc = soc,
+        by = grade
+      ) %>%
+      as_tibble() %>%
+      names(),
+    c("**Adverse Event**", "**Unknown**", "**1**", "**2**")
+  )
+
+  expect_equal(
+    dat %>%
+      tbl_ae_count(
         ae = ae,
         soc = soc,
         by = grade,
