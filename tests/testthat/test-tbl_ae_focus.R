@@ -52,8 +52,10 @@ test_that("tbl_ae_focus() works", {
       ),
     NA
   )
-  expect_equal(as_tibble(tbl2, col_labels = FALSE)$stat_1_1[1:2],
-               c("7.0 (70.0)", "5.0 (50.0)"))
+  expect_equal(
+    as_tibble(tbl2, col_labels = FALSE)$stat_2_1[1:2],
+    c("7.0 (70.0)", "5.0 (50.0)")
+  )
 
   expect_error(
     df_adverse_events %>%
@@ -93,5 +95,30 @@ test_that("tbl_ae_focus() works", {
       ae = adverse_event,
       soc = system_organ_class
     )
+  )
+
+  # checking returned percentages and labels
+  tbl <-
+    df_adverse_events %>%
+    dplyr::mutate(
+      dlt = ifelse(dplyr::row_number() == 1L, TRUE, FALSE)
+    ) %>%
+    tbl_ae_focus(
+      id = patient_id,
+      id_df = df_patient_characteristics,
+      ae = adverse_event,
+      include = dlt,
+      label = list(dlt = "DLT"),
+      zero_symbol = NULL
+    ) %>%
+    as_tibble()
+
+  expect_equal(
+    tbl %>% dplyr::pull(2),
+    c("1 (1.0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)")
+  )
+  expect_equal(
+    names(tbl),
+    c("**Adverse Event**", "**DLT**")
   )
 })
