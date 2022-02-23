@@ -1,11 +1,16 @@
 #' Tabulate Raw AE Counts
 #'
 #' Create a table with the number of AE that were reported.
+#' The distinction between \code{tbl_ae_count} and \code{\link{tbl_ae}}
+#' is that \code{\link{tbl_ae}} only counts one AE per ID, while
+#' \code{tbl_ae_count} counts all AEs. As a result, \code{tbl_ae_count} does
+#' not provide percentages, since there is no natural denominator.
 #'
 #' @inheritParams tbl_ae
 #'
 #' @return a 'tbl_ae_count' object
 #' @export
+#' @seealso \code{\link{tbl_ae}}
 #' @examples
 #' \donttest{
 #' # Example 1 -----------------------------------------------------------------
