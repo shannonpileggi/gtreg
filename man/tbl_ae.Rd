@@ -35,7 +35,8 @@ tbl_ae(
 by treatment group}
 
 \item{id_df}{Optional data frame of complete id values and strata to achieve correct
-base n for the situation in which not all subjects experience adverse events}
+base n for the situation in which not all subjects experience adverse events. See
+\code{\link{df_patient_characteristics}} for an example.}
 
 \item{statistic}{String indicating the statistics that will be reported.
 The default is \code{"{n} ({p})"}}
