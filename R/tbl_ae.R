@@ -19,7 +19,8 @@
 #' by treatment group
 #' @param id_df Optional data frame of complete id values and strata to achieve correct
 #' base n for the situation in which not all subjects experience adverse events. See
-#' \code{\link{df_patient_characteristics}} for an example.
+#' \code{\link{df_patient_characteristics}} for an example `id_df` that pairs with
+#' \code{\link{df_adverse_events}}.
 #' @param by_values Optional vector of complete by values, listed in desired order,
 #' to achieve correct table structure for the situation in which an adverse
 #' event of a certain grade is not observed for a given soc
