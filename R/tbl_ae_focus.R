@@ -80,7 +80,11 @@ tbl_ae_focus <- function(data,
   purrr::walk(
     include,
     ~switch(!is.logical(data[[.x]]),
-            stop("Columns indicated in `include=` must be class 'logical'.")))
+            stop("Columns indicated in `include=` must be class 'logical'.", call. = FALSE)))
+  purrr::walk(
+    include,
+    ~switch(any(is.na(data[[.x]])),
+            stop("Columns indicated in `include=` cannot be NA.", call. = FALSE)))
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_focus_inputs <- as.list(environment())
@@ -236,7 +240,7 @@ tbl_ae_focus <- function(data,
     purrr::when(
       !is.null(strata) ~
         modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**, N = {n}"),
-      TRUE ~ .
+      TRUE ~ modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**N = {n}**")
     )
 }
 
