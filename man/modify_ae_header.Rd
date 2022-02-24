@@ -3,11 +3,14 @@
 \name{modify_ae_header}
 \alias{modify_ae_header}
 \alias{modify_ae_spanning_header}
+\alias{modify_ae_footnote}
 \title{Modify AE Table Headers and Spanning Headers}
 \usage{
 modify_ae_header(x, ..., text_interpret = c("md", "html"))
 
 modify_ae_spanning_header(x, ..., text_interpret = c("md", "html"))
+
+modify_ae_footnote(x, ..., text_interpret = c("md", "html"))
 }
 \arguments{
 \item{x}{object of class "tbl_ae", "tbl_ae_count", or "tbl_ae_focus"}

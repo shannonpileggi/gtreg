@@ -55,6 +55,12 @@ modify_ae_spanning_header <- function(x, ..., text_interpret = c("md", "html")) 
   .update_headers(x = x, header_type = "spanning_header", ..., text_interpret = text_interpret)
 }
 
+#' @export
+#' @rdname modify_ae_header
+modify_ae_footnote <- function(x, ..., text_interpret = c("md", "html")) {
+  .update_headers(x = x, header_type = "footnote", ..., text_interpret = text_interpret)
+}
+
 .update_headers <- function(x, header_type, ..., text_interpret) {
   # check inputs ---------------------------------------------------------------
   if (!inherits(x, c("tbl_ae", "tbl_ae_count", "tbl_ae_focus"))) {
@@ -98,7 +104,9 @@ modify_ae_spanning_header <- function(x, ..., text_interpret = c("md", "html")) 
       "column_header" =
         rlang::inject(gtsummary::modify_header(x, !!!lst_headers, text_interpret = text_interpret)),
       "spanning_header" =
-        rlang::inject(gtsummary::modify_spanning_header(x, !!!lst_headers, text_interpret = text_interpret))
+        rlang::inject(gtsummary::modify_spanning_header(x, !!!lst_headers, text_interpret = text_interpret)),
+      "footnote" =
+        rlang::inject(gtsummary::modify_footnote(x, !!!lst_headers, text_interpret = text_interpret))
     ) %>%
     # removing call list
     purrr::list_modify(call_list = NULL) %>%
