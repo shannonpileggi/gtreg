@@ -95,6 +95,20 @@ test_that("tbl_ae_focus() works", {
     )
   )
 
+  # include vars cannot be NA
+  expect_error(
+    df_adverse_events %>%
+      dplyr::mutate(
+        any_complication = ifelse(dplyr::row_number() == 1L, NA, any_complication)
+      ) %>%
+      tbl_ae_focus(
+        id = patient_id,
+        include = c(any_complication, grade3_complication),
+        ae = adverse_event,
+        soc = system_organ_class
+      )
+  )
+
   # spanning header without strata ---------------------------------------------
   tbl_no_strata <- df_adverse_events %>%
     tbl_ae_focus(
@@ -134,6 +148,5 @@ test_that("tbl_ae_focus() works", {
       "stat_1_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug B**, N = 7"
     )
   )
-
 
 })
