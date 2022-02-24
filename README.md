@@ -17,6 +17,28 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 The {gtreg} package creates tabular data summaries appropriate for
 regulatory submissions. The package builds the tables using {gtsummary}.
 
+A common use-case handled by {gtreg} is the counting of adverse events
+(AEs). In this setting, the programmer’s task is to tabulate adverse
+events by any or all of: AE term, system organ class, grade, and
+treatment arm. AE tables are most often provided to programmers in a
+flat file that contains multiple rows per patient; i.e. one row per AE.
+Some challenges with this structure are that study participants who have
+no AEs do not appear in the AE table, and individual participants may
+have several of the same AE (possibly with different severity grades).
+Both of these features pose difficulties with regards to calculating
+proportions; e.g. the percentage of participants in a treatment arm who
+experience a specific AE. In the numerator, we need to make sure that we
+do not double count the same AE within each participant, and in the
+denominator we need to make sure we include all patients in the
+treatment arm (not just those who experience an AE). These challenges
+are amplified when AE terms need to roll up into system organ class
+summaries. Functions in {gtreg} address these problems (among others) by
+implementing industry recommended approaches. For further reading, the
+PHUSE white paper regarding [Analysis and Displays Associated with
+Adverse
+events](https://phuse.s3.eu-central-1.amazonaws.com/Deliverables/Standard+Analyses+and+Code+Sharing/Analyses+and+Displays+Associated+with+Adverse+Events+Focus+on+Adverse+Events+in+Phase+2-4+Clinical+Trials+and+Integrated+Summary.pdf)
+provides an excellent summary of such standards.
+
 ## Installation
 
 You can install the development version of {gtreg} from
