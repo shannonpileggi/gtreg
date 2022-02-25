@@ -50,6 +50,8 @@
       fn_tbl_ae <-
         purrr::partial(.fn_tbl,
                        variable = stringr::str_glue("{variable_summary}{index}"),
+                       by = by,
+                       by_level_to_hide = by_level_to_hide,
                        label = labels[index],
                        statistic = statistic,
                        header_by = header_by,
