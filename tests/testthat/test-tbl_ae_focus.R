@@ -52,8 +52,10 @@ test_that("tbl_ae_focus() works", {
       ),
     NA
   )
-  expect_equal(as_tibble(tbl2, col_labels = FALSE)$stat_1_1[1:2],
-               c("7.0 (70.0)", "5.0 (50.0)"))
+  expect_equal(
+    as_tibble(tbl2, col_labels = FALSE)$stat_2_1[1:2],
+    c("7.0 (70.0)", "5.0 (50.0)")
+  )
 
   expect_error(
     df_adverse_events %>%
@@ -95,6 +97,31 @@ test_that("tbl_ae_focus() works", {
     )
   )
 
+  # checking returned percentages and labels
+  tbl <-
+    df_adverse_events %>%
+    dplyr::mutate(
+      dlt = ifelse(dplyr::row_number() == 1L, TRUE, FALSE)
+    ) %>%
+    tbl_ae_focus(
+      id = patient_id,
+      id_df = df_patient_characteristics,
+      ae = adverse_event,
+      include = dlt,
+      label = list(dlt = "DLT"),
+      zero_symbol = NULL
+    ) %>%
+    as_tibble()
+
+  expect_equal(
+    tbl %>% dplyr::pull(2),
+    c("1 (1.0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)")
+  )
+  expect_equal(
+    names(tbl),
+    c("**Adverse Event**", "**DLT**")
+  )
+
   # include vars cannot be NA
   expect_error(
     df_adverse_events %>%
@@ -120,10 +147,10 @@ test_that("tbl_ae_focus() works", {
   expect_equal(
     tbl_no_strata$table_styling$header %>% dplyr::filter(!hide),
     tibble::tribble(
-      ~column, ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header, ~spanning_header,
-      "label", FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",               NA,
-      "stat_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                "gt::md",         "**N = 10**",
-      "stat_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                "gt::md",         "**N = 10**"
+      ~column,    ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,     ~spanning_header,
+      "label",    FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                   NA,
+      "stat_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md",         "**N = 10**",
+      "stat_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md",         "**N = 10**"
     )
   )
 
@@ -140,12 +167,12 @@ test_that("tbl_ae_focus() works", {
   expect_equal(
     tbl_w_strata$table_styling$header %>% dplyr::filter(!hide),
     tibble::tribble(
-      ~column, ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,    ~spanning_header,
-      "label", FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                  NA,
-      "stat_1_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_1_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_1_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug B**, N = 7",
-      "stat_1_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug B**, N = 7"
+      ~column,      ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,    ~spanning_header,
+      "label",      FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                  NA,
+      "stat_2_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug A**, N = 3",
+      "stat_2_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug A**, N = 3",
+      "stat_2_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug B**, N = 7",
+      "stat_2_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug B**, N = 7"
     )
   )
 
