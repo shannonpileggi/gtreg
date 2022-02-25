@@ -12,8 +12,8 @@
 #'
 #' @return a 'tbl_ae_focus' object
 #' @export
-#'
-#' @examplesIf isTRUE(Sys.getenv("NOT_CRAN") %in% c("true", ""))
+#' @examples
+#' \donttest{
 #' # Example 1 -----------------------------------------------------------------
 #' tbl_ae_focus_ex1 <-
 #'   df_adverse_events %>%
@@ -27,6 +27,7 @@
 #'            grade3_complication = "Grade 3+ Complication")
 #'   ) %>%
 #'   bold_labels()
+#'   }
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
@@ -79,7 +80,11 @@ tbl_ae_focus <- function(data,
   purrr::walk(
     include,
     ~switch(!is.logical(data[[.x]]),
-            stop("Columns indicated in `include=` must be class 'logical'.")))
+            stop("Columns indicated in `include=` must be class 'logical'.", call. = FALSE)))
+  purrr::walk(
+    include,
+    ~switch(any(is.na(data[[.x]])),
+            stop("Columns indicated in `include=` cannot be NA.", call. = FALSE)))
 
   # will return inputs ---------------------------------------------------------
   tbl_ae_focus_inputs <- as.list(environment())
@@ -235,7 +240,7 @@ tbl_ae_focus <- function(data,
     purrr::when(
       !is.null(strata) ~
         modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**, N = {n}"),
-      TRUE ~ .
+      TRUE ~ modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**N = {n}**")
     )
 }
 

@@ -79,7 +79,7 @@ rate of patients that have an AE of Grade 3 or higher.
 }
 
 \examples{
-\dontshow{if (isTRUE(Sys.getenv("NOT_CRAN") \%in\% c("true", ""))) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\donttest{
 # Example 1 -----------------------------------------------------------------
 tbl_ae_focus_ex1 <-
   df_adverse_events \%>\%
@@ -93,5 +93,5 @@ tbl_ae_focus_ex1 <-
            grade3_complication = "Grade 3+ Complication")
   ) \%>\%
   bold_labels()
-\dontshow{\}) # examplesIf}
+  }
 }
