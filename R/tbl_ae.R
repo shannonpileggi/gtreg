@@ -183,6 +183,6 @@ tbl_ae <- function(data,
     purrr::when(
       !is.null(strata) ~
         modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**, N = {n}"),
-      TRUE ~ .
+      TRUE ~ modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**N = {n}**")
     )
 }

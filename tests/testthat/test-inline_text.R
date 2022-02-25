@@ -27,7 +27,7 @@ test_that("inline text works", {
         ae = adverse_event,
         include = grade3_complication
       ) %>%
-      inline_text(row = "Anaemia", column = stat_1_1),
+      inline_text(row = "Anaemia", column = stat_2_1),
     "7 (70)"
   )
 
