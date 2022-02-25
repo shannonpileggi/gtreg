@@ -147,10 +147,10 @@ test_that("tbl_ae_focus() works", {
   expect_equal(
     tbl_no_strata$table_styling$header %>% dplyr::filter(!hide),
     tibble::tribble(
-      ~column, ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header, ~spanning_header,
-      "label", FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",               NA,
-      "stat_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                "gt::md",         "**N = 10**",
-      "stat_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                "gt::md",         "**N = 10**"
+      ~column,    ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,     ~spanning_header,
+      "label",    FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                   NA,
+      "stat_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md",         "**N = 10**",
+      "stat_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md",         "**N = 10**"
     )
   )
 
