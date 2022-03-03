@@ -22,6 +22,7 @@ Imports:
     cli (>= 3.1.0),
     dplyr (>= 1.0.7),
     forcats (>= 0.5.1),
+    huxtable,
     gtsummary (>= 1.5.2),
     knitr (>= 1.37),
     purrr (>= 0.3.4),
