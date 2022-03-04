@@ -14,17 +14,19 @@
 #'
 #' @examples
 #' df_adverse_events %>%
-#' tbl_ae(
-#'   id = patient_id,
-#'   ae = adverse_event,
-#'   soc = system_organ_class,
-#'   by = grade
-#' ) %>%
-#'   ae_as_xlsx("ae-table.xlsx", bold_rows = 1:2, header_rows = 1:2)
+#'   tbl_ae(
+#'     id = patient_id,
+#'     ae = adverse_event,
+#'     soc = system_organ_class,
+#'     by = grade
+#'   ) %>%
+#'   ae_as_xlsx(tempfile(fileext = ".xlsx"), bold_rows = 1:2, header_rows = 1:2)
 ae_as_xlsx <- function(ae_tbl, file, bold_rows = NULL, header_rows = NULL) {
   ae_formatted <- ae_tbl %>%
-    gtreg::format_ae_hux() %>%
-    gtsummary::as_hux_table() %>%
+    # manually indent cells
+    format_ae_hux() %>%
+    # convert to huxtable without applying indentation styling
+    gtsummary::as_hux_table(include = -dplyr::any_of(c("set_left_padding", "set_left_padding2"))) %>%
     huxtable::set_bold(which(substr(.$label, 1, 1) != " "), 1) %>%
     huxtable::set_bottom_border(huxtable::final(1), huxtable::everywhere)
 
@@ -51,15 +53,31 @@ ae_as_xlsx <- function(ae_tbl, file, bold_rows = NULL, header_rows = NULL) {
 #' @return A 'tbl_ae_count' object with indent spacing
 #' @keywords internal
 #' @noRd
-#' @export
 format_ae_hux <- function(.data) {
-  .data$table_body <- .data$table_body %>%
-    dplyr::mutate(
-      label = dplyr::case_when(
-        .data$row_type != "label" ~ paste0("     ", .data$label),
-        TRUE ~ .data$label
-      )
+  # extract the indentation instructions from table_styling
+  df_text_format <-
+    gtsummary::.table_styling_expr_to_row_number(.data) %>%
+    purrr::pluck("table_styling", "text_format") %>%
+    dplyr::filter(.data$format_type %in% c("indent", "indent2"))
+
+  # create expressions to add indentations to `x$table_body`
+  indent_exprs <-
+    purrr::pmap(
+      list(df_text_format$column, df_text_format$row_numbers, df_text_format$format_type),
+      function(column, row_numbers, format_type) {
+        indent_spaces <- ifelse(format_type %in% "indent", "     ", "          ")
+        rlang::expr(
+          dplyr::mutate(
+            dplyr::across(dplyr::all_of(!!column),
+                          ~ifelse(dplyr::row_number() %in% !!row_numbers,
+                                  paste0(!!indent_spaces, .), .)))
+        )
+      }
     )
 
-  .data
+  # indent the needed cells and return gtsummary table
+  .data %>%
+    gtsummary::modify_table_body(
+      function(x) purrr::reduce(indent_exprs, ~rlang::inject(!!.x %>% !!.y), .init = x)
+    )
 }

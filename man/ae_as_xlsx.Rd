@@ -25,11 +25,11 @@ prespecified formatting that approximates the look of the corresponding
 }
 \examples{
 df_adverse_events \%>\%
-tbl_ae(
-  id = patient_id,
-  ae = adverse_event,
-  soc = system_organ_class,
-  by = grade
-) \%>\%
-  ae_as_xlsx("ae-table.xlsx", bold_rows = 1:2, header_rows = 1:2)
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    soc = system_organ_class,
+    by = grade
+  ) \%>\%
+  ae_as_xlsx(tempfile(fileext = ".xlsx"), bold_rows = 1:2, header_rows = 1:2)
 }
