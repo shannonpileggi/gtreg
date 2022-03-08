@@ -242,7 +242,7 @@ tbl_ae_focus <- function(data,
         modify_spanning_header(
           ., all_ae_cols(overall = TRUE, unknown = FALSE) ~ "**{strata}**, N = {n}"),
       TRUE ~ modify_spanning_header(
-        ., all_ae_cols(overall = TRUE, unknown = FALSE) ~ "**N = {n}**")
+        ., all_ae_cols(overall = TRUE, unknown = FALSE) ~ "**N = {N}**")
     )
 }
 

@@ -116,6 +116,7 @@
       filter(.data$by %in% missing_text) %>%
       purrr::pluck("by_col")
 
+
     tbl <-
       gtsummary::modify_column_hide(tbl, dplyr::all_of(missing_column_name))
   }
@@ -156,6 +157,11 @@
         )
     }
   }
+
+  # remove default `modify_stat_` cols
+  tbl$table_styling$header <-
+    tbl$table_styling$header %>%
+    select(-starts_with("modify_stat_"))
 
   # removing footnote
   tbl$table_styling$footnote <- dplyr::filter(tbl$table_styling$footnote, FALSE)
@@ -299,6 +305,8 @@
       .fn = ~paste0("selector_", .),
       .cols = any_of(c("overall", "unknown"))
     ) %>%
+    # strata it both a selector and modify_stat
+    dplyr::mutate(across(any_of("strata"), identity, .names = "selector_{.col}")) %>%
     dplyr::rename_with(
       .fn = ~paste0("modify_stat_", .),
       .cols = any_of(c("strata", "by", "N", "n", "p"))

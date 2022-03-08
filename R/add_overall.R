@@ -130,7 +130,9 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
     tbl_args_by <- tbl_args
     tbl_args_by$by <- NULL
     tbl_overall_by <- do.call(class(x)[1], tbl_args_by)
-    tbl_overall_by$header_info$overall <- TRUE
+    # add overall indicator
+    tbl_overall_by$table_styling$header$selector_overall <-
+      ifelse(!is.na(tbl_overall_by$table_styling$header$selector_overall), TRUE, NA)
 
     # table without strata variable
     tbl_args_strata <- tbl_args
@@ -148,7 +150,9 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
     tbl_args_neither$by <- NULL
 
     tbl_overall_neither <- do.call(class(x)[1], tbl_args_neither)
-    tbl_overall_neither$header_info$overall <- TRUE
+    # add overall indicator
+    tbl_overall_neither$table_styling$header$selector_overall <-
+      ifelse(!is.na(tbl_overall_neither$table_styling$header$selector_overall), TRUE, NA)
 
     tbl_overall <-
       list(tbl_overall_by, tbl_overall_strata, tbl_overall_neither) %>%
@@ -157,12 +161,18 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
   else if (across %in% "overall-only") {
     tbl_args$by <- tbl_args$strata <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
-    tbl_overall$header_info$overall <- TRUE
+    # add overall indicator
+    tbl_overall$table_styling$header$selector_overall <-
+      ifelse(!is.na(tbl_overall$table_styling$header$selector_overall), TRUE, NA)
+
   }
   else if (across %in% "by") {
     tbl_args$by <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
-    tbl_overall$header_info$overall <- TRUE
+    # add overall indicator
+    tbl_overall$table_styling$header$selector_overall <-
+      ifelse(!is.na(tbl_overall$table_styling$header$selector_overall), TRUE, NA)
+
   }
   else if (across %in% "strata") {
     tbl_args$data[[tbl_args$strata]] <- "Overall"
@@ -171,10 +181,6 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
 
     tbl_overall <- do.call(class(x)[1], tbl_args)
   }
-
-  # add overall indicator ------------------------------------------------------
-  tbl_overall$table_styling$header$selector_overall <-
-    ifelse(!is.na(tbl_overall$table_styling$header$selector_overall), TRUE, NA)
 
   # merging tbl_overall with original call -------------------------------------
   tbl_final <- gtsummary::tbl_merge(list(x, tbl_overall), tab_spanner = FALSE)

@@ -186,9 +186,9 @@ test_that("add_overall(missing_location=) works", {
   expect_equal(
     tbl$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
     c("**Adverse Event**", "**Grade 1**", "**Grade 2**", "**Grade 3**",
-      "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Grade Overall**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Grade Overall**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Grade Overall**")
+      "**Grade 4**", "**Grade 5**", "**Unknown**", "**Overall**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Unknown**", "**Overall**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Unknown**", "**Overall**")
   )
 })
 
