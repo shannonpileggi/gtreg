@@ -233,7 +233,7 @@ tbl_ae_focus <- function(data,
   tbl_final %>%
     # return list with function's inputs
     purrr::list_modify(inputs = tbl_ae_focus_inputs) %>%
-    .header_info() %>%
+    .calculate_header_modify_stats() %>%
     # add class
     structure(class = c("tbl_ae_focus", "gtsummary")) %>%
     # add default headers

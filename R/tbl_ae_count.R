@@ -136,7 +136,7 @@ tbl_ae_count <- function(data,
   tbl_final %>%
     # return list with function's inputs and the complete data
     purrr::list_modify(inputs = tbl_ae_count_inputs) %>%
-    .header_info() %>%
+    .calculate_header_modify_stats() %>%
     # add class
     structure(class = c("tbl_ae_count", "gtsummary")) %>%
     # add default headers

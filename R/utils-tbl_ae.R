@@ -249,7 +249,7 @@
 
 
 # calculate Ns within stratum and overall
-.header_info <- function(x) {
+.calculate_header_modify_stats <- function(x) {
   data <-
     x$inputs$id_df %||%
     x$inputs$data %>%

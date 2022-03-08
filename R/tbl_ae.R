@@ -173,7 +173,7 @@ tbl_ae <- function(data,
   tbl_final %>%
     # return list with function's inputs and the complete data
     purrr::list_modify(inputs = tbl_ae_inputs) %>%
-    .header_info() %>%
+    .calculate_header_modify_stats() %>%
     purrr::compact()  %>%
     # add class
     structure(class = c("tbl_ae", "gtsummary")) %>%
