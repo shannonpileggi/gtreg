@@ -101,7 +101,7 @@ df_adverse_events \%>\%
     by = grade,
     strata = trt
   ) \%>\%
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+  modify_header(all_ae_cols() ~ "**Grade {by}**")
 
 # Example 2 -----------------------------------------------------------------
 tbl_ae_ex2 <-
@@ -111,6 +111,6 @@ df_adverse_events \%>\%
     ae = adverse_event,
     by = grade
   ) \%>\%
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+  modify_header(all_ae_cols() ~ "**Grade {by}**")
 }
 }

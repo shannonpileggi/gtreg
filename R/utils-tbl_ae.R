@@ -250,7 +250,7 @@
     select(any_of(c(x$inputs$id, x$inputs$strata))) %>%
     dplyr::distinct()
 
-  # only calcualte Ns when patient is defined (e.g. not `tbl_ae_count()`)
+  # only calculate Ns when patient is defined (e.g. not `tbl_ae_count()`) ------
   if (!is.null(x$inputs$id)) {
     data <-
       data %>%
@@ -281,16 +281,53 @@
         x$table_styling$header %>%
           dplyr::filter(startsWith(.data$column, "stat")) %>%
           dplyr::select(.data$column, by = .data$label)
-      )
+      ) %>%
+      select(-any_of(c("n", "p")))
   }
 
-  data %>%
+  # save all stats available to report in the `modify_*()` fns -----------------
+  df_modify_stats <-
+    data %>%
     dplyr::mutate(
       overall = is.null(x$inputs$strata) && is.null(x$inputs$by) && is.null(x$inputs$include),
       unknown = .data$by %in% "Unknown"
     ) %>%
-    dplyr::select(any_of(c("column", "strata", "by",
-                           "overall", "unknown",
-                           "n", "N", "p")))
+    dplyr::select(any_of(c("overall", "unknown",
+                           "column", "strata", "by",
+                           "N", "n", "p"))) %>%
+    dplyr::rename_with(
+      .fn = ~paste0("selector_", .),
+      .cols = any_of(c("overall", "unknown"))
+    ) %>%
+    dplyr::rename_with(
+      .fn = ~paste0("modify_stat_", .),
+      .cols = any_of(c("strata", "by", "N", "n", "p"))
+    )
+
+  # add rows to header df ------------------------------------------------------
+  x$table_styling$header <-
+    .rows_update_table_styling_header(
+      x$table_styling$header,
+      df_modify_stats
+    )
+
+  # return gtreg table ---------------------------------------------------------
+  x
 }
 
+
+.rows_update_table_styling_header <- function(x, y) {
+  common_columns <- intersect(names(x), names(y))
+
+  x %>%
+    # updating rows in header
+    dplyr::rows_update(
+      y %>% select(all_of(common_columns)),
+      by = "column"
+    ) %>%
+    # re-adding the columns not in the original header table
+    dplyr::left_join(
+      y %>% select(-all_of(setdiff(common_columns, "column"))),
+      by = "column"
+    )
+}

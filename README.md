@@ -47,7 +47,7 @@ tbl_ae <-
     by = grade, 
     strata = trt
   ) %>%
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>% 
   bold_labels()
 ```
 
@@ -64,7 +64,7 @@ tbl_ae_count <-
     by = drug_attribution
   ) %>%
   add_overall(across = "by") %>%
-  modify_ae_spanning_header(all_ae_cols() ~ "**Drug Attribution**") %>%
+  modify_spanning_header(all_ae_cols() ~ "**Drug Attribution**") %>%
   bold_labels()
 ```
 

@@ -17,7 +17,7 @@
 #'     strata = trt,
 #'     by = grade
 #'   ) %>%
-#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+#'   modify_header(all_ae_cols() ~ "**Grade {by}**")
 #'   }
 #' @section Example Output:
 #' \if{html}{Example 1}
@@ -132,17 +132,19 @@ tbl_ae_count <- function(data,
   else tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae, lst_tbl_soc)
 
   # return final tbl -----------------------------------------------------------
+  hide_unknown <- missing_location %in% "hide"
   tbl_final %>%
     # return list with function's inputs and the complete data
     purrr::list_modify(inputs = tbl_ae_count_inputs) %>%
-    purrr::list_modify(header_info = .header_info(.)) %>%
+    .header_info() %>%
     # add class
     structure(class = c("tbl_ae_count", "gtsummary")) %>%
     # add default headers
-    modify_ae_header(gtsummary::all_stat_cols() ~ "**{by}**") %>%
+    modify_header(all_ae_cols(overall = TRUE, unknown = !hide_unknown) ~ "**{by}**") %>%
     purrr::when(
       !is.null(strata) ~
-        modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**"),
+        modify_spanning_header(
+          ., all_ae_cols(overall = TRUE, unknown = !hide_unknown) ~ "**{strata}**"),
       TRUE ~ .
     )
 }
