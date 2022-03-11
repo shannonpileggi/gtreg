@@ -131,8 +131,8 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
     tbl_args_by$by <- NULL
     tbl_overall_by <- do.call(class(x)[1], tbl_args_by)
     # add overall indicator
-    tbl_overall_by$table_styling$header$selector_overall <-
-      ifelse(!is.na(tbl_overall_by$table_styling$header$selector_overall), TRUE, NA)
+    tbl_overall_by$table_styling$header$modify_selector_overall <-
+      ifelse(!is.na(tbl_overall_by$table_styling$header$modify_selector_overall), TRUE, NA)
 
     # table without strata variable
     tbl_args_strata <- tbl_args
@@ -151,8 +151,8 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
 
     tbl_overall_neither <- do.call(class(x)[1], tbl_args_neither)
     # add overall indicator
-    tbl_overall_neither$table_styling$header$selector_overall <-
-      ifelse(!is.na(tbl_overall_neither$table_styling$header$selector_overall), TRUE, NA)
+    tbl_overall_neither$table_styling$header$modify_selector_overall <-
+      ifelse(!is.na(tbl_overall_neither$table_styling$header$modify_selector_overall), TRUE, NA)
 
     tbl_overall <-
       list(tbl_overall_by, tbl_overall_strata, tbl_overall_neither) %>%
@@ -162,16 +162,16 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
     tbl_args$by <- tbl_args$strata <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
     # add overall indicator
-    tbl_overall$table_styling$header$selector_overall <-
-      ifelse(!is.na(tbl_overall$table_styling$header$selector_overall), TRUE, NA)
+    tbl_overall$table_styling$header$modify_selector_overall <-
+      ifelse(!is.na(tbl_overall$table_styling$header$modify_selector_overall), TRUE, NA)
 
   }
   else if (across %in% "by") {
     tbl_args$by <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
     # add overall indicator
-    tbl_overall$table_styling$header$selector_overall <-
-      ifelse(!is.na(tbl_overall$table_styling$header$selector_overall), TRUE, NA)
+    tbl_overall$table_styling$header$modify_selector_overall <-
+      ifelse(!is.na(tbl_overall$table_styling$header$modify_selector_overall), TRUE, NA)
 
   }
   else if (across %in% "strata") {

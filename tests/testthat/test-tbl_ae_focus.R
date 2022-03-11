@@ -146,7 +146,7 @@ test_that("tbl_ae_focus() works", {
     )
 
   expect_equal(
-    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_stat_"), -starts_with("selector_")),
+    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_stat_"), -starts_with("modify_selector_")),
     tibble::tribble(
       ~column,    ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,     ~spanning_header,
       "label",    FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                   NA,
@@ -167,7 +167,7 @@ test_that("tbl_ae_focus() works", {
     )
 
   expect_equal(
-    tbl_w_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_stat_"), -starts_with("selector_")),
+    tbl_w_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_stat_"), -starts_with("modify_selector_")),
     tibble::tribble(
       ~column,      ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,    ~spanning_header,
       "label",      FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                  NA,

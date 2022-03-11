@@ -302,11 +302,11 @@
                            "column", "strata", "by",
                            "N", "n", "p"))) %>%
     dplyr::rename_with(
-      .fn = ~paste0("selector_", .),
+      .fn = ~paste0("modify_selector_", .),
       .cols = any_of(c("overall", "unknown"))
     ) %>%
     # strata it both a selector and modify_stat
-    dplyr::mutate(across(any_of("strata"), identity, .names = "selector_{.col}")) %>%
+    dplyr::mutate(across(any_of("strata"), identity, .names = "modify_selector_{.col}")) %>%
     dplyr::rename_with(
       .fn = ~paste0("modify_stat_", .),
       .cols = any_of(c("strata", "by", "N", "n", "p"))
@@ -320,9 +320,28 @@
     )
 
   # return gtreg table ---------------------------------------------------------
-  x
+  .fill_table_header_modify_stats(x)
 }
 
+# this function is used to fill in missing values in the
+# x$table_styling$header$modify_stat_* columns
+.fill_table_header_modify_stats <- function(x, modify_stats = "modify_stat_N") {
+  modify_stats <-
+    x$table_styling$header %>%
+    select(any_of(modify_stats) & where(.single_value)) %>%
+    names()
+
+  x$table_styling$header <-
+    x$table_styling$header %>%
+    tidyr::fill(any_of(modify_stats), .direction = "downup")
+
+  return(x)
+}
+
+.single_value <- function(x) {
+  if (length(unique(stats::na.omit(x))) == 1L) return(TRUE)
+  FALSE
+}
 
 .rows_update_table_styling_header <- function(x, y) {
   common_columns <- intersect(names(x), names(y))

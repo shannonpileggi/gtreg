@@ -318,7 +318,7 @@ test_that("tbl_ae() works", {
 
   # assess header
   expect_equal(
-    f1$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("selector_"), -starts_with("modify_stat_")),
+    f1$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_selector_"), -starts_with("modify_stat_")),
     f1_header_exp
   )
 
@@ -364,7 +364,7 @@ test_that("tbl_ae() works", {
 
   # assess header
   expect_equal(
-    f2$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("selector_"), -starts_with("modify_stat_")),
+    f2$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_selector_"), -starts_with("modify_stat_")),
     f2_header_exp
   )
 
@@ -387,7 +387,7 @@ test_that("tbl_ae() headers", {
     )
 
   expect_equal(
-    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("selector_"), -starts_with("modify_stat_")),
+    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_selector_"), -starts_with("modify_stat_")),
     tibble::tribble(
       ~column,  ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header,     ~spanning_header,
       "label",  FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",                   NA,
