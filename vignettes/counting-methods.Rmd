@@ -37,6 +37,7 @@ documentation. In {gtreg}, we facilitate reporting of a single term
 
 # Example Data
 
+Data is typically recording in a long format with multiple rows per subject. 
 Events can be reported over time, where both multiple time points per subject and 
 multiple events per time point are possible. It is possible that grade of the
 event is missing.
@@ -62,6 +63,26 @@ dat <- tibble::tribble(
 ```{r print-data}
 dat
 ```
+
+# Challenges Addressed
+
+Study participants without adverse events are absent from the adverse event 
+raw data table. Furthermore,study participants may have multiple
+adverse events, often with different severity grades.
+
+These two features pose difficulties to computing the percentage of participants
+who experience a specific adverse event. 
+
+1. In the numerator, we want to count need to make sure that we do not double count the same AE within
+each participant, and in the denominator we need to make sure we include all patients 
+in the treatment arm (not just those who experience an AE). 
+These challenges are amplified when AE terms need to roll up into system organ class
+summaries.
+Functions in {gtreg} address these problems (among others) by implementing industry
+recommended approaches. 
+For further reading, the PHUSE white paper regarding
+[Analysis and Displays Associated with Adverse events](https://phuse.s3.eu-central-1.amazonaws.com/Deliverables/Standard+Analyses+and+Code+Sharing/Analyses+and+Displays+Associated+with+Adverse+Events+Focus+on+Adverse+Events+in+Phase+2-4+Clinical+Trials+and+Integrated+Summary.pdf)
+provides an excellent summary of such standards.
 
 # Counting All Events
 
