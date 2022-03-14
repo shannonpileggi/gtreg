@@ -93,7 +93,7 @@ AE within SOC associated with the highest grade will be tabulated.
 \donttest{
 # Example 1 -----------------------------------------------------------------
 tbl_ae_ex1 <-
-df_adverse_events \%>\%
+  df_adverse_events \%>\%
   tbl_ae(
     id = patient_id,
     ae = adverse_event,
@@ -105,7 +105,7 @@ df_adverse_events \%>\%
 
 # Example 2 -----------------------------------------------------------------
 tbl_ae_ex2 <-
-df_adverse_events \%>\%
+  df_adverse_events \%>\%
   tbl_ae(
     id = patient_id,
     ae = adverse_event,
