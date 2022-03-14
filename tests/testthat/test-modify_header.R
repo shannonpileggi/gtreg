@@ -70,20 +70,46 @@ test_that("modify_header() works", {
       "**Unknown Grade**", "**Grade 1**", "**Grade 2**", "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Total**",
       "**Unknown Grade**", "**Grade 1**", "**Grade 2**", "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Total**")
   )
+
+  # modify_header works -------------------------------------------------------------------
+  t1 <- df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      strata = trt,
+      statistic = "{n}",
+      by = grade
+    )
+
+  expect_error(
+    t1_modified <-
+      t1 %>%
+      modify_header(all_ae_cols() ~ "**Grade {by}**, N = {n} / {N}") %>%
+      modify_spanning_header(all_ae_cols() ~ "**{strata}**, N = {n} / {N}") %>%
+      modify_footnote(label = "N = {N}") %>%
+      modify_caption("N = {N}"),
+    NA
+  )
+
+  expect_equal(
+    t1_modified$table_styling$header %>% filter(!hide) %>% dplyr::pull(label),
+    c("**Adverse Event**", "**Grade 1**, N = 3 / 10", "**Grade 2**, N = 3 / 10",
+      "**Grade 3**, N = 3 / 10", "**Grade 4**, N = 3 / 10", "**Grade 5**, N = 3 / 10",
+      "**Grade 1**, N = 7 / 10", "**Grade 2**, N = 7 / 10", "**Grade 3**, N = 7 / 10",
+      "**Grade 4**, N = 7 / 10", "**Grade 5**, N = 7 / 10")
+  )
+  expect_equal(
+    t1_modified$table_styling$header %>% filter(!hide) %>% dplyr::pull(spanning_header) %>% unique(),
+    c(NA, "**Drug A**, N = 3 / 10", "**Drug B**, N = 7 / 10")
+  )
+  expect_equal(
+    t1_modified$table_styling$caption,
+    "N = 10",
+    ignore_attr = TRUE
+  )
 })
 
 
 
-# modify_header works -------------------------------------------------------------------
-t1 <- df_adverse_events %>%
-  tbl_ae(
-    id = patient_id,
-    ae = adverse_event,
-    statistic = "{n}"
-  )
 
-expect_error(
-  t1 %>% modify_header(all_ae_cols() ~ "**Grade {by}**"),
-  NA
-)
 
