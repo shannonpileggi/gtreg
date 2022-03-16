@@ -128,7 +128,7 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
   if (across %in% "both") {
     # table without by variable
     tbl_args_by <- tbl_args
-    tbl_args_by$by <- NULL
+    tbl_args_by$by <- tbl_args_by$by_values <- NULL
     tbl_overall_by <- do.call(class(x)[1], tbl_args_by)
     # add overall indicator
     tbl_overall_by$table_styling$header$modify_selector_overall <-
@@ -147,7 +147,7 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
     tbl_args_neither$data[[tbl_args_neither$strata]] <- "Overall"
     if (!is.null(tbl_args_neither$id_df))
       tbl_args_neither$id_df[[tbl_args_neither$strata]] <- "Overall"
-    tbl_args_neither$by <- NULL
+    tbl_args_neither$by <- tbl_args_neither$by_values <- NULL
 
     tbl_overall_neither <- do.call(class(x)[1], tbl_args_neither)
     # add overall indicator
@@ -159,7 +159,7 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
       gtsummary::tbl_merge(tab_spanner = FALSE)
   }
   else if (across %in% "overall-only") {
-    tbl_args$by <- tbl_args$strata <- NULL
+    tbl_args$by <- tbl_args$by_values <- tbl_args$strata <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
     # add overall indicator
     tbl_overall$table_styling$header$modify_selector_overall <-
@@ -167,7 +167,7 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
 
   }
   else if (across %in% "by") {
-    tbl_args$by <- NULL
+    tbl_args$by <- tbl_args$by_values <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
     # add overall indicator
     tbl_overall$table_styling$header$modify_selector_overall <-

@@ -138,6 +138,23 @@ test_that("add_overall() warns", {
 
 })
 
+test_that("no errors eith `by_values=`", {
+  tbl <-
+    df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      soc = system_organ_class,
+      by = grade,
+      by_values = as.character(0:5),
+      strata = trt
+    )
+
+  expect_error(add_overall(tbl, across = "both"), NA)
+  expect_error(add_overall(tbl, across = "by"), NA)
+  expect_error(add_overall(tbl, across = "overall-only"), NA)
+})
+
 test_that("add_overall(missing_location=) works", {
   expect_error(
     tbl <-
