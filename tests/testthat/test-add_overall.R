@@ -138,7 +138,7 @@ test_that("add_overall() warns", {
 
 })
 
-test_that("no errors eith `by_values=`", {
+test_that("no errors with `by_values=`", {
   tbl <-
     df_adverse_events %>%
     tbl_ae(
