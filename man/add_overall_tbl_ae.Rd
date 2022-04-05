@@ -70,7 +70,7 @@ add_overall_ex1 <-
     strata = trt
   ) \%>\%
   add_overall() \%>\%
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
+  modify_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
   bold_labels()
 
 # Example 2 -----------------------------------------------------------------
@@ -83,7 +83,7 @@ add_overall_ex2 <-
     by = grade
   ) \%>\%
   add_overall(across = 'by') \%>\%
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
+  modify_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
   bold_labels()
 
 # Example 3 -----------------------------------------------------------------
@@ -108,7 +108,7 @@ add_overall_ex4 <-
     strata = trt
   ) \%>\%
   add_overall(across = 'overall-only') \%>\%
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
+  modify_header(all_ae_cols() ~ "**Grade {by}**") \%>\%
   bold_labels()
 }
 }

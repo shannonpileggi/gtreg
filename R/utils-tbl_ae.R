@@ -116,6 +116,7 @@
       filter(.data$by %in% missing_text) %>%
       purrr::pluck("by_col")
 
+
     tbl <-
       gtsummary::modify_column_hide(tbl, dplyr::all_of(missing_column_name))
   }
@@ -156,6 +157,11 @@
         )
     }
   }
+
+  # remove default `modify_stat_` cols
+  tbl$table_styling$header <-
+    tbl$table_styling$header %>%
+    select(-starts_with("modify_stat_"))
 
   # removing footnote
   tbl$table_styling$footnote <- dplyr::filter(tbl$table_styling$footnote, FALSE)
@@ -243,14 +249,14 @@
 
 
 # calculate Ns within stratum and overall
-.header_info <- function(x) {
+.calculate_header_modify_stats <- function(x) {
   data <-
     x$inputs$id_df %||%
     x$inputs$data %>%
     select(any_of(c(x$inputs$id, x$inputs$strata))) %>%
     dplyr::distinct()
 
-  # only calcualte Ns when patient is defined (e.g. not `tbl_ae_count()`)
+  # only calculate Ns when patient is defined (e.g. not `tbl_ae_count()`) ------
   if (!is.null(x$inputs$id)) {
     data <-
       data %>%
@@ -281,16 +287,74 @@
         x$table_styling$header %>%
           dplyr::filter(startsWith(.data$column, "stat")) %>%
           dplyr::select(.data$column, by = .data$label)
-      )
+      ) %>%
+      select(-any_of(c("n", "p")))
   }
 
-  data %>%
+  # save all stats available to report in the `modify_*()` fns -----------------
+  df_modify_stats <-
+    data %>%
     dplyr::mutate(
       overall = is.null(x$inputs$strata) && is.null(x$inputs$by) && is.null(x$inputs$include),
       unknown = .data$by %in% "Unknown"
     ) %>%
-    dplyr::select(any_of(c("column", "strata", "by",
-                           "overall", "unknown",
-                           "n", "N", "p")))
+    dplyr::select(any_of(c("overall", "unknown",
+                           "column", "strata", "by",
+                           "N", "n", "p"))) %>%
+    dplyr::rename_with(
+      .fn = ~paste0("modify_selector_", .),
+      .cols = any_of(c("overall", "unknown"))
+    ) %>%
+    # strata it both a selector and modify_stat
+    dplyr::mutate(across(any_of("strata"), identity, .names = "modify_selector_{.col}")) %>%
+    dplyr::rename_with(
+      .fn = ~paste0("modify_stat_", .),
+      .cols = any_of(c("strata", "by", "N", "n", "p"))
+    )
+
+  # add rows to header df ------------------------------------------------------
+  x$table_styling$header <-
+    .rows_update_table_styling_header(
+      x$table_styling$header,
+      df_modify_stats
+    )
+
+  # return gtreg table ---------------------------------------------------------
+  .fill_table_header_modify_stats(x)
 }
 
+# this function is used to fill in missing values in the
+# x$table_styling$header$modify_stat_* columns
+.fill_table_header_modify_stats <- function(x, modify_stats = "modify_stat_N") {
+  modify_stats <-
+    x$table_styling$header %>%
+    select(any_of(modify_stats) & where(.single_value)) %>%
+    names()
+
+  x$table_styling$header <-
+    x$table_styling$header %>%
+    tidyr::fill(any_of(modify_stats), .direction = "downup")
+
+  return(x)
+}
+
+.single_value <- function(x) {
+  if (length(unique(stats::na.omit(x))) == 1L) return(TRUE)
+  FALSE
+}
+
+.rows_update_table_styling_header <- function(x, y) {
+  common_columns <- intersect(names(x), names(y))
+
+  x %>%
+    # updating rows in header
+    dplyr::rows_update(
+      y %>% select(all_of(common_columns)),
+      by = "column"
+    ) %>%
+    # re-adding the columns not in the original header table
+    dplyr::left_join(
+      y %>% select(-all_of(setdiff(common_columns, "column"))),
+      by = "column"
+    )
+}

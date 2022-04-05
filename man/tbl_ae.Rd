@@ -94,7 +94,7 @@ AE within SOC associated with the highest grade will be tabulated.
 \donttest{
 # Example 1 -----------------------------------------------------------------
 tbl_ae_ex1 <-
-df_adverse_events \%>\%
+  df_adverse_events \%>\%
   tbl_ae(
     id = patient_id,
     ae = adverse_event,
@@ -102,16 +102,16 @@ df_adverse_events \%>\%
     by = grade,
     strata = trt
   ) \%>\%
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+  modify_header(all_ae_cols() ~ "**Grade {by}**")
 
 # Example 2 -----------------------------------------------------------------
 tbl_ae_ex2 <-
-df_adverse_events \%>\%
+  df_adverse_events \%>\%
   tbl_ae(
     id = patient_id,
     ae = adverse_event,
     by = grade
   ) \%>\%
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+  modify_header(all_ae_cols() ~ "**Grade {by}**")
 }
 }

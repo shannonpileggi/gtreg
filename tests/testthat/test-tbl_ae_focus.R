@@ -137,7 +137,8 @@ test_that("tbl_ae_focus() works", {
   )
 
   # spanning header without strata ---------------------------------------------
-  tbl_no_strata <- df_adverse_events %>%
+  tbl_no_strata <-
+    df_adverse_events %>%
     tbl_ae_focus(
       id = patient_id,
       include = c(any_complication, grade3_complication),
@@ -145,7 +146,7 @@ test_that("tbl_ae_focus() works", {
     )
 
   expect_equal(
-    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide),
+    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_stat_"), -starts_with("modify_selector_")),
     tibble::tribble(
       ~column,    ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,     ~spanning_header,
       "label",    FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                   NA,
@@ -156,7 +157,8 @@ test_that("tbl_ae_focus() works", {
 
 
   # spanning header with strata ---------------------------------------------
-  tbl_w_strata <- df_adverse_events %>%
+  tbl_w_strata <-
+    df_adverse_events %>%
     tbl_ae_focus(
       id = patient_id,
       strata = trt,
@@ -165,7 +167,7 @@ test_that("tbl_ae_focus() works", {
     )
 
   expect_equal(
-    tbl_w_strata$table_styling$header %>% dplyr::filter(!hide),
+    tbl_w_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_stat_"), -starts_with("modify_selector_")),
     tibble::tribble(
       ~column,      ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,    ~spanning_header,
       "label",      FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                  NA,
