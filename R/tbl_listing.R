@@ -1,4 +1,4 @@
-#' Create a tbl Listing
+#' Create a Data Listing
 #'
 #' @param data a data frame
 #' @param bold_headers logical indicating whether to bold column headers.

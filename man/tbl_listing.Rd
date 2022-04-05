@@ -2,7 +2,7 @@
 % Please edit documentation in R/tbl_listing.R
 \name{tbl_listing}
 \alias{tbl_listing}
-\title{Create a tbl Listing}
+\title{Create a Data Listing}
 \usage{
 tbl_listing(data, group_by = NULL, bold_headers = TRUE)
 }
@@ -21,7 +21,7 @@ Default is \code{TRUE}}
 gtsummary tbl listing
 }
 \description{
-Create a tbl Listing
+Create a Data Listing
 }
 \section{Example Output}{
 
