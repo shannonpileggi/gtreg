@@ -302,8 +302,8 @@ test_that("tbl_ae() works", {
   # expected table header
   f1_header_exp <-
     tibble::tribble(
-      ~column, ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header,    ~spanning_header,
-      "label", FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",                  NA,
+      ~column,   ~hide,   ~align,  ~interpret_label,              ~label, ~interpret_spanning_header,    ~spanning_header,
+      "label",    FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",                  NA,
       "stat_1_1", FALSE, "center",         "gt::md",             "**1**",                   "gt::md", "**Drug A**, N = 3",
       "stat_2_1", FALSE, "center",         "gt::md",             "**2**",                   "gt::md", "**Drug A**, N = 3",
       "stat_3_1", FALSE, "center",         "gt::md",             "**3**",                   "gt::md", "**Drug A**, N = 3",
@@ -318,7 +318,7 @@ test_that("tbl_ae() works", {
 
   # assess header
   expect_equal(
-    f1$table_styling$header %>% dplyr::filter(!hide),
+    f1$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_selector_"), -starts_with("modify_stat_")),
     f1_header_exp
   )
 
@@ -344,8 +344,8 @@ test_that("tbl_ae() works", {
 
   f2_header_exp <-
     tibble::tribble(
-      ~column, ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header, ~spanning_header,
-      "label", FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",               NA,
+      ~column,    ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header, ~spanning_header,
+      "label",    FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",               NA,
       "stat_1_1", FALSE, "center",         "gt::md",             "**1**",                   "gt::md",   "**A**, N = 2",
       "stat_2_1", FALSE, "center",         "gt::md",             "**2**",                   "gt::md",   "**A**, N = 2",
       "stat_1_2", FALSE, "center",         "gt::md",             "**1**",                   "gt::md",   "**B**, N = 1",
@@ -354,17 +354,17 @@ test_that("tbl_ae() works", {
 
   f2_tibble_exp <-
     tibble::tribble(
-      ~label, ~stat_1_1, ~stat_2_1, ~stat_1_2, ~stat_2_2,
-      "Eye disorders",       "—",       "2",       "—",       "—",
-      "Eye irritation",       "—",       "1",       "—",       "—",
-      "Vision blurred",       "—",       "2",       "—",       "—",
+      ~label,                       ~stat_1_1, ~stat_2_1, ~stat_1_2, ~stat_2_2,
+      "Eye disorders",                    "—",       "2",       "—",       "—",
+      "Eye irritation",                   "—",       "1",       "—",       "—",
+      "Vision blurred",                   "—",       "2",       "—",       "—",
       "Gastrointestinal disorders",       "—",       "—",       "1",       "—",
-      "Difficult digestion",       "—",       "—",       "1",       "—"
+      "Difficult digestion",              "—",       "—",       "1",       "—"
     )
 
   # assess header
   expect_equal(
-    f2$table_styling$header %>% dplyr::filter(!hide),
+    f2$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_selector_"), -starts_with("modify_stat_")),
     f2_header_exp
   )
 
@@ -387,10 +387,10 @@ test_that("tbl_ae() headers", {
     )
 
   expect_equal(
-    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide),
+    tbl_no_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_selector_"), -starts_with("modify_stat_")),
     tibble::tribble(
-      ~column, ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header, ~spanning_header,
-      "label", FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",               NA,
+      ~column,  ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header,     ~spanning_header,
+      "label",  FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",                   NA,
       "stat_1", FALSE, "center",         "gt::md",             "**1**",                   "gt::md",         "**N = 10**",
       "stat_2", FALSE, "center",         "gt::md",             "**2**",                   "gt::md",         "**N = 10**",
       "stat_3", FALSE, "center",         "gt::md",             "**3**",                   "gt::md",         "**N = 10**",
@@ -400,7 +400,7 @@ test_that("tbl_ae() headers", {
   )
 
   # header_by modified ---------------------------------------------------------
-  h_by1 <- c("**Grade 1**", "**Grade 2**", "**Grade 3**","**Grade 4**", "**Grade 5**", "**Overall**")
+  h_by1 <- c("**Grade 1**", "**Grade 2**", "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Overall**")
   tbl_by1 <-
     df_adverse_events %>%
     tbl_ae(
@@ -409,7 +409,7 @@ test_that("tbl_ae() headers", {
       by = grade,
       statistic = "{n}"
     ) %>%
-    modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
+    modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
     add_overall(across = 'by')
 
   expect_equal(length(intersect(tbl_by1$table_styling$header$label, h_by1)), 6)
@@ -518,7 +518,7 @@ test_that("tbl_ae() headers", {
       strata = trt,
       statistic = "{n}"
     ) %>%
-    modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
+    modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
     add_overall(across = 'strata')
 
   expect_equal(length(intersect(tbl_strata1$table_styling$header$spanning_header, strata_by1)), 3)

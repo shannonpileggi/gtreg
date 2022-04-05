@@ -25,7 +25,7 @@ test_that("tbl_ae_count() works", {
         by = grade,
         zero_symbol = NULL
       ) %>%
-      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
+      modify_header(all_ae_cols() ~ "**Grade {by}**"),
     NA
   )
 
