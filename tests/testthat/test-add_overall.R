@@ -9,7 +9,7 @@ test_that("add_overall() works", {
         statistic = "{n}"
       ) %>%
       add_overall(across = 'by') %>%
-      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
+      modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
       as_tibble(col_label = FALSE),
     NA
   )
@@ -45,7 +45,7 @@ test_that("add_overall() works", {
         strata = trt
       ) %>%
       add_overall() %>%
-      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**") %>%
+      modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
       as_tibble(col_label = FALSE),
     NA
   )
@@ -60,7 +60,7 @@ test_that("add_overall() works", {
         strata = trt
       ) %>%
       add_overall(across = 'strata') %>%
-      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
+      modify_header(all_ae_cols() ~ "**Grade {by}**"),
     NA
   )
 
@@ -91,7 +91,7 @@ test_that("add_overall() warns", {
         statistic = "{n}"
       ) %>%
       add_overall(across = "both") %>%
-      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
+      modify_header(all_ae_cols() ~ "**Grade {by}**"),
     "Using `across = 'by'` instead."
   )
 
@@ -105,7 +105,7 @@ test_that("add_overall() warns", {
         statistic = "{n}"
       ) %>%
       add_overall(across = 'strata') %>%
-      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
+      modify_header(all_ae_cols() ~ "**Grade {by}**"),
     "Using `across = 'by'` instead."
   )
 
@@ -138,7 +138,7 @@ test_that("add_overall() warns", {
 
 })
 
-test_that("no errors eith `by_values=`", {
+test_that("no errors with `by_values=`", {
   tbl <-
     df_adverse_events %>%
     tbl_ae(
@@ -171,15 +171,15 @@ test_that("add_overall(missing_location=) works", {
         missing_location = "first"
       ) %>%
       add_overall() %>%
-      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
+      modify_header(all_ae_cols() ~ "**Grade {by}**"),
     NA
   )
   expect_equal(
     tbl$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
-    c("**Adverse Event**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**", "**Grade 3**",
-      "**Grade 4**", "**Grade 5**", "**Grade Overall**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**","**Grade Overall**", "**Grade Unknown**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Overall**")
+    c("**Adverse Event**", "**Unknown**", "**Grade 1**", "**Grade 2**", "**Grade 3**",
+      "**Grade 4**", "**Grade 5**", "**Overall**", "**Unknown**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**","**Overall**", "**Unknown**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Overall**")
   )
 
   expect_error(
@@ -197,15 +197,15 @@ test_that("add_overall(missing_location=) works", {
         missing_location = "last"
       ) %>%
       add_overall() %>%
-      modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
+      modify_header(all_ae_cols() ~ "**Grade {by}**"),
     NA
   )
   expect_equal(
     tbl$table_styling$header %>% dplyr::filter(!hide) %>% dplyr::pull(label),
     c("**Adverse Event**", "**Grade 1**", "**Grade 2**", "**Grade 3**",
-      "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Grade Overall**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Grade Overall**", "**Grade 1**", "**Grade 2**",
-      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Grade Unknown**", "**Grade Overall**")
+      "**Grade 4**", "**Grade 5**", "**Unknown**", "**Overall**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Unknown**", "**Overall**", "**Grade 1**", "**Grade 2**",
+      "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Unknown**", "**Overall**")
   )
 })
 

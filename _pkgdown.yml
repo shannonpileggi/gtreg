@@ -26,10 +26,6 @@ reference:
       - starts_with("add_")
       - starts_with("inline_text")
 
-  - title: Table Headers
-  - contents:
-      - modify_ae_header
-
   - title: Column Selectors
   - contents:
       - selectors

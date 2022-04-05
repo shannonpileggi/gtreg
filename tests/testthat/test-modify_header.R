@@ -1,4 +1,4 @@
-test_that("modify_ae_header() works", {
+test_that("modify_header() works", {
   tbl1 <-
     df_adverse_events %>%
     dplyr::mutate(grade = ifelse(dplyr::row_number() == 1L, NA, grade)) %>%
@@ -13,7 +13,7 @@ test_that("modify_ae_header() works", {
   tbl2 <- add_overall(tbl1)
 
   expect_equal(
-    modify_ae_header(tbl1, all_ae_cols() ~ "**Grade {by}**") %>%
+    modify_header(tbl1, all_ae_cols() ~ "**Grade {by}**") %>%
       as_tibble() %>%
       names(),
     c("**Adverse Event**",
@@ -22,7 +22,7 @@ test_that("modify_ae_header() works", {
   )
 
   expect_equal(
-    modify_ae_header(tbl1, all_ae_cols(unknown = TRUE) ~ "**Grade {by}**") %>%
+    modify_header(tbl1, all_ae_cols(unknown = TRUE) ~ "**Grade {by}**") %>%
       as_tibble() %>%
       names(),
     c("**Adverse Event**",
@@ -31,7 +31,7 @@ test_that("modify_ae_header() works", {
   )
 
   expect_equal(
-    modify_ae_header(
+    modify_header(
       tbl1,
       all_unknown_cols() ~ "**Unknown Grade**",
       all_ae_cols() ~ "**Grade {by}**"
@@ -44,7 +44,7 @@ test_that("modify_ae_header() works", {
   )
 
   expect_equal(
-    modify_ae_spanning_header(
+    modify_spanning_header(
       tbl1,
       all_strata_cols("Drug A") ~ "**Control Group**, N = {n}/{N} ({style_percent(p)}%)",
       all_strata_cols("Drug B") ~ "**Experimental Group**, N = {n}/{N} ({style_percent(p)}%)"
@@ -57,7 +57,7 @@ test_that("modify_ae_header() works", {
   )
 
   expect_equal(
-    modify_ae_header(
+    modify_header(
       tbl2,
       all_overall_cols() ~ "**Total**",
       all_unknown_cols() ~ "**Unknown Grade**",
@@ -70,30 +70,46 @@ test_that("modify_ae_header() works", {
       "**Unknown Grade**", "**Grade 1**", "**Grade 2**", "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Total**",
       "**Unknown Grade**", "**Grade 1**", "**Grade 2**", "**Grade 3**", "**Grade 4**", "**Grade 5**", "**Total**")
   )
+
+  # modify_header works -------------------------------------------------------------------
+  t1 <- df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      ae = adverse_event,
+      strata = trt,
+      statistic = "{n}",
+      by = grade
+    )
+
+  expect_error(
+    t1_modified <-
+      t1 %>%
+      modify_header(all_ae_cols() ~ "**Grade {by}**, N = {n} / {N}") %>%
+      modify_spanning_header(all_ae_cols() ~ "**{strata}**, N = {n} / {N}") %>%
+      modify_footnote(label = "N = {N}") %>%
+      modify_caption("N = {N}"),
+    NA
+  )
+
+  expect_equal(
+    t1_modified$table_styling$header %>% filter(!hide) %>% dplyr::pull(label),
+    c("**Adverse Event**", "**Grade 1**, N = 3 / 10", "**Grade 2**, N = 3 / 10",
+      "**Grade 3**, N = 3 / 10", "**Grade 4**, N = 3 / 10", "**Grade 5**, N = 3 / 10",
+      "**Grade 1**, N = 7 / 10", "**Grade 2**, N = 7 / 10", "**Grade 3**, N = 7 / 10",
+      "**Grade 4**, N = 7 / 10", "**Grade 5**, N = 7 / 10")
+  )
+  expect_equal(
+    t1_modified$table_styling$header %>% filter(!hide) %>% dplyr::pull(spanning_header) %>% unique(),
+    c(NA, "**Drug A**, N = 3 / 10", "**Drug B**, N = 7 / 10")
+  )
+  expect_equal(
+    t1_modified$table_styling$caption,
+    "N = 10",
+    ignore_attr = TRUE
+  )
 })
 
 
 
-# modify_ae_header works -------------------------------------------------------------------
-t1 <- df_adverse_events %>%
-  tbl_ae(
-    id = patient_id,
-    ae = adverse_event,
-    statistic = "{n}"
-  )
-
-expect_error(
-  t1 %>% modify_ae_header(gtsummary::all_stat_cols() ~ "**Grade {by}**"),
-  NA
-)
 
 
-# modify_ae_header errors -------------------------------------------------------------------
-# expect_error(
-#  t1 %>% modify_ae_header(all_strata_cols() ~ "**Grade {by}**"),
-#  "Cannot use selector 'all_strata_cols()' in this context."
-#)
-
-# saving for later-  there be messaging on these?
-#t1 %>% modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
-#t1 %>% modify_ae_header(all_unknown_cols() ~ "**Grade {by}**")

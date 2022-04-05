@@ -28,7 +28,7 @@
 #'     strata = trt
 #'   ) %>%
 #'   add_overall() %>%
-#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
+#'   modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
 #'   bold_labels()
 #'
 #' # Example 2 -----------------------------------------------------------------
@@ -41,7 +41,7 @@
 #'     by = grade
 #'   ) %>%
 #'   add_overall(across = 'by') %>%
-#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
+#'   modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
 #'   bold_labels()
 #'
 #' # Example 3 -----------------------------------------------------------------
@@ -66,7 +66,7 @@
 #'     strata = trt
 #'   ) %>%
 #'   add_overall(across = 'overall-only') %>%
-#'   modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
+#'   modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
 #'   bold_labels()
 #'}
 #' @section Example Output:
@@ -130,7 +130,9 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
     tbl_args_by <- tbl_args
     tbl_args_by$by <- tbl_args_by$by_values <- NULL
     tbl_overall_by <- do.call(class(x)[1], tbl_args_by)
-    tbl_overall_by$header_info$overall <- TRUE
+    # add overall indicator
+    tbl_overall_by$table_styling$header$modify_selector_overall <-
+      ifelse(!is.na(tbl_overall_by$table_styling$header$modify_selector_overall), TRUE, NA)
 
     # table without strata variable
     tbl_args_strata <- tbl_args
@@ -148,21 +150,29 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
     tbl_args_neither$by <- tbl_args_neither$by_values <- NULL
 
     tbl_overall_neither <- do.call(class(x)[1], tbl_args_neither)
-    tbl_overall_neither$header_info$overall <- TRUE
+    # add overall indicator
+    tbl_overall_neither$table_styling$header$modify_selector_overall <-
+      ifelse(!is.na(tbl_overall_neither$table_styling$header$modify_selector_overall), TRUE, NA)
 
     tbl_overall <-
       list(tbl_overall_by, tbl_overall_strata, tbl_overall_neither) %>%
-      .tbl_ae_merge(tab_spanner = FALSE)
+      gtsummary::tbl_merge(tab_spanner = FALSE)
   }
   else if (across %in% "overall-only") {
     tbl_args$by <- tbl_args$by_values <- tbl_args$strata <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
-    tbl_overall$header_info$overall <- TRUE
+    # add overall indicator
+    tbl_overall$table_styling$header$modify_selector_overall <-
+      ifelse(!is.na(tbl_overall$table_styling$header$modify_selector_overall), TRUE, NA)
+
   }
   else if (across %in% "by") {
     tbl_args$by <- tbl_args$by_values <- NULL
     tbl_overall <- do.call(class(x)[1], tbl_args)
-    tbl_overall$header_info$overall <- TRUE
+    # add overall indicator
+    tbl_overall$table_styling$header$modify_selector_overall <-
+      ifelse(!is.na(tbl_overall$table_styling$header$modify_selector_overall), TRUE, NA)
+
   }
   else if (across %in% "strata") {
     tbl_args$data[[tbl_args$strata]] <- "Overall"
@@ -173,7 +183,7 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
   }
 
   # merging tbl_overall with original call -------------------------------------
-  tbl_final <- .tbl_ae_merge(list(x, tbl_overall), tab_spanner = FALSE)
+  tbl_final <- gtsummary::tbl_merge(list(x, tbl_overall), tab_spanner = FALSE)
 
   # grouping columns with same spanning header together ------------------------
   if (across %in% c("both", "by") && !is.null(x$inputs$strata)) {
@@ -212,30 +222,3 @@ add_overall.tbl_ae_count <- add_overall.tbl_ae
 #' @export
 add_overall.tbl_ae_focus <- add_overall.tbl_ae
 
-
-# simple wrapper for `tbl_merge()` that also handles the `.$header_info` object
-.tbl_ae_merge <- function(tbls, ...) {
-  # merge the tbls together
-  tbl <- gtsummary::tbl_merge(tbls, ...)
-
-  # update the column names in `.$header_info` and stack the resulting tibbles
-  tbl$header_info <-
-    purrr::map_dfr(
-      seq_len(length(tbls)),
-      ~ purrr::pluck(tbls, .x, "header_info") %>%
-        mutate(
-          column =
-            ifelse(
-              .data$column %in% c("variable", "row_type", "var_label", "label"),
-              .data$column,
-              paste(.data$column, .x, sep = "_")
-            )
-        )
-    ) %>%
-    dplyr::group_by(.data$column) %>%
-    dplyr::filter(dplyr::row_number() == 1L) %>%
-    dplyr::ungroup()
-
-  # return merged tbl
-  tbl
-}

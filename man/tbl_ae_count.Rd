@@ -81,6 +81,6 @@ tbl_ae_count_ex1 <-
     strata = trt,
     by = grade
   ) \%>\%
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**")
+  modify_header(all_ae_cols() ~ "**Grade {by}**")
   }
 }

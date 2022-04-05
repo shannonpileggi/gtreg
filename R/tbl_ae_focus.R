@@ -233,14 +233,16 @@ tbl_ae_focus <- function(data,
   tbl_final %>%
     # return list with function's inputs
     purrr::list_modify(inputs = tbl_ae_focus_inputs) %>%
-    purrr::list_modify(header_info = .header_info(.)) %>%
+    .calculate_header_modify_stats() %>%
     # add class
     structure(class = c("tbl_ae_focus", "gtsummary")) %>%
     # add default headers
     purrr::when(
       !is.null(strata) ~
-        modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**, N = {n}"),
-      TRUE ~ modify_ae_spanning_header(., gtsummary::all_stat_cols() ~ "**N = {n}**")
+        modify_spanning_header(
+          ., all_ae_cols(overall = TRUE, unknown = FALSE) ~ "**{strata}**, N = {n}"),
+      TRUE ~ modify_spanning_header(
+        ., all_ae_cols(overall = TRUE, unknown = FALSE) ~ "**N = {N}**")
     )
 }
 

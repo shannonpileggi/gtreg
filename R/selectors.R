@@ -28,7 +28,7 @@
 #'     by = grade
 #'   ) %>%
 #'   add_overall(across = 'by') %>%
-#'   modify_ae_header(
+#'   modify_header(
 #'     all_ae_cols() ~ "**Grade {by}**",
 #'     all_overall_cols() ~ "**Total**",
 #'     all_unknown_cols() ~ "**Unknown Grade**"
@@ -45,16 +45,16 @@ NULL
 all_ae_cols <- function(overall = FALSE, unknown = FALSE) {
   # construct filtering expression
   if (identical(overall, FALSE) && identical(unknown, FALSE))
-    expr <- rlang::expr(.data$overall %in% FALSE & .data$unknown %in% FALSE)
+    expr <- rlang::expr(.data$hide %in% FALSE & !.data$overall %in% TRUE & !.data$unknown %in% TRUE)
   else if (identical(overall, FALSE))
-    expr <- rlang::expr(.data$overall %in% FALSE)
+    expr <- rlang::expr(.data$hide %in% FALSE & !.data$overall %in% TRUE)
   else if (identical(unknown, FALSE))
-    expr <- rlang::expr(.data$unknown %in% FALSE)
-  else expr <- rlang::expr(!is.na(.data$variable))
+    expr <- rlang::expr(.data$hide %in% FALSE & !.data$unknown %in% TRUE)
+  else expr <- rlang::expr(.data$hide %in% FALSE & startsWith(.data$column, "stat_"))
 
   broom.helpers::.generic_selector(
-    variable_column = "variable",
-    select_column = c("overall", "unknown"),
+    variable_column = "column",
+    select_column = c("hide", "overall", "unknown"),
     select_expr = !!expr,
     fun_name = "all_ae_cols"
   )
@@ -64,9 +64,9 @@ all_ae_cols <- function(overall = FALSE, unknown = FALSE) {
 #' @rdname selectors
 all_strata_cols <- function(strata) {
   broom.helpers::.generic_selector(
-    variable_column = "variable",
-    select_column = "strata",
-    select_expr = .data$strata %in% .env$strata,
+    variable_column = "column",
+    select_column = c("hide", "strata"),
+    select_expr = .data$hide %in% FALSE & .data$strata %in% .env$strata,
     fun_name = "all_strata_cols"
   )
 }
@@ -75,9 +75,9 @@ all_strata_cols <- function(strata) {
 #' @rdname selectors
 all_overall_cols <- function() {
   broom.helpers::.generic_selector(
-    variable_column = "variable",
-    select_column = "overall",
-    select_expr = .data$overall %in% TRUE,
+    variable_column = "column",
+    select_column = c("hide", "overall"),
+    select_expr = .data$hide %in% FALSE & .data$overall %in% TRUE,
     fun_name = "all_overall_cols"
   )
 }
@@ -86,9 +86,9 @@ all_overall_cols <- function() {
 #' @rdname selectors
 all_unknown_cols <- function() {
   broom.helpers::.generic_selector(
-    variable_column = "variable",
-    select_column = "unknown",
-    select_expr = .data$unknown %in% TRUE,
+    variable_column = "column",
+    select_column = c("hide", "unknown"),
+    select_expr = .data$hide %in% FALSE & .data$unknown %in% TRUE,
     fun_name = "all_unknown_cols"
   )
 }

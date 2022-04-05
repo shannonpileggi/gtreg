@@ -55,7 +55,7 @@ selectors_ex1 <-
     by = grade
   ) \%>\%
   add_overall(across = 'by') \%>\%
-  modify_ae_header(
+  modify_header(
     all_ae_cols() ~ "**Grade {by}**",
     all_overall_cols() ~ "**Total**",
     all_unknown_cols() ~ "**Unknown Grade**"
