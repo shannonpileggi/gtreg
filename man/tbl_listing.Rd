@@ -16,7 +16,7 @@ Default is \code{TRUE}}
 Default is \code{TRUE}}
 
 \item{group_by}{Single variable name indicating a grouping variable.
-Default is \code{NULL} for no grouping variable. When specified a grouping
+Default is \code{NULL} for no grouping variable. When specified, a grouping
 row will be added to the first column. Both the grouping variable and the
 first column must be character.}
 }
