@@ -1,8 +1,6 @@
 #' Create a tbl Listing
 #'
 #' @param data a data frame
-#' @param column_labels logical indicating whether to use column label attributes.
-#' Default is `TRUE`
 #' @param bold_headers logical indicating whether to bold column headers.
 #' Default is `TRUE`
 #' @param group_by Single variable name indicating a grouping variable.
@@ -27,8 +25,7 @@
 #' \if{html}{Example 1}
 #'
 #' \if{html}{\figure{tbl_listing_ex1.png}{options: width=75\%}}
-tbl_listing <- function(data, column_labels = TRUE, bold_headers = TRUE,
-                        group_by = NULL) {
+tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
   # process inputs -------------------------------------------------------------
   stopifnot(is.data.frame(data))
   data <-
@@ -96,16 +93,15 @@ tbl_listing <- function(data, column_labels = TRUE, bold_headers = TRUE,
       )
   }
 
-  # use column labels  ---------------------------------------------------------
-  if (isTRUE(column_labels)) {
-    tbl$table_styling$header <-
-      tbl$table_styling$header %>%
-      dplyr::rowwise() %>%
-      dplyr::mutate(
-        label = attr(data[[.data$column]], "label") %||% .data$column
-      ) %>%
-      dplyr::ungroup()
-  }
+  # add column labels  ---------------------------------------------------------
+  tbl$table_styling$header <-
+    tbl$table_styling$header %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      label = attr(data[[.data$column]], "label") %||% .data$column
+    ) %>%
+    dplyr::ungroup()
+
 
   # add markdown bold syntax ---------------------------------------------------
   if (isTRUE(bold_headers)) {

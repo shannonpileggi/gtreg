@@ -4,21 +4,18 @@
 \alias{tbl_listing}
 \title{Create a tbl Listing}
 \usage{
-tbl_listing(data, column_labels = TRUE, bold_headers = TRUE, group_by = NULL)
+tbl_listing(data, group_by = NULL, bold_headers = TRUE)
 }
 \arguments{
 \item{data}{a data frame}
-
-\item{column_labels}{logical indicating whether to use column label attributes.
-Default is \code{TRUE}}
-
-\item{bold_headers}{logical indicating whether to bold column headers.
-Default is \code{TRUE}}
 
 \item{group_by}{Single variable name indicating a grouping variable.
 Default is \code{NULL} for no grouping variable. When specified, a grouping
 row will be added to the first column. Both the grouping variable and the
 first column must be character.}
+
+\item{bold_headers}{logical indicating whether to bold column headers.
+Default is \code{TRUE}}
 }
 \value{
 gtsummary tbl listing
