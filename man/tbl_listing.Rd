@@ -18,10 +18,11 @@ first column must be character.}
 Default is \code{TRUE}}
 }
 \value{
-gtsummary tbl listing
+gtsummary data listing
 }
 \description{
-Create a Data Listing
+Function creates a gtsummary-class listing of data. Column labels are
+used as column headers, when present.
 }
 \section{Example Output}{
 

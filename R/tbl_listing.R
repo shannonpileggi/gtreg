@@ -1,5 +1,8 @@
 #' Create a Data Listing
 #'
+#' Function creates a gtsummary-class listing of data. Column labels are
+#' used as column headers, when present.
+#'
 #' @param data a data frame
 #' @param bold_headers logical indicating whether to bold column headers.
 #' Default is `TRUE`
@@ -8,7 +11,7 @@
 #' row will be added to the first column. Both the grouping variable and the
 #' first column must be character.
 #'
-#' @return gtsummary tbl listing
+#' @return gtsummary data listing
 #' @export
 #'
 #' @examples
