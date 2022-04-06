@@ -84,7 +84,11 @@ tbl_reg_summary <- function(data,
         purrr::map(~stringr::str_remove_all(.x, pattern = stringr::fixed("}"))) %>%
         purrr::map(~stringr::str_remove_all(.x, pattern = stringr::fixed("{"))) %>%
         unlist() %>%
-        {ifelse(. %in% c("N_nonmiss", "N_miss", "N_obs"), 0L, round_to)}
+        {dplyr::case_when(
+          . %in% c("N_nonmiss", "N_miss", "N_obs") ~ list(gtsummary::style_number),
+          . %in% c("p_miss", "p_nonmiss") ~ list(gtsummary::style_percent),
+          TRUE ~ list(round_to)
+        )}
     }
   }
 
