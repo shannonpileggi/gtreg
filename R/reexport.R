@@ -106,6 +106,10 @@ gtsummary::modify_footnote
 #' @export
 gtsummary::modify_caption
 
+#' @importFrom gtsummary modify_column_indent
+#' @export
+gtsummary::modify_column_indent
+
 #' @importFrom gtsummary bold_labels
 #' @export
 gtsummary::bold_labels
