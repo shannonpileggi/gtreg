@@ -88,3 +88,6 @@ tbl_reg_summary_ex1 <-
   dplyr::select(age, marker, grade, trt) \%>\%
   tbl_reg_summary(by = trt)
 }
+\seealso{
+See \href{https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html}{vignette} for detailed tutorial#'
+}

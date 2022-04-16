@@ -4,7 +4,8 @@
 #'
 #' @return a gtsummary tbl
 #' @export
-#'
+
+#' @seealso See \href{https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html}{vignette} for detailed tutorial#'
 #' @examples
 #' tbl_reg_summary_ex1 <-
 #'   gtsummary::trial %>%
@@ -61,12 +62,14 @@ tbl_reg_summary <- function(data,
   statistic <-
     .formula_list_to_named_list(x = statistic, data = data, arg_name = "statistic") %||%
     list()
-  default_continuous_summary_stat <-
-    c("{N_nonmiss}", "{mean}", "{sd}", "{median}",
-      "{p25}, {p75}", "{min}, {max}", "{N_miss}")
+
   for (variable in setdiff(include, by)) {
     if (type[[variable]] %in% "continuous2" && is.null(statistic[[variable]])) {
-      statistic[[variable]] <- default_continuous_summary_stat
+      statistic[[variable]] <-
+        c("{N_nonmiss}", "{mean}", "{sd}", "{median}", "{p25}, {p75}", "{min}, {max}", "{N_miss}")
+    }
+    else if (type[[variable]] %in% c("categorical", "dichotomous") && is.null(statistic[[variable]])) {
+      statistic[[variable]] <- "{n} ({p})"
     }
   }
 
@@ -78,7 +81,7 @@ tbl_reg_summary <- function(data,
     if (startsWith(type[[variable]], "continuous") && is.null(digits[[variable]])) {
       round_to <- continuous_digits_guess(data, variable)
       digits[[variable]] <-
-        default_continuous_summary_stat %>%
+        statistic[[variable]] %>%
         paste(collapse = " ") %>%
         stringr::str_extract_all("\\{.*?\\}") %>%
         purrr::map(~stringr::str_remove_all(.x, pattern = stringr::fixed("}"))) %>%
