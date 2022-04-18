@@ -45,6 +45,8 @@ tbl_reg_summary <- function(data,
                             percent = NULL,
                             include = everything()) {
   missing <- match.arg(missing)
+
+  # execute `tbl_summary()` code with gtreg theme/defaults
   gtsummary::with_gtsummary_theme(
     x = gtreg_theme,
     expr =
@@ -57,6 +59,7 @@ tbl_reg_summary <- function(data,
   )
 }
 
+# creating theme for gtreg summaries
 gtreg_theme <-
   list(
     "tbl_summary-str:default_con_type" = "continuous2",
