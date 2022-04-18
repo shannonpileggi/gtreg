@@ -54,7 +54,18 @@ df_patient_characteristics <-
   tibble::tibble(
     patient_id = paste("ID", 1:100),
     trt = sample(c("Drug A", "Drug B"), size = 100, replace = TRUE),
-    age = floor(rnorm(100, 50, 10))
+    age = floor(rnorm(100, 50, 10)),
+    marker = abs(-age / 33 + rnorm(100, 7, 1)),
+    status =
+      sample(
+        x = c("Completed Study", "Adverse Event", "Progressive Disease",
+              "Physician Decision", "Subject Withdrew", "Other"),
+        size = 100,
+        replace = TRUE,
+        prob = c(0.50, 0.1, 0.1, 0.1, 0.1, 0.1)
+      ) |>
+      factor(levels = c("Completed Study", "Adverse Event", "Progressive Disease",
+                        "Physician Decision", "Subject Withdrew", "Other"))
   ) |>
   # forcing the patients to have the same trt as in the AE dataset
   dplyr::rows_update(
@@ -67,7 +78,9 @@ df_patient_characteristics <-
   labelled::set_variable_labels(
     patient_id = "Patient ID",
     trt = "Treatment Group",
-    age = "Patient Age"
+    age = "Patient Age",
+    marker = "Marker",
+    status = "Study Status"
   )
 
 usethis::use_data(df_adverse_events, df_patient_characteristics, overwrite = TRUE)

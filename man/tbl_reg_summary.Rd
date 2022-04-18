@@ -22,11 +22,9 @@ tbl_reg_summary(
 \arguments{
 \item{data}{A data frame}
 
-\item{by}{A column name (quoted or unquoted) in \code{data}.
-Summary statistics will be calculated separately for each level of the \code{by}
-variable (e.g. \code{by = trt}). If \code{NULL}, summary statistics
-are calculated using all observations. To stratify a table by two or more
-variables, use \code{tbl_strata()}}
+\item{by}{A column name (quoted or unquoted) in \code{data.} Summary statistics
+will be calculated separately for each level of the by variable
+(e.g. \code{by = trt}). If \code{NULL}, summary statistics are calculated using all observations.}
 
 \item{label}{List of formulas specifying variables labels,
 e.g. \code{list(age ~ "Age", stage ~ "Path T Stage")}.  If a
@@ -34,10 +32,8 @@ variable's label is not specified here, the label attribute
 (\code{attr(data$age, "label")}) is used.  If
 attribute label is \code{NULL}, the variable name will be used.}
 
-\item{statistic}{List of formulas specifying types of summary statistics to
-display for each variable.  The default is
-\code{list(all_continuous() ~ "{median} ({p25}, {p75})", all_categorical() ~ "{n} ({p}\%)")}.
-See below for details.}
+\item{statistic}{List of formulas specifying types of summary statistics
+to display for each variable.}
 
 \item{digits}{List of formulas specifying the number of decimal
 places to round summary statistics. If not specified,
@@ -48,15 +44,13 @@ statistic being calculated is \code{"{mean} ({sd})"} and you want the mean round
 to 1 decimal place, and the SD to 2 use \code{digits = list(age ~ c(1, 2))}. User
 may also pass a styling function: \code{digits = age ~ style_sigfig}}
 
-\item{type}{List of formulas specifying variable types. Accepted values
-are \code{c("continuous", "continuous2", "categorical", "dichotomous")},
+\item{type}{List of formulas specifying variable types.
+Accepted values are \code{c("continuous", "continuous2", "categorical", "dichotomous")},
 e.g. \code{type = list(age ~ "continuous", female ~ "dichotomous")}.
-If type not specified for a variable, the function
-will default to an appropriate summary type. See below for details.}
+If type not specified for a variable, the function will default to an appropriate summary type.}
 
 \item{value}{List of formulas specifying the value to display for dichotomous
-variables. gtsummary selectors, e.g. \code{all_dichotomous()}, cannot be used
-with this argument. See below for details.}
+variables. gtsummary selectors, e.g. \code{all_dichotomous()}, cannot be used with this argument.}
 
 \item{missing}{Indicates whether to include counts of \code{NA} values in the table.
 Allowed values are \code{"no"} (never display NA values),
@@ -80,14 +74,26 @@ e.g. \code{sort = list(everything() ~ "frequency")}}
 a gtsummary tbl
 }
 \description{
-Data Summary Table
+Function wraps \code{gtsummary::tbl_summary()} to create a data summary
+table often seen in regulatory submissions. Continuous variable summaries
+are shown on multiple lines with additional summary statistics and percentages
+are shown with more precision for categorical variables.
 }
+\section{Example Output}{
+
+\if{html}{Example 1}
+
+\if{html}{\figure{tbl_reg_summary_ex1.png}{options: width=65\%}}
+}
+
 \examples{
 tbl_reg_summary_ex1 <-
-  gtsummary::trial \%>\%
-  dplyr::select(age, marker, grade, trt) \%>\%
-  tbl_reg_summary(by = trt)
+  df_patient_characteristics \%>\%
+  tbl_reg_summary(by = trt, include = c(marker, status))
+
 }
 \seealso{
-See \href{https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html}{vignette} for detailed tutorial#'
+See \href{https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html}{\code{gtsummary::tbl_summary()}} help file
+
+See \href{https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html}{vignette} for detailed tutorial
 }
