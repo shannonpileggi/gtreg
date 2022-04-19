@@ -59,7 +59,7 @@ df_patient_characteristics <-
     status =
       sample(
         x = c("Completed Study", "Adverse Event", "Progressive Disease",
-              "Physician Decision", "Subject Withdrew", "Other"),
+              "Physician Decision", "Subject Withdrew", "Active"),
         size = 100,
         replace = TRUE,
         prob = c(0.50, 0.1, 0.1, 0.1, 0.1, 0.1)
