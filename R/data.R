@@ -22,7 +22,7 @@
 #'     \item{patient_id}{Patient ID}
 #'     \item{trt}{Treatment Group}
 #'     \item{age}{Patient Age}
-#'     \item{marker}{Marker}
+#'     \item{marker}{Biological Marker}
 #'     \item{status}{Study Status}
 #' }
 "df_patient_characteristics"

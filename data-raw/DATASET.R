@@ -65,7 +65,7 @@ df_patient_characteristics <-
         prob = c(0.50, 0.1, 0.1, 0.1, 0.1, 0.1)
       ) |>
       factor(levels = c("Completed Study", "Adverse Event", "Progressive Disease",
-                        "Physician Decision", "Subject Withdrew", "Other"))
+                        "Physician Decision", "Subject Withdrew", "Active"))
   ) |>
   # forcing the patients to have the same trt as in the AE dataset
   dplyr::rows_update(
