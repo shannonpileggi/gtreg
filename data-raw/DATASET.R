@@ -79,7 +79,7 @@ df_patient_characteristics <-
     patient_id = "Patient ID",
     trt = "Treatment Group",
     age = "Patient Age",
-    marker = "Marker",
+    marker = "Biological Marker",
     status = "Study Status"
   )
 
