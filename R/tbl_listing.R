@@ -29,7 +29,9 @@
 #' df_patient_characteristics %>%
 #'   dplyr::slice_sample(n = 10) %>%
 #'   select(patient_id, status, discontinued, off_trt_ae) %>%
-#'   tbl_listing()
+#'   tbl_listing() %>%
+#'   as_gt() %>%
+#'   gt::opt_row_striping()
 #'
 #' @section Example Output:
 #' \if{html}{Example 1}
