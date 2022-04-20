@@ -29,6 +29,10 @@ used as column headers, when present.
 \if{html}{Example 1}
 
 \if{html}{\figure{tbl_listing_ex1.png}{options: width=75\%}}
+
+\if{html}{Example 2}
+
+\if{html}{\figure{tbl_listing_ex2.png}{options: width=75\%}}
 }
 
 \examples{
@@ -40,5 +44,12 @@ tbl_listing_ex1 <-
   arrange(adverse_event, desc(grade)) \%>\%
   tbl_listing(group_by = system_organ_class) \%>\%
   bold_labels()
+
+set.seed(11234)
+tbl_listing_ex2 <-
+df_patient_characteristics \%>\%
+  dplyr::slice_sample(n = 10) \%>\%
+  select(patient_id, status, discontinued, off_trt_ae) \%>\%
+  tbl_listing()
 
 }

@@ -24,10 +24,21 @@
 #'   tbl_listing(group_by = system_organ_class) %>%
 #'   bold_labels()
 #'
+#' set.seed(11234)
+#' tbl_listing_ex2 <-
+#' df_patient_characteristics %>%
+#'   dplyr::slice_sample(n = 10) %>%
+#'   select(patient_id, status, discontinued, off_trt_ae) %>%
+#'   tbl_listing()
+#'
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
 #' \if{html}{\figure{tbl_listing_ex1.png}{options: width=75\%}}
+#'
+#' \if{html}{Example 2}
+#'
+#' \if{html}{\figure{tbl_listing_ex2.png}{options: width=75\%}}
 tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
   # process inputs -------------------------------------------------------------
   stopifnot(is.data.frame(data))
