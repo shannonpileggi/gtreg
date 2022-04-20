@@ -36,7 +36,7 @@
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
-#' \if{html}{\figure{tbl_listing_ex1.png}{options: width=75\%}}
+#' \if{html}{\figure{tbl_listing_ex1.png}{options: width=65\%}}
 #'
 #' \if{html}{Example 2}
 #'
@@ -127,5 +127,5 @@ tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
 
   # return gtsummary tbl -------------------------------------------------------
   tbl %>%
-    structure(class = c("tbl_lsiting", "gtsummary"))
+    structure(class = c("tbl_listing", "gtsummary"))
 }
