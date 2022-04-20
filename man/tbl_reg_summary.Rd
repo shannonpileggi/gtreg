@@ -77,7 +77,7 @@ a gtsummary tbl
 Function wraps \code{gtsummary::tbl_summary()} to create a data summary
 table often seen in regulatory submissions. Continuous variable summaries
 are shown on multiple lines with additional summary statistics and percentages
-are shown with more precision for categorical variables.
+are shown for categorical variables; precision levels estimated based on values observed.
 }
 \section{Example Output}{
 
