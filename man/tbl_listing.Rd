@@ -2,7 +2,7 @@
 % Please edit documentation in R/tbl_listing.R
 \name{tbl_listing}
 \alias{tbl_listing}
-\title{Create a Data Listing}
+\title{Data Listing Table}
 \usage{
 tbl_listing(data, group_by = NULL, bold_headers = TRUE)
 }

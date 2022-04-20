@@ -1,4 +1,4 @@
-#' Create a Data Listing
+#' Data Listing Table
 #'
 #' Function creates a gtsummary-class listing of data. Column labels are
 #' used as column headers, when present.
