@@ -11,7 +11,11 @@ tbl_listing(data, group_by = NULL, bold_headers = TRUE)
 
 \item{group_by}{Single variable name indicating a grouping variable.
 Default is \code{NULL} for no grouping variable. When specified, a grouping
-row will be added to the first column. Both the grouping variable and the
+row will be added to the first column. The grouping column and the first
+column in the table will be combined and the type/class may be converted
+to common type/class for both columns.
+
+Both the grouping variable and the
 first column must be character.}
 
 \item{bold_headers}{logical indicating whether to bold column headers.

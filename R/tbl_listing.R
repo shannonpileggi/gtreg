@@ -8,7 +8,11 @@
 #' Default is `TRUE`
 #' @param group_by Single variable name indicating a grouping variable.
 #' Default is `NULL` for no grouping variable. When specified, a grouping
-#' row will be added to the first column. Both the grouping variable and the
+#' row will be added to the first column. The grouping column and the first
+#' column in the table will be combined and the type/class may be converted
+#' to common type/class for both columns.
+#'
+#' Both the grouping variable and the
 #' first column must be character.
 #'
 #' @return gtsummary data listing
@@ -58,18 +62,7 @@ tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
 
   # add a grouping row if specified, add the grouping rows to the data frame ---
   if (!is.null(group_by)) {
-    if (!is.character(data[[group_by]])) {
-      stop("The column  specified in `group_by=` must be character.", call. = FALSE)
-    }
-
     first_column <- names(data) %>% setdiff(c(group_by, "row_type")) %>% purrr::pluck(1)
-    if (!is.character(data[[first_column]])) {
-      stringr::str_glue(
-        "When `group_by=` is specified, the first reported column in the",
-        "data frame ('{first_column}') must be character."
-      ) %>%
-      stop(call. = FALSE)
-    }
 
     # adding grouped row -------------------------------------------------------
     data <-
