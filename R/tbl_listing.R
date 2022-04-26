@@ -69,10 +69,16 @@ tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
       data %>%
       dplyr::group_by(.data[[group_by]]) %>%
       dplyr::group_map(
-        ~ dplyr::bind_rows(
-          .y %>% rlang::set_names(first_column) %>% mutate(row_type = "label", .before = 1L),
-          .x
-        )
+        function(.x, .y) {
+          browser()
+          rbind(
+            # creating a 1 row data frame to stack with the primary data set
+            rlang::set_names(.y, first_column) %>%
+              mutate(row_type = "label", .before = 1L) %>%
+              {cbind(., rlang::inject(tibble::tibble(!!!(rep_len(list(NA), length.out = length(setdiff(names(.x), c("row_type", first_column)))) %>% setNames(setdiff(names(.x), c("row_type", first_column)))))))},
+            .x
+          )
+        }
       ) %>%
       dplyr::bind_rows() %>%
       # re-instating column labels
