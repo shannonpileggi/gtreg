@@ -46,7 +46,20 @@ tbl_reg_summary <- function(data,
                             include = everything()) {
   missing <- match.arg(missing)
 
-  # execute `tbl_summary()` code with gtreg theme/defaults
+  # check the user has not set any gtsummary theme elements that will be ignored
+  gtsummary::get_gtsummary_theme() %>%
+    purrr::iwalk(function(.x,.y) {
+      if (.y %in% names(gtreg_theme) && !identical(.x, gtreg_theme[[.y]])) {
+        paste("Theme element {.val {.y}} is utilized internally",
+              "by {.code tbl_reg_summary()} and cannot be modified.") %>%
+          cli::cli_alert_warning()
+        paste("Use {.code gtsummary::tbl_summary()} if you",
+              "wish to modify this theme element.") %>%
+          cli::cli_alert_info()
+      }
+    })
+
+  # execute `tbl_summary()` code with gtreg theme/defaults ---------------------
   gtsummary::with_gtsummary_theme(
     x = gtreg_theme,
     expr =
@@ -59,11 +72,10 @@ tbl_reg_summary <- function(data,
   )
 }
 
-# creating theme for gtreg summaries
+# creating theme for gtreg summaries -------------------------------------------
 gtreg_theme <-
   list(
     "tbl_summary-str:default_con_type" = "continuous2",
     "tbl_summary-str:continuous_stat" =
-      c("{N_nonmiss}", "{mean} ({sd})", "{median} ({p25}, {p75})", "{min}, {max}", "{N_miss}"),
-    "tbl_summary-fn:percent_fun" = function(x) style_percent(x, digits = 1)
+      c("{N_nonmiss}", "{mean} ({sd})", "{median} ({p25}, {p75})", "{min}, {max}", "{N_miss}")
   )
