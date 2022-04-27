@@ -70,7 +70,6 @@ tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
       dplyr::group_by(.data[[group_by]]) %>%
       dplyr::group_map(
         function(.x, .y) {
-          browser()
           rbind(
             # creating a 1 row data frame to stack with the primary data set
             rlang::set_names(.y, first_column) %>%
