@@ -56,7 +56,7 @@ test_that("tbl_listing(group_by=) works with various column types", {
       as_tibble(col_labels = FALSE),
     NA
   )
-  expect_equal(tbl$num[1:3], c("Blood and lymphatic system disorders", "1", "2"))
+  expect_equal(tbl$grade[1:3], c(1L, 4L, 4L))
 
   expect_error(
     tbl <- head(df_adverse_events, n = 10) %>%
@@ -66,5 +66,6 @@ test_that("tbl_listing(group_by=) works with various column types", {
       as_tibble(col_labels = FALSE),
     NA
   )
-  expect_equal(tbl$adverse_event[1:3], c("Gastrointestinal disorders", "Intestinal dilatation", "Intestinal dilatation"))
+  expect_equal(tbl$adverse_event[1:3] %>% as.character(),
+               c("Gastrointestinal disorders", "Intestinal dilatation", "Intestinal dilatation"))
 })

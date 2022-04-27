@@ -74,7 +74,7 @@ tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
             # creating a 1 row data frame to stack with the primary data set
             rlang::set_names(.y, first_column) %>%
               mutate(row_type = "label", .before = 1L) %>%
-              {cbind(., rlang::inject(tibble::tibble(!!!(rep_len(list(NA), length.out = length(setdiff(names(.x), c("row_type", first_column)))) %>% setNames(setdiff(names(.x), c("row_type", first_column)))))))},
+              {cbind(., rlang::inject(tibble::tibble(!!!(rep_len(list(NA), length.out = length(setdiff(names(.x), c("row_type", first_column)))) %>% stats::setNames(setdiff(names(.x), c("row_type", first_column)))))))},
             .x
           )
         }
