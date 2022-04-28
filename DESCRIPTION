@@ -22,7 +22,7 @@ Imports:
     cli (>= 3.1.0),
     dplyr (>= 1.0.7),
     forcats (>= 0.5.1),
-    gtsummary (>= 1.5.2.9011),
+    gtsummary (>= 1.6.0),
     knitr (>= 1.37),
     purrr (>= 0.3.4),
     rlang (>= 1.0.0),
@@ -34,7 +34,6 @@ Suggests:
     gt (>= 0.3.1),
     spelling (>= 2.2),
     testthat (>= 3.1.1)
-Remotes: ddsjoberg/gtsummary
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
