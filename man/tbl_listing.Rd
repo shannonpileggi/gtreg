@@ -15,8 +15,8 @@ row will be added to the first column. The grouping column and the first
 column in the table will be combined and the type/class may be converted
 to common type/class for both columns.
 
-Both the grouping variable and the
-first column must be character.}
+When the \code{group_by} argument is utilized, groups are ordered accrording to the grouping
+variable's type (i.e.,  character, numeric, or factor).}
 
 \item{bold_headers}{logical indicating whether to bold column headers.
 Default is \code{TRUE}}
@@ -27,6 +27,7 @@ gtsummary data listing
 \description{
 Function creates a gtsummary-class listing of data. Column labels are
 used as column headers, when present.
+The listing prints observations in the order of the input data.
 }
 \section{Example Output}{
 

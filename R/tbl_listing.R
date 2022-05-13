@@ -1,8 +1,8 @@
 #' Data Listing Table
 #'
 #' Function creates a gtsummary-class listing of data. Column labels are
-#' used as column headers, when present. The listing prints observations in the order
-of the input data.
+#' used as column headers, when present.
+#' The listing prints observations in the order of the input data.
 #'
 #' @param data a data frame
 #' @param bold_headers logical indicating whether to bold column headers.
@@ -13,7 +13,7 @@ of the input data.
 #' column in the table will be combined and the type/class may be converted
 #' to common type/class for both columns.
 #'
-#' When the `group_by` argument is utilized, groups are ordered accrording to the grouping 
+#' When the `group_by` argument is utilized, groups are ordered accrording to the grouping
 #'  variable's type (i.e.,  character, numeric, or factor).
 #'
 #' @return gtsummary data listing
