@@ -10,6 +10,10 @@ A data frame with 100 rows--one row per patient
 \item{patient_id}{Patient ID}
 \item{trt}{Treatment Group}
 \item{age}{Patient Age}
+\item{marker}{Biological Marker}
+\item{status}{Study Status}
+\item{discontinued}{Discontinued from Study}
+\item{off_trt_ae}{Off Treatment Adverse Event}
 }
 }
 \usage{
