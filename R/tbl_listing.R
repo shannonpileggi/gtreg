@@ -13,8 +13,8 @@ of the input data.
 #' column in the table will be combined and the type/class may be converted
 #' to common type/class for both columns.
 #'
-#' Both the grouping variable and the
-#' first column must be character.
+#' When the `group_by` argument is utilized, groups are ordered accrording to the grouping 
+#'  variable's type (i.e.,  character, numeric, or factor).
 #'
 #' @return gtsummary data listing
 #' @export
