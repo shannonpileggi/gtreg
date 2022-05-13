@@ -1,7 +1,8 @@
 #' Data Listing Table
 #'
 #' Function creates a gtsummary-class listing of data. Column labels are
-#' used as column headers, when present.
+#' used as column headers, when present. The listing prints observations in the order
+of the input data.
 #'
 #' @param data a data frame
 #' @param bold_headers logical indicating whether to bold column headers.
