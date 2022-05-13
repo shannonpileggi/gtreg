@@ -69,7 +69,8 @@ tbl_reg_summary <- function(data,
         missing_text = missing_text, sort = sort, percent = percent,
         include = {{ include }}
       )
-  )
+  ) %>%
+    structure(class = c("tbl_reg_summary", "tbl_summary", "gtsummary"))
 }
 
 # creating theme for gtreg summaries -------------------------------------------
