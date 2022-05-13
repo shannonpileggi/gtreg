@@ -20,7 +20,7 @@ gt.doc.images::save_help_file_images(pkg = "gtreg")
 
 gt.doc.images::save_help_file_images(
   pkg = "gtreg",
-  rd_files = c("selectors.Rd", "modify_ae_header.Rd")
+  rd_files = "tbl_listing.Rd"
 )
 
 # 5. Shrink png files
