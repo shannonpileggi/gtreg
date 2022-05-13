@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Shannon Pileggi \email{shannon@pipinghotdata.com} (\href{https://orcid.org/0000-0002-7732-4164}{ORCID})
+\strong{Maintainer}: Shannon Pileggi \email{shannon@pipinghotdata.com} (\href{https://orcid.org/0000-0002-7732-4164}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
