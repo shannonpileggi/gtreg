@@ -67,11 +67,7 @@ The listing prints observations in the order of the input data.</p>
 <dt>group_by</dt>
 <dd><p>Single variable name indicating a grouping variable.
 Default is <code>NULL</code> for no grouping variable. When specified, a grouping
-row will be added to the first column. The grouping column and the first
-column in the table will be combined and the type/class may be converted
-to common type/class for both columns.</p>
-<p>When the <code>group_by</code> argument is utilized, groups are ordered accrording to the grouping
-variable's type (i.e.,  character, numeric, or factor).</p></dd>
+row will be added to the first column. See details below.</p></dd>
 <dt>bold_headers</dt>
 <dd><p>logical indicating whether to bold column headers.
 Default is <code>TRUE</code></p></dd>
@@ -79,6 +75,18 @@ Default is <code>TRUE</code></p></dd>
     <div id="value">
     <h2>Value</h2>
     <p>gtsummary data listing</p>
+    </div>
+    <div id="group-by">
+    <h2>group_by</h2>
+    
+
+
+<p>The grouping column and the first column in the table will be combined
+and the type/class may be converted to common type/class for both columns.
+However, if either the <code>group_by=</code> column or the first column are factors,
+the factor column(s) will first be converted to character.</p>
+<p>The groups are ordered according to the grouping
+variable's type (i.e.,  character, numeric, or factor).</p>
     </div>
     <div id="example-output">
     <h2>Example Output</h2>
