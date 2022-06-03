@@ -22,7 +22,7 @@ Imports:
     cli (>= 3.1.0),
     dplyr (>= 1.0.7),
     forcats (>= 0.5.1),
-    gtsummary (>= 1.5.2.9021),
+    gtsummary (>= 1.6.0.9008),
     knitr (>= 1.37),
     purrr (>= 0.3.4),
     rlang (>= 1.0.0),
@@ -40,4 +40,4 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
