@@ -68,4 +68,44 @@ test_that("tbl_listing(group_by=) works with various column types", {
   )
   expect_equal(tbl$adverse_event[1:3] %>% as.character(),
                c("Gastrointestinal disorders", "Intestinal dilatation", "Intestinal dilatation"))
+
+  expect_error(
+    tbl <-
+      head(mtcars, n = 3) %>%
+      tibble::as_tibble() %>%
+      dplyr::mutate(cyl = factor(cyl)) %>%
+      tbl_listing(group_by = "cyl"),
+    NA
+  )
+  expect_equal(
+    as_tibble(tbl, col_labels = FALSE)[["mpg"]],
+    c("4", "22.8", "6", "21", "21")
+  )
+
+  expect_error(
+    tbl <-
+      head(mtcars, n = 3) %>%
+      tibble::as_tibble() %>%
+      dplyr::mutate(mpg = factor(mpg)) %>%
+      tbl_listing(group_by = "mpg"),
+    NA
+  )
+  expect_equal(
+    as_tibble(tbl, col_labels = FALSE)[["cyl"]],
+    c("21",   "6" ,   "6"   , "22.8", "4" )
+  )
+
+  expect_error(
+    tbl <-
+      head(mtcars, n = 3) %>%
+      tibble::as_tibble() %>%
+      dplyr::mutate(mpg = factor(mpg),
+                    cyl = factor(cyl)) %>%
+      tbl_listing(group_by = "cyl"),
+    NA
+  )
+  expect_equal(
+    as_tibble(tbl, col_labels = FALSE)[["mpg"]],
+    c("4", "22.8", "6", "21", "21")
+  )
 })

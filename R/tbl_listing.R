@@ -9,12 +9,17 @@
 #' Default is `TRUE`
 #' @param group_by Single variable name indicating a grouping variable.
 #' Default is `NULL` for no grouping variable. When specified, a grouping
-#' row will be added to the first column. The grouping column and the first
-#' column in the table will be combined and the type/class may be converted
-#' to common type/class for both columns.
+#' row will be added to the first column. See details below.
 #'
-#' When the `group_by` argument is utilized, groups are ordered accrording to the grouping
-#'  variable's type (i.e.,  character, numeric, or factor).
+#' @section group_by:
+#'
+#' The grouping column and the first column in the table will be combined
+#' and the type/class may be converted to common type/class for both columns.
+#' However, if either the `group_by=` column or the first column are factors,
+#' the factor column(s) will first be converted to character.
+#'
+#' The groups are ordered according to the grouping
+#' variable's type (i.e.,  character, numeric, or factor).
 #'
 #' @return gtsummary data listing
 #' @export
@@ -74,9 +79,15 @@ tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
           rbind(
             # creating a 1 row data frame to stack with the primary data set
             rlang::set_names(.y, first_column) %>%
-              mutate(row_type = "label", .before = 1L) %>%
-              {cbind(., rlang::inject(tibble::tibble(!!!(rep_len(list(NA), length.out = length(setdiff(names(.x), c("row_type", first_column)))) %>% stats::setNames(setdiff(names(.x), c("row_type", first_column)))))))},
-            .x
+              mutate(
+                dplyr::across(where(is.factor) & all_of(first_column), as.character), # rbind() cannot stack a factor column and numeric column, must convert to chr
+                row_type = "label",
+                .before = 1L
+              ) %>%
+              {cbind(., rlang::inject(tibble::tibble(!!!(rep_len(list(NA), length.out = length(setdiff(names(.x), c("row_type", first_column)))) %>%
+                                                           stats::setNames(setdiff(names(.x), c("row_type", first_column)))))))},
+            as.data.frame(.x) %>%
+              mutate(dplyr::across(where(is.factor) & all_of(first_column), as.character))
           )
         }
       ) %>%
