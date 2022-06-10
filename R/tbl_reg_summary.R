@@ -46,7 +46,7 @@ tbl_reg_summary <- function(data,
                             include = everything()) {
   missing <- match.arg(missing)
 
-  # execute `tbl_summary()` code with gtreg theme/defaults
+  # execute `tbl_summary()` code with gtreg theme/defaults ---------------------
   gtsummary::with_gtsummary_theme(
     x = gtreg_theme,
     expr =
@@ -55,16 +55,20 @@ tbl_reg_summary <- function(data,
         digits = digits, type = type, value = value, missing = missing,
         missing_text = missing_text, sort = sort, percent = percent,
         include = {{ include }}
-      )
+      ),
+    msg_ignored_elements =
+      paste("Theme element(s) {.val {elements}} utilized internally",
+            "by {.code tbl_reg_summary()} and cannot be modified.\n",
+            "Use {.code gtsummary::tbl_summary()} if you",
+            "wish to modify these theme elements.")
   ) %>%
     structure(class = c("tbl_reg_summary", "tbl_summary", "gtsummary"))
 }
 
-# creating theme for gtreg summaries
+# creating theme for gtreg summaries -------------------------------------------
 gtreg_theme <-
   list(
     "tbl_summary-str:default_con_type" = "continuous2",
     "tbl_summary-str:continuous_stat" =
-      c("{N_nonmiss}", "{mean} ({sd})", "{median} ({p25}, {p75})", "{min}, {max}", "{N_miss}"),
-    "tbl_summary-fn:percent_fun" = function(x) style_percent(x, digits = 1)
+      c("{N_nonmiss}", "{mean} ({sd})", "{median} ({p25}, {p75})", "{min}, {max}", "{N_miss}")
   )
