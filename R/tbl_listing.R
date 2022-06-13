@@ -21,6 +21,29 @@
 #' The groups are ordered according to the grouping
 #' variable's type (i.e.,  character, numeric, or factor).
 #'
+#' @section Details:
+#'
+#' The purpose of `tbl_listing()` is to add support for printing data frames,
+#' while taking advantage of the \{gtsummary\} defaults, e.g. ability to print
+#' to most output formats, using print themes to have a common style to all
+#' tables in a document, etc.
+#'
+#' While the output of `tbl_listing()` is class `'gtsummary'`, these tables
+#' are not meant to be merged with other `'gtsummary'` tables with `tbl_merge()`,
+#' or reporting table contents with `inline_text()`. The reason is that a
+#' proper `'gtsummary'` contains
+#' [additional, hidden structure](https://www.danieldsjoberg.com/gtsummary/articles/gtsummary_definition.html)
+#' not present in the result of `tbl_listing()`. If you do need to report
+#' the results of `tbl_listing()` in-line, it's recommended to convert
+#' the table to a data frame, then extract the needed cell, e.g.
+#'
+#' ```r
+#' tbl_listing() |>
+#'   as_tibble(col_names = FALSE) |>
+#'   dplyr::slice(1) |>
+#'   dplyr::pull(colname)`
+#' ````
+#'
 #' @return gtsummary data listing
 #' @export
 #'
