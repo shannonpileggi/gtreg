@@ -46,19 +46,6 @@ tbl_reg_summary <- function(data,
                             include = everything()) {
   missing <- match.arg(missing)
 
-  # check the user has not set any gtsummary theme elements that will be ignored
-  gtsummary::get_gtsummary_theme() %>%
-    purrr::iwalk(function(.x,.y) {
-      if (.y %in% names(gtreg_theme) && !identical(.x, gtreg_theme[[.y]])) {
-        paste("Theme element {.val {.y}} is utilized internally",
-              "by {.code tbl_reg_summary()} and cannot be modified.") %>%
-          cli::cli_alert_warning()
-        paste("Use {.code gtsummary::tbl_summary()} if you",
-              "wish to modify this theme element.") %>%
-          cli::cli_alert_info()
-      }
-    })
-
   # execute `tbl_summary()` code with gtreg theme/defaults ---------------------
   gtsummary::with_gtsummary_theme(
     x = gtreg_theme,
@@ -68,7 +55,12 @@ tbl_reg_summary <- function(data,
         digits = digits, type = type, value = value, missing = missing,
         missing_text = missing_text, sort = sort, percent = percent,
         include = {{ include }}
-      )
+      ),
+    msg_ignored_elements =
+      paste("Theme element(s) {.val {elements}} utilized internally",
+            "by {.code tbl_reg_summary()} and cannot be modified.\n",
+            "Use {.code gtsummary::tbl_summary()} if you",
+            "wish to modify these theme elements.")
   ) %>%
     structure(class = c("tbl_reg_summary", "tbl_summary", "gtsummary"))
 }
