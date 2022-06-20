@@ -1,11 +1,16 @@
 #' Tabulate Raw AE Counts
 #'
-#' Create a table with the number of AE that were reported.
+#' Create a table counting all AEs.
+#'
+#' \code{tbl_ae_count} counts all AEs (whereas \code{\link{tbl_ae}}
+#' counts by maximum grade). Thus, \code{tbl_ae_count} does
+#' not provide percentages as multiple AEs can be counted per subject.
 #'
 #' @inheritParams tbl_ae
 #'
 #' @return a 'tbl_ae_count' object
 #' @export
+#' @seealso \code{\link{tbl_ae}}
 #' @examples
 #' \donttest{
 #' # Example 1 -----------------------------------------------------------------

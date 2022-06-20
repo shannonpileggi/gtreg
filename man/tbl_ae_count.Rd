@@ -61,7 +61,12 @@ one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
 a 'tbl_ae_count' object
 }
 \description{
-Create a table with the number of AE that were reported.
+Create a table counting all AEs.
+}
+\details{
+\code{tbl_ae_count} counts all AEs (whereas \code{\link{tbl_ae}}
+counts by maximum grade). Thus, \code{tbl_ae_count} does
+not provide percentages as multiple AEs can be counted per subject.
 }
 \section{Example Output}{
 
@@ -83,4 +88,7 @@ tbl_ae_count_ex1 <-
   ) \%>\%
   modify_header(all_ae_cols() ~ "**Grade {by}**")
   }
+}
+\seealso{
+\code{\link{tbl_ae}}
 }

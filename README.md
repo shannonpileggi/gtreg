@@ -14,9 +14,6 @@ status](https://www.r-pkg.org/badges/version/gtreg)](https://CRAN.R-project.org/
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The {gtreg} package creates tabular data summaries appropriate for
-regulatory submissions. The package builds the tables using {gtsummary}.
-
 ## Installation
 
 You can install the development version of {gtreg} from
@@ -27,9 +24,38 @@ You can install the development version of {gtreg} from
 devtools::install_github("shannonpileggi/gtreg")
 ```
 
-## Example
+## Overview
 
-Summarize Adverse Events by Grade. The denominators in the table are the
+The {gtreg} package creates tabular data summaries appropriate for
+regulatory submissions. The package builds the tables using {gtsummary}.
+
+## Functions for adverse event (AE) reporting
+
+**Summarize Raw Adverse Counts**
+
+`tbl_ae_count()` provides counts of all AEs, and omits percentage
+statistics as multiple AEs can occur per subject.
+
+``` r
+library(gtreg)
+tbl_ae_count <- 
+  df_adverse_events |> 
+  tbl_ae_count(
+    ae = adverse_event,
+    soc = system_organ_class, 
+    by = drug_attribution
+  ) |>
+  add_overall(across = "by") |>
+  modify_spanning_header(all_ae_cols() ~ "**Drug Attribution**") |>
+  bold_labels()
+```
+
+<img src="man/figures/README-example-tbl_ae_count-1.png" width="76%" />
+
+**Summarize Adverse Events by Grade**
+
+`tbl_ae()` counts one AE per subject by maximum grade; percentage
+statistics are provided by default with the denominators reflecting the
 number of patients in the study.
 
 ``` r
@@ -38,7 +64,7 @@ gtsummary::theme_gtsummary_compact()
 #> Setting theme `Compact`
 
 tbl_ae <- 
-  df_adverse_events %>%
+  df_adverse_events |>
   tbl_ae(
     id_df = df_patient_characteristics,
     id = patient_id,
@@ -46,35 +72,21 @@ tbl_ae <-
     soc = system_organ_class, 
     by = grade, 
     strata = trt
-  ) %>%
-  modify_header(all_ae_cols() ~ "**Grade {by}**") %>% 
+  ) |>
+  modify_header(all_ae_cols() ~ "**Grade {by}**") |> 
   bold_labels()
 ```
 
 <img src="man/figures/README-example-tbl_ae-1.png" width="100%" />
 
-Summarize Raw Adverse Counts
+**Focus on rates of high grade complications**
 
-``` r
-tbl_ae_count <- 
-  df_adverse_events %>%
-  tbl_ae_count(
-    ae = adverse_event,
-    soc = system_organ_class, 
-    by = drug_attribution
-  ) %>%
-  add_overall(across = "by") %>%
-  modify_spanning_header(all_ae_cols() ~ "**Drug Attribution**") %>%
-  bold_labels()
-```
-
-<img src="man/figures/README-example-tbl_ae_count-1.png" width="76%" />
-
-Focus on rates of high grade complications with `tbl_ae_focus()`
+`tbl_ae_focus()` also counts one AE per subject by maximum grade, and is
+a convenience to summarize dichotomous AE attributes.
 
 ``` r
 tbl_ae_focus <- 
-  df_adverse_events %>%
+  df_adverse_events |>
   tbl_ae_focus(
     id_df = df_patient_characteristics,
     id = patient_id,
@@ -84,6 +96,37 @@ tbl_ae_focus <-
 ```
 
 <img src="man/figures/README-example-tbl_ae_focus-1.png" width="62%" />
+
+## Other Functions for Clinical Reporting
+
+**Regulatory summary**
+
+`tbl_reg_summary()` creates a data summary table often seen in
+regulatory submissions.
+
+``` r
+tbl_reg_summary <-
+  df_patient_characteristics |>
+  tbl_reg_summary(by = trt, include = c(marker, status)) 
+```
+
+<img src="man/figures/README-example-tbl_reg_summary-1.png" width="42%" />
+
+**Print an AE listing**
+
+`tbl_listing()` creates a gtsummary-class listing of data to enable
+grouped printing.
+
+``` r
+tbl_listing <-
+  head(df_adverse_events, n = 10) |>
+  select(system_organ_class, adverse_event, grade, drug_attribution, patient_id) |>
+  dplyr::arrange(adverse_event, desc(grade)) |>
+  tbl_listing(group_by = system_organ_class) |>
+  bold_labels()
+```
+
+<img src="man/figures/README-example-tbl_listing-1.png" width="62%" />
 
 ## Code of Conduct
 
