@@ -37,6 +37,7 @@ devtools::install_github("shannonpileggi/gtreg")
 The {gtreg} package creates tabular data summaries appropriate for regulatory submissions.
 The package builds the tables using {gtsummary}.
 
+
 ## Functions for adverse event (AE) reporting
 
 **Summarize Raw Adverse Counts**
@@ -46,6 +47,7 @@ The package builds the tables using {gtsummary}.
  
 
 ```{r example2}
+library(gtreg)
 tbl_ae_count <- 
   df_adverse_events |> 
   tbl_ae_count(
@@ -159,12 +161,12 @@ gt::gtsave(as_gt(tbl_reg_summary), file = file.path(tempdir(), "temp4.png"))
 ```
 
 
-```{r out.width = "62%", echo = FALSE}
+```{r out.width = "42%", echo = FALSE}
 # Have to do this workaround since the README needs markdown format for GitHub page but a different format for the website.
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
   as_gt(tbl)
 } else {
-  knitr::include_graphics("man/figures/README-example-tbl_reg_summary.png")
+  knitr::include_graphics("man/figures/README-example-tbl_reg_summary-1.png")
 } 
 ```
 
@@ -176,7 +178,7 @@ if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
 tbl_listing <-
   head(df_adverse_events, n = 10) |>
   select(system_organ_class, adverse_event, grade, drug_attribution, patient_id) |>
-  arrange(adverse_event, desc(grade)) |>
+  dplyr::arrange(adverse_event, desc(grade)) |>
   tbl_listing(group_by = system_organ_class) |>
   bold_labels()
 ```
@@ -192,7 +194,7 @@ gt::gtsave(as_gt(tbl_listing), file = file.path(tempdir(), "temp5.png"))
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
   as_gt(tbl)
 } else {
-  knitr::include_graphics("man/figures/README-example-tbl_listing.png")
+  knitr::include_graphics("man/figures/README-example-tbl_listing-1.png")
 } 
 ```
 
