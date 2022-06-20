@@ -36,6 +36,30 @@ The groups are ordered according to the grouping
 variable's type (i.e.,  character, numeric, or factor).
 }
 
+\section{Details}{
+
+
+The purpose of \code{tbl_listing()} is to add support for printing data frames,
+while taking advantage of the \{gtsummary\} defaults, e.g. ability to print
+to most output formats, using print themes to have a common style to all
+tables in a document, etc.
+
+While the output of \code{tbl_listing()} is class \code{'gtsummary'}, these tables
+are not meant to be merged with other \code{'gtsummary'} tables with \code{tbl_merge()},
+or reporting table contents with \code{inline_text()}. The reason is that a
+proper \code{'gtsummary'} contains
+\href{https://www.danieldsjoberg.com/gtsummary/articles/gtsummary_definition.html}{additional, hidden structure}
+not present in the result of \code{tbl_listing()}. If you do need to report
+the results of \code{tbl_listing()} in-line, it's recommended to convert
+the table to a data frame, then extract the needed cell, e.g.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{tbl_listing() |>
+  as_tibble(col_names = FALSE) |>
+  dplyr::slice(1) |>
+  dplyr::pull(colname)`
+}\if{html}{\out{</div>}}
+}
+
 \section{Example Output}{
 
 \if{html}{Example 1}
