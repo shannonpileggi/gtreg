@@ -1,0 +1,215 @@
+---
+title: "Adverse Event Counting Methods"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Adverse Event Counting Methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Setup
+
+```{r setup}
+# install.packages("gtreg")
+library(gtreg)
+```
+
+# Overview
+
+Reporting of adverse events to regulatory agencies typically employs both 
+standardized terminology and specific counting methods for adverse events. 
+
+# Standardized Terminology
+
+Providing standardized terminology is not in the scope of this package. Standardized
+terminology adheres to a hierarchy of terms from specific to general, as discussed
+in the [MedDRA Hierarchy](https://www.meddra.org/how-to-use/basics/hierarchy) 
+documentation. In {gtreg}, we facilitate reporting of a single term 
+(i.e., `ae`, or adverse event), or a lower level term within a higher level term 
+(i.e., `ae` within `soc`, system organ class). 
+
+# Example Data
+
+Data is typically recording in a long format with multiple rows per subject. 
+Events can be reported over time, where both multiple time points per subject and 
+multiple events per time point are possible. It is possible that grade of the
+event is missing.
+
+```{r create-data}
+dat <- tibble::tribble(
+    ~subject, ~visit,  ~soc, ~ae, ~grade,
+    # Subject 1 ----------------------------------------------------------------
+    "001", 1, "Eye disorders", "Eye irritation", 1,
+    "001", 1, "Gastrointestinal disorders", "Difficult digestion", NA,
+    "001", 2, "Eye disorders", "Eye irritation", 1,
+    "001", 3, "Eye disorders", "Eye irritation", 2,
+    "001", 4, "Eye disorders", "Vision blurred", 2,
+    # Subject 2 ----------------------------------------------------------------
+    "002", 1, "Gastrointestinal disorders", "Difficult digestion", 2,
+    "002", 1, "Gastrointestinal disorders", "Reflux", 2,
+    "002", 2, "Eye disorders", "Vision blurred", 2,
+    "002", 2, "Gastrointestinal disorders", "Reflux", 2,
+    "002", 3, "Gastrointestinal disorders", "Reflux", NA
+  )
+```
+
+```{r print-data}
+dat
+```
+
+# Challenges Addressed
+
+Study participants without adverse events are absent from the adverse event 
+raw data table. Furthermore,study participants may have multiple
+adverse events, often with different severity grades.
+
+These two features pose difficulties to computing the percentage of participants
+who experience a specific adverse event. 
+
+1. In the numerator, we want to count need to make sure that we do not double count the same AE within
+each participant, and in the denominator we need to make sure we include all patients 
+in the treatment arm (not just those who experience an AE). 
+These challenges are amplified when AE terms need to roll up into system organ class
+summaries.
+Functions in {gtreg} address these problems (among others) by implementing industry
+recommended approaches. 
+For further reading, the PHUSE white paper regarding
+[Analysis and Displays Associated with Adverse events](https://phuse.s3.eu-central-1.amazonaws.com/Deliverables/Standard+Analyses+and+Code+Sharing/Analyses+and+Displays+Associated+with+Adverse+Events+Focus+on+Adverse+Events+in+Phase+2-4+Clinical+Trials+and+Integrated+Summary.pdf)
+provides an excellent summary of such standards.
+
+# Counting All Events
+
+To count _all_ instances of any event, utilize `tbl_ae_count`.
+
+```{r count-all}
+dat %>% 
+  tbl_ae_count(
+    ae = ae,
+    soc = soc,
+    by = grade
+  ) %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>% 
+  add_overall() %>% 
+  bold_labels()
+```
+
+In this case, we have two subjects which experienced a total of 5 eye disorders and 4
+gastrointestinal disorders over the course of multiple time points. The only statistic 
+allowed in `tbl_ae_count()` is `n`.
+
+# Counting By Highest Grade
+
+Rather than counting all events, it is typical in regulatory reporting to count
+one event per subject by the highest grade experienced. To count the highest grade 
+per subject, utilize `tbl_ae()`. 
+
+The input `by` variable can be numeric (e.g., grade 1, 2, 3) or factor
+(e.g. attribution unlikely, possible, definite). In the respective cases,
+the highest value observed would be according to numeric order or factor
+level order, with missing values considered as the lowest level.
+
+When counting by highest grade, the count reported in any cell cannot exceed the 
+number of subjects. These methods apply to both the individual adverse events and
+the system organ class.
+
+## Counts Only
+
+```{r count-max-1}
+dat %>% 
+  tbl_ae(
+    id = subject,
+    ae = ae,
+    soc = soc,
+    by = grade,
+    statistic = "{n}"
+  ) %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>% 
+  add_overall() %>% 
+  bold_labels()
+```
+
+### Adverse Events
+
+* Subject `001` experienced two instances of grade 1 eye irritation and one instance
+of grade 2 eye irritation. The maximum grade experienced of eye irritation experienced is 2,
+resulting in a count of `1` for eye irritation.
+
+* Subject `001` and Subject `002` both experienced grade 2 vision blurred, resulting
+in a count of `2` of vision blurred.
+
+* Subject `002` experienced two instances of grade 2 reflux and one instance of 
+reflux with unknown grade; in a count of `1` for grade 2 reflux.
+
+
+### System Organ Class
+
+_Eye disorders_
+
+ + Subject `001` contributes 1 count to grade 2 eye irritation; together, subject `001` and `002` 
+contribute 2 counts to grade 2 vision blurred. 
+
+ + 2 subjects experienced a grade 2 eye disorder.
+ 
+ + 2 subjects overall experienced an eye disorder.
+
+_Gastrointestinal disorders_
+
+ + Subject `001` experienced difficult digestion of unknown grade, and contributes
+ a count of 1 to unknown grade gastrointestinal disorder.
+ 
+ + Subject `002` experienced both grade 2 difficult digestion and grade 2 reflux, and 
+ contributes a count of 1 to grade 2 gastrointestinal disorders.
+
+ + 2 subjects overall experienced a gastrointestinal disorder.
+
+
+## Counts With Percents
+
+The default statistic reported for `tbl_ae()` is `n (%)`. The percent represents
+the percent of all subjects present in the data.
+
+```{r count-max-2}
+dat %>% 
+  tbl_ae(
+    id = subject,
+    ae = ae,
+    soc = soc,
+    by = grade
+  ) %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
+  modify_spanning_header(all_ae_cols() ~ "**N = {N}**") %>% 
+  add_overall() %>% 
+  bold_labels()
+```
+
+In adverse event reporting, it is common that not all subjects experience
+an adverse event, and hence are not included in the event reporting data set. 
+For example, suppose there were 3 subjects of interest in this study, but 
+subject `003` did not experience an adverse event. In order to get the correct 
+subject denominator in this case, supply `tbl_ae()` with `id_df`, a data frame 
+containing all subject ids.
+
+
+```{r count-max-3}
+dat %>% 
+  tbl_ae(
+    id = subject,
+    id_df = tibble::tibble(subject = c("001", "002", "003")),
+    ae = ae,
+    soc = soc,
+    by = grade
+  ) %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>% 
+  modify_spanning_header(all_ae_cols() ~ "**N = {N}**") %>% 
+  add_overall() %>% 
+  bold_labels()
+```
+
+
