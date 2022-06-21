@@ -95,7 +95,7 @@ dat %>%
     soc = soc,
     by = grade
   ) %>% 
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>% 
   add_overall() %>% 
   bold_labels()
 ```
@@ -130,7 +130,7 @@ dat %>%
     by = grade,
     statistic = "{n}"
   ) %>% 
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>% 
   add_overall() %>% 
   bold_labels()
 ```
@@ -183,8 +183,8 @@ dat %>%
     soc = soc,
     by = grade
   ) %>% 
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>%
-  modify_ae_spanning_header(all_ae_cols() ~ "**N = {N}**") %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
+  modify_spanning_header(all_ae_cols() ~ "**N = {N}**") %>% 
   add_overall() %>% 
   bold_labels()
 ```
@@ -206,8 +206,8 @@ dat %>%
     soc = soc,
     by = grade
   ) %>% 
-  modify_ae_header(all_ae_cols() ~ "**Grade {by}**") %>% 
-  modify_ae_spanning_header(all_ae_cols() ~ "**N = {N}**") %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>% 
+  modify_spanning_header(all_ae_cols() ~ "**N = {N}**") %>% 
   add_overall() %>% 
   bold_labels()
 ```
