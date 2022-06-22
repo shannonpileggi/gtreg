@@ -1,8 +1,13 @@
 url: https://www.pipinghotdata.com/gtreg
 
 template:
-  params:
-    bootswatch: flatly
+  bootstrap: 5
+  bootswatch: lumen
+  theme: arrow-light
+  bslib:
+    base_font: {google: "Atkinson Hyperlegible"}
+    heading_font: {google: "Atkinson Hyperlegible"}
+    code_font: {google: "Roboto Mono"}
 
 authors:
   Shannon Pileggi:
@@ -15,18 +20,10 @@ development:
   version_label: default
 
 navbar:
-  type: default
-  left:
-  - icon: fa-home
-    href: index.html
-  - text: Reference
-    href: reference/index.html
-  - text: Articles
-    menu:
-    - text: "Counting Methods"
-      href: articles/counting-methods.html
-  - text: News
-    href: news/index.html
+  bg: primary
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]
 
 
 reference:
