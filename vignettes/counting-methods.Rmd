@@ -67,13 +67,13 @@ dat
 # Challenges Addressed
 
 Study participants without adverse events are absent from the adverse event 
-raw data table. Furthermore,study participants may have multiple
+raw data table. Furthermore, study participants may have multiple
 adverse events, often with different severity grades.
 
 These two features pose difficulties to computing the percentage of participants
 who experience a specific adverse event. 
 
-1. In the numerator, we want to count need to make sure that we do not double count the same AE within
+1. In the numerator, we need to make sure that we do not double count the same AE within
 each participant, and in the denominator we need to make sure we include all patients 
 in the treatment arm (not just those who experience an AE). 
 These challenges are amplified when AE terms need to roll up into system organ class
