@@ -4,10 +4,22 @@
     <loc>https://www.pipinghotdata.com/gtreg/404.html</loc>
   </url>
   <url>
+    <loc>https://www.pipinghotdata.com/gtreg/articles/counting-methods.html</loc>
+  </url>
+  <url>
+    <loc>https://www.pipinghotdata.com/gtreg/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://www.pipinghotdata.com/gtreg/authors.html</loc>
+  </url>
+  <url>
     <loc>https://www.pipinghotdata.com/gtreg/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
     <loc>https://www.pipinghotdata.com/gtreg/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://www.pipinghotdata.com/gtreg/index.html</loc>
   </url>
   <url>
     <loc>https://www.pipinghotdata.com/gtreg/LICENSE-text.html</loc>
@@ -16,19 +28,10 @@
     <loc>https://www.pipinghotdata.com/gtreg/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://www.pipinghotdata.com/gtreg/PULL_REQUEST_TEMPLATE.html</loc>
-  </url>
-  <url>
-    <loc>https://www.pipinghotdata.com/gtreg/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>https://www.pipinghotdata.com/gtreg/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://www.pipinghotdata.com/gtreg/index.html</loc>
-  </url>
-  <url>
     <loc>https://www.pipinghotdata.com/gtreg/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://www.pipinghotdata.com/gtreg/PULL_REQUEST_TEMPLATE.html</loc>
   </url>
   <url>
     <loc>https://www.pipinghotdata.com/gtreg/reference/add_overall_tbl_ae.html</loc>
@@ -71,5 +74,8 @@
   </url>
   <url>
     <loc>https://www.pipinghotdata.com/gtreg/reference/tbl_reg_summary.html</loc>
+  </url>
+  <url>
+    <loc>https://www.pipinghotdata.com/gtreg/SUPPORT.html</loc>
   </url>
 </urlset>
