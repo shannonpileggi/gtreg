@@ -37,7 +37,7 @@ documentation. In {gtreg}, we facilitate reporting of a single term
 
 # Example Data
 
-Data is typically recording in a long format with multiple rows per subject. 
+Data is typically recorded in a long format with multiple rows per subject. 
 Events can be reported over time, where both multiple time points per subject and 
 multiple events per time point are possible. It is possible that grade of the
 event is missing.
