@@ -129,7 +129,8 @@ tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
   tbl <-
     gtsummary::.create_gtsummary_object(table_body = data) %>%
     gtsummary::modify_column_unhide(columns = -any_of("row_type")) %>%
-    gtsummary::modify_column_alignment(columns = everything(), align = "left")
+    gtsummary::modify_column_alignment(columns = everything(), align = "left") %>%
+    gtsummary::modify_column_indent(columns = dplyr::everything(), undo = TRUE)
 
   # indenting levels if there is a grouping variable ---------------------------
   if (!is.null(group_by)) {
