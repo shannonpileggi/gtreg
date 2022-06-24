@@ -2,9 +2,10 @@ url: https://www.pipinghotdata.com/gtreg
 
 template:
   bootstrap: 5
-  bootswatch: lumen
+  bootswatch: simplex
   theme: arrow-light
   bslib:
+    primary: "#a3d9cf"
     base_font: {google: "Atkinson Hyperlegible"}
     heading_font: {google: "Atkinson Hyperlegible"}
     code_font: {google: "Roboto Mono"}
