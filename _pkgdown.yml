@@ -3,12 +3,10 @@ url: https://www.pipinghotdata.com/gtreg
 template:
   bootstrap: 5
   bootswatch: simplex
-  theme: arrow-light
   bslib:
-    primary: "#a3d9cf"
+    primary: "#468c6c"
     base_font: {google: "Atkinson Hyperlegible"}
     heading_font: {google: "Atkinson Hyperlegible"}
-    code_font: {google: "Roboto Mono"}
 
 authors:
   Shannon Pileggi:
