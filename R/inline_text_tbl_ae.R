@@ -1,4 +1,7 @@
-#' Report Values from `tbl_ae()` in-line
+#' Report Values from gtreg tables in-line
+#'
+#' Function allows users to report formatted and styled results from
+#' gtreg tables in-line.
 #'
 #' @param x an object of class `tbl_ae()`, `tbl_ae_count()`, `tbl_ae_focus()`
 #' @param row string indicating the AE or SOC to report
