@@ -1,7 +1,7 @@
 #' Column Selectors
 #'
 #' - `all_ae_cols(overall, unknown)` selects all columns summarizing AE statistics. By default, unknown and overall columns are not selected.
-#' - `all_strata_cols(strata)` selects all columns from specified stratum.
+#' - `all_cols_in_strata(strata)` selects all columns from specified stratum.
 #' - `all_overall_cols()` selects all overall columns
 #' - `all_unknown_cols()` selects all unknown columns
 #'
@@ -62,12 +62,12 @@ all_ae_cols <- function(overall = FALSE, unknown = FALSE) {
 
 #' @export
 #' @rdname selectors
-all_strata_cols <- function(strata) {
+all_cols_in_strata <- function(strata) {
   broom.helpers::.generic_selector(
     variable_column = "column",
     select_column = c("hide", "strata"),
     select_expr = .data$hide %in% FALSE & .data$strata %in% .env$strata,
-    fun_name = "all_strata_cols"
+    fun_name = "all_cols_in_strata"
   )
 }
 
