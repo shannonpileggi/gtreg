@@ -4,9 +4,10 @@ template:
   bootstrap: 5
   bootswatch: simplex
   bslib:
-    primary: "#468c6c"
+    primary: "#547494"
     base_font: {google: "Atkinson Hyperlegible"}
     heading_font: {google: "Atkinson Hyperlegible"}
+    text-muted: "#FFFFFF"
 
 authors:
   Shannon Pileggi:
