@@ -8,16 +8,21 @@
 [![R-CMD-check](https://github.com/shannonpileggi/gtreg/workflows/R-CMD-check/badge.svg)](https://github.com/shannonpileggi/gtreg/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/shannonpileggi/gtreg/branch/main/graph/badge.svg)](https://app.codecov.io/gh/shannonpileggi/gtreg?branch=main)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/gtreg)](https://CRAN.R-project.org/package=gtreg)
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/gtreg)](https://CRAN.R-project.org/package=gtreg) -->
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 ## Installation
 
+You can install {gtreg} with the following code.
+
+``` r
+install.packages("gtreg")
+```
+
 You can install the development version of {gtreg} from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/shannonpileggi/gtreg) with:
 
 ``` r
 # install.packages("devtools")
