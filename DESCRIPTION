@@ -2,7 +2,7 @@ Package: gtreg
 Title: Regulatory Tables For Clinical Research with 'gtsummary'
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Shannon", "Pileggi", , "shannon@pipinghotdata.com", role = c("aut", "cre", "cph"),
+    person("Shannon", "Pileggi", , "shannon.pileggi@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-7732-4164")),
     person("Daniel D.", "Sjoberg", , "danield.sjoberg@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0003-0862-2018"))
@@ -12,7 +12,7 @@ Description: Creates tables suitable for regulatory agency submission
     to HTML, RTF, Word, PDF and more. Highly customizable outputs are
     available by utilizing existing styling function from 'gtsummary' as
     well as custom options designed for regulatory tables.
-License: MIT + file LICENSE
+License: GPL (>= 3)
 URL: https://www.pipinghotdata.com/gtreg
 BugReports: https://github.com/shannonpileggi/gtreg/issues
 Depends: 
