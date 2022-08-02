@@ -3,14 +3,14 @@
 \name{selectors}
 \alias{selectors}
 \alias{all_ae_cols}
-\alias{all_strata_cols}
+\alias{all_cols_in_strata}
 \alias{all_overall_cols}
 \alias{all_unknown_cols}
 \title{Column Selectors}
 \usage{
 all_ae_cols(overall = FALSE, unknown = FALSE)
 
-all_strata_cols(strata)
+all_cols_in_strata(strata)
 
 all_overall_cols()
 
@@ -31,7 +31,7 @@ selected columns
 \description{
 \itemize{
 \item \code{all_ae_cols(overall, unknown)} selects all columns summarizing AE statistics. By default, unknown and overall columns are not selected.
-\item \code{all_strata_cols(strata)} selects all columns from specified stratum.
+\item \code{all_cols_in_strata(strata)} selects all columns from specified stratum.
 \item \code{all_overall_cols()} selects all overall columns
 \item \code{all_unknown_cols()} selects all unknown columns
 }

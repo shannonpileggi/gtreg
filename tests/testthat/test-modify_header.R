@@ -46,8 +46,8 @@ test_that("modify_header() works", {
   expect_equal(
     modify_spanning_header(
       tbl1,
-      all_strata_cols("Drug A") ~ "**Control Group**, N = {n}/{N} ({style_percent(p)}%)",
-      all_strata_cols("Drug B") ~ "**Experimental Group**, N = {n}/{N} ({style_percent(p)}%)"
+      all_cols_in_strata("Drug A") ~ "**Control Group**, N = {n}/{N} ({style_percent(p)}%)",
+      all_cols_in_strata("Drug B") ~ "**Experimental Group**, N = {n}/{N} ({style_percent(p)}%)"
     ) %>%
       purrr::pluck("table_styling", "header") %>%
       dplyr::filter(!hide) %>%
