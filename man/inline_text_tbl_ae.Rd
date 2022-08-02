@@ -5,7 +5,7 @@
 \alias{inline_text.tbl_ae}
 \alias{inline_text.tbl_ae_count}
 \alias{inline_text.tbl_ae_focus}
-\title{Report Values from \code{tbl_ae()} in-line}
+\title{Report Values from gtreg tables in-line}
 \usage{
 \method{inline_text}{tbl_ae}(x, row, column = NULL, ...)
 
@@ -27,7 +27,8 @@ to print all column names beside the current header.}
 string
 }
 \description{
-Report Values from \code{tbl_ae()} in-line
+Function allows users to report formatted and styled results from
+gtreg tables in-line.
 }
 \examples{
 \donttest{
