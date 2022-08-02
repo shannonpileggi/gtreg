@@ -15,7 +15,7 @@
 #' If the spanning headers are modified prior to the call of `add_overall()`,
 #' the ordering of the columns may not be correct.
 #'
-#' @return Summary object of class `"tbl_ae"`
+#' @return Summary object of same input class
 #' @examples
 #' \donttest{
 #' # Example 1 -----------------------------------------------------------------

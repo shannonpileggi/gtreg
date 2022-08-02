@@ -45,6 +45,9 @@ Default is \code{"Unknown"}}
 missing levels \verb{by=} will be located in the final table. Must be
 one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
 }
+\value{
+a tibble
+}
 \description{
 Returns a data frame that has an observation for each patient in the study,
 with combinations for each ID, SOC, and AE. The returned data frame includes

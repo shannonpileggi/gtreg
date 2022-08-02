@@ -70,6 +70,9 @@ zero count statistics, e.g. \code{"0 (0)"}}
 missing levels \verb{by=} will be located in the final table. Must be
 one of \verb{c("first", "last", "hide)}. Default is \code{"first"}}
 }
+\value{
+a 'tbl_ae' object
+}
 \description{
 The function tabulates adverse events. One AE per ID will be counted in the
 resulting table. If a \verb{by=} variable is passed and a

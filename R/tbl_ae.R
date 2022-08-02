@@ -47,7 +47,9 @@
 #' 2 decimal places use `digits = c(0, 2)`.
 #' User may also pass a styling function: `digits = style_sigfig`
 #'
+#' @return a 'tbl_ae' object
 #' @export
+#'
 #' @examples
 #' \donttest{
 #' # Example 1 -----------------------------------------------------------------

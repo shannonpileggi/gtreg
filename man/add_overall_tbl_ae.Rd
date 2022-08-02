@@ -28,7 +28,7 @@ Default is all possible overall types.
 \item{...}{Not used}
 }
 \value{
-Summary object of class \code{"tbl_ae"}
+Summary object of same input class
 }
 \description{
 Tabulate Overall Summary

@@ -18,7 +18,7 @@
 #' variables. gtsummary selectors, e.g. `all_dichotomous()`, cannot be used with this argument.
 #' @inheritParams gtsummary::tbl_summary
 #'
-#' @return a gtsummary tbl
+#' @return a 'tbl_reg_summary' object
 #' @export
 #'
 #' @seealso See \href{https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html}{`gtsummary::tbl_summary()`} help file

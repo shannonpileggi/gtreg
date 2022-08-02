@@ -4,7 +4,7 @@
 \name{gtreg-package}
 \alias{gtreg}
 \alias{gtreg-package}
-\title{gtreg: Regulatory Tables For Clinical Research with 'gtsummary'}
+\title{gtreg: Regulatory Tables for Clinical Research}
 \description{
 Creates tables suitable for regulatory agency submission using the 'gtsummary' package as the backend. Tables can be exported to HTML, RTF, Word, PDF and more. Highly customizable outputs are available by utilizing existing styling function from 'gtsummary' as well as custom options designed for regulatory tables.
 }
@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Shannon Pileggi \email{shannon@pipinghotdata.com} (\href{https://orcid.org/0000-0002-7732-4164}{ORCID}) [copyright holder]
+\strong{Maintainer}: Shannon Pileggi \email{shannon.pileggi@gmail.com} (\href{https://orcid.org/0000-0002-7732-4164}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{

@@ -71,7 +71,7 @@ e.g. \code{sort = list(everything() ~ "frequency")}}
 \item{include}{variables to include in the summary table. Default is \code{everything()}}
 }
 \value{
-a gtsummary tbl
+a 'tbl_reg_summary' object
 }
 \description{
 Function wraps \code{gtsummary::tbl_summary()} to create a data summary

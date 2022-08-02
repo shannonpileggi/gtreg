@@ -24,6 +24,8 @@
 #' @inheritParams tbl_ae
 #'
 #' @export
+#' @return a tibble
+#'
 #' @examples
 #' df_adverse_events %>%
 #'   .complete_ae_data(

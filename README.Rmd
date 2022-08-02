@@ -25,7 +25,13 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the development version of {gtreg} from [GitHub](https://github.com/) with:
+You can install {gtreg} with the following code.
+
+``` r
+install.packages("gtreg")
+```
+
+You can install the development version of {gtreg} from [GitHub](https://github.com/shannonpileggi/gtreg) with:
 
 ``` r
 # install.packages("devtools")
