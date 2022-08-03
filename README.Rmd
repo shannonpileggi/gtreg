@@ -13,7 +13,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# gtreg
+# gtreg <a href="https://shannonpileggi.github.io/gtreg/"><img src="man/figures/logo.png" align="right" height="138" /></a>
+
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/shannonpileggi/gtreg/workflows/R-CMD-check/badge.svg)](https://github.com/shannonpileggi/gtreg/actions)
