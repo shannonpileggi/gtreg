@@ -1,3 +1,4 @@
+skip_on_cran()
 
 test_that("tbl_ae_focus() works", {
   expect_error(

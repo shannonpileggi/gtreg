@@ -1,3 +1,5 @@
+skip_on_cran()
+
 dat <- tibble::tribble(
   ~subject, ~visit,  ~soc, ~ae, ~grade,
   # Subject 1 ----------------------------------------------------------------

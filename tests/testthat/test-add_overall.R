@@ -1,3 +1,5 @@
+skip_on_cran()
+
 test_that("add_overall() works", {
   expect_error(
     tbl1 <-
