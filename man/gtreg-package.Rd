@@ -6,7 +6,9 @@
 \alias{gtreg-package}
 \title{gtreg: Regulatory Tables for Clinical Research}
 \description{
-Creates tables suitable for regulatory agency submission using the 'gtsummary' package as the backend. Tables can be exported to HTML, RTF, Word, PDF and more. Highly customizable outputs are available by utilizing existing styling function from 'gtsummary' as well as custom options designed for regulatory tables.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Creates tables suitable for regulatory agency submission by leveraging the 'gtsummary' package as the back end. Tables can be exported to HTML, Word, PDF and more. Highly customized outputs are available by utilizing existing styling functions from 'gtsummary' as well as custom options designed for regulatory tables.
 }
 \seealso{
 Useful links:
