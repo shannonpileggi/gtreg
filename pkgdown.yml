@@ -1,9 +1,9 @@
-pandoc: 2.17.1.1
+pandoc: '2.18'
 pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   counting-methods: counting-methods.html
-last_built: 2022-08-03T19:08Z
+last_built: 2022-08-10T18:46Z
 urls:
   reference: https://shannonpileggi.github.io/gtreg/reference
   article: https://shannonpileggi.github.io/gtreg/articles
