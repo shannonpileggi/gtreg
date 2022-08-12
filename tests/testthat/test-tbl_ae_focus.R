@@ -181,7 +181,7 @@ test_that("tbl_ae_focus() works", {
 
   expect_equal(
     tbl_focs_soc <-
-      df_adverse_events |>
+      df_adverse_events %>%
       tbl_ae_focus(
         id = patient_id,
         id_df = df_patient_characteristics,
