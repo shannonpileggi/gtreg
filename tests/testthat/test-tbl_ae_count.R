@@ -16,6 +16,23 @@ dat <- tibble::tribble(
   "002", 3, "Gastrointestinal disorders", "Reflux", NA
 )
 
+dat_unobserved_stratum <-
+  tibble::tribble(
+    ~id, ~cohort,                                                   ~soc,                                    ~pt, ~valxx,
+    1,      "C1", "General disorders and administration site conditions",                              "Fatigue",    "1",
+    1,      "C1",                                   "Vascular disorders",                            "Hot flush",    "1",
+    1,      "C1",                                       "Investigations",                     "Weight increased",    "2",
+    3,      "C2",                                       "Investigations",   "Alanine aminotransferase increased",    "1",
+    3,      "C2",                                       "Investigations", "Aspartate aminotransferase increased",    "1",
+    3,      "C2",                             "Nervous system disorders",                   "Cognitive disorder",    "1",
+    16,     "C3",      "Musculoskeletal and connective tissue disorders",                           "Arthralgia",    "1",
+    16,     "C3",                             "Nervous system disorders",                   "Cognitive disorder",    "1",
+    16,     "C3", "General disorders and administration site conditions",                              "Fatigue",    "1",
+    6,      "C4",                           "Gastrointestinal disorders",                            "Diarrhoea",    "2",
+    6,      "C4",                             "Nervous system disorders",                            "Dysgeusia",    "1",
+    6,      "C4",                                   "Vascular disorders",                            "Hot flush",    "1"
+  )
+
 test_that("tbl_ae_count() works", {
   expect_error(
     tbl1 <-
@@ -188,5 +205,60 @@ test_that("tbl_ae_count() works", {
         by_values = c("Unknown", 1:5)
       ),
     NA
+  )
+})
+
+test_that("tbl_ae_count() works with unobserved data in stratum", {
+  expect_error(
+    tbl_unobserved_stratum <-
+      dat_unobserved_stratum %>%
+      tbl_ae_count(
+        ae = pt,
+        soc = soc,
+        by = valxx,
+        strata = cohort
+      ),
+    NA
+  )
+
+  # tabulating counts to compare against results from tbl_ae_count()
+  df_count_checks_ae <-
+    dat_unobserved_stratum %>%
+    mutate(strata = paste(cohort, valxx)) %>%
+    dplyr::mutate(across(c(soc, pt), factor)) %>%
+    dplyr::count(soc, pt, strata) %>%
+    select(label = pt, strata, n)
+
+  df_count_checks_soc <-
+    dat_unobserved_stratum %>%
+    mutate(strata = paste(cohort, valxx)) %>%
+    dplyr::count(soc, strata) %>%
+    select(label = soc, strata, n)
+
+  stat_col_rename <-
+    tbl_unobserved_stratum$table_styling$header %>%
+    dplyr::filter(!hide, startsWith(column, "stat_")) %>%
+    dplyr::mutate_all(
+      ~stringr::str_replace_all(., pattern = "\\*\\*(.*?)\\*\\*", replacement = "\\1")
+    ) %>%
+    mutate(col_name = paste(spanning_header, label)) %>%
+    select(col_name, column) %>%
+    tibble::deframe()
+
+  tbl_counts <-
+    tbl_unobserved_stratum %>%
+    gtsummary::modify_column_unhide(variable) %>%
+    as_tibble(col_labels = FALSE) %>%
+    dplyr::rename(!!!stat_col_rename) %>%
+    tidyr::pivot_longer(cols = -c(variable, label)) %>%
+    mutate(value = suppressWarnings(as.integer(value))) %>%
+    tidyr::drop_na() %>%
+    select(label, strata = name, n = value) %>%
+    arrange(label, strata, n)
+
+  expect_equal(
+    dplyr::bind_rows(df_count_checks_soc, df_count_checks_ae) %>%
+      arrange(label, strata, n),
+    tbl_counts
   )
 })
