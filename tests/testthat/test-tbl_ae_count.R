@@ -221,26 +221,44 @@ test_that("tbl_ae_count() works with unobserved data in stratum", {
     NA
   )
 
-  # UPDATE THIS CODE TO PERFORM CHECKS THAT THE COUNTS ARE CORRECT
-  # df_count_checks_ae <-
-  #   dat_unobserved_stratum %>%
-  #   mutate(strata = paste(cohort, valxx)) %>%
-  #   dplyr::mutate(across(c(soc, pt), factor)) %>%
-  #   dplyr::count(soc, pt, strata) %>%
-  #   arrange(strata) %>%
-  #   tidyr::pivot_wider(id_cols = c(soc, pt), names_from = strata, values_from = n) %>%
-  #   arrange(soc, pt)
-  # df_count_checks_ae
-  #
-  # dat_unobserved_stratum %>%
-  #   mutate(strata = paste(cohort, valxx)) %>%
-  #   dplyr::count(soc, strata) %>%
-  #   arrange(strata) %>%
-  #   tidyr::pivot_wider(id_cols = c(soc), names_from = strata, values_from = n)  %>%
-  #   arrange(soc)
-  #
-  # tbl_unobserved_stratum %>%
-  #   gtsummary::modify_column_unhide(variable) %>%
-  #   as_tibble()
+  # tabulating counts to compare against results from tbl_ae_count()
+  df_count_checks_ae <-
+    dat_unobserved_stratum %>%
+    mutate(strata = paste(cohort, valxx)) %>%
+    dplyr::mutate(across(c(soc, pt), factor)) %>%
+    dplyr::count(soc, pt, strata) %>%
+    select(label = pt, strata, n)
 
+  df_count_checks_soc <-
+    dat_unobserved_stratum %>%
+    mutate(strata = paste(cohort, valxx)) %>%
+    dplyr::count(soc, strata) %>%
+    select(label = soc, strata, n)
+
+  stat_col_rename <-
+    tbl_unobserved_stratum$table_styling$header %>%
+    dplyr::filter(!hide, startsWith(column, "stat_")) %>%
+    dplyr::mutate_all(
+      ~stringr::str_replace_all(., pattern = "\\*\\*(.*?)\\*\\*", replacement = "\\1")
+    ) %>%
+    mutate(col_name = paste(spanning_header, label)) %>%
+    select(col_name, column) %>%
+    tibble::deframe()
+
+  tbl_counts <-
+    tbl_unobserved_stratum %>%
+    gtsummary::modify_column_unhide(variable) %>%
+    as_tibble(col_labels = FALSE) %>%
+    dplyr::rename(!!!stat_col_rename) %>%
+    tidyr::pivot_longer(cols = -c(variable, label)) %>%
+    mutate(value = suppressWarnings(as.integer(value))) %>%
+    tidyr::drop_na() %>%
+    select(label, strata = name, n = value) %>%
+    arrange(label, strata, n)
+
+  expect_equal(
+    dplyr::bind_rows(df_count_checks_soc, df_count_checks_ae) %>%
+      arrange(label, strata, n),
+    tbl_counts
+  )
 })
