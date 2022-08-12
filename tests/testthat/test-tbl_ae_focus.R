@@ -179,4 +179,54 @@ test_that("tbl_ae_focus() works", {
     )
   )
 
+  expect_equal(
+    tbl_focs_soc <-
+      df_adverse_events %>%
+      tbl_ae_focus(
+        id = patient_id,
+        id_df = df_patient_characteristics,
+        ae = adverse_event,
+        soc = system_organ_class,
+        include = c(any_complication, grade3_complication)
+      ) %>%
+      gtsummary::modify_table_body(
+        ~dplyr::filter(.x, startsWith(variable, "..soc.."))
+      ) %>%
+      as_tibble(col_labels = FALSE),
+    tibble::tribble(
+      ~label, ~stat_2_1, ~stat_2_2,
+      "Blood and lymphatic system disorders", "10 (10)", "9 (9.0)",
+      "Gastrointestinal disorders", "10 (10)", "10 (10)"
+    )
+  )
+
+  expect_equal(
+    tbl_focs_soc %>%
+      dplyr::select(label, stat_2_2),
+    df_adverse_events %>%
+      dplyr::select(patient_id, system_organ_class, grade3_complication) %>%
+      dplyr::group_by(system_organ_class, patient_id) %>%
+      dplyr::mutate(grade3_complication = max(grade3_complication)) %>%
+      dplyr::distinct() %>%
+      dplyr::full_join(
+        df_patient_characteristics %>%
+          dplyr::select(patient_id) %>%
+          dplyr::mutate(system_organ_class = list(unique(df_adverse_events$system_organ_class))) %>%
+          tidyr::unnest(system_organ_class),
+        by = c("patient_id", "system_organ_class")
+      ) %>%
+      dplyr::mutate(grade3_complication = ifelse(is.na(grade3_complication), 0, grade3_complication)) %>%
+      dplyr::group_by(system_organ_class) %>%
+      dplyr::summarise(
+        N = dplyr::n(),
+        n = sum(grade3_complication),
+        p = mean(grade3_complication)
+      ) %>%
+      dplyr::mutate(
+        stat_2_2 = stringr::str_glue("{n} ({gtsummary::style_sigfig(p, scale = 100)})") %>% as.character()
+      ) %>%
+      dplyr::select(label = system_organ_class, stat_2_2),
+    ignore_attr = TRUE
+  )
+
 })
