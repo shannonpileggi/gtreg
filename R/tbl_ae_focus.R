@@ -145,7 +145,7 @@ tbl_ae_focus <- function(data,
             purrr::map(
               lst_data_complete,
               function(data) {
-                group_by(data, .data$soc) %>%
+                group_by(data, .data$id, .data$soc) %>%
                   mutate(across(any_of(.x), ~max(.))) %>%
                   dplyr::ungroup()
               }
