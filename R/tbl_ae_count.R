@@ -72,56 +72,41 @@ tbl_ae_count <- function(data,
   statistic <- "{n}"
   missing_text <- "Unknown"
 
-  # setting structure similar to that of data after `.complete_ae_data()` ------
-  lst_name_recode <-
-    list(id = NULL, strata = strata, ae = ae, soc = soc, by = by) %>%
-    purrr::compact()
-
-  data <-
+  # obtain the complete data ---------------------------------------------------
+  data_complete <-
     data %>%
-    # select and rename variables
-    dplyr::select(!!!lst_name_recode) %>%
-    .prepare_by_levels(
-      by = by,
-      by_values = by_values,
-      initial_missing = "Unknown",
-      initial_dummy = "NOT OBSERVED"
-    ) %>%
-    mutate(..ae.. = TRUE, ..soc.. = TRUE) %>%
+    dplyr::mutate(.......gtreg_id_for_tbl_ae_count....... = 1) %>%
+    .complete_ae_data(id = ".......gtreg_id_for_tbl_ae_count.......",
+                      ae = ae, soc = soc, by = by,
+                      strata = strata, id_df = NULL, by_values = by_values,
+                      missing_location = missing_location) %>%
+    dplyr::mutate(across(any_of(c("..soc..", "..ae..")), ~TRUE)) %>%
     group_by(across(any_of("soc")))
 
-  # moving missing by level as requested
-  if (missing_location %in% "first" && missing_text %in% levels(data[["by"]])) {
-    data[["by"]] <- forcats::fct_relevel(data[["by"]], missing_text, after = 0L)
-  }
-  else if (missing_location %in% "last" && missing_text %in% levels(data[["by"]])) {
-    data[["by"]] <- forcats::fct_relevel(data[["by"]], missing_text, after = Inf)
-  }
-
   # putting data into list of tibbles...one element per SOC --------------------
-  lst_data <-
-    data %>%
+  lst_data_complete <-
+    data_complete %>%
     dplyr::group_split() %>%
-    rlang::set_names(dplyr::group_keys(data) %>% purrr::pluck(1)) %>%
+    rlang::set_names(dplyr::group_keys(data_complete) %>% purrr::pluck(1)) %>%
     .sort_lst_of_soc_tibbles(sort = sort)
 
   # tablulate SOC --------------------------------------------------------------
   if (!is.null(soc)) {
     lst_tbl_soc <-
-      .lst_of_tbls(lst_data = lst_data,
+      .lst_of_tbls(lst_data = lst_data_complete,
                    variable_summary = "..soc..",
                    variable_filter = "..soc..",
                    statistic = statistic,
                    remove_header_row = FALSE,
                    zero_symbol = zero_symbol,
-                   labels = names(lst_data),
+                   labels = names(lst_data_complete),
                    digits = digits,
                    missing_location = missing_location)
   }
 
   # tabulate AEs ---------------------------------------------------------------
   lst_tbl_ae <-
-    .lst_of_tbls(lst_data = lst_data,
+    .lst_of_tbls(lst_data = lst_data_complete,
                  variable_summary = "ae",
                  variable_filter = "..ae..",
                  statistic = statistic,
