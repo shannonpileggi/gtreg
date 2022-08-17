@@ -1,4 +1,4 @@
-# gtreg (development version)
+# gtreg 0.1.1
 
 * Fix in `tbl_ae_count()` when individual stratum had complete unobserved data for the SOC and AE. (#165)
 
