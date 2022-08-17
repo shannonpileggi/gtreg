@@ -6,7 +6,7 @@ highest by= level will be included. For example, if a patient has two of
 the same AE and by = grade, the AE with the highest grade will be
 included.
 Similarly, if tabulations within system organ class are requested, the
-AE within SOC associated with the highest grade will be tabulated."><title>Tabulate Adverse Events — tbl_ae • gtreg</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Atkinson%20Hyperlegible-0.4.1/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Tabulate Adverse Events — tbl_ae"><meta property="og:description" content="The function tabulates adverse events. One AE per ID will be counted in the
+AE within SOC associated with the highest grade will be tabulated."><title>Tabulate Adverse Events — tbl_ae • gtreg</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Atkinson_Hyperlegible-0.4.2/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Tabulate Adverse Events — tbl_ae"><meta property="og:description" content="The function tabulates adverse events. One AE per ID will be counted in the
 resulting table. If a by= variable is passed and a
 patient experienced more than one of the same AE, the AE associated with the
 highest by= level will be included. For example, if a patient has two of
@@ -24,7 +24,7 @@ AE within SOC associated with the highest grade will be tabulated."><meta proper
     
     <a class="navbar-brand me-2" href="../index.html">gtreg</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,50 +78,68 @@ AE within SOC associated with the highest grade will be tabulated.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tbl_ae</span><span class="op">(</span>
-  <span class="va">data</span>,
-  <span class="va">id</span>,
-  <span class="va">ae</span>,
-  soc <span class="op">=</span> <span class="cn">NULL</span>,
-  by <span class="op">=</span> <span class="cn">NULL</span>,
-  strata <span class="op">=</span> <span class="cn">NULL</span>,
-  id_df <span class="op">=</span> <span class="cn">NULL</span>,
-  statistic <span class="op">=</span> <span class="st">"{n} ({p})"</span>,
-  by_values <span class="op">=</span> <span class="cn">NULL</span>,
-  digits <span class="op">=</span> <span class="cn">NULL</span>,
-  sort <span class="op">=</span> <span class="cn">NULL</span>,
-  zero_symbol <span class="op">=</span> <span class="st">"—"</span>,
-  missing_location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"last"</span>, <span class="st">"hide"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tbl_ae</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  <span class="va">ae</span>,</span>
+<span>  soc <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  by <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  strata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id_df <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  statistic <span class="op">=</span> <span class="st">"{n} ({p})"</span>,</span>
+<span>  by_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  digits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sort <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  zero_symbol <span class="op">=</span> <span class="st">"—"</span>,</span>
+<span>  missing_location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"last"</span>, <span class="st">"hide"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>Data frame</p></dd>
+
+
 <dt>id</dt>
 <dd><p>Variable name of the patient ID</p></dd>
+
+
 <dt>ae</dt>
 <dd><p>Variable name of the adverse event column</p></dd>
+
+
 <dt>soc</dt>
 <dd><p>Variable name of the system organ class column</p></dd>
+
+
 <dt>by</dt>
 <dd><p>Variable to split results by, e.g. report AEs by grade</p></dd>
+
+
 <dt>strata</dt>
 <dd><p>Variable to stratify results by, e.g. report AEs summaries
 by treatment group</p></dd>
+
+
 <dt>id_df</dt>
 <dd><p>Optional data frame of complete id values and strata to achieve correct
 base n for the situation in which not all subjects experience adverse events. See
 <code><a href="df_patient_characteristics.html">df_patient_characteristics</a></code> for an example <code>id_df</code> that pairs with
 <code><a href="df_adverse_events.html">df_adverse_events</a></code>.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>String indicating the statistics that will be reported.
 The default is <code>"{n} ({p})"</code></p></dd>
+
+
 <dt>by_values</dt>
 <dd><p>Optional vector of complete by values, listed in desired order,
 to achieve correct table structure for the situation in which an adverse
 event of a certain grade is not observed for a given soc</p></dd>
+
+
 <dt>digits</dt>
 <dd><p>Specifies the number of decimal places to round the summary statistics.
 By default integers are shown to zero decimal places, and percentages are
@@ -131,6 +149,8 @@ places to round the statistics. For example, if the statistic being
 calculated is <code>"{n} ({p}%)"</code> and you want the percent rounded to
 2 decimal places use <code>digits = c(0, 2)</code>.
 User may also pass a styling function: <code>digits = style_sigfig</code></p></dd>
+
+
 <dt>sort</dt>
 <dd><p>Controls order of AEs and SOCs in output table.
 The default is <code>NULL</code>, where AEs and SOCs are sorted alphanumerically
@@ -138,18 +158,25 @@ The default is <code>NULL</code>, where AEs and SOCs are sorted alphanumerically
 Use <code>sort = "ae"</code> to sort AEs in decreasing frequency order, <code>sort = "soc"</code>
 to sort SOCs in decreasing order, and <code>sort = c("ae", "soc")</code> to sort both.
 AEs are sorted within SOC.</p></dd>
+
+
 <dt>zero_symbol</dt>
 <dd><p>String used to represent cells with zero counts. Default
 is the em-dash (<code>"\U2014"</code>). Using <code>zero_symbol = NULL</code> will print the
 zero count statistics, e.g. <code>"0 (0)"</code></p></dd>
+
+
 <dt>missing_location</dt>
 <dd><p>location where the column summarizing values with
 missing levels <code>by=</code> will be located in the final table. Must be
 one of <code>c("first", "last", "hide)</code>. Default is <code>"first"</code></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a 'tbl_ae' object</p>
+    
+
+<p>a 'tbl_ae' object</p>
     </div>
     <div class="section level2">
     <h2 id="example-output">Example Output<a class="anchor" aria-label="anchor" href="#example-output"></a></h2>
@@ -163,29 +190,29 @@ one of <code>c("first", "last", "hide)</code>. Default is <code>"first"</code></
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="co"># Example 1 -----------------------------------------------------------------</span></span>
-<span class="r-in"><span class="va">tbl_ae_ex1</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="va">df_adverse_events</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">tbl_ae</span><span class="op">(</span></span>
-<span class="r-in">    id <span class="op">=</span> <span class="va">patient_id</span>,</span>
-<span class="r-in">    ae <span class="op">=</span> <span class="va">adverse_event</span>,</span>
-<span class="r-in">    soc <span class="op">=</span> <span class="va">system_organ_class</span>,</span>
-<span class="r-in">    by <span class="op">=</span> <span class="va">grade</span>,</span>
-<span class="r-in">    strata <span class="op">=</span> <span class="va">trt</span></span>
-<span class="r-in">  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Example 2 -----------------------------------------------------------------</span></span>
-<span class="r-in"><span class="va">tbl_ae_ex2</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="va">df_adverse_events</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">tbl_ae</span><span class="op">(</span></span>
-<span class="r-in">    id <span class="op">=</span> <span class="va">patient_id</span>,</span>
-<span class="r-in">    ae <span class="op">=</span> <span class="va">adverse_event</span>,</span>
-<span class="r-in">    by <span class="op">=</span> <span class="va">grade</span></span>
-<span class="r-in">  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># }</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="co"># Example 1 -----------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="va">tbl_ae_ex1</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="va">df_adverse_events</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">tbl_ae</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    id <span class="op">=</span> <span class="va">patient_id</span>,</span></span>
+<span class="r-in"><span>    ae <span class="op">=</span> <span class="va">adverse_event</span>,</span></span>
+<span class="r-in"><span>    soc <span class="op">=</span> <span class="va">system_organ_class</span>,</span></span>
+<span class="r-in"><span>    by <span class="op">=</span> <span class="va">grade</span>,</span></span>
+<span class="r-in"><span>    strata <span class="op">=</span> <span class="va">trt</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example 2 -----------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="va">tbl_ae_ex2</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="va">df_adverse_events</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">tbl_ae</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    id <span class="op">=</span> <span class="va">patient_id</span>,</span></span>
+<span class="r-in"><span>    ae <span class="op">=</span> <span class="va">adverse_event</span>,</span></span>
+<span class="r-in"><span>    by <span class="op">=</span> <span class="va">grade</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -197,7 +224,7 @@ one of <code>c("first", "last", "hide)</code>. Default is <code>"first"</code></
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer></div>

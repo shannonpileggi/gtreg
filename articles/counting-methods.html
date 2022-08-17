@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Atkinson%20Hyperlegible-0.4.1/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="../deps/Atkinson_Hyperlegible-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Adverse Event Counting Methods">
@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">gtreg</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@
 
 
 <div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Adverse Event Counting Methods</h1>
             
       
@@ -92,108 +92,84 @@
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("gtreg")</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/shannonpileggi/gtreg" class="external-link">gtreg</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("gtreg")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/shannonpileggi/gtreg" class="external-link">gtreg</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>Reporting of adverse events to regulatory agencies typically employs
-both standardized terminology and specific counting methods for adverse
-events.</p>
+<p>Reporting of adverse events to regulatory agencies typically employs both standardized terminology and specific counting methods for adverse events.</p>
 </div>
 <div class="section level2">
 <h2 id="standardized-terminology">Standardized Terminology<a class="anchor" aria-label="anchor" href="#standardized-terminology"></a>
 </h2>
-<p>Providing standardized terminology is not in the scope of this
-package. Standardized terminology adheres to a hierarchy of terms from
-specific to general, as discussed in the <a href="https://www.meddra.org/how-to-use/basics/hierarchy" class="external-link">MedDRA
-Hierarchy</a> documentation. In {gtreg}, we facilitate reporting of a
-single term (i.e., <code>ae</code>, or adverse event), or a lower level
-term within a higher level term (i.e., <code>ae</code> within
-<code>soc</code>, system organ class).</p>
+<p>Providing standardized terminology is not in the scope of this package. Standardized terminology adheres to a hierarchy of terms from specific to general, as discussed in the <a href="https://www.meddra.org/how-to-use/basics/hierarchy" class="external-link">MedDRA Hierarchy</a> documentation. In {gtreg}, we facilitate reporting of a single term (i.e., <code>ae</code>, or adverse event), or a lower level term within a higher level term (i.e., <code>ae</code> within <code>soc</code>, system organ class).</p>
 </div>
 <div class="section level2">
 <h2 id="example-data">Example Data<a class="anchor" aria-label="anchor" href="#example-data"></a>
 </h2>
-<p>Data is typically recorded in a long format with multiple rows per
-subject. Events can be reported over time, where both multiple time
-points per subject and multiple events per time point are possible. It
-is possible that grade of the event is missing.</p>
+<p>Data is typically recorded in a long format with multiple rows per subject. Events can be reported over time, where both multiple time points per subject and multiple events per time point are possible. It is possible that grade of the event is missing.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
-    <span class="op">~</span><span class="va">subject</span>, <span class="op">~</span><span class="va">visit</span>,  <span class="op">~</span><span class="va">soc</span>, <span class="op">~</span><span class="va">ae</span>, <span class="op">~</span><span class="va">grade</span>,
-    <span class="co"># Subject 1 ----------------------------------------------------------------</span>
-    <span class="st">"001"</span>, <span class="fl">1</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Eye irritation"</span>, <span class="fl">1</span>,
-    <span class="st">"001"</span>, <span class="fl">1</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Difficult digestion"</span>, <span class="cn">NA</span>,
-    <span class="st">"001"</span>, <span class="fl">2</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Eye irritation"</span>, <span class="fl">1</span>,
-    <span class="st">"001"</span>, <span class="fl">3</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Eye irritation"</span>, <span class="fl">2</span>,
-    <span class="st">"001"</span>, <span class="fl">4</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Vision blurred"</span>, <span class="fl">2</span>,
-    <span class="co"># Subject 2 ----------------------------------------------------------------</span>
-    <span class="st">"002"</span>, <span class="fl">1</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Difficult digestion"</span>, <span class="fl">2</span>,
-    <span class="st">"002"</span>, <span class="fl">1</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Reflux"</span>, <span class="fl">2</span>,
-    <span class="st">"002"</span>, <span class="fl">2</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Vision blurred"</span>, <span class="fl">2</span>,
-    <span class="st">"002"</span>, <span class="fl">2</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Reflux"</span>, <span class="fl">2</span>,
-    <span class="st">"002"</span>, <span class="fl">3</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Reflux"</span>, <span class="cn">NA</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
+<span>    <span class="op">~</span><span class="va">subject</span>, <span class="op">~</span><span class="va">visit</span>,  <span class="op">~</span><span class="va">soc</span>, <span class="op">~</span><span class="va">ae</span>, <span class="op">~</span><span class="va">grade</span>,</span>
+<span>    <span class="co"># Subject 1 ----------------------------------------------------------------</span></span>
+<span>    <span class="st">"001"</span>, <span class="fl">1</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Eye irritation"</span>, <span class="fl">1</span>,</span>
+<span>    <span class="st">"001"</span>, <span class="fl">1</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Difficult digestion"</span>, <span class="cn">NA</span>,</span>
+<span>    <span class="st">"001"</span>, <span class="fl">2</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Eye irritation"</span>, <span class="fl">1</span>,</span>
+<span>    <span class="st">"001"</span>, <span class="fl">3</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Eye irritation"</span>, <span class="fl">2</span>,</span>
+<span>    <span class="st">"001"</span>, <span class="fl">4</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Vision blurred"</span>, <span class="fl">2</span>,</span>
+<span>    <span class="co"># Subject 2 ----------------------------------------------------------------</span></span>
+<span>    <span class="st">"002"</span>, <span class="fl">1</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Difficult digestion"</span>, <span class="fl">2</span>,</span>
+<span>    <span class="st">"002"</span>, <span class="fl">1</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Reflux"</span>, <span class="fl">2</span>,</span>
+<span>    <span class="st">"002"</span>, <span class="fl">2</span>, <span class="st">"Eye disorders"</span>, <span class="st">"Vision blurred"</span>, <span class="fl">2</span>,</span>
+<span>    <span class="st">"002"</span>, <span class="fl">2</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Reflux"</span>, <span class="fl">2</span>,</span>
+<span>    <span class="st">"002"</span>, <span class="fl">3</span>, <span class="st">"Gastrointestinal disorders"</span>, <span class="st">"Reflux"</span>, <span class="cn">NA</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 5</span></span>
-<span class="co">#&gt;    subject visit soc                        ae                  grade</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 001         1 Eye disorders              Eye irritation          1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 001         1 Gastrointestinal disorders Difficult digestion    <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 001         2 Eye disorders              Eye irritation          1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 001         3 Eye disorders              Eye irritation          2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 001         4 Eye disorders              Vision blurred          2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 002         1 Gastrointestinal disorders Difficult digestion     2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 002         1 Gastrointestinal disorders Reflux                  2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 002         2 Eye disorders              Vision blurred          2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 002         2 Gastrointestinal disorders Reflux                  2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 002         3 Gastrointestinal disorders Reflux                 <span style="color: #BB0000;">NA</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 5</span></span></span>
+<span><span class="co">#&gt;    subject visit soc                        ae                  grade</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 001         1 Eye disorders              Eye irritation          1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 001         1 Gastrointestinal disorders Difficult digestion    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 001         2 Eye disorders              Eye irritation          1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 001         3 Eye disorders              Eye irritation          2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 001         4 Eye disorders              Vision blurred          2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 002         1 Gastrointestinal disorders Difficult digestion     2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 002         1 Gastrointestinal disorders Reflux                  2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 002         2 Eye disorders              Vision blurred          2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 002         2 Gastrointestinal disorders Reflux                  2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 002         3 Gastrointestinal disorders Reflux                 <span style="color: #BB0000;">NA</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="challenges-addressed">Challenges Addressed<a class="anchor" aria-label="anchor" href="#challenges-addressed"></a>
 </h2>
-<p>Study participants without adverse events are absent from the adverse
-event raw data table. Furthermore, study participants may have multiple
-adverse events, often with different severity grades.</p>
-<p>These two features pose difficulties to computing the percentage of
-participants who experience a specific adverse event.</p>
+<p>Study participants without adverse events are absent from the adverse event raw data table. Furthermore, study participants may have multiple adverse events, often with different severity grades.</p>
+<p>These two features pose difficulties to computing the percentage of participants who experience a specific adverse event.</p>
 <ol style="list-style-type: decimal">
-<li>In the numerator, we need to make sure that we do not double count
-the same AE within each participant, and in the denominator we need to
-make sure we include all patients in the treatment arm (not just those
-who experience an AE). These challenges are amplified when AE terms need
-to roll up into system organ class summaries. Functions in {gtreg}
-address these problems (among others) by implementing industry
-recommended approaches. For further reading, the PHUSE white paper
-regarding <a href="https://phuse.s3.eu-central-1.amazonaws.com/Deliverables/Standard+Analyses+and+Code+Sharing/Analyses+and+Displays+Associated+with+Adverse+Events+Focus+on+Adverse+Events+in+Phase+2-4+Clinical+Trials+and+Integrated+Summary.pdf" class="external-link">Analysis
-and Displays Associated with Adverse events</a> provides an excellent
-summary of such standards.</li>
+<li>In the numerator, we need to make sure that we do not double count the same AE within each participant, and in the denominator we need to make sure we include all patients in the treatment arm (not just those who experience an AE). These challenges are amplified when AE terms need to roll up into system organ class summaries. Functions in {gtreg} address these problems (among others) by implementing industry recommended approaches. For further reading, the PHUSE white paper regarding <a href="https://phuse.s3.eu-central-1.amazonaws.com/Deliverables/Standard+Analyses+and+Code+Sharing/Analyses+and+Displays+Associated+with+Adverse+Events+Focus+on+Adverse+Events+in+Phase+2-4+Clinical+Trials+and+Integrated+Summary.pdf" class="external-link">Analysis and Displays Associated with Adverse events</a> provides an excellent summary of such standards.</li>
 </ol>
 </div>
 <div class="section level2">
 <h2 id="counting-all-events">Counting All Events<a class="anchor" aria-label="anchor" href="#counting-all-events"></a>
 </h2>
-<p>To count <em>all</em> instances of any event, utilize
-<code>tbl_ae_count</code>.</p>
+<p>To count <em>all</em> instances of any event, utilize <code>tbl_ae_count</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/tbl_ae_count.html">tbl_ae_count</a></span><span class="op">(</span>
-    ae <span class="op">=</span> <span class="va">ae</span>,
-    soc <span class="op">=</span> <span class="va">soc</span>,
-    by <span class="op">=</span> <span class="va">grade</span>
-  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html" class="external-link">add_overall</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html" class="external-link">bold_labels</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div id="vfzebqhlih" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/tbl_ae_count.html">tbl_ae_count</a></span><span class="op">(</span></span>
+<span>    ae <span class="op">=</span> <span class="va">ae</span>,</span>
+<span>    soc <span class="op">=</span> <span class="va">soc</span>,</span>
+<span>    by <span class="op">=</span> <span class="va">grade</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html" class="external-link">add_overall</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html" class="external-link">bold_labels</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div id="uwmoxiktev" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#vfzebqhlih .gt_table {
+#uwmoxiktev .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -218,7 +194,7 @@ summary of such standards.</li>
   border-left-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_heading {
+#uwmoxiktev .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -230,7 +206,7 @@ summary of such standards.</li>
   border-right-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_title {
+#uwmoxiktev .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -242,7 +218,7 @@ summary of such standards.</li>
   border-bottom-width: 0;
 }
 
-#vfzebqhlih .gt_subtitle {
+#uwmoxiktev .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -254,13 +230,13 @@ summary of such standards.</li>
   border-top-width: 0;
 }
 
-#vfzebqhlih .gt_bottom_border {
+#uwmoxiktev .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_col_headings {
+#uwmoxiktev .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -275,7 +251,7 @@ summary of such standards.</li>
   border-right-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_col_heading {
+#uwmoxiktev .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -295,7 +271,7 @@ summary of such standards.</li>
   overflow-x: hidden;
 }
 
-#vfzebqhlih .gt_column_spanner_outer {
+#uwmoxiktev .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -307,15 +283,15 @@ summary of such standards.</li>
   padding-right: 4px;
 }
 
-#vfzebqhlih .gt_column_spanner_outer:first-child {
+#uwmoxiktev .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vfzebqhlih .gt_column_spanner_outer:last-child {
+#uwmoxiktev .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vfzebqhlih .gt_column_spanner {
+#uwmoxiktev .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -327,7 +303,7 @@ summary of such standards.</li>
   width: 100%;
 }
 
-#vfzebqhlih .gt_group_heading {
+#uwmoxiktev .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -352,7 +328,7 @@ summary of such standards.</li>
   vertical-align: middle;
 }
 
-#vfzebqhlih .gt_empty_group_heading {
+#uwmoxiktev .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -367,15 +343,15 @@ summary of such standards.</li>
   vertical-align: middle;
 }
 
-#vfzebqhlih .gt_from_md > :first-child {
+#uwmoxiktev .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vfzebqhlih .gt_from_md > :last-child {
+#uwmoxiktev .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vfzebqhlih .gt_row {
+#uwmoxiktev .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -394,7 +370,7 @@ summary of such standards.</li>
   overflow-x: hidden;
 }
 
-#vfzebqhlih .gt_stub {
+#uwmoxiktev .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -407,7 +383,7 @@ summary of such standards.</li>
   padding-right: 5px;
 }
 
-#vfzebqhlih .gt_stub_row_group {
+#uwmoxiktev .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -421,11 +397,11 @@ summary of such standards.</li>
   vertical-align: top;
 }
 
-#vfzebqhlih .gt_row_group_first td {
+#uwmoxiktev .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vfzebqhlih .gt_summary_row {
+#uwmoxiktev .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -435,16 +411,16 @@ summary of such standards.</li>
   padding-right: 5px;
 }
 
-#vfzebqhlih .gt_first_summary_row {
+#uwmoxiktev .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_first_summary_row.thick {
+#uwmoxiktev .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vfzebqhlih .gt_last_summary_row {
+#uwmoxiktev .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -454,7 +430,7 @@ summary of such standards.</li>
   border-bottom-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_grand_summary_row {
+#uwmoxiktev .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -464,7 +440,7 @@ summary of such standards.</li>
   padding-right: 5px;
 }
 
-#vfzebqhlih .gt_first_grand_summary_row {
+#uwmoxiktev .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -474,11 +450,11 @@ summary of such standards.</li>
   border-top-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_striped {
+#uwmoxiktev .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vfzebqhlih .gt_table_body {
+#uwmoxiktev .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -487,7 +463,7 @@ summary of such standards.</li>
   border-bottom-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_footnotes {
+#uwmoxiktev .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -501,7 +477,7 @@ summary of such standards.</li>
   border-right-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_footnote {
+#uwmoxiktev .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -510,7 +486,7 @@ summary of such standards.</li>
   padding-right: 5px;
 }
 
-#vfzebqhlih .gt_sourcenotes {
+#uwmoxiktev .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -524,7 +500,7 @@ summary of such standards.</li>
   border-right-color: #D3D3D3;
 }
 
-#vfzebqhlih .gt_sourcenote {
+#uwmoxiktev .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -532,36 +508,36 @@ summary of such standards.</li>
   padding-right: 5px;
 }
 
-#vfzebqhlih .gt_left {
+#uwmoxiktev .gt_left {
   text-align: left;
 }
 
-#vfzebqhlih .gt_center {
+#uwmoxiktev .gt_center {
   text-align: center;
 }
 
-#vfzebqhlih .gt_right {
+#uwmoxiktev .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vfzebqhlih .gt_font_normal {
+#uwmoxiktev .gt_font_normal {
   font-weight: normal;
 }
 
-#vfzebqhlih .gt_font_bold {
+#uwmoxiktev .gt_font_bold {
   font-weight: bold;
 }
 
-#vfzebqhlih .gt_font_italic {
+#uwmoxiktev .gt_font_italic {
   font-style: italic;
 }
 
-#vfzebqhlih .gt_super {
+#uwmoxiktev .gt_super {
   font-size: 65%;
 }
 
-#vfzebqhlih .gt_two_val_uncert {
+#uwmoxiktev .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -570,31 +546,31 @@ summary of such standards.</li>
   margin-left: 0.1em;
 }
 
-#vfzebqhlih .gt_footnote_marks {
+#uwmoxiktev .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#vfzebqhlih .gt_asterisk {
+#uwmoxiktev .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vfzebqhlih .gt_slash_mark {
+#uwmoxiktev .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#vfzebqhlih .gt_fraction_numerator {
+#uwmoxiktev .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#vfzebqhlih .gt_fraction_denominator {
+#uwmoxiktev .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -654,47 +630,35 @@ summary of such standards.</li>
 </tbody>
 </table>
 </div>
-<p>In this case, we have two subjects which experienced a total of 5 eye
-disorders and 4 gastrointestinal disorders over the course of multiple
-time points. The only statistic allowed in <code><a href="../reference/tbl_ae_count.html">tbl_ae_count()</a></code>
-is <code>n</code>.</p>
+<p>In this case, we have two subjects which experienced a total of 5 eye disorders and 4 gastrointestinal disorders over the course of multiple time points. The only statistic allowed in <code><a href="../reference/tbl_ae_count.html">tbl_ae_count()</a></code> is <code>n</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="counting-by-highest-grade">Counting By Highest Grade<a class="anchor" aria-label="anchor" href="#counting-by-highest-grade"></a>
 </h2>
-<p>Rather than counting all events, it is typical in regulatory
-reporting to count one event per subject by the highest grade
-experienced. To count the highest grade per subject, utilize
-<code><a href="../reference/tbl_ae.html">tbl_ae()</a></code>.</p>
-<p>The input <code>by</code> variable can be numeric (e.g., grade 1, 2,
-3) or factor (e.g. attribution unlikely, possible, definite). In the
-respective cases, the highest value observed would be according to
-numeric order or factor level order, with missing values considered as
-the lowest level.</p>
-<p>When counting by highest grade, the count reported in any cell cannot
-exceed the number of subjects. These methods apply to both the
-individual adverse events and the system organ class.</p>
+<p>Rather than counting all events, it is typical in regulatory reporting to count one event per subject by the highest grade experienced. To count the highest grade per subject, utilize <code><a href="../reference/tbl_ae.html">tbl_ae()</a></code>.</p>
+<p>The input <code>by</code> variable can be numeric (e.g., grade 1, 2, 3) or factor (e.g. attribution unlikely, possible, definite). In the respective cases, the highest value observed would be according to numeric order or factor level order, with missing values considered as the lowest level.</p>
+<p>When counting by highest grade, the count reported in any cell cannot exceed the number of subjects. These methods apply to both the individual adverse events and the system organ class.</p>
 <div class="section level3">
 <h3 id="counts-only">Counts Only<a class="anchor" aria-label="anchor" href="#counts-only"></a>
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/tbl_ae.html">tbl_ae</a></span><span class="op">(</span>
-    id <span class="op">=</span> <span class="va">subject</span>,
-    ae <span class="op">=</span> <span class="va">ae</span>,
-    soc <span class="op">=</span> <span class="va">soc</span>,
-    by <span class="op">=</span> <span class="va">grade</span>,
-    statistic <span class="op">=</span> <span class="st">"{n}"</span>
-  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html" class="external-link">add_overall</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html" class="external-link">bold_labels</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div id="qblmngewhf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/tbl_ae.html">tbl_ae</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="va">subject</span>,</span>
+<span>    ae <span class="op">=</span> <span class="va">ae</span>,</span>
+<span>    soc <span class="op">=</span> <span class="va">soc</span>,</span>
+<span>    by <span class="op">=</span> <span class="va">grade</span>,</span>
+<span>    statistic <span class="op">=</span> <span class="st">"{n}"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html" class="external-link">add_overall</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html" class="external-link">bold_labels</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div id="qsdyawdypu" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#qblmngewhf .gt_table {
+#qsdyawdypu .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -719,7 +683,7 @@ individual adverse events and the system organ class.</p>
   border-left-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_heading {
+#qsdyawdypu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -731,7 +695,7 @@ individual adverse events and the system organ class.</p>
   border-right-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_title {
+#qsdyawdypu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -743,7 +707,7 @@ individual adverse events and the system organ class.</p>
   border-bottom-width: 0;
 }
 
-#qblmngewhf .gt_subtitle {
+#qsdyawdypu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -755,13 +719,13 @@ individual adverse events and the system organ class.</p>
   border-top-width: 0;
 }
 
-#qblmngewhf .gt_bottom_border {
+#qsdyawdypu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_col_headings {
+#qsdyawdypu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -776,7 +740,7 @@ individual adverse events and the system organ class.</p>
   border-right-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_col_heading {
+#qsdyawdypu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -796,7 +760,7 @@ individual adverse events and the system organ class.</p>
   overflow-x: hidden;
 }
 
-#qblmngewhf .gt_column_spanner_outer {
+#qsdyawdypu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -808,15 +772,15 @@ individual adverse events and the system organ class.</p>
   padding-right: 4px;
 }
 
-#qblmngewhf .gt_column_spanner_outer:first-child {
+#qsdyawdypu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qblmngewhf .gt_column_spanner_outer:last-child {
+#qsdyawdypu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qblmngewhf .gt_column_spanner {
+#qsdyawdypu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -828,7 +792,7 @@ individual adverse events and the system organ class.</p>
   width: 100%;
 }
 
-#qblmngewhf .gt_group_heading {
+#qsdyawdypu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -853,7 +817,7 @@ individual adverse events and the system organ class.</p>
   vertical-align: middle;
 }
 
-#qblmngewhf .gt_empty_group_heading {
+#qsdyawdypu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -868,15 +832,15 @@ individual adverse events and the system organ class.</p>
   vertical-align: middle;
 }
 
-#qblmngewhf .gt_from_md > :first-child {
+#qsdyawdypu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qblmngewhf .gt_from_md > :last-child {
+#qsdyawdypu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qblmngewhf .gt_row {
+#qsdyawdypu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -895,7 +859,7 @@ individual adverse events and the system organ class.</p>
   overflow-x: hidden;
 }
 
-#qblmngewhf .gt_stub {
+#qsdyawdypu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -908,7 +872,7 @@ individual adverse events and the system organ class.</p>
   padding-right: 5px;
 }
 
-#qblmngewhf .gt_stub_row_group {
+#qsdyawdypu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -922,11 +886,11 @@ individual adverse events and the system organ class.</p>
   vertical-align: top;
 }
 
-#qblmngewhf .gt_row_group_first td {
+#qsdyawdypu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qblmngewhf .gt_summary_row {
+#qsdyawdypu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -936,16 +900,16 @@ individual adverse events and the system organ class.</p>
   padding-right: 5px;
 }
 
-#qblmngewhf .gt_first_summary_row {
+#qsdyawdypu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_first_summary_row.thick {
+#qsdyawdypu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qblmngewhf .gt_last_summary_row {
+#qsdyawdypu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -955,7 +919,7 @@ individual adverse events and the system organ class.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_grand_summary_row {
+#qsdyawdypu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -965,7 +929,7 @@ individual adverse events and the system organ class.</p>
   padding-right: 5px;
 }
 
-#qblmngewhf .gt_first_grand_summary_row {
+#qsdyawdypu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -975,11 +939,11 @@ individual adverse events and the system organ class.</p>
   border-top-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_striped {
+#qsdyawdypu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qblmngewhf .gt_table_body {
+#qsdyawdypu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -988,7 +952,7 @@ individual adverse events and the system organ class.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_footnotes {
+#qsdyawdypu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1002,7 +966,7 @@ individual adverse events and the system organ class.</p>
   border-right-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_footnote {
+#qsdyawdypu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1011,7 +975,7 @@ individual adverse events and the system organ class.</p>
   padding-right: 5px;
 }
 
-#qblmngewhf .gt_sourcenotes {
+#qsdyawdypu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1025,7 +989,7 @@ individual adverse events and the system organ class.</p>
   border-right-color: #D3D3D3;
 }
 
-#qblmngewhf .gt_sourcenote {
+#qsdyawdypu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1033,36 +997,36 @@ individual adverse events and the system organ class.</p>
   padding-right: 5px;
 }
 
-#qblmngewhf .gt_left {
+#qsdyawdypu .gt_left {
   text-align: left;
 }
 
-#qblmngewhf .gt_center {
+#qsdyawdypu .gt_center {
   text-align: center;
 }
 
-#qblmngewhf .gt_right {
+#qsdyawdypu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qblmngewhf .gt_font_normal {
+#qsdyawdypu .gt_font_normal {
   font-weight: normal;
 }
 
-#qblmngewhf .gt_font_bold {
+#qsdyawdypu .gt_font_bold {
   font-weight: bold;
 }
 
-#qblmngewhf .gt_font_italic {
+#qsdyawdypu .gt_font_italic {
   font-style: italic;
 }
 
-#qblmngewhf .gt_super {
+#qsdyawdypu .gt_super {
   font-size: 65%;
 }
 
-#qblmngewhf .gt_two_val_uncert {
+#qsdyawdypu .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -1071,31 +1035,31 @@ individual adverse events and the system organ class.</p>
   margin-left: 0.1em;
 }
 
-#qblmngewhf .gt_footnote_marks {
+#qsdyawdypu .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#qblmngewhf .gt_asterisk {
+#qsdyawdypu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qblmngewhf .gt_slash_mark {
+#qsdyawdypu .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#qblmngewhf .gt_fraction_numerator {
+#qsdyawdypu .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#qblmngewhf .gt_fraction_denominator {
+#qsdyawdypu .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -1166,16 +1130,9 @@ individual adverse events and the system organ class.</p>
 <h4 id="adverse-events">Adverse Events<a class="anchor" aria-label="anchor" href="#adverse-events"></a>
 </h4>
 <ul>
-<li><p>Subject <code>001</code> experienced two instances of grade 1 eye
-irritation and one instance of grade 2 eye irritation. The maximum grade
-experienced of eye irritation experienced is 2, resulting in a count of
-<code>1</code> for eye irritation.</p></li>
-<li><p>Subject <code>001</code> and Subject <code>002</code> both
-experienced grade 2 vision blurred, resulting in a count of
-<code>2</code> of vision blurred.</p></li>
-<li><p>Subject <code>002</code> experienced two instances of grade 2
-reflux and one instance of reflux with unknown grade; in a count of
-<code>1</code> for grade 2 reflux.</p></li>
+<li><p>Subject <code>001</code> experienced two instances of grade 1 eye irritation and one instance of grade 2 eye irritation. The maximum grade experienced of eye irritation experienced is 2, resulting in a count of <code>1</code> for eye irritation.</p></li>
+<li><p>Subject <code>001</code> and Subject <code>002</code> both experienced grade 2 vision blurred, resulting in a count of <code>2</code> of vision blurred.</p></li>
+<li><p>Subject <code>002</code> experienced two instances of grade 2 reflux and one instance of reflux with unknown grade; in a count of <code>1</code> for grade 2 reflux.</p></li>
 </ul>
 </div>
 <div class="section level4">
@@ -1183,49 +1140,40 @@ reflux and one instance of reflux with unknown grade; in a count of
 </h4>
 <p><em>Eye disorders</em></p>
 <ul>
-<li><p>Subject <code>001</code> contributes 1 count to grade 2 eye
-irritation; together, subject <code>001</code> and <code>002</code>
-contribute 2 counts to grade 2 vision blurred.</p></li>
+<li><p>Subject <code>001</code> contributes 1 count to grade 2 eye irritation; together, subject <code>001</code> and <code>002</code> contribute 2 counts to grade 2 vision blurred.</p></li>
 <li><p>2 subjects experienced a grade 2 eye disorder.</p></li>
 <li><p>2 subjects overall experienced an eye disorder.</p></li>
 </ul>
 <p><em>Gastrointestinal disorders</em></p>
 <ul>
-<li><p>Subject <code>001</code> experienced difficult digestion of
-unknown grade, and contributes a count of 1 to unknown grade
-gastrointestinal disorder.</p></li>
-<li><p>Subject <code>002</code> experienced both grade 2 difficult
-digestion and grade 2 reflux, and contributes a count of 1 to grade 2
-gastrointestinal disorders.</p></li>
-<li><p>2 subjects overall experienced a gastrointestinal
-disorder.</p></li>
+<li><p>Subject <code>001</code> experienced difficult digestion of unknown grade, and contributes a count of 1 to unknown grade gastrointestinal disorder.</p></li>
+<li><p>Subject <code>002</code> experienced both grade 2 difficult digestion and grade 2 reflux, and contributes a count of 1 to grade 2 gastrointestinal disorders.</p></li>
+<li><p>2 subjects overall experienced a gastrointestinal disorder.</p></li>
 </ul>
 </div>
 </div>
 <div class="section level3">
 <h3 id="counts-with-percents">Counts With Percents<a class="anchor" aria-label="anchor" href="#counts-with-percents"></a>
 </h3>
-<p>The default statistic reported for <code><a href="../reference/tbl_ae.html">tbl_ae()</a></code> is
-<code>n (%)</code>. The percent represents the percent of all subjects
-present in the data.</p>
+<p>The default statistic reported for <code><a href="../reference/tbl_ae.html">tbl_ae()</a></code> is <code>n (%)</code>. The percent represents the percent of all subjects present in the data.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/tbl_ae.html">tbl_ae</a></span><span class="op">(</span>
-    id <span class="op">=</span> <span class="va">subject</span>,
-    ae <span class="op">=</span> <span class="va">ae</span>,
-    soc <span class="op">=</span> <span class="va">soc</span>,
-    by <span class="op">=</span> <span class="va">grade</span>
-  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_spanning_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**N = {N}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html" class="external-link">add_overall</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html" class="external-link">bold_labels</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div id="gzuejvpmwe" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/tbl_ae.html">tbl_ae</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="va">subject</span>,</span>
+<span>    ae <span class="op">=</span> <span class="va">ae</span>,</span>
+<span>    soc <span class="op">=</span> <span class="va">soc</span>,</span>
+<span>    by <span class="op">=</span> <span class="va">grade</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_spanning_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**N = {N}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html" class="external-link">add_overall</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html" class="external-link">bold_labels</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div id="usltkajdrm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#gzuejvpmwe .gt_table {
+#usltkajdrm .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1250,7 +1198,7 @@ present in the data.</p>
   border-left-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_heading {
+#usltkajdrm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1262,7 +1210,7 @@ present in the data.</p>
   border-right-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_title {
+#usltkajdrm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1274,7 +1222,7 @@ present in the data.</p>
   border-bottom-width: 0;
 }
 
-#gzuejvpmwe .gt_subtitle {
+#usltkajdrm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1286,13 +1234,13 @@ present in the data.</p>
   border-top-width: 0;
 }
 
-#gzuejvpmwe .gt_bottom_border {
+#usltkajdrm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_col_headings {
+#usltkajdrm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1307,7 +1255,7 @@ present in the data.</p>
   border-right-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_col_heading {
+#usltkajdrm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1327,7 +1275,7 @@ present in the data.</p>
   overflow-x: hidden;
 }
 
-#gzuejvpmwe .gt_column_spanner_outer {
+#usltkajdrm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1339,15 +1287,15 @@ present in the data.</p>
   padding-right: 4px;
 }
 
-#gzuejvpmwe .gt_column_spanner_outer:first-child {
+#usltkajdrm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gzuejvpmwe .gt_column_spanner_outer:last-child {
+#usltkajdrm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gzuejvpmwe .gt_column_spanner {
+#usltkajdrm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1359,7 +1307,7 @@ present in the data.</p>
   width: 100%;
 }
 
-#gzuejvpmwe .gt_group_heading {
+#usltkajdrm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1384,7 +1332,7 @@ present in the data.</p>
   vertical-align: middle;
 }
 
-#gzuejvpmwe .gt_empty_group_heading {
+#usltkajdrm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1399,15 +1347,15 @@ present in the data.</p>
   vertical-align: middle;
 }
 
-#gzuejvpmwe .gt_from_md > :first-child {
+#usltkajdrm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gzuejvpmwe .gt_from_md > :last-child {
+#usltkajdrm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gzuejvpmwe .gt_row {
+#usltkajdrm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1426,7 +1374,7 @@ present in the data.</p>
   overflow-x: hidden;
 }
 
-#gzuejvpmwe .gt_stub {
+#usltkajdrm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1439,7 +1387,7 @@ present in the data.</p>
   padding-right: 5px;
 }
 
-#gzuejvpmwe .gt_stub_row_group {
+#usltkajdrm .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1453,11 +1401,11 @@ present in the data.</p>
   vertical-align: top;
 }
 
-#gzuejvpmwe .gt_row_group_first td {
+#usltkajdrm .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gzuejvpmwe .gt_summary_row {
+#usltkajdrm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1467,16 +1415,16 @@ present in the data.</p>
   padding-right: 5px;
 }
 
-#gzuejvpmwe .gt_first_summary_row {
+#usltkajdrm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_first_summary_row.thick {
+#usltkajdrm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gzuejvpmwe .gt_last_summary_row {
+#usltkajdrm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1486,7 +1434,7 @@ present in the data.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_grand_summary_row {
+#usltkajdrm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1496,7 +1444,7 @@ present in the data.</p>
   padding-right: 5px;
 }
 
-#gzuejvpmwe .gt_first_grand_summary_row {
+#usltkajdrm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1506,11 +1454,11 @@ present in the data.</p>
   border-top-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_striped {
+#usltkajdrm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gzuejvpmwe .gt_table_body {
+#usltkajdrm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1519,7 +1467,7 @@ present in the data.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_footnotes {
+#usltkajdrm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1533,7 +1481,7 @@ present in the data.</p>
   border-right-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_footnote {
+#usltkajdrm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1542,7 +1490,7 @@ present in the data.</p>
   padding-right: 5px;
 }
 
-#gzuejvpmwe .gt_sourcenotes {
+#usltkajdrm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1556,7 +1504,7 @@ present in the data.</p>
   border-right-color: #D3D3D3;
 }
 
-#gzuejvpmwe .gt_sourcenote {
+#usltkajdrm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1564,36 +1512,36 @@ present in the data.</p>
   padding-right: 5px;
 }
 
-#gzuejvpmwe .gt_left {
+#usltkajdrm .gt_left {
   text-align: left;
 }
 
-#gzuejvpmwe .gt_center {
+#usltkajdrm .gt_center {
   text-align: center;
 }
 
-#gzuejvpmwe .gt_right {
+#usltkajdrm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gzuejvpmwe .gt_font_normal {
+#usltkajdrm .gt_font_normal {
   font-weight: normal;
 }
 
-#gzuejvpmwe .gt_font_bold {
+#usltkajdrm .gt_font_bold {
   font-weight: bold;
 }
 
-#gzuejvpmwe .gt_font_italic {
+#usltkajdrm .gt_font_italic {
   font-style: italic;
 }
 
-#gzuejvpmwe .gt_super {
+#usltkajdrm .gt_super {
   font-size: 65%;
 }
 
-#gzuejvpmwe .gt_two_val_uncert {
+#usltkajdrm .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -1602,31 +1550,31 @@ present in the data.</p>
   margin-left: 0.1em;
 }
 
-#gzuejvpmwe .gt_footnote_marks {
+#usltkajdrm .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#gzuejvpmwe .gt_asterisk {
+#usltkajdrm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gzuejvpmwe .gt_slash_mark {
+#usltkajdrm .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#gzuejvpmwe .gt_fraction_numerator {
+#usltkajdrm .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#gzuejvpmwe .gt_fraction_denominator {
+#usltkajdrm .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -1693,32 +1641,26 @@ present in the data.</p>
 </tbody>
 </table>
 </div>
-<p>In adverse event reporting, it is common that not all subjects
-experience an adverse event, and hence are not included in the event
-reporting data set. For example, suppose there were 3 subjects of
-interest in this study, but subject <code>003</code> did not experience
-an adverse event. In order to get the correct subject denominator in
-this case, supply <code><a href="../reference/tbl_ae.html">tbl_ae()</a></code> with <code>id_df</code>, a data
-frame containing all subject ids.</p>
+<p>In adverse event reporting, it is common that not all subjects experience an adverse event, and hence are not included in the event reporting data set. For example, suppose there were 3 subjects of interest in this study, but subject <code>003</code> did not experience an adverse event. In order to get the correct subject denominator in this case, supply <code><a href="../reference/tbl_ae.html">tbl_ae()</a></code> with <code>id_df</code>, a data frame containing all subject ids.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="../reference/tbl_ae.html">tbl_ae</a></span><span class="op">(</span>
-    id <span class="op">=</span> <span class="va">subject</span>,
-    id_df <span class="op">=</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>subject <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"001"</span>, <span class="st">"002"</span>, <span class="st">"003"</span><span class="op">)</span><span class="op">)</span>,
-    ae <span class="op">=</span> <span class="va">ae</span>,
-    soc <span class="op">=</span> <span class="va">soc</span>,
-    by <span class="op">=</span> <span class="va">grade</span>
-  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_spanning_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**N = {N}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html" class="external-link">add_overall</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html" class="external-link">bold_labels</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div id="kdekmdbdqy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/tbl_ae.html">tbl_ae</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="va">subject</span>,</span>
+<span>    id_df <span class="op">=</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>subject <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"001"</span>, <span class="st">"002"</span>, <span class="st">"003"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    ae <span class="op">=</span> <span class="va">ae</span>,</span>
+<span>    soc <span class="op">=</span> <span class="va">soc</span>,</span>
+<span>    by <span class="op">=</span> <span class="va">grade</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_spanning_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**N = {N}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_overall.html" class="external-link">add_overall</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/bold_italicize_labels_levels.html" class="external-link">bold_labels</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div id="jjcspxllnk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#kdekmdbdqy .gt_table {
+#jjcspxllnk .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1743,7 +1685,7 @@ frame containing all subject ids.</p>
   border-left-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_heading {
+#jjcspxllnk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1755,7 +1697,7 @@ frame containing all subject ids.</p>
   border-right-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_title {
+#jjcspxllnk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1767,7 +1709,7 @@ frame containing all subject ids.</p>
   border-bottom-width: 0;
 }
 
-#kdekmdbdqy .gt_subtitle {
+#jjcspxllnk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1779,13 +1721,13 @@ frame containing all subject ids.</p>
   border-top-width: 0;
 }
 
-#kdekmdbdqy .gt_bottom_border {
+#jjcspxllnk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_col_headings {
+#jjcspxllnk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1800,7 +1742,7 @@ frame containing all subject ids.</p>
   border-right-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_col_heading {
+#jjcspxllnk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1820,7 +1762,7 @@ frame containing all subject ids.</p>
   overflow-x: hidden;
 }
 
-#kdekmdbdqy .gt_column_spanner_outer {
+#jjcspxllnk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1832,15 +1774,15 @@ frame containing all subject ids.</p>
   padding-right: 4px;
 }
 
-#kdekmdbdqy .gt_column_spanner_outer:first-child {
+#jjcspxllnk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kdekmdbdqy .gt_column_spanner_outer:last-child {
+#jjcspxllnk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kdekmdbdqy .gt_column_spanner {
+#jjcspxllnk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1852,7 +1794,7 @@ frame containing all subject ids.</p>
   width: 100%;
 }
 
-#kdekmdbdqy .gt_group_heading {
+#jjcspxllnk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1877,7 +1819,7 @@ frame containing all subject ids.</p>
   vertical-align: middle;
 }
 
-#kdekmdbdqy .gt_empty_group_heading {
+#jjcspxllnk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1892,15 +1834,15 @@ frame containing all subject ids.</p>
   vertical-align: middle;
 }
 
-#kdekmdbdqy .gt_from_md > :first-child {
+#jjcspxllnk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kdekmdbdqy .gt_from_md > :last-child {
+#jjcspxllnk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kdekmdbdqy .gt_row {
+#jjcspxllnk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1919,7 +1861,7 @@ frame containing all subject ids.</p>
   overflow-x: hidden;
 }
 
-#kdekmdbdqy .gt_stub {
+#jjcspxllnk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1932,7 +1874,7 @@ frame containing all subject ids.</p>
   padding-right: 5px;
 }
 
-#kdekmdbdqy .gt_stub_row_group {
+#jjcspxllnk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1946,11 +1888,11 @@ frame containing all subject ids.</p>
   vertical-align: top;
 }
 
-#kdekmdbdqy .gt_row_group_first td {
+#jjcspxllnk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kdekmdbdqy .gt_summary_row {
+#jjcspxllnk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1960,16 +1902,16 @@ frame containing all subject ids.</p>
   padding-right: 5px;
 }
 
-#kdekmdbdqy .gt_first_summary_row {
+#jjcspxllnk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_first_summary_row.thick {
+#jjcspxllnk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kdekmdbdqy .gt_last_summary_row {
+#jjcspxllnk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1979,7 +1921,7 @@ frame containing all subject ids.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_grand_summary_row {
+#jjcspxllnk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1989,7 +1931,7 @@ frame containing all subject ids.</p>
   padding-right: 5px;
 }
 
-#kdekmdbdqy .gt_first_grand_summary_row {
+#jjcspxllnk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1999,11 +1941,11 @@ frame containing all subject ids.</p>
   border-top-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_striped {
+#jjcspxllnk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kdekmdbdqy .gt_table_body {
+#jjcspxllnk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2012,7 +1954,7 @@ frame containing all subject ids.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_footnotes {
+#jjcspxllnk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2026,7 +1968,7 @@ frame containing all subject ids.</p>
   border-right-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_footnote {
+#jjcspxllnk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -2035,7 +1977,7 @@ frame containing all subject ids.</p>
   padding-right: 5px;
 }
 
-#kdekmdbdqy .gt_sourcenotes {
+#jjcspxllnk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2049,7 +1991,7 @@ frame containing all subject ids.</p>
   border-right-color: #D3D3D3;
 }
 
-#kdekmdbdqy .gt_sourcenote {
+#jjcspxllnk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2057,36 +1999,36 @@ frame containing all subject ids.</p>
   padding-right: 5px;
 }
 
-#kdekmdbdqy .gt_left {
+#jjcspxllnk .gt_left {
   text-align: left;
 }
 
-#kdekmdbdqy .gt_center {
+#jjcspxllnk .gt_center {
   text-align: center;
 }
 
-#kdekmdbdqy .gt_right {
+#jjcspxllnk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kdekmdbdqy .gt_font_normal {
+#jjcspxllnk .gt_font_normal {
   font-weight: normal;
 }
 
-#kdekmdbdqy .gt_font_bold {
+#jjcspxllnk .gt_font_bold {
   font-weight: bold;
 }
 
-#kdekmdbdqy .gt_font_italic {
+#jjcspxllnk .gt_font_italic {
   font-style: italic;
 }
 
-#kdekmdbdqy .gt_super {
+#jjcspxllnk .gt_super {
   font-size: 65%;
 }
 
-#kdekmdbdqy .gt_two_val_uncert {
+#jjcspxllnk .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -2095,31 +2037,31 @@ frame containing all subject ids.</p>
   margin-left: 0.1em;
 }
 
-#kdekmdbdqy .gt_footnote_marks {
+#jjcspxllnk .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#kdekmdbdqy .gt_asterisk {
+#jjcspxllnk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kdekmdbdqy .gt_slash_mark {
+#jjcspxllnk .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#kdekmdbdqy .gt_fraction_numerator {
+#jjcspxllnk .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#kdekmdbdqy .gt_fraction_denominator {
+#jjcspxllnk .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -2201,7 +2143,7 @@ frame containing all subject ids.</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
