@@ -127,7 +127,7 @@ tbl_ae_count <- function(data,
     purrr::when(
       !is.null(strata) ~
         modify_spanning_header(
-          ., all_ae_cols(overall = TRUE, unknown = !hide_unknown) ~ "**{strata}**"),
+          ., gtsummary::all_stat_cols() ~ "**{strata}**"),
       TRUE ~ .
     )
 }

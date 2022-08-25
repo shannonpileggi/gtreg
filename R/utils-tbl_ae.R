@@ -1,13 +1,19 @@
-.construct_summary_table <- function(data, variable, digits, statistic, sort, zero_symbol, missing_location) {
+.construct_summary_table <- function(data, variable, by = "by", digits, statistic, sort, zero_symbol, missing_location,
+                                     # arguments used in `tbl_ae_focus()`
+                                     columns_to_hide = "NOT OBSERVED",
+                                     header = "**{level}**") {
 
   # this function will build a single summary table with needed modifications
   .final_summary_fun <- purrr::partial(.build_single_summary_table,
                                        variable = variable,
+                                       by = by,
                                        digits = digits,
                                        statistic = statistic,
                                        sort = sort,
                                        zero_symbol = zero_symbol,
-                                       missing_location = missing_location)
+                                       missing_location = missing_location,
+                                       columns_to_hide = columns_to_hide,
+                                       header = header)
 
   # build the summary table(s)
   if ("strata" %in% names(data)) {
@@ -27,13 +33,14 @@
   tbl
 }
 
-.build_single_summary_table <- function(data, variable, digits, statistic,
-                                        sort, zero_symbol, missing_location) {
+.build_single_summary_table <- function(data, variable, by, digits, statistic,
+                                        sort, zero_symbol, missing_location,
+                                        columns_to_hide, header) {
   tbl <-
     # build summary table
     gtsummary::tbl_summary(
       data = data,
-      by = all_of("by"),
+      by = all_of(by),
       percent = "row",
       include = all_of(variable),
       type = list("categorical") %>% stats::setNames(variable),
@@ -43,13 +50,13 @@
     ) %>%
     gtsummary::remove_row_type(type = "header") %>%
     gtsummary::modify_header(
-      gtsummary::all_stat_cols() ~ "**{level}**",
+      gtsummary::all_stat_cols() ~ header,
       label ~ "**Adverse Event**"
     ) %>%
     # updates with user-passed arguments
     .add_modify_stat_data() %>%
     .relocate_missing_column(missing_location = missing_location) %>%
-    .hide_unobserved_columns() %>%
+    .hide_unobserved_columns(columns = columns_to_hide) %>%
     .replace_zero_with_NA(zero_symbol = zero_symbol) %>%
     # clean up the object
     gtsummary::tbl_butcher()
@@ -75,14 +82,14 @@
   tbl
 }
 
-.hide_unobserved_columns <- function(tbl) {
+.hide_unobserved_columns <- function(tbl, columns) {
   column_to_hide <-
     tbl$df_by %>%
-    dplyr::filter(.data$by_chr %in% "NOT OBSERVED") %>%
+    dplyr::filter(.data$by_chr %in% .env$columns) %>%
     dplyr::pull(.data$by_col)
 
   if (rlang::is_empty(column_to_hide)) return(tbl)
-  gtsummary::modify_column_hide(tbl, columns = column_to_hide)
+  gtsummary::modify_column_hide(tbl, columns = all_of(column_to_hide))
 }
 
 .relocate_missing_column <- function(tbl, missing_location) {

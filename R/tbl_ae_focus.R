@@ -125,124 +125,72 @@ tbl_ae_focus <- function(data,
       .f = ~dplyr::left_join(.x, .y, by = names(lst_rename)),
       .init = data_complete
     )  %>%
-    mutate(across(all_of(include), ~tidyr::replace_na(., "FALSE"))) %>%
-    group_by(across(any_of("soc")))
+    mutate(across(all_of(include), ~tidyr::replace_na(., "FALSE")))
 
-  # putting data into list of tibbles...one element per SOC --------------------
-  lst_data_complete <-
-    data_complete %>%
-    dplyr::group_split() %>%
-    rlang::set_names(dplyr::group_keys(data_complete) %>% purrr::pluck(1)) %>%
-    .sort_lst_of_soc_tibbles(sort = sort)
 
   # tabulate SOC ---------------------------------------------------------------
   if (!is.null(soc)) {
-    lst_tbl_soc_wide <-
+    tbl_soc <-
       purrr::map(
         include,
-        ~ .lst_of_tbls(
-          lst_data =
-            purrr::map(
-              lst_data_complete,
-              function(data) {
-                group_by(data, .data$id, .data$soc) %>%
-                  mutate(across(any_of(.x), ~max(.))) %>%
-                  dplyr::ungroup()
-              }
-            ),
-          variable_summary = "..soc..",
-          variable_filter = "..soc..",
+        ~.construct_summary_table(
+          data = data_complete %>% filter(.data$..soc..),
+          variable = "soc",
           by = .x,
-          by_level_to_hide = "FALSE",
+          digits = digits,
           statistic = statistic,
-          header_by =
-            label[[.x]] %||%
-            attr(data[[.x]], "label") %||%
-            .x %>%
-            {stringr::str_glue("**{.}**")},
-          remove_header_row = FALSE,
+          sort = sort,
           zero_symbol = zero_symbol,
-          labels = names(lst_data_complete),
-          digits = digits
+          missing_location = "first",
+          columns_to_hide = c("NOT OBSERVED", "FALSE"),
+          header = glue::glue("**{label[[.x]] %||% attr(data[[.x]], 'label') %||% .x}**")
         )
-      )
-
-    # merge tbls to put `include=` variables side by side
-    lst_tbl_soc <-
-      purrr::pmap(
-        purrr::map(seq_len(length(include)), ~lst_tbl_soc_wide[[.x]]),
-        list
       ) %>%
-      purrr::map(
-        gtsummary::tbl_merge,
-        tab_spanner = FALSE
-      )
+      gtsummary::tbl_merge(tab_spanner = FALSE)
   }
 
-  # tabulate AEs ---------------------------------------------------------------
-  lst_tbl_ae_wide <-
+  # tabulate AE ----------------------------------------------------------------
+  tbl_ae <-
     purrr::map(
       include,
-      ~ .lst_of_tbls(
-        lst_data = lst_data_complete,
-        variable_summary = "ae",
-        variable_filter = "..ae..",
+      ~.construct_summary_table(
+        data = data_complete %>% filter(.data$..ae..),
+        variable = "ae",
         by = .x,
-        by_level_to_hide = "FALSE",
-        statistic = statistic,
-        header_by =
-          label[[.x]] %||%
-          attr(data[[.x]], "label") %||%
-          .x %>%
-          {stringr::str_glue("**{.}**")},
-        remove_header_row = TRUE,
-        zero_symbol = zero_symbol,
         digits = digits,
-        sort = sort
+        statistic = statistic,
+        sort = sort,
+        zero_symbol = zero_symbol,
+        missing_location = "first",
+        columns_to_hide = c("NOT OBSERVED", "FALSE"),
+        header = glue::glue("**{label[[.x]] %||% attr(data[[.x]], 'label') %||% .x}**")
       )
-    )
-
-
-  # merge tbls to put `include=` variables side by side
-  lst_tbl_ae <-
-    purrr::pmap(
-      purrr::map(seq_len(length(include)), ~lst_tbl_ae_wide[[.x]]),
-      list
     ) %>%
-    purrr::map(
-      gtsummary::tbl_merge,
-      tab_spanner = FALSE
+    gtsummary::tbl_merge(tab_spanner = FALSE)
+
+  # combine the SOC and AE tbls ------------------------------------------------
+  tbl_final <-
+    .combine_soc_and_ae_tbls(
+      data = data_complete,
+      tbl_ae = tbl_ae,
+      tbl_soc = switch("soc" %in% names(data_complete), tbl_soc)
     )
 
-  # stacking tbls into big final AE table --------------------------------------
-  if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)
-  else tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae, lst_tbl_soc)
-
-  # grouping stratum together in final tbl -------------------------------------
-  if (!is.null(strata)) {
-    column_order <-
-      tibble::tibble(
-        spanning_header = unique(tbl_final$table_styling$header$spanning_header)
-      ) %>%
-      dplyr::left_join(tbl_final$table_styling$header, by = "spanning_header") %>%
-      dplyr::pull(.data$column)
-    tbl_final <- tbl_final %>% gtsummary::modify_table_body(~.x[column_order])
-  }
+  # update `modify_stat_*` columns in `tbl$table_styling$header` ---------------
+  tbl_final <- .update_modify_stat_columns(tbl = tbl_final, data = data_complete)
 
   # return final tbl -----------------------------------------------------------
   tbl_final %>%
-    # return list with function's inputs
+    purrr::compact() %>%
+    # add inputs
     purrr::list_modify(inputs = tbl_ae_focus_inputs) %>%
-    .calculate_header_modify_stats() %>%
     # add class
     structure(class = c("tbl_ae_focus", "gtsummary")) %>%
-    # add default headers
+    # add default spanning headers
     purrr::when(
       !is.null(strata) ~
-        modify_spanning_header(
-          ., all_ae_cols(overall = TRUE, unknown = FALSE) ~ "**{strata}**, N = {n}"),
-      TRUE ~ modify_spanning_header(
-        ., all_ae_cols(overall = TRUE, unknown = FALSE) ~ "**N = {N}**")
+        modify_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**, N = {n}"),
+      TRUE ~ modify_spanning_header(., gtsummary::all_stat_cols() ~ "**N = {N}**")
     )
 }
 
