@@ -47,6 +47,7 @@
       label ~ "**Adverse Event**"
     ) %>%
     # updates with user-passed arguments
+    .add_modify_stat_data() %>%
     .relocate_missing_column(missing_location = missing_location) %>%
     .hide_unobserved_columns() %>%
     .replace_zero_with_NA(zero_symbol = zero_symbol) %>%
@@ -57,6 +58,21 @@
   tbl$table_styling$footnote <- dplyr::filter(tbl$table_styling$footnote, FALSE)
 
   return(tbl)
+}
+.add_modify_stat_data <- function(tbl) {
+  # add modify selector columns
+  tbl$table_styling$header <-
+    tbl$table_styling$header %>%
+    mutate(
+      modify_selector_overall = ifelse(startsWith(.data$column, "stat_"), FALSE, NA),
+      modify_selector_unknown =
+        dplyr::case_when(
+          startsWith(.data$column, "stat_") & modify_stat_level == "Unknown" ~ TRUE,
+          startsWith(.data$column, "stat_") ~ FALSE
+        )
+    )
+
+  tbl
 }
 
 .hide_unobserved_columns <- function(tbl) {

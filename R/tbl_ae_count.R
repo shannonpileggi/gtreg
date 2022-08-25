@@ -80,57 +80,50 @@ tbl_ae_count <- function(data,
                       ae = ae, soc = soc, by = by,
                       strata = strata, id_df = NULL, by_values = by_values,
                       missing_location = missing_location) %>%
-    dplyr::mutate(across(any_of(c("..soc..", "..ae..")), ~TRUE)) %>%
-    group_by(across(any_of("soc")))
+    dplyr::mutate(across(any_of(c("..soc..", "..ae..")), ~TRUE))
 
-  # putting data into list of tibbles...one element per SOC --------------------
-  lst_data_complete <-
-    data_complete %>%
-    dplyr::group_split() %>%
-    rlang::set_names(dplyr::group_keys(data_complete) %>% purrr::pluck(1)) %>%
-    .sort_lst_of_soc_tibbles(sort = sort)
-
-  # tablulate SOC --------------------------------------------------------------
+  # tabulate SOC ---------------------------------------------------------------
   if (!is.null(soc)) {
-    lst_tbl_soc <-
-      .lst_of_tbls(lst_data = lst_data_complete,
-                   variable_summary = "..soc..",
-                   variable_filter = "..soc..",
-                   statistic = statistic,
-                   remove_header_row = FALSE,
-                   zero_symbol = zero_symbol,
-                   labels = names(lst_data_complete),
-                   digits = digits,
-                   missing_location = missing_location)
+    tbl_soc <-
+      .construct_summary_table(data = data_complete %>% filter(.data$..soc..),
+                               variable = "soc",
+                               digits = digits,
+                               statistic = statistic,
+                               sort = sort,
+                               zero_symbol = zero_symbol,
+                               missing_location = missing_location)
   }
 
-  # tabulate AEs ---------------------------------------------------------------
-  lst_tbl_ae <-
-    .lst_of_tbls(lst_data = lst_data_complete,
-                 variable_summary = "ae",
-                 variable_filter = "..ae..",
-                 statistic = statistic,
-                 remove_header_row = TRUE,
-                 zero_symbol = zero_symbol,
-                 labels = NULL,
-                 digits = digits,
-                 sort = sort,
-                 missing_location = missing_location)
+  # tabulate AE ----------------------------------------------------------------
+  tbl_ae <-
+    .construct_summary_table(data = data_complete %>% filter(.data$..ae..),
+                             variable = "ae",
+                             digits = digits,
+                             statistic = statistic,
+                             sort = sort,
+                             zero_symbol = zero_symbol,
+                             missing_location = missing_location)
 
-  # stacking tbls into big final AE table --------------------------------------
-  if (is.null(soc)) tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae)
-  else tbl_final <- .stack_soc_ae_tbls(lst_tbl_ae, lst_tbl_soc)
+
+  # combine the SOC and AE tbls ------------------------------------------------
+  tbl_final <-
+    .combine_soc_and_ae_tbls(
+      data = data_complete,
+      tbl_ae = tbl_ae,
+      tbl_soc = switch("soc" %in% names(data_complete), tbl_soc)
+    )
+
+  # update `modify_stat_*` columns in `tbl$table_styling$header` ---------------
+  tbl_final <- .update_modify_stat_columns(tbl = tbl_final, data = data_complete)
 
   # return final tbl -----------------------------------------------------------
-  hide_unknown <- missing_location %in% "hide"
   tbl_final %>%
-    # return list with function's inputs and the complete data
+    purrr::compact() %>%
+    # add inputs
     purrr::list_modify(inputs = tbl_ae_count_inputs) %>%
-    .calculate_header_modify_stats() %>%
     # add class
     structure(class = c("tbl_ae_count", "gtsummary")) %>%
-    # add default headers
-    modify_header(all_ae_cols(overall = TRUE, unknown = !hide_unknown) ~ "**{by}**") %>%
+    # add default spanning headers
     purrr::when(
       !is.null(strata) ~
         modify_spanning_header(

@@ -160,7 +160,7 @@ tbl_ae <- function(data,
     .combine_soc_and_ae_tbls(
       data = data_complete,
       tbl_ae = tbl_ae,
-      tbl_soc = switch("strata" %in% names(data_complete), tbl_soc)
+      tbl_soc = switch("soc" %in% names(data_complete), tbl_soc)
     )
 
   # update `modify_stat_*` columns in `tbl$table_styling$header` ---------------
@@ -169,6 +169,8 @@ tbl_ae <- function(data,
   # return final tbl -----------------------------------------------------------
   tbl_final %>%
     purrr::compact() %>%
+    # add inputs
+    purrr::list_modify(inputs = tbl_ae_inputs) %>%
     # add class
     structure(class = c("tbl_ae", "gtsummary")) %>%
     # add default spanning headers
