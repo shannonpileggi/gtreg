@@ -2,7 +2,7 @@
 title: "Output types"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Adverse Event Counting Methods}
+  %\VignetteIndexEntry{Output types}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -46,6 +46,8 @@ table1 <- df_adverse_events |>
     ) %>%
   bold_labels()
 ```
+
+# Example outputs
 
 ## HTML
 
@@ -91,7 +93,7 @@ Leverage the [`kableExtra`](https://cran.r-project.org/web/packages/kableExtra/v
 
 To export to pdf, create a new `.Rmd` or `.qmd` document with a pdf output type.
 The YAML shown here is for `.Rmd`. You can then use `as_kable_extra()` to
-convert to the LaTeX required for pdf rendering, and `kable_styling()` for 
+convert the table to the LaTeX required for pdf rendering, and `kable_styling()` for 
 extra styling of the table. For more pdf styling options, see the blog post 
 [Report Ready PDF tables with rmarkdown, knitr, kableExtra, and LaTeX](https://www.pipinghotdata.com/posts/2022-01-24-report-ready-pdf-tables-with-rmarkdown-knitr-kableextra-and-latex/).
 
