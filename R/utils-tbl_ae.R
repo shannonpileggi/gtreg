@@ -42,7 +42,10 @@
       sort = list(ifelse(variable %in% sort, "frequency", "alphanumeric"))  %>% stats::setNames(variable)
     ) %>%
     gtsummary::remove_row_type(type = "header") %>%
-    gtsummary::modify_header(gtsummary::all_stat_cols() ~ "**{level}**") %>%
+    gtsummary::modify_header(
+      gtsummary::all_stat_cols() ~ "**{level}**",
+      label ~ "**Adverse Event**"
+    ) %>%
     # updates with user-passed arguments
     .relocate_missing_column(missing_location = missing_location) %>%
     .hide_unobserved_columns() %>%
@@ -70,7 +73,7 @@
   # if first, do nothing as this is the default
   if (missing_location == "first") return(tbl)
 
-  # idenify column to move
+  # identify column to move
   column_to_relocate <-
     tbl$df_by %>%
     dplyr::filter(.data$by_chr %in% "Unknown") %>%
