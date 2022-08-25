@@ -1,0 +1,120 @@
+---
+title: "Output types"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Adverse Event Counting Methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Setup
+
+```{r setup}
+# install.packages("gtreg")
+library(gtreg)
+library(gtsummary)
+```
+
+# Overview
+
+As {gtreg} is built upon {gtsummary}, you can use the same methods you
+would use for {gtsummary} to output tables to various formats. See
+the [print engines available in {gtsummary}](https://www.danieldsjoberg.com/gtsummary/#gtsummary--r-markdown).
+
+Here, we share approaches to common requests for output types.
+
+# Example table
+
+```{r}
+table1 <- df_adverse_events |> 
+  tbl_ae(
+    id = patient_id,
+    id_df = df_patient_characteristics,
+    ae = adverse_event,
+    soc = system_organ_class, 
+    by = grade
+  ) |> 
+  modify_header(
+    all_ae_cols() ~ "**Grade {by}**"
+    ) %>%
+  bold_labels()
+```
+
+## HTML
+
+The default output type is HTML.
+
+```{r}
+table1
+```
+
+## Word
+
+Leverage the [flextable](https://ardata-fr.github.io/flextable-book/) package for word output.
+
+```{r, eval=FALSE}
+table1 |>  
+  as_flex_table() |> 
+  flextable::save_as_docx(
+    path = here::here("ae_table.docx")
+    )
+```
+
+
+![](man/figures/out_word.png)
+
+## Excel
+
+Leverage the [huxtable](https://hughjonesd.github.io/huxtable/) package for excel output.
+
+
+```{r, eval=FALSE}
+table1 |>  
+ as_hux_xlsx(
+   file = here::here("ae_table.xlsx")
+   )
+```
+
+![](man/figures/out_excel.png)
+
+
+## PDF
+
+Leverage the [`kableExtra`](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_pdf.pdf) package for styled pdf output.
+
+To export to pdf, create a new `.Rmd` or `.qmd` document with a pdf output type.
+The YAML shown here is for `.Rmd`. You can then use `as_kable_extra()` to
+convert to the LaTeX required for pdf rendering, and `kable_styling()` for 
+extra styling of the table. For more pdf styling options, see the blog post 
+[Report Ready PDF tables with rmarkdown, knitr, kableExtra, and LaTeX](https://www.pipinghotdata.com/posts/2022-01-24-report-ready-pdf-tables-with-rmarkdown-knitr-kableextra-and-latex/).
+
+
+````{verbatim}
+---
+output: pdf_document
+---
+<stuff>  
+  
+```{r}
+table1 |> 
+  as_kable_extra(
+    booktabs = TRUE
+  ) |> 
+  kableExtra::kable_styling(
+    latex_options = "striped",
+    stripe_color = "gray!15"
+  )
+```  
+  
+````
+<img src="man/figures/out_pdf.png" />
+
+![](man/figures/out_pdf.png)
+
