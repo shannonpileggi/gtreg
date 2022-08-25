@@ -92,6 +92,10 @@
                             by = c(id, strata))) > 0) {
     stop("There are `id=`/`strata=` combinations in `data=` not found in `id_df=`.", call. = FALSE)
   }
+  if (!is.null(soc) &&
+      nrow(dplyr::distinct(data[c(ae, soc)])) != nrow(dplyr::distinct(data[ae]))) {
+    stop("The `ae` levels must be unique across all `soc` levels.", call. = FALSE)
+  }
 
   # some default factor levels -------------------------------------------------
   initial_missing <- missing_text

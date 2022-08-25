@@ -1,3 +1,207 @@
+.construct_summary_table <- function(data, variable, digits, statistic, sort, zero_symbol, missing_location) {
+
+  # this function will build a single summary table with needed modifications
+  .final_summary_fun <- purrr::partial(.build_single_summary_table,
+                                       variable = variable,
+                                       digits = digits,
+                                       statistic = statistic,
+                                       sort = sort,
+                                       zero_symbol = zero_symbol,
+                                       missing_location = missing_location)
+
+  # build the summary table(s)
+  if ("strata" %in% names(data)) {
+    tbl <-
+      gtsummary::tbl_strata(
+        data = data,
+        strata = strata,
+        .tbl_fun = ~.final_summary_fun(data = .x),
+        .combine_with = "tbl_merge",
+        .header = "{strata}"
+      )
+  }
+  else {
+    tbl <- .final_summary_fun(data)
+  }
+
+  tbl
+}
+
+.build_single_summary_table <- function(data, variable, digits, statistic,
+                                        sort, zero_symbol, missing_location) {
+  tbl <-
+    # build summary table
+    gtsummary::tbl_summary(
+      data = data,
+      by = all_of("by"),
+      percent = "row",
+      include = all_of(variable),
+      type = list("categorical") %>% stats::setNames(variable),
+      statistic = list(statistic) %>% stats::setNames(variable),
+      digits = switch(!is.null(digits), list(digits) %>% stats::setNames(variable)),
+      sort = list(ifelse(variable %in% sort, "frequency", "alphanumeric"))  %>% stats::setNames(variable)
+    ) %>%
+    gtsummary::remove_row_type(type = "header") %>%
+    gtsummary::modify_header(gtsummary::all_stat_cols() ~ "**{level}**") %>%
+    # updates with user-passed arguments
+    .relocate_missing_column(missing_location = missing_location) %>%
+    .hide_unobserved_columns() %>%
+    .replace_zero_with_NA(zero_symbol = zero_symbol) %>%
+    # clean up the object
+    gtsummary::tbl_butcher()
+
+  # removing footnote
+  tbl$table_styling$footnote <- dplyr::filter(tbl$table_styling$footnote, FALSE)
+
+  return(tbl)
+}
+
+.hide_unobserved_columns <- function(tbl) {
+  column_to_hide <-
+    tbl$df_by %>%
+    dplyr::filter(.data$by_chr %in% "NOT OBSERVED") %>%
+    dplyr::pull(.data$by_col)
+
+  if (rlang::is_empty(column_to_hide)) return(tbl)
+  gtsummary::modify_column_hide(tbl, columns = column_to_hide)
+}
+
+.relocate_missing_column <- function(tbl, missing_location) {
+  # if first, do nothing as this is the default
+  if (missing_location == "first") return(tbl)
+
+  # idenify column to move
+  column_to_relocate <-
+    tbl$df_by %>%
+    dplyr::filter(.data$by_chr %in% "Unknown") %>%
+    dplyr::pull(.data$by_col)
+
+  # if no Unknown column, return tbl unmodified
+  if (rlang::is_empty(column_to_relocate)) return(tbl)
+
+  # hide column if requested
+  if (missing_location == "hide")
+    return(gtsummary::modify_column_hide(tbl, columns = column_to_relocate))
+
+  # last case is to move Unknown column to 'last'
+  gtsummary::modify_table_body(
+    tbl,
+    ~dplyr::relocate(.x, all_of(column_to_relocate), .after = dplyr::last_col())
+  )
+}
+
+.replace_zero_with_NA <- function(tbl, zero_symbol) {
+  # if NULL, then show the zeros
+  if (is.null(zero_symbol)) return(tbl)
+
+  # data frame of zero-count cells
+  df_zero_columns <-
+    tbl$meta_data$df_stats[[1]] %>%
+    filter(.data$n == 0L) %>%
+    select(all_of(c("label", "col_name"))) %>%
+    tidyr::nest(data = .data$label)
+
+  if (nrow(df_zero_columns) == 0L) return(tbl)
+
+  # create expression with code to set zero count data to the zero_symbol
+  expr_zero_to_NA <-
+    purrr::map2(
+      df_zero_columns$col_name,
+      purrr::map(df_zero_columns$data, ~unlist(.x) %>% unname()),
+      function(col_name, labels) {
+        rlang::expr(
+          dplyr::across(dplyr::all_of(!!col_name),
+                        ~ifelse(.data$label %in% !!labels, NA_character_, .))
+        )
+      }
+    )
+
+  tbl %>%
+    # setting cells with zero count to missing
+    gtsummary::modify_table_body(
+      ~ dplyr::mutate(.x, !!!expr_zero_to_NA)
+    ) %>%
+    gtsummary::modify_table_styling(
+      columns = gtsummary::all_stat_cols(),
+      rows = !is.na(.data$label),
+      missing_symbol = zero_symbol
+    )
+}
+
+.combine_soc_and_ae_tbls <- function(data, tbl_ae, tbl_soc) {
+  # first prep tables if there is no SOC table
+  if (is.null(tbl_soc)) {
+    tbl_final <-
+      tbl_ae %>%
+      gtsummary::modify_column_indent(columns = label, undo = TRUE)
+    return(tbl_final)
+  }
+
+  # combine SOC and AE tbls
+  table_body <-
+    tbl_soc$table_body$label %>%
+    purrr::map_dfr(
+      function(soc) {
+        ae_to_stack <-
+          dplyr::filter(data, .data$soc %in% .env$soc) %>%
+          dplyr::pull(.data$ae) %>%
+          unique()
+
+        tbl_soc$table_body %>%
+          dplyr::filter(.data$label %in% .env$soc) %>%
+          mutate(row_type = "label") %>%
+          dplyr::bind_rows(
+            tbl_ae$table_body %>%
+            dplyr::filter(.data$label %in% .env$ae_to_stack)
+          )
+      }
+    )
+
+  # return stacked table
+  tbl_soc$table_body <- table_body
+  tbl_soc
+}
+
+
+.update_modify_stat_columns <- function(tbl, data) {
+  data_distinct <- data %>% select(any_of(c("id", "strata"))) %>% dplyr::distinct()
+
+  # update the modify_stat_N, and update name of modify_stat_level
+  tbl$table_styling$header$modify_stat_N <- nrow(data_distinct)
+  tbl$table_styling$header <-
+    tbl$table_styling$header %>%
+    dplyr::rename(modify_stat_by = .data$modify_stat_level) %>%
+    select(-any_of(c("modify_stat_n", "modify_stat_p")))
+
+  # if strata present, add little n and p, and merge them into the header
+  if ("strata" %in% names(data_distinct)) {
+    tbl$table_styling$header <-
+      tbl$table_styling$header %>%
+      select(-any_of(c("modify_stat_n", "modify_stat_p"))) %>%
+      dplyr::left_join(
+        data_distinct %>%
+          tidyr::nest(data = -.data$strata) %>%
+          dplyr::rowwise() %>%
+          mutate(
+            spanning_header = glue::glue(.data$strata) %>% as.character(),
+            modify_stat_strata = .data$spanning_header,
+            modify_stat_n = nrow(.data$data)
+          ) %>%
+          dplyr::ungroup() %>%
+          select(all_of(c("spanning_header", "modify_stat_strata", "modify_stat_n"))),
+        by = "spanning_header"
+      ) %>%
+      mutate(modify_stat_p = .data$modify_stat_n / .data$modify_stat_N)
+  }
+
+  tbl
+}
+
+
+# OLD CODE BELOW
+# ------------------------------------------------------------------------------
+
+
 # this function returns a list of tbls, summarizing either AEs or SOC
 .lst_of_tbls <- function(lst_data,
                          variable_summary,
@@ -13,7 +217,7 @@
                          sort = NULL,
                          missing_location = "first",
                          missing_text = "Unknown") {
-   purrr::map(
+  purrr::map(
     seq_len(length(lst_data)),
     function(index) {
       # keep observation that will be tabulated
