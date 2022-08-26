@@ -33,14 +33,14 @@ Here, we share approaches to common requests for output types.
 # Example table
 
 ```{r}
-table1 <- df_adverse_events |> 
+table1 <- df_adverse_events %>% 
   tbl_ae(
     id = patient_id,
     id_df = df_patient_characteristics,
     ae = adverse_event,
     soc = system_organ_class, 
     by = grade
-  ) |> 
+  ) %>% 
   modify_header(
     all_ae_cols() ~ "**Grade {by}**"
     ) %>%
@@ -62,8 +62,8 @@ table1
 Leverage the [flextable](https://ardata-fr.github.io/flextable-book/) package for word output.
 
 ```{r, eval=FALSE}
-table1 |>  
-  as_flex_table() |> 
+table1 %>%  
+  as_flex_table() %>% 
   flextable::save_as_docx(
     path = "misc/ae_table.docx"
     )
@@ -78,7 +78,7 @@ Leverage the [huxtable](https://hughjonesd.github.io/huxtable/) package for exce
 
 
 ```{r, eval=FALSE}
-table1 |>  
+table1 %>%  
  as_hux_xlsx(
    file = "misc/ae_table.xlsx"
    )
@@ -105,10 +105,10 @@ output: pdf_document
 <stuff>  
   
 ```{r}
-table1 |> 
+table1 %>% 
   as_kable_extra(
     booktabs = TRUE
-  ) |> 
+  ) %>% 
   kableExtra::kable_styling(
     latex_options = "striped",
     stripe_color = "gray!15"
