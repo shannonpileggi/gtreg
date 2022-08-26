@@ -7,8 +7,14 @@ MedDRA
 ORCID
 PHUSE
 SOCs
+YAML
 ae
+flextable
 gtsummary
+huxtable
+kableExtra
+knitr
 reflux
+rmarkdown
 tbl
 tibble
