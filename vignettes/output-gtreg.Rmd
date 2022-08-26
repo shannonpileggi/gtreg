@@ -65,7 +65,7 @@ Leverage the [flextable](https://ardata-fr.github.io/flextable-book/) package fo
 table1 |>  
   as_flex_table() |> 
   flextable::save_as_docx(
-    path = here::here("ae_table.docx")
+    path = "misc/ae_table.docx"
     )
 ```
 
@@ -80,7 +80,7 @@ Leverage the [huxtable](https://hughjonesd.github.io/huxtable/) package for exce
 ```{r, eval=FALSE}
 table1 |>  
  as_hux_xlsx(
-   file = here::here("ae_table.xlsx")
+   file = "misc/ae_table.xlsx"
    )
 ```
 
