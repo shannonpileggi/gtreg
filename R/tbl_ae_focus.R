@@ -90,80 +90,52 @@ tbl_ae_focus <- function(data,
   tbl_ae_focus_inputs <- as.list(environment())
 
   # obtain the complete data ---------------------------------------------------
-  data_complete <-
-    .complete_ae_data(data, id = id, ae = ae, soc = soc, by = NULL,
-                      strata = strata, id_df = id_df, by_values = NULL)
-
-  if (any(include %in% names(data_complete))) {
-    stringr::str_glue(
-      "'{intersect(include, names(data_complete))[1]}' is a protected name",
-      "and cannot be used in `include=`.") %>%
-      stop(call. = FALSE)
-  }
-
-  # merge in the `include=` variable to the complete data ----------------------
-  lst_rename <- purrr::compact(list(id = id, ae = ae, soc = soc))
-
-  data_complete <-
+  lst_data_complete <-
+    include %>%
     purrr::map(
-      include,
-      ~data %>%
-        select(!!!lst_rename, all_of(.x)) %>%
-        group_by(across(all_of(names(lst_rename)))) %>%
-        mutate(
-          across(all_of(.x),
-                 ~tidyr::replace_na(., FALSE) %>%
-                   max() %>%
-                   as.logical() %>%
-                   factor(levels = c(FALSE, TRUE), ordered = TRUE))
-        ) %>%
-        arrange(across(all_of(.x))) %>%
-        dplyr::slice_tail() %>%
-        ungroup()
+      ~.complete_ae_data(data, id = id, ae = ae, soc = soc, by = .x,
+                         strata = strata, id_df = id_df, by_values = NULL)
     ) %>%
-    purrr::reduce(
-      .f = ~dplyr::left_join(.x, .y, by = names(lst_rename)),
-      .init = data_complete
-    )  %>%
-    mutate(across(all_of(include), ~tidyr::replace_na(., "FALSE")))
+    stats::setNames(include)
 
 
   # tabulate SOC ---------------------------------------------------------------
   if (!is.null(soc)) {
     tbl_soc <-
-      purrr::map(
-        include,
+      lst_data_complete %>%
+      purrr::imap(
         ~.construct_summary_table(
-          data = data_complete %>% filter(.data$..soc..),
+          data = filter(.x, .data$..soc..),
           variable = "soc",
-          by = .x,
+          by = "by",
           digits = digits,
           statistic = statistic,
           sort = sort,
           zero_symbol = zero_symbol,
           missing_location = "first",
           columns_to_hide = c("NOT OBSERVED", "FALSE"),
-          header = glue::glue("**{label[[.x]] %||% attr(data[[.x]], 'label') %||% .x}**")
+          header = glue::glue("**{label[[.y]] %||% attr(data[[.y]], 'label') %||% .y}**")
         )
       ) %>%
       gtsummary::tbl_merge(tab_spanner = FALSE)
   }
 
+
   # tabulate AE ----------------------------------------------------------------
   tbl_ae <-
-    purrr::map(
-      include,
+    lst_data_complete %>%
+    purrr::imap(
       ~.construct_summary_table(
-        data = data_complete %>% filter(.data$..ae..),
+        data = filter(.x, .data$..ae..),
         variable = "ae",
-        by = .x,
+        by = "by",
         digits = digits,
         statistic = statistic,
         sort = sort,
         zero_symbol = zero_symbol,
         missing_location = "first",
         columns_to_hide = c("NOT OBSERVED", "FALSE"),
-        header = glue::glue("**{label[[.x]] %||% attr(data[[.x]], 'label') %||% .x}**")
+        header = glue::glue("**{label[[.y]] %||% attr(data[[.y]], 'label') %||% .y}**")
       )
     ) %>%
     gtsummary::tbl_merge(tab_spanner = FALSE)
@@ -171,13 +143,16 @@ tbl_ae_focus <- function(data,
   # combine the SOC and AE tbls ------------------------------------------------
   tbl_final <-
     .combine_soc_and_ae_tbls(
-      data = data_complete,
+      data = lst_data_complete[[1]],
       tbl_ae = tbl_ae,
-      tbl_soc = switch("soc" %in% names(data_complete), tbl_soc)
+      tbl_soc = switch(!is.null(soc), tbl_soc)
     )
 
   # update `modify_stat_*` columns in `tbl$table_styling$header` ---------------
-  tbl_final <- .update_modify_stat_columns(tbl = tbl_final, data = data_complete)
+  tbl_final <- .update_modify_stat_columns(tbl = tbl_final, data = lst_data_complete[[1]])
+
+  # re-order the columns to group strata together ------------------------------
+  tbl_final <- .group_strata_columns(tbl_final)
 
   # return final tbl -----------------------------------------------------------
   tbl_final %>%
@@ -194,4 +169,25 @@ tbl_ae_focus <- function(data,
     )
 }
 
+.group_strata_columns <- function(tbl) {
+  # if not strata, then skip this step
+  if (!"modify_selector_strata" %in% names(tbl$table_styling$header))
+    return(tbl)
+
+  # identify column names and group them by strata level
+  stat_columns_group_by_strata <-
+    tbl$table_styling$header %>%
+    select(all_of(c("column", "modify_selector_strata"))) %>%
+    filter(startsWith(.data$column, "stat_")) %>%
+    mutate(strata_order = factor(.data$modify_selector_strata, levels = unique(.data$modify_selector_strata))) %>%
+    dplyr::arrange(.data$strata_order) %>%
+    dplyr::pull(.data$column)
+
+  # return tbl with columns re-ordered
+  tbl %>%
+    gtsummary::modify_table_body(
+      ~ .x %>%
+        dplyr::relocate(all_of(stat_columns_group_by_strata), .after = .data$label)
+    )
+}
 
