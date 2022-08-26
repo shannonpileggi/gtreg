@@ -70,7 +70,7 @@ table1 |>
 ```
 
 
-![](man/figures/out_word.png)
+![](../man/figures/out_word.png)
 
 ## Excel
 
@@ -84,7 +84,7 @@ table1 |>
    )
 ```
 
-![](man/figures/out_excel.png)
+![](../man/figures/out_excel.png)
 
 
 ## PDF
@@ -118,5 +118,5 @@ table1 |>
 ````
 <img src="man/figures/out_pdf.png" />
 
-![](man/figures/out_pdf.png)
+![](../man/figures/out_pdf.png)
 
