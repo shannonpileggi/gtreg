@@ -182,9 +182,9 @@ test_that("tbl_ae() works", {
            by = "grade",
            zero_symbol = "."
     ) %>%
-      purrr::pluck("table_body") %>%
+      as_tibble(col_labels = FALSE, fmt_missing = FALSE) %>%
       dplyr::select(gtsummary::all_stat_cols()) %>%
-      dplyr::mutate(dplyr::across(dplyr::everything(), ~. == ".")),
+      dplyr::mutate(dplyr::across(dplyr::everything(), ~is.na(.))),
     tbl_ae(data = df1,
            id = "patient_id",
            ae = "adverse_event",
@@ -193,7 +193,7 @@ test_that("tbl_ae() works", {
            by = "grade",
            zero_symbol = NULL
     ) %>%
-      purrr::pluck("table_body") %>%
+      as_tibble(col_labels = FALSE, fmt_missing = TRUE) %>%
       dplyr::select(gtsummary::all_stat_cols()) %>%
       dplyr::mutate(dplyr::across(dplyr::everything(), ~ . == "0"))
   )
@@ -287,17 +287,17 @@ test_that("tbl_ae() works", {
   # expected table body
   f1_tibble_exp <- tibble::tribble(
     ~label, ~stat_1_1, ~stat_2_1, ~stat_3_1, ~stat_4_1, ~stat_5_1, ~stat_1_2, ~stat_2_2, ~stat_3_2, ~stat_4_2, ~stat_5_2,
-    "Blood and lymphatic system disorders",       "—",       "1",       "—",       "1",       "1",       "—",       "—",       "—",       "1",       "6",
-    "Anaemia",       "—",       "—",       "1",       "1",       "—",       "—",       "—",       "1",       "1",       "3",
-    "Increased tendency to bruise",       "—",       "—",       "—",       "1",       "—",       "—",       "—",       "—",       "3",       "2",
-    "Iron deficiency anaemia",       "—",       "—",       "—",       "1",       "1",       "1",       "2",       "—",       "1",       "1",
-    "Thrombocytopenia",       "—",       "1",       "—",       "1",       "—",       "—",       "—",       "3",       "—",       "4",
-    "Gastrointestinal disorders",       "—",       "—",       "—",       "2",       "1",       "—",       "—",       "—",       "2",       "5",
-    "Difficult digestion",       "—",       "—",       "—",       "3",       "—",       "1",       "—",       "—",       "—",       "1",
-    "Intestinal dilatation",       "1",       "—",       "—",       "—",       "—",       "1",       "1",       "—",       "—",       "1",
-    "Myochosis",       "—",       "2",       "1",       "—",       "—",       "—",       "1",       "—",       "1",       "3",
-    "Non-erosive reflux disease",       "3",       "—",       "—",       "—",       "—",       "1",       "—",       "—",       "3",       "3",
-    "Pancreatic enzyme abnormality",       "—",       "—",       "1",       "1",       "1",       "2",       "1",       "1",       "1",       "—"
+    "Blood and lymphatic system disorders",       NA,       "1",       NA,       "1",       "1",       NA,       NA,       NA,       "1",       "6",
+    "Anaemia",       NA,       NA,       "1",       "1",       NA,       NA,       NA,       "1",       "1",       "3",
+    "Increased tendency to bruise",       NA,       NA,       NA,       "1",       NA,       NA,       NA,       NA,       "3",       "2",
+    "Iron deficiency anaemia",       NA,       NA,       NA,       "1",       "1",       "1",       "2",       NA,       "1",       "1",
+    "Thrombocytopenia",       NA,       "1",       NA,       "1",       NA,       NA,       NA,       "3",       NA,       "4",
+    "Gastrointestinal disorders",       NA,       NA,       NA,       "2",       "1",       NA,       NA,       NA,       "2",       "5",
+    "Difficult digestion",       NA,       NA,       NA,       "3",       NA,       "1",       NA,       NA,       NA,       "1",
+    "Intestinal dilatation",       "1",       NA,       NA,       NA,       NA,       "1",       "1",       NA,       NA,       "1",
+    "Myochosis",       NA,       "2",       "1",       NA,       NA,       NA,       "1",       NA,       "1",       "3",
+    "Non-erosive reflux disease",       "3",       NA,       NA,       NA,       NA,       "1",       NA,       NA,       "3",       "3",
+    "Pancreatic enzyme abnormality",       NA,       NA,       "1",       "1",       "1",       "2",       "1",       "1",       "1",       NA
   )
 
   # expected table header
@@ -356,12 +356,13 @@ test_that("tbl_ae() works", {
   f2_tibble_exp <-
     tibble::tribble(
       ~label,                       ~stat_1_1, ~stat_2_1, ~stat_1_2, ~stat_2_2,
-      "Eye disorders",                    "—",       "2",       "—",       "—",
-      "Eye irritation",                   "—",       "1",       "—",       "—",
-      "Vision blurred",                   "—",       "2",       "—",       "—",
-      "Gastrointestinal disorders",       "—",       "—",       "1",       "—",
-      "Difficult digestion",              "—",       "—",       "1",       "—"
-    )
+      "Eye disorders",                    NA,       "2",       NA,       NA,
+      "Eye irritation",                   NA,       "1",       NA,       NA,
+      "Vision blurred",                   NA,       "2",       NA,       NA,
+      "Gastrointestinal disorders",       NA,       NA,       "1",       NA,
+      "Difficult digestion",              NA,       NA,       "1",       NA
+    ) %>%
+    dplyr::mutate_all(as.character)
 
   # assess header
   expect_equal(
@@ -373,6 +374,31 @@ test_that("tbl_ae() works", {
   expect_equal(
     as_tibble(f2, col_labels = FALSE),
     f2_tibble_exp
+  )
+
+  # stata with `\n ` does not break `tbl_ae()`
+  expect_equal(
+    df_adverse_events %>%
+      dplyr::mutate(
+        trt = stringr::str_replace(trt, "Drug", "Drug\n")
+      ) %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        by = grade,
+        strata = trt
+      ) %>%
+      as_tibble(),
+    df_adverse_events %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        soc = system_organ_class,
+        by = grade,
+        strata = trt
+      ) %>%
+      as_tibble()
   )
 
 })
