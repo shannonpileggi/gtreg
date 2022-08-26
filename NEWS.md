@@ -1,5 +1,7 @@
 # gtreg (development version)
 
+* Added vignette highlighting the options to export {gtreg} tables. (#108)
+
 * Allow for special characters, like "\n " to be followed by a space. (#174)
  
 * Updated structure of package to no longer use tbl_stack() internally, improving speed. (#126)
