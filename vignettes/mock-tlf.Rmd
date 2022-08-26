@@ -92,7 +92,8 @@ dat_reg %>%
   tbl_reg_summary(
     by = trt,
     statistic = list(
-      #marker = "xx (xx.x)",
+      #all_continuous2() ~ "xx (xx.x)",
+      #marker = c("xx (xx.x)","xx (xx.x)","xx (xx.x)","xx (xx.x)","xx (xx.x)"  ),
       status = "x (x.x%)"
       )
   ) %>%
