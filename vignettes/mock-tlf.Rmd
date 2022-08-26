@@ -76,7 +76,7 @@ dat_ae  %>%
 
 ```{r}
 dat_reg <-
-  df_patient_characteristics |> 
+  df_patient_characteristics %>% 
   select(trt, marker, status)
 ```
 
@@ -88,14 +88,14 @@ head(dat_reg)
 ## TLF
 
 ```{r, error=TRUE}
-dat_reg |> 
+dat_reg %>% 
   tbl_reg_summary(
     by = trt,
     statistic = list(
       #marker = "xx (xx.x)",
       status = "x (x.x%)"
       )
-  ) |> 
+  ) %>%
   bold_labels()
 ```
 
