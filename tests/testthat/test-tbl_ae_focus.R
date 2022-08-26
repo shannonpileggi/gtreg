@@ -54,7 +54,7 @@ test_that("tbl_ae_focus() works", {
     NA
   )
   expect_equal(
-    as_tibble(tbl2, col_labels = FALSE)$stat_2_1[1:2],
+    as_tibble(tbl2, col_labels = FALSE)$stat_1_1[1:2],
     c("7.0 (70.0)", "5.0 (50.0)")
   )
 
@@ -76,17 +76,6 @@ test_that("tbl_ae_focus() works", {
       ae = adverse_event,
       soc = system_organ_class
     )
-  )
-
-  expect_error(
-    df_adverse_events %>%
-      dplyr::rename(by = any_complication) %>%
-      tbl_ae_focus(
-        include = by,
-        id = patient_id,
-        ae = adverse_event,
-        soc = system_organ_class
-      )
   )
 
   expect_error(
@@ -151,7 +140,7 @@ test_that("tbl_ae_focus() works", {
     tibble::tribble(
       ~column,    ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,     ~spanning_header,
       "label",    FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                   NA,
-      "stat_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md",         "**N = 10**",
+      "stat_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md",         "**N = 10**",
       "stat_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md",         "**N = 10**"
     )
   )
@@ -172,9 +161,9 @@ test_that("tbl_ae_focus() works", {
     tibble::tribble(
       ~column,      ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,    ~spanning_header,
       "label",      FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                  NA,
-      "stat_2_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug A**, N = 3",
+      "stat_1_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug A**, N = 3",
       "stat_2_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_2_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug B**, N = 7",
+      "stat_1_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug B**, N = 7",
       "stat_2_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug B**, N = 7"
     )
   )
@@ -190,11 +179,11 @@ test_that("tbl_ae_focus() works", {
         include = c(any_complication, grade3_complication)
       ) %>%
       gtsummary::modify_table_body(
-        ~dplyr::filter(.x, startsWith(variable, "..soc.."))
+        ~dplyr::filter(.x, variable == "soc")
       ) %>%
       as_tibble(col_labels = FALSE),
     tibble::tribble(
-      ~label, ~stat_2_1, ~stat_2_2,
+      ~label, ~stat_1_1, ~stat_2_2,
       "Blood and lymphatic system disorders", "10 (10)", "9 (9.0)",
       "Gastrointestinal disorders", "10 (10)", "10 (10)"
     )
