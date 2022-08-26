@@ -3,7 +3,7 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   counting-methods: counting-methods.html
-last_built: 2022-08-23T00:51Z
+last_built: 2022-08-26T14:55Z
 urls:
   reference: https://shannonpileggi.github.io/gtreg/reference
   article: https://shannonpileggi.github.io/gtreg/articles
