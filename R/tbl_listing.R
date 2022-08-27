@@ -77,9 +77,15 @@
 tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
   # process inputs -------------------------------------------------------------
   stopifnot(is.data.frame(data))
-  data <-
-    dplyr::ungroup(data) %>%
-    dplyr::mutate(row_type = "level", .before = 1L)
+  if (!"row_type" %in% names(data)) {
+    data <-
+      dplyr::ungroup(data) %>%
+      dplyr::mutate(row_type = "level", .before = 1L)
+  }
+  else {
+    data <- dplyr::ungroup(data)
+  }
+
 
   group_by <-
     broom.helpers::.select_to_varnames(

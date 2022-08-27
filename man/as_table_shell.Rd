@@ -8,6 +8,7 @@ as_table_shell(
   x,
   columns = c(gtsummary::all_stat_cols(), dplyr::any_of(c("p.value", "q.value",
     "estimate", "ci", "conf.low", "conf.high", "statistic"))),
+  pattern = "[[:digit:]]+",
   replacement = "x",
   replace_headers = FALSE,
   replace_spanning_headers = TRUE

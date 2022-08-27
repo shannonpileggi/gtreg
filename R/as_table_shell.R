@@ -30,7 +30,8 @@ as_table_shell <- function(x,
                            columns = c(gtsummary::all_stat_cols(),
                                        dplyr::any_of(c("p.value", "q.value", "estimate",
                                                        "ci", "conf.low", "conf.high", "statistic"))),
-                           replacement = "x",
+                           pattern = "[[:digit:]]+",
+                           replacement = "xx",
                            replace_headers = FALSE,
                            replace_spanning_headers = TRUE) {
   if (!inherits(x, "gtsummary")) {
@@ -44,7 +45,7 @@ as_table_shell <- function(x,
     gtsummary::modify_column_unhide(everything()) %>%
     as_tibble(col_labels = FALSE, fmt_missing = FALSE) %>%
     dplyr::mutate(
-      dplyr::across({{ columns }}, ~gsub('[[:digit:]]', replacement, x = .))
+      dplyr::across({{ columns }}, ~gsub(pattern, replacement, x = .))
     ) %>%
     tbl_listing()
 
@@ -58,7 +59,7 @@ as_table_shell <- function(x,
     to_tibble_and_back_again$table_styling$header <-
       to_tibble_and_back_again$table_styling$header %>%
       dplyr::mutate(
-        dplyr::across(dplyr::any_of("label"), ~gsub('[[:digit:]]', replacement, x = .))
+        dplyr::across(dplyr::any_of("label"), ~gsub(pattern, replacement, x = .))
       )
   }
 
@@ -67,7 +68,7 @@ as_table_shell <- function(x,
     to_tibble_and_back_again$table_styling$header <-
       to_tibble_and_back_again$table_styling$header %>%
       dplyr::mutate(
-        dplyr::across(dplyr::any_of("spanning_header"), ~gsub('[[:digit:]]', replacement, x = .))
+        dplyr::across(dplyr::any_of("spanning_header"), ~gsub(pattern, replacement, x = .))
       )
   }
 
