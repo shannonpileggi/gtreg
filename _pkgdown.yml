@@ -39,6 +39,7 @@ reference:
 
   - title: Utility Functions
   - contents:
+      - as_table_shell
       - starts_with("\\.")
 
   - title: Data
