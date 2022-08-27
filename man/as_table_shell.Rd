@@ -9,7 +9,7 @@ as_table_shell(
   columns = c(gtsummary::all_stat_cols(), dplyr::any_of(c("p.value", "q.value",
     "estimate", "ci", "conf.low", "conf.high", "statistic"))),
   pattern = "[[:digit:]]+",
-  replacement = "x",
+  replacement = "xx",
   replace_headers = FALSE,
   replace_spanning_headers = TRUE
 )
@@ -18,6 +18,8 @@ as_table_shell(
 \item{x}{a 'gtsummary' object}
 
 \item{columns}{columns to replace digits with placeholder}
+
+\item{pattern}{regex pattern of text to replace. Default is \code{"[[:digit:]]+"}}
 
 \item{replacement}{string placeholder. Default is \code{"x"}}
 

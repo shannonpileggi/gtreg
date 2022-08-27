@@ -5,6 +5,7 @@
 #'
 #' @param x a 'gtsummary' object
 #' @param columns columns to replace digits with placeholder
+#' @param pattern regex pattern of text to replace. Default is `"[[:digit:]]+"`
 #' @param replacement string placeholder. Default is `"x"`
 #' @param replace_headers logical indicating whether to replace digits in column headers.
 #' Default is FALSE
