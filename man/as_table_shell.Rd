@@ -10,7 +10,7 @@ as_table_shell(
     "estimate", "ci", "conf.low", "conf.high", "statistic"))),
   pattern = "[[:digit:]]+",
   replacement = "xx",
-  replace_headers = FALSE,
+  replace_headers = NULL,
   replace_spanning_headers = TRUE
 )
 }
@@ -24,7 +24,7 @@ as_table_shell(
 \item{replacement}{string placeholder. Default is \code{"x"}}
 
 \item{replace_headers}{logical indicating whether to replace digits in column headers.
-Default is FALSE}
+Default is FALSE for AE tables and TRUE for all other tables.}
 
 \item{replace_spanning_headers}{logical indicating whether to replace digits
 in column spanning headers. Default is TRUE}
