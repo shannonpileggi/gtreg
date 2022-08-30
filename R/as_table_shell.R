@@ -5,7 +5,7 @@
 #'
 #' @param x a 'gtsummary' object
 #' @param columns columns to replace digits with placeholder
-#' @param pattern regex pattern of text to replace. Default is `"[[:digit:]]+"`
+#' @param pattern regex pattern of text to replace. Default is `"[[:digit:]]"`
 #' @param replacement string placeholder. Default is `"x"`
 #' @param replace_headers logical indicating whether to replace digits in column headers.
 #' Default is FALSE for AE tables and TRUE for all other tables.
@@ -31,8 +31,8 @@ as_table_shell <- function(x,
                            columns = c(gtsummary::all_stat_cols(),
                                        dplyr::any_of(c("p.value", "q.value", "estimate",
                                                        "ci", "conf.low", "conf.high", "statistic"))),
-                           pattern = "[[:digit:]]+",
-                           replacement = "xx",
+                           pattern = "[[:digit:]]",
+                           replacement = "x",
                            replace_headers = NULL,
                            replace_spanning_headers = TRUE) {
   # check inputs ---------------------------------------------------------------
