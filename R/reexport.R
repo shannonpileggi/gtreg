@@ -74,6 +74,10 @@ gtsummary::as_flex_table
 #' @export
 gtsummary::as_hux_table
 
+#' @importFrom gtsummary as_hux_xlsx
+#' @export
+gtsummary::as_hux_xlsx
+
 #' @importFrom gtsummary as_kable
 #' @export
 gtsummary::as_kable
@@ -145,4 +149,17 @@ gtsummary::style_sigfig
 #' @importFrom gtsummary style_percent
 #' @export
 gtsummary::style_percent
+
+#' @importFrom gtsummary all_continuous
+#' @export
+gtsummary::all_continuous
+
+#' @importFrom gtsummary all_continuous2
+#' @export
+gtsummary::all_continuous2
+
+#' @importFrom gtsummary all_categorical
+#' @export
+gtsummary::all_categorical
+
 
