@@ -34,92 +34,92 @@ the `style_xxx()` function in the `digits` argument.
 # `tbl_ae()` 
 
 
-## `tbl_ae()` uniform
+## `tbl_ae()` uniform `xx`
 
 Here, we specify the `digits` argument to uniformly apply to all summary
 statistics in the table; in this case this is both `n` and `%`.
 
 ```{r}
-dat_ae %>% 
- tbl_ae(
-        id = id,
-        ae = ae,
-        soc = soc,
-        by = grade,
-        digits = purrr::partial(style_xxx, width = 2)
-      ) %>%
-      modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
-      modify_spanning_header(all_ae_cols() ~ "**N = xx**")
+df_adverse_events %>% 
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    soc = system_organ_class,
+    by = grade,
+    digits = purrr::partial(style_xxx, width = 2)
+    ) %>%
+    modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
+    modify_spanning_header(all_ae_cols() ~ "**N = xx**")
 ```
 
-# `tbl_ae()` custom
+# `tbl_ae()` custom `xx`
 
 If you want custom formatting that differ between `n` and `%`, specify
 the `digits` argument with a `list`.
 
 ```{r}
-dat_ae %>% 
- tbl_ae(
-        id = id,
-        ae = ae,
-        soc = soc,
-        by = grade,
-        digits =
-          list(
-            purrr::partial(style_xxx, width = 2), #  n
-            purrr::partial(style_xxx, width = 4, digits = 1) # %
-            )
-      ) %>%
-      modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
-      modify_spanning_header(all_ae_cols() ~ "**N = xx**")
+df_adverse_events %>% 
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    soc = system_organ_class,
+    by = grade,
+    digits = list(
+      purrr::partial(style_xxx, width = 2), #  n
+      purrr::partial(style_xxx, width = 4, digits = 1) # %
+    )) %>%
+    modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
+    modify_spanning_header(all_ae_cols() ~ "**N = xx**")
 ```
 
 
 # `tbl_reg_summary()` 
 
 
-## `tbl_reg_summary()` uniform
+## `tbl_reg_summary()` uniform `xx`
 
 Here, we specify the `digits` argument to uniformly apply to all summary
-statistics in the table; in this case this is both `n` and `%`.
+statistics in the table. 
 
 ```{r}
 df_patient_characteristics %>%
-      select(marker, trt) %>%
-      tbl_reg_summary(
-        digits =
-          list(
-            all_continuous2() ~ purrr::partial(style_xxx, width = 2),
-            all_categorical() ~ purrr::partial(style_xxx, width = 2)
-          )
-      ) %>%
-      modify_header(stat_0 ~ "**N = xx**")
+  select(marker, trt) %>%
+    tbl_reg_summary(
+      digits = list(
+        all_continuous2() ~ purrr::partial(style_xxx, width = 2),
+        all_categorical() ~ purrr::partial(style_xxx, width = 2)
+    )) %>%
+    modify_header(stat_0 ~ "**N = xx**")
 ```
 
-# `tbl_reg_summary()` custom
+# `tbl_reg_summary()` custom `xx`
 
-If you want custom formatting that differ between `n` and `%`, specify
-the `digits` argument with a `list`.
+If you want custom formatting that differs between statistics, specify
+the `digits` argument with a `list`. Categorical variables have two statistics 
+to specify (`n` and `%`); the multiline continuous variables have nine statistics
+to specify.
+
 
 ```{r}
 df_patient_characteristics %>%
-      select(marker, trt) %>%
-      tbl_reg_summary(
-        digits =
-          list(
-            all_categorical() ~ list(
-              purrr::partial(style_xxx, width = 2),             # n 
-              purrr::partial(style_xxx, width = 4, digits = 1)  # %
-              ),    
-            all_continuous2() ~ list(
-              purrr::partial(style_xxx, width = 2),             # N
-              purrr::partial(style_xxx, width = 4, digits = 1), # Mean
-              purrr::partial(style_xxx, width = 4, digits = 1), # SD
-              purrr::partial(style_xxx, width = 2),             # Median
-              purrr::partial(style_xxx, width = 2),             # IQR
-              purrr::partial(style_xxx, width = 2),             # Range
-              purrr::partial(style_xxx, width = 2)              # N missing
-          ))) %>%
-      modify_header(stat_0 ~ "**N = xx**")
+  select(marker, trt) %>%
+    tbl_reg_summary(
+      digits = list(
+        all_categorical() ~ list(
+          purrr::partial(style_xxx, width = 2),             # n 
+          purrr::partial(style_xxx, width = 4, digits = 1)  # %
+          ),    
+        all_continuous2() ~ list(
+          purrr::partial(style_xxx, width = 2),             # N
+          purrr::partial(style_xxx, width = 4, digits = 1), # Mean
+          purrr::partial(style_xxx, width = 4, digits = 1), # SD
+          purrr::partial(style_xxx, width = 2),             # Median
+          purrr::partial(style_xxx, width = 2),             # IQR lower
+          purrr::partial(style_xxx, width = 2),             # IQR upper
+          purrr::partial(style_xxx, width = 2),             # Range lower
+          purrr::partial(style_xxx, width = 2),             # Range upper
+          purrr::partial(style_xxx, width = 2)              # N missing
+    ))) %>%
+    modify_header(stat_0 ~ "**N = xx**")
 ```
 
