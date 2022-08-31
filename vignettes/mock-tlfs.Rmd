@@ -37,11 +37,21 @@ Here, we specify the `digits` argument to uniformly apply to all summary
 statistics in the table; in this case this is both `n` and `%`.
 
 ```{r}
-df_adverse_events %>% 
+dat_ae <- tidyr::expand_grid(
+  id = 1:3,
+  soc = "SOC 1",
+  ae = "ae 1",
+  grade = 1:5
+)
+```
+
+
+```{r}
+dat_ae %>% 
   tbl_ae(
-    id = patient_id,
-    ae = adverse_event,
-    soc = system_organ_class,
+    id = id,
+    ae = ae,
+    soc = soc,
     by = grade,
     digits = purrr::partial(style_xxx, width = 2)
     ) %>%
