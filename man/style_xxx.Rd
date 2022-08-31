@@ -23,7 +23,8 @@ Style numbers as x's
 
 The purpose of \code{style_xxx()} is to convert numeric values in
 summary tables to x's of consistent length for mock tables.
-See the vignette for detailed examples.
+See the \href{https://shannonpileggi.github.io/gtreg/articles/mock-tlfs.html}{Mock TLFs vignette}
+for detailed examples.
 }
 
 \examples{
