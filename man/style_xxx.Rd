@@ -2,7 +2,11 @@
 % Please edit documentation in R/style_xxx.R
 \name{style_xxx}
 \alias{style_xxx}
-\title{Style numbers as x's}
+\title{Style numbers as x's
+The purpose of \code{style_xxx()} is to convert numeric values in
+summary tables to x's of consistent length for mock tables.
+See the \href{https://shannonpileggi.github.io/gtreg/articles/mock-tlfs.html}{Mock TLFs vignette}
+for detailed examples.}
 \usage{
 style_xxx(x, width = digits + 2, digits = 0)
 }
@@ -18,15 +22,11 @@ a character vector
 }
 \description{
 Style numbers as x's
-}
-\section{Details}{
-
 The purpose of \code{style_xxx()} is to convert numeric values in
 summary tables to x's of consistent length for mock tables.
 See the \href{https://shannonpileggi.github.io/gtreg/articles/mock-tlfs.html}{Mock TLFs vignette}
 for detailed examples.
 }
-
 \examples{
 style_xxx(7:10, digits = 0)
 style_xxx(7:10, digits = 1)
