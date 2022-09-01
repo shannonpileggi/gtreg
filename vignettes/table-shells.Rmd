@@ -1,8 +1,8 @@
 ---
-title: "Mock TLFs"
+title: "Table shells"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Mock TLFs}
+  %\VignetteIndexEntry{Table shells}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
