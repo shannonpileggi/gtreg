@@ -4,7 +4,7 @@
 \alias{style_xxx}
 \title{Style numbers as x's}
 \usage{
-style_xxx(x, width, digits = 0)
+style_xxx(x, width = digits + 2, digits = 0)
 }
 \arguments{
 \item{x}{a numeric or character vector}
@@ -28,6 +28,8 @@ for detailed examples.
 }
 
 \examples{
+style_xxx(7:10, digits = 0)
+style_xxx(7:10, digits = 1)
 style_xxx(7:10, width = 2, digits = 0)
 style_xxx(7:10, width = 5, digits = 2)
 

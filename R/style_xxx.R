@@ -14,10 +14,12 @@
 #' @export
 #'
 #' @examples
+#' style_xxx(7:10, digits = 0)
+#' style_xxx(7:10, digits = 1)
 #' style_xxx(7:10, width = 2, digits = 0)
 #' style_xxx(7:10, width = 5, digits = 2)
 #'
-style_xxx <- function(x, width, digits = 0) {
+style_xxx <- function(x, width = digits + 2, digits = 0) {
   after_decimal <-
     paste(rep_len("x", digits), collapse = "") %>% rep_len(length(x))
 
