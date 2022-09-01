@@ -90,8 +90,7 @@ df_patient_characteristics %>%
   select(marker, trt) %>%
     tbl_reg_summary(
       digits = list(
-        all_continuous2() ~ purrr::partial(style_xxx, width = 2),
-        all_categorical() ~ purrr::partial(style_xxx, width = 2)
+        everything() ~ purrr::partial(style_xxx, width = 2)
     )) %>%
     modify_header(stat_0 ~ "**N = xx**")
 ```
@@ -113,7 +112,7 @@ df_patient_characteristics %>%
           purrr::partial(style_xxx, width = 2),             # n 
           purrr::partial(style_xxx, width = 4, digits = 1)  # %
           ),    
-        all_continuous2() ~ list(
+        all_continuous() ~ list(
           purrr::partial(style_xxx, width = 2),             # N
           purrr::partial(style_xxx, width = 4, digits = 1), # Mean
           purrr::partial(style_xxx, width = 4, digits = 1), # SD
