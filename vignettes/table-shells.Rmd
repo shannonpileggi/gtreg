@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 
 ```{r setup, warning=FALSE, message=FALSE}
 library(gtreg)
-library(tidyverse)
 ```
 
 # Overview
@@ -40,7 +39,7 @@ See more details about the `digits` argument in `?tbl_ae`. Note that
 ```{r}
 df_patient_characteristics %>%
   select(marker) %>%
-  gtsummary::tbl_summary(
+  tbl_reg_summary(
     # shortcut specification
     digits = everything() ~ 1
     # full specification
