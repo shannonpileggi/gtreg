@@ -162,4 +162,7 @@ gtsummary::all_continuous2
 #' @export
 gtsummary::all_categorical
 
+#' @importFrom gtsummary all_stat_cols
+#' @export
+gtsummary::all_stat_cols
 
