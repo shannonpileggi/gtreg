@@ -185,17 +185,12 @@ test_that("tbl_ae() works", {
       as_tibble(col_labels = FALSE, fmt_missing = FALSE) %>%
       dplyr::select(gtsummary::all_stat_cols()) %>%
       dplyr::mutate(dplyr::across(dplyr::everything(), ~is.na(.))),
-    tbl_ae(data = df1,
-           id = "patient_id",
-           ae = "adverse_event",
-           soc = "system_organ_class",
-           statistic = "{n}",
-           by = "grade",
-           zero_symbol = NULL
-    ) %>%
-      as_tibble(col_labels = FALSE, fmt_missing = TRUE) %>%
-      dplyr::select(gtsummary::all_stat_cols()) %>%
-      dplyr::mutate(dplyr::across(dplyr::everything(), ~ . == "0"))
+     tibble::tribble(
+        ~stat_1, ~stat_2,
+          FALSE,   FALSE,
+          FALSE,    TRUE,
+           TRUE,   FALSE
+        )
   )
 
   # default statistic, default zero_symbol
@@ -268,7 +263,7 @@ test_that("tbl_ae() works", {
   )
   expect_equal(
     as_tibble(tbl, col_labels = FALSE)$stat_1,
-    c("2.0 / 3.0 (66.67%)", "2.0 / 3.0 (66.67%)", "0.0 / 3.0 (0.00%)")
+    c("2.0 / 3.0 (66.67%)", "2.0 / 3.0 (66.67%)", NA)
   )
 
   # assess all inputs as a factor ----------------------------------------------
