@@ -44,7 +44,7 @@ tbl_ae_focus <- function(data,
                          statistic = "{n} ({p})",
                          digits = NULL,
                          sort = NULL,
-                         zero_symbol = "\U2014") {
+                         zero_symbol = NULL) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -52,6 +52,10 @@ tbl_ae_focus <- function(data,
   if (!is.null(sort)) {
     sort <- match.arg(sort, choices = c("ae", "soc"), several.ok = TRUE)
   }
+
+  # set default symbol em-dash if not provided ---------------------------------
+  symbol <- symbol %||% "\U2014"
+
 
   id <-
     .select_to_varnames({{ id }}, data = data,

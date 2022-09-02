@@ -16,7 +16,7 @@ tbl_ae_focus(
   statistic = "{n} ({p})",
   digits = NULL,
   sort = NULL,
-  zero_symbol = "<U+2014>"
+  zero_symbol = NULL
 )
 }
 \arguments{
