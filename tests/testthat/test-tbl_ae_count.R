@@ -71,14 +71,7 @@ test_that("tbl_ae_count() works", {
       c() %>%
       unname() %>%
       unlist(),
-    df_adverse_events %>%
-      dplyr::mutate(grade = factor(grade, levels = 1:5)) %>%
-      dplyr::filter(adverse_event %in% "Anaemia") %>%
-      with(table(trt, grade)) %>%
-      t() %>%
-      matrix(nrow = 1) %>%
-      c() %>%
-      as.character()
+    c("0", "0", "1", "1", "0", "1", "0", "2", "2", "3")
   )
 
   expect_error(

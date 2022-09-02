@@ -32,6 +32,23 @@
 #' \if{html}{Example 1}
 #'
 #' \if{html}{\figure{tbl_ae_focus_ex1.png}{options: width=75\%}}
+#'
+#' @usage
+#' tbl_ae_focus(
+#'   data,
+#'   include,
+#'   id,
+#'   ae,
+#'   soc = NULL,
+#'   strata = NULL,
+#'   label = NULL,
+#'   id_df = NULL,
+#'   statistic = "{n} ({p})",
+#'   digits = NULL,
+#'   sort = NULL,
+#'   zero_symbol = "\U2014"
+#' )
+
 
 tbl_ae_focus <- function(data,
                          include,

@@ -29,6 +29,20 @@
 #'
 #' \if{html}{\figure{tbl_ae_count_ex1.png}{options: width=90\%}}
 #'
+#' @usage
+#' tbl_ae_count(
+#'   data,
+#'   ae,
+#'   soc = NULL,
+#'   by = NULL,
+#'   strata = NULL,
+#'   by_values = NULL,
+#'   digits = NULL,
+#'   sort = NULL,
+#'   zero_symbol = "\U2014",
+#'   missing_location = c("first", "last", "hide")
+#' )
+
 tbl_ae_count <- function(data,
                          ae,
                          soc = NULL,

@@ -16,7 +16,7 @@ tbl_ae(
   by_values = NULL,
   digits = NULL,
   sort = NULL,
-  zero_symbol = "—",
+  zero_symbol = "\U2014",
   missing_location = c("first", "last", "hide")
 )
 }

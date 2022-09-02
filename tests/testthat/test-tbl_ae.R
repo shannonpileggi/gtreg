@@ -185,17 +185,12 @@ test_that("tbl_ae() works", {
       as_tibble(col_labels = FALSE, fmt_missing = FALSE) %>%
       dplyr::select(gtsummary::all_stat_cols()) %>%
       dplyr::mutate(dplyr::across(dplyr::everything(), ~is.na(.))),
-    tbl_ae(data = df1,
-           id = "patient_id",
-           ae = "adverse_event",
-           soc = "system_organ_class",
-           statistic = "{n}",
-           by = "grade",
-           zero_symbol = NULL
-    ) %>%
-      as_tibble(col_labels = FALSE, fmt_missing = TRUE) %>%
-      dplyr::select(gtsummary::all_stat_cols()) %>%
-      dplyr::mutate(dplyr::across(dplyr::everything(), ~ . == "0"))
+     tibble::tribble(
+        ~stat_1, ~stat_2,
+          FALSE,   FALSE,
+          FALSE,    TRUE,
+           TRUE,   FALSE
+        )
   )
 
   # default statistic, default zero_symbol

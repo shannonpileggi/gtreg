@@ -40,6 +40,7 @@ reference:
   - title: Utility Functions
   - contents:
       - starts_with("\\.")
+      - style_xxx
 
   - title: Data
   - contents:

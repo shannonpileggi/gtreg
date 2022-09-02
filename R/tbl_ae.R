@@ -82,6 +82,23 @@
 #' \if{html}{Example 2}
 #'
 #' \if{html}{\figure{tbl_ae_ex2.png}{options: width=65\%}}
+#'
+#' @usage
+#' tbl_ae(
+#'   data,
+#'   id,
+#'   ae,
+#'   soc = NULL,
+#'   by = NULL,
+#'   strata = NULL,
+#'   id_df = NULL,
+#'   statistic = "{n} ({p})",
+#'   by_values = NULL,
+#'   digits = NULL,
+#'   sort = NULL,
+#'   zero_symbol = "\U2014",
+#'   missing_location = c("first", "last", "hide")
+#' )
 
 tbl_ae <- function(data,
                    id,
