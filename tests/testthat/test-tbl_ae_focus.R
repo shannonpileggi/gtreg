@@ -105,7 +105,7 @@ test_that("tbl_ae_focus() works", {
 
   expect_equal(
     tbl %>% dplyr::pull(2),
-    c("1 (1.0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)", "0 (0)")
+    c("1 (1.0)", NA, NA, NA, NA, NA, NA, NA, NA)
   )
   expect_equal(
     names(tbl),
