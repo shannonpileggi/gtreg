@@ -71,7 +71,7 @@ test_that("tbl_ae_count() works", {
       c() %>%
       unname() %>%
       unlist(),
-    c(NA, NA, "1", "1", NA, "1", NA, "2", "2", "3")
+    c("0", "0", "1", "1", "0", "1", "0", "2", "2", "3")
   )
 
   expect_error(
