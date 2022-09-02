@@ -53,8 +53,8 @@ tbl_ae_focus <- function(data,
     sort <- match.arg(sort, choices = c("ae", "soc"), several.ok = TRUE)
   }
 
-  # set default symbol em-dash if not provided ---------------------------------
-  symbol <- symbol %||% "\U2014"
+  # set default zero symbol em-dash if not provided ---------------------------------
+  zero_symbol <- zero_symbol %||% "\U2014"
 
 
   id <-

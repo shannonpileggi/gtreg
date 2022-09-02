@@ -48,8 +48,8 @@ tbl_ae_count <- function(data,
   }
   missing_location <- match.arg(missing_location)
 
-  # set default symbol em-dash if not provided ---------------------------------
-  symbol <- symbol %||% "\U2014"
+  # set default zero symbol em-dash if not provided ---------------------------------
+  zero_symbol <- zero_symbol %||% "\U2014"
 
   ae <-
     .select_to_varnames({{ ae }}, data = data,
