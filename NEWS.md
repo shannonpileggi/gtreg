@@ -1,5 +1,11 @@
 # gtreg (development version)
 
+* Added new Table Shells article outlining how to create shells with the {gtreg} package. (#85)
+
+* Added function `style_xxx()` to assist in creating table shells.
+
+* Re-exporting additional functions from {gtsummary}. (#172)
+
 * Added vignette highlighting the options to export {gtreg} tables. (#108)
 
 * Allow for special characters, like "\n " to be followed by a space. (#174)
