@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">gtreg</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.1.9000</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.1.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +24,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/table-shells.html">Table shells</a>
     <a class="dropdown-item" href="../articles/counting-methods.html">Adverse Event Counting Methods</a>
     <a class="dropdown-item" href="../articles/output-gtreg.html">Output types</a>
   </div>
@@ -53,7 +54,10 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="gtreg-development-version">gtreg (development version)<a class="anchor" aria-label="anchor" href="#gtreg-development-version"></a></h2>
-<ul><li><p>Added vignette highlighting the options to export {gtreg} tables. (<a href="https://github.com/shannonpileggi/gtreg/issues/108" class="external-link">#108</a>)</p></li>
+<ul><li><p>Added new Table Shells article outlining how to create shells with the {gtreg} package. (<a href="https://github.com/shannonpileggi/gtreg/issues/85" class="external-link">#85</a>)</p></li>
+<li><p>Added function <code><a href="../reference/style_xxx.html">style_xxx()</a></code> to assist in creating table shells.</p></li>
+<li><p>Re-exporting additional functions from {gtsummary}. (<a href="https://github.com/shannonpileggi/gtreg/issues/172" class="external-link">#172</a>)</p></li>
+<li><p>Added vignette highlighting the options to export {gtreg} tables. (<a href="https://github.com/shannonpileggi/gtreg/issues/108" class="external-link">#108</a>)</p></li>
 <li><p>Allow for special characters, like “” to be followed by a space. (<a href="https://github.com/shannonpileggi/gtreg/issues/174" class="external-link">#174</a>)</p></li>
 <li><p>Updated structure of package to no longer use tbl_stack() internally, improving speed. (<a href="https://github.com/shannonpileggi/gtreg/issues/126" class="external-link">#126</a>)</p></li>
 </ul></div>

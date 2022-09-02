@@ -2,9 +2,10 @@ pandoc: 2.14.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
+  table-shells: table-shells.html
   counting-methods: counting-methods.html
   output-gtreg: output-gtreg.html
-last_built: 2022-08-26T15:25Z
+last_built: 2022-09-02T21:40Z
 urls:
   reference: https://shannonpileggi.github.io/gtreg/reference
   article: https://shannonpileggi.github.io/gtreg/articles
