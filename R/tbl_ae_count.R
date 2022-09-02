@@ -29,6 +29,20 @@
 #'
 #' \if{html}{\figure{tbl_ae_count_ex1.png}{options: width=90\%}}
 #'
+#' @usage
+#' tbl_ae_count(
+#'   data,
+#'   ae,
+#'   soc = NULL,
+#'   by = NULL,
+#'   strata = NULL,
+#'   by_values = NULL,
+#'   digits = NULL,
+#'   sort = NULL,
+#'   zero_symbol = "\U2014",
+#'   missing_location = c("first", "last", "hide")
+#' )
+
 tbl_ae_count <- function(data,
                          ae,
                          soc = NULL,
@@ -37,7 +51,7 @@ tbl_ae_count <- function(data,
                          by_values = NULL,
                          digits = NULL,
                          sort = NULL,
-                         zero_symbol = NULL,
+                         zero_symbol = "\U2014",
                          missing_location = c("first", "last", "hide")) {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
@@ -47,9 +61,6 @@ tbl_ae_count <- function(data,
     sort <- match.arg(sort, choices = c("ae", "soc"), several.ok = TRUE)
   }
   missing_location <- match.arg(missing_location)
-
-  # set default zero symbol em-dash if not provided ---------------------------------
-  zero_symbol <- zero_symbol %||% "\U2014"
 
   ae <-
     .select_to_varnames({{ ae }}, data = data,

@@ -32,6 +32,23 @@
 #' \if{html}{Example 1}
 #'
 #' \if{html}{\figure{tbl_ae_focus_ex1.png}{options: width=75\%}}
+#'
+#' @usage
+#' tbl_ae_focus(
+#'   data,
+#'   include,
+#'   id,
+#'   ae,
+#'   soc = NULL,
+#'   strata = NULL,
+#'   label = NULL,
+#'   id_df = NULL,
+#'   statistic = "{n} ({p})",
+#'   digits = NULL,
+#'   sort = NULL,
+#'   zero_symbol = "\U2014"
+#' )
+
 
 tbl_ae_focus <- function(data,
                          include,
@@ -44,7 +61,7 @@ tbl_ae_focus <- function(data,
                          statistic = "{n} ({p})",
                          digits = NULL,
                          sort = NULL,
-                         zero_symbol = NULL) {
+                         zero_symbol = "\U2014") {
   # evaluate bare selectors/check inputs ---------------------------------------
   if(!inherits(data, "data.frame")) {
     stop("`data=` argument must be a tibble or data frame.", call. = FALSE)
@@ -52,10 +69,6 @@ tbl_ae_focus <- function(data,
   if (!is.null(sort)) {
     sort <- match.arg(sort, choices = c("ae", "soc"), several.ok = TRUE)
   }
-
-  # set default zero symbol em-dash if not provided ---------------------------------
-  zero_symbol <- zero_symbol %||% "\U2014"
-
 
   id <-
     .select_to_varnames({{ id }}, data = data,
