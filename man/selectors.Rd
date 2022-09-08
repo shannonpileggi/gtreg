@@ -29,6 +29,7 @@ Default is FALSE}
 selected columns
 }
 \description{
+See the Table modifications article for examples.
 \itemize{
 \item \code{all_ae_cols(overall, unknown)} selects all columns summarizing AE statistics. By default, unknown and overall columns are not selected.
 \item \code{all_cols_in_strata(strata)} selects all columns from specified stratum.
