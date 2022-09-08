@@ -1,0 +1,172 @@
+---
+title: "Table modificatons: headers, footnotes, and captions"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, warning=FALSE, message=FALSE}
+library(gtreg)
+library(dplyr)
+gtsummary::theme_gtsummary_compact()
+```
+
+
+# Overview
+
+For `tbl_ae()`, `tbl_ae_focus()`, and `tbl_ae_count()`, the `modify_header()` and
+`modify_spanning_header()` functions work with the {gtreg} column selectors
+`all_ae_cols()`, `all_overall_cols()`, `all_unknown_cols()`, and `all_cols_in_strata()`
+to specify formatting of table headers.
+
+For `tbl_reg_summary()`, the `modify_header()` and
+`modify_spanning_header()` functions work with the {gtsummary} column selectors
+like `all_stat_cols()` to specify formatting of table headers.
+
+For all tables, `modify_footnote()` and `modify_caption()` additionally 
+specify footnotes and captions.
+
+For all `modify_` functions, formatting is applied via markdown 
+and glue syntax can be used to insert summary statistics. In addition, a return
+carriage inserts a line break when preceded by four spaces: `    \n`.
+
+Use `show_header_names()` to display a usage guide for
+modifying headers.
+
+# tbl_ae() modifications, without strata
+
+
+
+```{r}
+tbl1 <- df_adverse_events %>%
+  # create a missing value to demonstrate unknown columns
+  mutate(grade = ifelse(dplyr::row_number() == 1L, NA, grade)) %>%
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    soc = system_organ_class,
+    by = grade
+  ) %>%
+  add_overall(across = 'by') |> 
+  bold_labels()
+```
+
+## Unmodified table
+
+```{r}
+tbl1
+# show_header_names(tbl1)
+```
+
+
+## Modified table
+
+```{r}
+tbl1 %>%
+  modify_header(
+    label ~ "**Event**",
+    all_ae_cols() ~ "**Grade {by}**",
+    all_overall_cols() ~ "**Total**",
+    all_unknown_cols() ~ "**Unknown Grade**"
+  ) %>%
+  modify_spanning_header(
+    # use TRUE, TRUE to span across overall and unknown columns,
+    # in addition to ae columns
+    all_ae_cols(TRUE, TRUE) ~ "**All cohorts**, N = {N}"
+  ) 
+```
+
+
+
+# tbl_ae() modifications, with strata
+
+
+```{r}
+tbl2 <-
+  df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      soc = system_organ_class,
+      ae = adverse_event,
+      strata = trt,
+      by = grade
+    ) %>%
+  bold_labels()
+```
+
+
+## Unmodified table
+
+```{r}
+tbl2
+# show_header_names(tbl2)
+```
+
+
+## Modified tables
+
+```{r}
+tbl2 |> 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
+  modify_spanning_header(all_ae_cols() ~ "**{strata}**    \n{style_percent(p)}% ({n}/{N})") %>%
+  modify_caption("My caption: N = {N}")  %>%
+  modify_footnote(label = "My footnote: N = {N}") 
+```
+
+
+
+```{r}
+tbl2 %>%
+  modify_spanning_header(
+      all_cols_in_strata("Drug A") ~ "**Control Group**    \n{style_percent(p)}% ({n}/{N})",
+      all_cols_in_strata("Drug B") ~ "**Experimental Group**,    \n{style_percent(p)}% ({n}/{N})"
+    )
+```
+
+
+
+# tbl_reg_summary() modifications
+
+
+```{r}
+tbl3 <-
+  df_patient_characteristics |> 
+  select(trt, marker, discontinued) |> 
+  tbl_reg_summary(
+    by = trt
+  ) |> 
+  add_overall(last = TRUE) |> 
+  bold_labels()
+```
+
+## Unmodified table
+
+```{r}
+tbl3
+# show_header_names(tbl3)
+```
+
+## Modified table
+
+
+```{r}
+tbl3 |> 
+  modify_header(
+    list(
+      stat_1 ~ "**Control Group**    \n N = {n}",
+      stat_2 ~ "**Experimental Group**    \n N = {n}",
+      stat_0 ~ "**Overall**    \n N = {N}"
+    )) 
+```
+
+
+
+
+
+
+
+
