@@ -1,6 +1,6 @@
 # gtreg (development version)
 
-* Fix in `add_overall()` to correctly order AE's within SOC's. (#183)
+* Fix in `add_overall()` to correctly order adverse events within system organ classes. (#183)
 
 * Added new Table Shells article outlining how to create shells with the {gtreg} package. (#85)
 
