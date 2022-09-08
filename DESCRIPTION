@@ -25,7 +25,6 @@ Imports:
     forcats (>= 0.5.1),
     glue (>= 1.6.0),
     gtsummary (>= 1.6.1),
-    knitr (>= 1.37),
     purrr (>= 0.3.4),
     rlang (>= 1.0.0),
     stringr (>= 1.4.0),
@@ -34,6 +33,7 @@ Imports:
 Suggests: 
     covr (>= 3.5.1),
     gt (>= 0.3.1),
+    knitr (>= 1.37),
     rmarkdown,
     spelling (>= 2.2),
     testthat (>= 3.1.1)

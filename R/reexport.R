@@ -51,11 +51,6 @@ dplyr::last_col
 #' @export
 dplyr::one_of
 
-# knitr ------------------------------------------------------------------------
-#' @export
-#' @importFrom knitr knit_print
-knitr::knit_print
-
 # tibble -----------------------------------------------------------------------
 #' @export
 #' @importFrom tibble as_tibble
