@@ -11,9 +11,13 @@ test_that("add_overall() works", {
         statistic = "{n}"
       ) %>%
       add_overall(across = 'by') %>%
-      modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
-      as_tibble(col_label = FALSE),
+      modify_header(all_ae_cols() ~ "**Grade {by}**"),
     NA
+  )
+  expect_snapshot(
+    tbl1 %>%
+      as_gt() %>%
+      gt::as_raw_html()
   )
 
   expect_true(
@@ -28,7 +32,9 @@ test_that("add_overall() works", {
       dplyr::distinct() %>%
       dplyr::ungroup() %>%
       dplyr::inner_join(
-        tbl1 %>% dplyr::select(label, stat_1_2),
+        tbl1 %>%
+          as_tibble(col_label = FALSE) %>%
+          dplyr::select(label, stat_1_2),
         by = "label"
       ) %>%
       dplyr::mutate(check = n == stat_1_2) %>%
@@ -47,9 +53,14 @@ test_that("add_overall() works", {
         strata = trt
       ) %>%
       add_overall() %>%
-      modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
-      as_tibble(col_label = FALSE),
+      modify_header(all_ae_cols() ~ "**Grade {by}**"),
     NA
+  )
+
+  expect_snapshot(
+    tbl1 %>%
+      as_gt() %>%
+      gt::as_raw_html()
   )
 
   expect_error(
