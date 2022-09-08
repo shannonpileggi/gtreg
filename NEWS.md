@@ -1,5 +1,7 @@
 # gtreg (development version)
 
+* Fix in `add_overall()` to correctly order adverse events within system organ classes. (#183)
+
 * Added new Table Shells article outlining how to create shells with the {gtreg} package. (#85)
 
 * Added function `style_xxx()` to assist in creating table shells.
