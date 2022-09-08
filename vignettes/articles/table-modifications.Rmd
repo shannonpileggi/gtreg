@@ -58,8 +58,8 @@ tbl1 <- df_adverse_events %>%
 ## Unmodified table
 
 ```{r}
-tbl1
 # show_header_names(tbl1)
+tbl1
 ```
 
 
@@ -102,8 +102,8 @@ tbl2 <-
 ## Unmodified table
 
 ```{r}
-tbl2
 # show_header_names(tbl2)
+tbl2
 ```
 
 
@@ -129,11 +129,42 @@ tbl2 %>%
 
 
 
-# tbl_reg_summary() modifications
+# tbl_reg_summary() modifications, without overall
 
 
 ```{r}
 tbl3 <-
+  df_patient_characteristics |> 
+  select(trt, marker, discontinued) |> 
+  tbl_reg_summary(
+    by = trt
+  ) |> 
+  bold_labels()
+```
+
+## Unmodified table
+
+```{r}
+# show_header_names(tbl3)
+tbl3
+```
+
+## Modified table
+
+
+```{r}
+tbl3 |> 
+  modify_header(
+    all_stat_cols() ~ "**{level}**, N = {n}/{N} ({style_percent(p)}%)"
+    )
+```
+
+
+# tbl_reg_summary() modifications, with overall
+
+
+```{r}
+tbl4 <-
   df_patient_characteristics |> 
   select(trt, marker, discontinued) |> 
   tbl_reg_summary(
@@ -146,15 +177,15 @@ tbl3 <-
 ## Unmodified table
 
 ```{r}
-tbl3
-# show_header_names(tbl3)
+# show_header_names(tbl4)
+tbl4
 ```
 
 ## Modified table
 
 
 ```{r}
-tbl3 |> 
+tbl4 |> 
   modify_header(
     list(
       stat_1 ~ "**Control Group**    \n N = {n}",
@@ -162,8 +193,6 @@ tbl3 |>
       stat_0 ~ "**Overall**    \n N = {N}"
     )) 
 ```
-
-
 
 
 
