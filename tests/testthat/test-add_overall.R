@@ -53,9 +53,14 @@ test_that("add_overall() works", {
         strata = trt
       ) %>%
       add_overall() %>%
-      modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
-      as_tibble(col_label = FALSE),
+      modify_header(all_ae_cols() ~ "**Grade {by}**"),
     NA
+  )
+
+  expect_snapshot(
+    tbl1 %>%
+      as_gt() %>%
+      gt::as_raw_html()
   )
 
   expect_error(
