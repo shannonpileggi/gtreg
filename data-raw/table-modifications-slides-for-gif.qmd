@@ -1,0 +1,58 @@
+---
+title: "Untitled"
+format: revealjs
+---
+
+# Initial Table
+
+```{r}
+#| echo: false
+knitr::opts_chunk$set(echo = TRUE, results = 'asis')
+library(gtsummary)
+library(tidyverse)
+library(gtreg)
+library(gt)
+knit_print.gtsummary <- function(x, ...) {
+  gtsummary::as_gt(x) |> gt::as_raw_html()
+}
+registerS3method("knit_print", "gtsummary", knit_print.gtsummary)
+```
+
+
+
+
+```{r}
+#| output-location: column
+tbl1 <- df_adverse_events %>%
+  # create a missing value to demonstrate unknown columns
+  mutate(grade = ifelse(dplyr::row_number() == 1L, NA, grade)) %>%
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    soc = system_organ_class,
+    by = grade
+  ) %>%
+  add_overall(across = 'by') %>% 
+  bold_labels()
+tbl1
+```
+
+## Modified table
+
+```{r}
+#| output-location: column
+tbl1 %>%
+  modify_header(
+    label ~ "**Event**",
+    all_ae_cols() ~ "**Grade {by}**",
+    all_overall_cols() ~ "**Total**",
+    all_unknown_cols() ~ "**Unknown**"
+  ) %>%
+  modify_spanning_header(
+    all_ae_cols(TRUE, TRUE) ~ "**All cohorts**, N = {N}"
+  ) |> 
+  modify_caption("Super awesome caption: N = {N}")  %>%
+  modify_footnote(label = "Crazy cool footnote: N = {N}") 
+```
+
+
