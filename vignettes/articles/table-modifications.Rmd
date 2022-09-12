@@ -16,7 +16,13 @@ library(dplyr)
 gtsummary::theme_gtsummary_compact()
 ```
 
+
+
+
 # Overview
+
+
+![](gtreg-modify.gif)
 
 In general, use `modify_header()` and `modify_spanning_header()` to
 specify *how* headers should be modified; use in conjunction with column
