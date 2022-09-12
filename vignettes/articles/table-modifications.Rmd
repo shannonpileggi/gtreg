@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
 ```{r setup, warning=FALSE, message=FALSE}
 library(gtreg)
 library(dplyr)
+library(gt)
 gtsummary::theme_gtsummary_compact()
 ```
 
@@ -21,8 +22,6 @@ gtsummary::theme_gtsummary_compact()
 
 # Overview
 
-
-![](gtreg-modify.gif)
 
 In general, use `modify_header()` and `modify_spanning_header()` to
 specify *how* headers should be modified; use in conjunction with column
@@ -47,15 +46,42 @@ to specify *which* columns to apply formatting.
 ```{r, echo = FALSE}
 tibble::tribble(
   ~`Selector`,                                     ~`AE`, ~`Overall`, ~`Unknown`, 
-  "`all_ae_cols()`",                                "✔️",   "",        "",        
-  "`all_overall_cols()`",                           "",    "✔️",       "",        
-  "`all_unknown_cols()`",                           "",    "",         "✔️" ,
-  "`all_ae_cols(overall = TRUE, unknown = TRUE)`",  "✔️",  "✔️",       "✔️"   
-  ) |>
-  knitr::kable(
-    caption = "{gtreg} column selectors and the resulting columns selected."
+  "all_ae_cols()",                                "✔️",   "",        "",        
+  "all_overall_cols()",                           "",    "✔️",       "",        
+  "all_unknown_cols()",                           "",    "",         "✔️" ,
+  "all_ae_cols(overall = TRUE, unknown = TRUE)",  "✔️",  "✔️",       "✔️"   
+  )  %>%
+  gt::gt(rowname_col = "Selector") %>%
+  gt::cols_align(
+    align = "center",
+    columns = c(AE, Overall, Unknown)
+  ) %>%
+  gt::tab_header(
+    title = md("**{gtreg} column selectors and resulting columns selected.**")
+  ) %>%
+  cols_width(
+    2:4 ~ px(80)
+  ) %>% 
+  tab_stubhead(label = "Selector") %>% 
+  tab_style(
+    style = cell_text(font = c(google_font(name = "IBM Plex Mono"), default_fonts())),
+    locations = cells_stub()
   )
+
 ```
+
+<br>
+
+```{r, eval=TRUE, echo=FALSE}
+#| fig.cap: > 
+#|   Demonstration of `modify_` functions used with {gtreg} column selectors.
+#| fig.alt: > 
+#|   Left hand side code, right hand side output table. Gif contains 8 frames
+#|   that sequentially builds a table.
+knitr::include_graphics("gtreg-modify.gif")
+```
+
+
 
 Additionally, the `all_cols_in_strata()` selector can be used
 with `modify_spanning_header()` to apply differing modifications
