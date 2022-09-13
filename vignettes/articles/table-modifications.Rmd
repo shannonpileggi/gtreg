@@ -1,5 +1,5 @@
 ---
-title: "Table modificatons: headers, footnotes, and captions"
+title: "Table modifications: headers, footnotes, and captions"
 ---
 
 
