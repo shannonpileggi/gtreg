@@ -1,0 +1,232 @@
+---
+title: "Table modifications: headers, footnotes, and captions"
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, warning=FALSE, message=FALSE}
+library(gtreg)
+library(dplyr)
+library(gt)
+gtsummary::theme_gtsummary_compact()
+```
+
+
+
+
+# Overview
+
+
+In general, use `modify_header()` and `modify_spanning_header()` to
+specify *how* headers should be modified; use in conjunction with column
+selectors to specify *which* column headers to modify. Use
+`show_header_names()` on a saved table object to display a usage guide
+for modifying headers.
+
+To specify footnotes and captions, use `modify_footnote()` and
+`modify_caption()`.
+
+For all `modify_` functions, formatting is applied via markdown and glue
+syntax can be used to insert summary statistics. In addition, a return
+carriage inserts a line break when preceded by two spaces: `\n`.
+
+# AE tables
+
+For adverse event tables functions `tbl_ae()`, `tbl_ae_focus()`, and
+`tbl_ae_count()`, use the {gtreg} column selectors `all_ae_cols()`,
+`all_overall_cols()`, `all_unknown_cols()`, and `all_cols_in_strata()`
+to specify *which* columns to apply formatting.
+
+```{r, echo = FALSE}
+tibble::tribble(
+  ~`Selector`,                                     ~`AE`, ~`Overall`, ~`Unknown`, 
+  "all_ae_cols()",                                "✔️",   "",        "",        
+  "all_overall_cols()",                           "",    "✔️",       "",        
+  "all_unknown_cols()",                           "",    "",         "✔️" ,
+  "all_ae_cols(overall = TRUE, unknown = TRUE)",  "✔️",  "✔️",       "✔️"   
+  )  %>%
+  gt::gt(rowname_col = "Selector") %>%
+  gt::cols_align(
+    align = "center",
+    columns = c(AE, Overall, Unknown)
+  ) %>%
+  gt::tab_header(
+    title = md("**{gtreg} column selectors and resulting columns selected.**")
+  ) %>%
+  cols_width(
+    2:4 ~ px(80)
+  ) %>% 
+  tab_stubhead(label = "Selector") %>% 
+  tab_style(
+    style = cell_text(font = c(google_font(name = "IBM Plex Mono"), default_fonts())),
+    locations = cells_stub()
+  )
+
+```
+
+<br>
+
+```{r, eval=TRUE, echo=FALSE}
+#| fig.cap: > 
+#|   Demonstration of `modify_` functions used with {gtreg} column selectors.
+#| fig.alt: > 
+#|   Left hand side code, right hand side output table. Gif contains 8 frames
+#|   that sequentially builds a table.
+knitr::include_graphics("gtreg-modify.gif")
+```
+
+
+
+Additionally, the `all_cols_in_strata()` selector can be used
+with `modify_spanning_header()` to apply differing modifications
+within strata.  
+
+## tbl_ae() without strata
+
+```{r}
+tbl1 <- df_adverse_events %>%
+  # create a missing value to demonstrate unknown columns
+  mutate(grade = ifelse(dplyr::row_number() == 1L, NA, grade)) %>%
+  tbl_ae(
+    id = patient_id,
+    ae = adverse_event,
+    soc = system_organ_class,
+    by = grade
+  ) %>%
+  add_overall(across = 'by') %>% 
+  bold_labels()
+```
+
+### Unmodified 
+
+```{r}
+# show_header_names(tbl1)
+tbl1
+```
+
+### Modified 
+
+```{r}
+tbl1 %>%
+  modify_header(
+    label ~ "**Event**",
+    all_ae_cols() ~ "**Grade {by}**",
+    all_overall_cols() ~ "**Total**",
+    all_unknown_cols() ~ "**Unknown Grade**"
+  ) %>%
+  modify_spanning_header(
+    all_ae_cols(TRUE, TRUE) ~ "**All cohorts**, N = {N}"
+  ) 
+```
+
+## tbl_ae() with strata
+
+```{r}
+tbl2 <-
+  df_adverse_events %>%
+    tbl_ae(
+      id = patient_id,
+      soc = system_organ_class,
+      ae = adverse_event,
+      strata = trt,
+      by = grade
+    ) %>%
+  bold_labels()
+```
+
+### Unmodified 
+
+```{r}
+# show_header_names(tbl2)
+tbl2
+```
+
+### Modified
+
+```{r}
+tbl2 %>% 
+  modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
+  modify_spanning_header(all_ae_cols() ~ "**{strata}**  \n{style_percent(p)}% ({n}/{N})") %>%
+  modify_caption("My caption: N = {N}")  %>%
+  modify_footnote(label = "My footnote: N = {N}") 
+```
+
+```{r}
+tbl2 %>%
+  modify_spanning_header(
+      all_cols_in_strata("Drug A") ~ "**Control Group**  \n{style_percent(p)}% ({n}/{N})",
+      all_cols_in_strata("Drug B") ~ "**Experimental Group**  \n{style_percent(p)}% ({n}/{N})"
+    )
+```
+
+# Summary tables
+
+For `tbl_reg_summary()`, the `modify_header()` and
+`modify_spanning_header()` functions work with the {gtsummary} column
+selectors like `all_stat_cols()` to specify formatting of table headers.
+
+## tbl_reg_summary(), without overall
+
+```{r}
+tbl3 <-
+  df_patient_characteristics %>% 
+  select(trt, marker, discontinued) %>% 
+  tbl_reg_summary(
+    by = trt
+  ) %>% 
+  bold_labels()
+```
+
+### Unmodified
+
+```{r}
+# show_header_names(tbl3)
+tbl3
+```
+
+### Modified
+
+```{r}
+tbl3 %>% 
+  modify_header(
+    all_stat_cols() ~ "**{level}**, N = {n}/{N} ({style_percent(p)}%)"
+    )
+```
+
+## tbl_reg_summary(), with overall
+
+```{r}
+tbl4 <-
+  df_patient_characteristics %>% 
+  select(trt, marker, discontinued) %>% 
+  tbl_reg_summary(
+    by = trt
+  ) %>% 
+  add_overall(last = TRUE) %>% 
+  bold_labels()
+```
+
+### Unmodified 
+
+```{r}
+# show_header_names(tbl4)
+tbl4
+```
+
+### Modified 
+
+```{r}
+tbl4 %>% 
+  modify_header(
+    list(
+      stat_1 ~ "**Control Group**  \n N = {n}",
+      stat_2 ~ "**Experimental Group**  \n N = {n}",
+      stat_0 ~ "**Overall**  \n N = {N}"
+    )) 
+```

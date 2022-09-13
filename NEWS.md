@@ -1,5 +1,7 @@
 # gtreg (development version)
 
+* Add a vignette to show how to modify table headers, footnotes, and captions. (#96)
+
 * Fix in `add_overall()` to correctly order adverse events within system organ classes. (#183)
 
 * Added new Table Shells article outlining how to create shells with the {gtreg} package. (#85)

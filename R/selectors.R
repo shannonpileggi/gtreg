@@ -1,5 +1,6 @@
 #' Column Selectors
 #'
+#' See the \href{https://shannonpileggi.github.io/gtreg/dev/articles/table-modifications.html}{Table modifications article} for examples.
 #' - `all_ae_cols(overall, unknown)` selects all columns summarizing AE statistics. By default, unknown and overall columns are not selected.
 #' - `all_cols_in_strata(strata)` selects all columns from specified stratum.
 #' - `all_overall_cols()` selects all overall columns
