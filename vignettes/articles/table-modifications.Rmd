@@ -78,7 +78,7 @@ tibble::tribble(
 #| fig.alt: > 
 #|   Left hand side code, right hand side output table. Gif contains 8 frames
 #|   that sequentially builds a table.
-knitr::include_graphics("gtreg-modify.gif")
+knitr::include_graphics("misc/gtreg-modify.gif")
 ```
 
 
