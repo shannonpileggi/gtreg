@@ -671,6 +671,28 @@ test_that("tbl_ae() sorting", {
     c("1", "2", "1", "1", "1", "3")
   )
 
+  # sorting works properly when strata present
+  expect_equal(
+    df_adverse_events %>%
+      dplyr::filter(
+        system_organ_class %in% "Blood and lymphatic system disorders"
+      ) %>%
+      # making the lowest frequency AE the highest frequency AE for the second stratum
+      dplyr::mutate(
+        adverse_event = ifelse(trt == "Drug B", "Increased tendency to bruise", adverse_event)
+      ) %>%
+      tbl_ae(
+        id = patient_id,
+        ae = adverse_event,
+        by = grade,
+        strata = trt,
+        sort= "ae"
+      ) %>%
+      as_tibble(col_labels = FALSE) %>%
+      purrr::pluck("label", 1),
+    "Increased tendency to bruise"
+  )
+
 
 })
 
