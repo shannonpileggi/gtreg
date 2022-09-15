@@ -69,7 +69,10 @@ table1 %>%
   flextable::save_as_docx(path = "misc/ae_table.docx")
 ```
 
+
 ![](misc/out_word.png)
+
+
 
 ## Excel
 

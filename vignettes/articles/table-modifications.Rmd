@@ -46,12 +46,12 @@ to specify *which* columns to apply formatting.
 ```{r, echo = FALSE}
 tibble::tribble(
   ~`Selector`,                                     ~`AE`, ~`Overall`, ~`Unknown`, 
-  "all_ae_cols()",                                "✔️",   "",        "",        
-  "all_overall_cols()",                           "",    "✔️",       "",        
-  "all_unknown_cols()",                           "",    "",         "✔️" ,
-  "all_ae_cols(overall = TRUE, unknown = TRUE)",  "✔️",  "✔️",       "✔️"   
+  "`all_ae_cols()`",                                "✔️",   "",        "",        
+  "`all_overall_cols()`",                           "",    "✔️",       "",        
+  "`all_unknown_cols()`",                           "",    "",         "✔️" ,
+  "`all_ae_cols(overall = TRUE, unknown = TRUE)`",  "✔️",  "✔️",       "✔️"   
   )  %>%
-  gt::gt(rowname_col = "Selector") %>%
+  gt::gt() %>%
   gt::cols_align(
     align = "center",
     columns = c(AE, Overall, Unknown)
@@ -63,10 +63,7 @@ tibble::tribble(
     2:4 ~ px(80)
   ) %>% 
   tab_stubhead(label = "Selector") %>% 
-  tab_style(
-    style = cell_text(font = c(google_font(name = "IBM Plex Mono"), default_fonts())),
-    locations = cells_stub()
-  )
+  fmt_markdown(1)
 
 ```
 
@@ -78,7 +75,7 @@ tibble::tribble(
 #| fig.alt: > 
 #|   Left hand side code, right hand side output table. Gif contains 8 frames
 #|   that sequentially builds a table.
-knitr::include_graphics("gtreg-modify.gif")
+knitr::include_graphics("misc/gtreg-modify.gif")
 ```
 
 
