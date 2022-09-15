@@ -1,5 +1,7 @@
 # gtreg (development version)
 
+* Migrated "Adverse Event Counting Methods" vignette to an article. (#186)
+
 * Add a vignette to show how to modify table headers, footnotes, and captions. (#96)
 
 * Fix in `add_overall()` to correctly order adverse events within system organ classes. (#183)
