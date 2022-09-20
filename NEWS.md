@@ -1,5 +1,7 @@
 # gtreg (development version)
 
+* Added R in Medicine "Introducing {gtreg}" recording to readme.
+
 * Migrated "Adverse Event Counting Methods" vignette to an article. (#186)
 
 * Add a vignette to show how to modify table headers, footnotes, and captions. (#96)

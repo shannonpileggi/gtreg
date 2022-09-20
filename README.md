@@ -35,6 +35,16 @@ devtools::install_github("shannonpileggi/gtreg")
 The {gtreg} package creates tabular data summaries appropriate for
 regulatory submissions. The package builds the tables using {gtsummary}.
 
+Here are
+[slides](https://shannonpileggi.github.io/introducing-gtreg-rmed-2022/#/title-slide)
+and a [recorded talk (17 min)](https://youtu.be/DmslEfczYqM) from
+“Introducing {gtreg}: an R package to produce regulatory tables for
+clinical research” presented at the 2022 R in Medicine conference.
+
+[<img src="man/figures/Introducing-gtreg-screenshot.png"
+style="width:70.0%"
+alt="Screenshot of YouTube recording on title slide" />](https://youtu.be/DmslEfczYqM)
+
 ## Functions for adverse event (AE) reporting
 
 **Summarize Raw Adverse Counts**
