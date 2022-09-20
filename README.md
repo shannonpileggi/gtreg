@@ -43,7 +43,7 @@ clinical research” presented at the 2022 R in Medicine conference.
 
 [<img src="man/figures/Introducing-gtreg-screenshot.png"
 style="width:70.0%"
-alt="Screenshot of youtube recording on title slide" />](https://youtu.be/DmslEfczYqM)
+alt="Screenshot of YouTube recording on title slide" />](https://youtu.be/DmslEfczYqM)
 
 ## Functions for adverse event (AE) reporting
 

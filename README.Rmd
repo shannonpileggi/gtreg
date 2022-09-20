@@ -46,7 +46,7 @@ The package builds the tables using {gtsummary}.
 
 Here are [slides](https://shannonpileggi.github.io/introducing-gtreg-rmed-2022/#/title-slide) and a [recorded talk (17 min)](https://youtu.be/DmslEfczYqM) from "Introducing {gtreg}: an R package to produce regulatory tables for clinical research" presented at the 2022 R in Medicine conference.
 
-[![Screenshot of youtube recording on title slide](man/figures/Introducing-gtreg-screenshot.png){width=70%}](https://youtu.be/DmslEfczYqM)
+[![Screenshot of YouTube recording on title slide](man/figures/Introducing-gtreg-screenshot.png){width=70%}](https://youtu.be/DmslEfczYqM)
 
 ## Functions for adverse event (AE) reporting
 
