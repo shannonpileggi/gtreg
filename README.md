@@ -41,8 +41,8 @@ and a [recorded talk (17 min)](https://youtu.be/DmslEfczYqM) from
 “Introducing {gtreg}: an R package to produce regulatory tables for
 clinical research” presented at the 2022 R in Medicine conference.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/DmslEfczYqM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
+[<img src="man/figures/Introducing-gtreg-youtube.png" style="width:70.0%"
+alt="Screenshot of youtube recording on title slide" />](https://youtu.be/DmslEfczYqM)
 
 ## Functions for adverse event (AE) reporting
 
