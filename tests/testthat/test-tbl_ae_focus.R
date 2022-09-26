@@ -229,10 +229,10 @@ test_that("tbl_ae_focus() works", {
         id = patient_id,
         ae = adverse_event
       ) %>%
-      as_tibble(fmt_missing = TRUE, col_labels = FALSE) %>%
+      as_tibble(fmt_missing = FALSE, col_labels = FALSE) %>%
       dplyr::pull(2) %>%
       unique(),
-    "—"
+    NA
   )
 
   # test to ensure formatting missing value cells are added to AEs, when no missing are present in SOC
@@ -248,10 +248,11 @@ test_that("tbl_ae_focus() works", {
         ae = adverse_event,
         soc = system_organ_class
       ) %>%
-      as_tibble(fmt_missing = TRUE, col_labels = FALSE) %>%
-      dplyr::filter(label == "Anaemia") %>%
-      dplyr::pull(2),
-    "—"
+      purrr::pluck("table_styling", "fmt_missing") %>%
+      dplyr::select(column, symbol),
+    structure(list(column = c("stat_1_1", "stat_2_1", "stat_3_1"),
+                   symbol = c("—", "—", "—")), row.names = c(NA, -3L), class = c("tbl_df",
+                                                                                 "tbl", "data.frame"))
   )
 
 })
