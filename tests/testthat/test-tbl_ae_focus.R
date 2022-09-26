@@ -232,7 +232,7 @@ test_that("tbl_ae_focus() works", {
       as_tibble(fmt_missing = FALSE, col_labels = FALSE) %>%
       dplyr::pull(2) %>%
       unique(),
-    NA
+    NA_character_
   )
 
   # test to ensure formatting missing value cells are added to AEs, when no missing are present in SOC
