@@ -432,25 +432,25 @@
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Anaemia</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Anaemia</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Increased tendency to bruise</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Increased tendency to bruise</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Iron deficiency anaemia</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Iron deficiency anaemia</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Thrombocytopenia</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Thrombocytopenia</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
@@ -462,31 +462,31 @@
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Difficult digestion</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Difficult digestion</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Intestinal dilatation</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Intestinal dilatation</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Myochosis</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Myochosis</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Non-erosive reflux disease</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Non-erosive reflux disease</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Pancreatic enzyme abnormality</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Pancreatic enzyme abnormality</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
@@ -932,25 +932,25 @@
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Anaemia</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Anaemia</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Increased tendency to bruise</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Increased tendency to bruise</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Iron deficiency anaemia</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Iron deficiency anaemia</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Thrombocytopenia</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Thrombocytopenia</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
@@ -962,31 +962,31 @@
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Difficult digestion</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Difficult digestion</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Intestinal dilatation</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Intestinal dilatation</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Myochosis</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Myochosis</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Non-erosive reflux disease</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Non-erosive reflux disease</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Pancreatic enzyme abnormality</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Pancreatic enzyme abnormality</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
       <td class="gt_row gt_center">xx</td>
@@ -1426,34 +1426,34 @@
           <tr><td class="gt_row gt_left">Blood and lymphatic system disorders</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Anaemia</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Anaemia</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Increased tendency to bruise</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Increased tendency to bruise</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Iron deficiency anaemia</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Iron deficiency anaemia</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Thrombocytopenia</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Thrombocytopenia</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
           <tr><td class="gt_row gt_left">Gastrointestinal disorders</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Difficult digestion</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Difficult digestion</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Intestinal dilatation</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Intestinal dilatation</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Myochosis</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Myochosis</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Non-erosive reflux disease</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Non-erosive reflux disease</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Pancreatic enzyme abnormality</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Pancreatic enzyme abnormality</td>
       <td class="gt_row gt_center">xx (xx.x)</td>
       <td class="gt_row gt_center">xx (xx.x)</td></tr>
         </tbody>
@@ -1883,21 +1883,21 @@
         <tbody class="gt_table_body">
           <tr><td class="gt_row gt_left">Biological Marker</td>
       <td class="gt_row gt_center"></td></tr>
-          <tr><td class="gt_row gt_left">    N</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">N</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Mean (SD)</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Mean (SD)</td>
       <td class="gt_row gt_center">xx (xx)</td></tr>
-          <tr><td class="gt_row gt_left">    Median (IQR)</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Median (IQR)</td>
       <td class="gt_row gt_center">xx (xx, xx)</td></tr>
-          <tr><td class="gt_row gt_left">    Range</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Range</td>
       <td class="gt_row gt_center">xx, xx</td></tr>
-          <tr><td class="gt_row gt_left">    N missing</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">N missing</td>
       <td class="gt_row gt_center">xx</td></tr>
           <tr><td class="gt_row gt_left">Treatment Group</td>
       <td class="gt_row gt_center"></td></tr>
-          <tr><td class="gt_row gt_left">    Drug A</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Drug A</td>
       <td class="gt_row gt_center">xx (xx.x%)</td></tr>
-          <tr><td class="gt_row gt_left">    Drug B</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Drug B</td>
       <td class="gt_row gt_center">xx (xx.x%)</td></tr>
         </tbody>
         
@@ -2330,21 +2330,21 @@
         <tbody class="gt_table_body">
           <tr><td class="gt_row gt_left">Biological Marker</td>
       <td class="gt_row gt_center"></td></tr>
-          <tr><td class="gt_row gt_left">    N</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">N</td>
       <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Mean (SD)</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Mean (SD)</td>
       <td class="gt_row gt_center">xx.x (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Median (IQR)</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Median (IQR)</td>
       <td class="gt_row gt_center">xx (xx, xx)</td></tr>
-          <tr><td class="gt_row gt_left">    Range</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Range</td>
       <td class="gt_row gt_center">xx, xx</td></tr>
-          <tr><td class="gt_row gt_left">    N missing</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">N missing</td>
       <td class="gt_row gt_center">xx.x</td></tr>
           <tr><td class="gt_row gt_left">Treatment Group</td>
       <td class="gt_row gt_center"></td></tr>
-          <tr><td class="gt_row gt_left">    Drug A</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Drug A</td>
       <td class="gt_row gt_center">xx (xx.x%)</td></tr>
-          <tr><td class="gt_row gt_left">    Drug B</td>
+          <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Drug B</td>
       <td class="gt_row gt_center">xx (xx.x%)</td></tr>
         </tbody>
         
@@ -2355,4 +2355,3 @@
         </tfoot>
       </table>
       </div>
-
