@@ -152,8 +152,6 @@
     select(all_of(c("label", "col_name"))) %>%
     tidyr::nest(data = .data$label)
 
-  if (nrow(df_zero_columns) == 0L) return(tbl)
-
   # create expression with code to set zero count data to the zero_symbol
   expr_zero_to_NA <-
     purrr::map2(
@@ -203,7 +201,7 @@
           mutate(row_type = "label") %>%
           dplyr::bind_rows(
             tbl_ae$table_body %>%
-            dplyr::filter(.data$label %in% .env$ae_to_stack)
+              dplyr::filter(.data$label %in% .env$ae_to_stack)
           )
       }
     )

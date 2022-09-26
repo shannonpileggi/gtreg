@@ -111,7 +111,7 @@ tbl_ae_focus <- function(data,
     include %>%
     purrr::map(
       ~.complete_ae_data(data, id = id, ae = ae, soc = soc, by = .x,
-                         strata = strata, id_df = id_df, by_values = NULL)
+                         strata = strata, id_df = id_df, by_values = c("FALSE", "TRUE"))
     ) %>%
     stats::setNames(include)
 
