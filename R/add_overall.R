@@ -202,14 +202,14 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
       purrr::map(
         ~ tbl_final$table_styling$header %>%
           filter(.data$spanning_header %in% .x) %>%
-          dplyr::pull(.data$column)
+          dplyr::pull("column")
       ) %>%
       unlist()
 
     tbl_final <-
       tbl_final %>%
       gtsummary::modify_table_body(
-        ~dplyr::relocate(.x, !!!column_order, .after = .data$label)
+        ~dplyr::relocate(.x, !!!column_order, .after = "label")
       )
   }
 
