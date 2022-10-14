@@ -46,7 +46,7 @@ inline_text.tbl_ae <- function(x, row, column = NULL, ...) {
   # identify the variable name associated with `row=` --------------------------
   vct_ae_or_soc <-
     x$table_body %>%
-    dplyr::pull(.data$label)
+    dplyr::pull("label")
 
   if (!(row %in% vct_ae_or_soc)) {
     paste0("Invalid selection in `row=`.\n",
@@ -58,7 +58,7 @@ inline_text.tbl_ae <- function(x, row, column = NULL, ...) {
   variable <-
     x$table_body %>%
     filter(.data$label %in% .env$row) %>%
-    dplyr::pull(.data$variable)
+    dplyr::pull("variable")
 
   variable_is_ae <- startsWith(variable, "ae")
 

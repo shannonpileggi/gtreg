@@ -40,7 +40,7 @@
       data %>%
       filter(!.data$by %in% "NOT OBSERVED", .data$..ae..) %>%
       mutate(fct_ae = forcats::fct_infreq(.data$ae)) %>%
-      dplyr::pull(.data$fct_ae) %>%
+      dplyr::pull("fct_ae") %>%
       levels()
 
     data$ae <- factor(data$ae, levels = ae_levels)
@@ -50,7 +50,7 @@
       data %>%
       filter(!.data$by %in% "NOT OBSERVED", .data$..soc..) %>%
       mutate(fct_soc = forcats::fct_infreq(.data$soc)) %>%
-      dplyr::pull(.data$fct_soc) %>%
+      dplyr::pull("fct_soc") %>%
       levels()
 
     data$soc <- factor(data$soc, levels = soc_levels)
@@ -111,7 +111,7 @@
   column_to_hide <-
     tbl$df_by %>%
     dplyr::filter(.data$by_chr %in% .env$columns) %>%
-    dplyr::pull(.data$by_col)
+    dplyr::pull("by_col")
 
   if (rlang::is_empty(column_to_hide)) return(tbl)
   gtsummary::modify_column_hide(tbl, columns = all_of(column_to_hide))
@@ -125,7 +125,7 @@
   column_to_relocate <-
     tbl$df_by %>%
     dplyr::filter(.data$by_chr %in% "Unknown") %>%
-    dplyr::pull(.data$by_col)
+    dplyr::pull("by_col")
 
   # if no Unknown column, return tbl unmodified
   if (rlang::is_empty(column_to_relocate)) return(tbl)
@@ -150,7 +150,7 @@
     tbl$meta_data$df_stats[[1]] %>%
     filter(.data$n == 0L) %>%
     select(all_of(c("label", "col_name"))) %>%
-    tidyr::nest(data = .data$label)
+    tidyr::nest(data = "label")
 
   # create expression with code to set zero count data to the zero_symbol
   expr_zero_to_NA <-
@@ -193,7 +193,7 @@
       function(soc) {
         ae_to_stack <-
           dplyr::filter(data, .data$soc %in% .env$soc) %>%
-          dplyr::pull(.data$ae) %>%
+          dplyr::pull("ae") %>%
           unique()
 
         tbl_soc$table_body %>%
@@ -219,7 +219,7 @@
   tbl$table_styling$header$modify_stat_N <- nrow(data_distinct)
   tbl$table_styling$header <-
     tbl$table_styling$header %>%
-    dplyr::rename(modify_stat_by = .data$modify_stat_level) %>%
+    dplyr::rename(modify_stat_by = "modify_stat_level") %>%
     select(-any_of(c("modify_stat_n", "modify_stat_p")))
 
   # if strata present, add little n and p, and merge them into the header
@@ -229,7 +229,7 @@
       select(-any_of(c("modify_stat_n", "modify_stat_p"))) %>%
       dplyr::left_join(
         data_distinct %>%
-          tidyr::nest(data = -.data$strata) %>%
+          tidyr::nest(data = -"strata") %>%
           dplyr::rowwise() %>%
           mutate(
             spanning_header = as.character(.data$strata) %>% glue::glue() %>% as.character(),

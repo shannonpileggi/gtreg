@@ -198,13 +198,13 @@ tbl_ae_focus <- function(data,
     filter(startsWith(.data$column, "stat_")) %>%
     mutate(strata_order = factor(.data$modify_selector_strata, levels = unique(.data$modify_selector_strata))) %>%
     dplyr::arrange(.data$strata_order) %>%
-    dplyr::pull(.data$column)
+    dplyr::pull("column")
 
   # return tbl with columns re-ordered
   tbl %>%
     gtsummary::modify_table_body(
       ~ .x %>%
-        dplyr::relocate(all_of(stat_columns_group_by_strata), .after = .data$label)
+        dplyr::relocate(all_of(stat_columns_group_by_strata), .after = "label")
     )
 }
 
