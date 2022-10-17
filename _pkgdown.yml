@@ -21,10 +21,26 @@ development:
 
 navbar:
   bg: primary
-  structure:
-    left:  [intro, reference, articles, tutorials, news]
-    right: [search, github]
-
+  left:
+  - icon: fa-home
+    href: index.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: "Adverse Event Counting Methods"
+      href: articles/counting-methods.html
+    - text: "Output types"
+      href: articles/output-gtreg.html
+    - text: "Table modifications: headers, footnotes, and captions"
+      href: articles/table-modifications.html
+    - text: "Table shells"
+      href: articles/table-shells.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://shannonpileggi.github.io/gtreg/
 
 reference:
   - title: Data Summaries
