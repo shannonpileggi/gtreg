@@ -1,6 +1,6 @@
 Package: gtreg
 Title: Regulatory Tables for Clinical Research
-Version: 0.1.1.9007
+Version: 0.2.0
 Authors@R: c(
     person("Shannon", "Pileggi", , "shannon.pileggi@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-7732-4164")),
