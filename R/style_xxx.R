@@ -2,7 +2,7 @@
 #'
 #' The purpose of `style_xxx()` is to convert numeric values in
 #' summary tables to x's of consistent length for mock tables.
-#' See the \href{https://shannonpileggi.github.io/gtreg/dev/articles/table-shells.html}{Table shells vignette}
+#' See the \href{https://shannonpileggi.github.io/gtreg/articles/table-shells.html}{Table shells vignette}
 #' for detailed examples.
 #'
 #' @param x a numeric or character vector
