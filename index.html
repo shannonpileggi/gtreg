@@ -42,7 +42,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gtreg</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,12 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="active nav-item">
+  <a class="nav-link" href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
@@ -58,10 +64,13 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="articles/counting-methods.html">Adverse Event Counting Methods</a>
+    <a class="dropdown-item" href="articles/output-gtreg.html">Output types</a>
+    <a class="dropdown-item" href="articles/table-modifications.html">Table modifications: headers, footnotes, and captions</a>
+    <a class="dropdown-item" href="articles/table-shells.html">Table shells</a>
   </div>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="news/index.html">Changelog</a>
+  <a class="nav-link" href="news/index.html">News</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -70,8 +79,8 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/shannonpileggi/gtreg/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a class="nav-link" href="https://shannonpileggi.github.io/gtreg/">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -104,6 +113,8 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>The {gtreg} package creates tabular data summaries appropriate for regulatory submissions. The package builds the tables using {gtsummary}.</p>
+<p>Here are <a href="https://shannonpileggi.github.io/introducing-gtreg-rmed-2022/#/title-slide" class="external-link">slides</a> and a <a href="https://youtu.be/DmslEfczYqM" class="external-link">recorded talk (17 min)</a> from “Introducing {gtreg}: an R package to produce regulatory tables for clinical research” presented at the 2022 R in Medicine conference.</p>
+<p><a href="https://youtu.be/DmslEfczYqM" class="external-link"><img src="reference/figures/Introducing-gtreg-screenshot.png" style="width:70.0%" alt="Screenshot of YouTube recording on title slide"></a></p>
 </div>
 <div class="section level2">
 <h2 id="functions-for-adverse-event-ae-reporting">Functions for adverse event (AE) reporting<a class="anchor" aria-label="anchor" href="#functions-for-adverse-event-ae-reporting"></a>
