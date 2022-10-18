@@ -1,0 +1,27 @@
+---
+title: "Further documentation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Further documentation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Further long form documentation is available in the "Articles" section of the 
+{gtreg} website.
+
+1. [Adverse event counting methods.](https://shannonpileggi.github.io/gtreg/dev/articles/counting-methods.html)
+
+2. [Output types.](https://shannonpileggi.github.io/gtreg/dev/articles/output-gtreg.html)
+
+3. [Table modifications: headers, footnotes, and captions.](https://shannonpileggi.github.io/gtreg/dev/articles/table-modifications.html)
+
+4. [Table shells.](https://shannonpileggi.github.io/gtreg/dev/articles/table-shells.html)
+
