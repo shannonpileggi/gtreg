@@ -40,7 +40,7 @@ navbar:
     href: news/index.html
   right:
   - icon: fa-github fa-lg
-    href: https://shannonpileggi.github.io/gtreg/
+    href: https://github.com/shannonpileggi/gtreg
 
 reference:
   - title: Data Summaries
