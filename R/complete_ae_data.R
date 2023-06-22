@@ -140,9 +140,7 @@
     tidyr::drop_na(!!!rlang::syms(intersect(c("soc", "ae"), names(data))))
 
   # replace unobserved AEs with an explicit level ------------------------------
-  if (any(is.na(data$by))) {
-    data_full$by <- forcats::fct_na_value_to_level(data_full$by, level = initial_dummy)
-    }
+  data_full$by <- forcats::fct_explicit_na(data_full$by, initial_dummy)
 
   # re-level to put unobserved and missing in front
   if (any(c(initial_dummy, initial_missing) %in% levels(data_full$by))) {
@@ -238,7 +236,7 @@
 
   # adding missing level, as needed
   if (any(is.na(data$by))) {
-    data$by <- forcats::fct_na_value_to_level(data$by, level = initial_missing)
+    data$by <- forcats::fct_explicit_na(data$by, na_level = initial_missing)
   }
 
   data
