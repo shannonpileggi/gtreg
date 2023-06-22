@@ -3,14 +3,26 @@
     Code
       as_gt(t1, id = "t1_001")
     Output
-      <div id="t1_001" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-        <style>html {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+      <div id="t1_001" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+        <style>#t1_001 table {
+        font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      #t1_001 thead, #t1_001 tbody, #t1_001 tfoot, #t1_001 tr, #t1_001 td, #t1_001 th {
+        border-style: none;
+      }
+      
+      #t1_001 p {
+        margin: 0;
+        padding: 0;
       }
       
       #t1_001 .gt_table {
         display: table;
         border-collapse: collapse;
+        line-height: normal;
         margin-left: auto;
         margin-right: auto;
         color: #333333;
@@ -33,16 +45,9 @@
         border-left-color: #D3D3D3;
       }
       
-      #t1_001 .gt_heading {
-        background-color: #FFFFFF;
-        text-align: center;
-        border-bottom-color: #FFFFFF;
-        border-left-style: none;
-        border-left-width: 1px;
-        border-left-color: #D3D3D3;
-        border-right-style: none;
-        border-right-width: 1px;
-        border-right-color: #D3D3D3;
+      #t1_001 .gt_caption {
+        padding-top: 4px;
+        padding-bottom: 4px;
       }
       
       #t1_001 .gt_title {
@@ -61,12 +66,24 @@
         color: #333333;
         font-size: 85%;
         font-weight: initial;
-        padding-top: 0;
-        padding-bottom: 6px;
+        padding-top: 3px;
+        padding-bottom: 5px;
         padding-left: 5px;
         padding-right: 5px;
         border-top-color: #FFFFFF;
         border-top-width: 0;
+      }
+      
+      #t1_001 .gt_heading {
+        background-color: #FFFFFF;
+        text-align: center;
+        border-bottom-color: #FFFFFF;
+        border-left-style: none;
+        border-left-width: 1px;
+        border-left-color: #D3D3D3;
+        border-right-style: none;
+        border-right-width: 1px;
+        border-right-color: #D3D3D3;
       }
       
       #t1_001 .gt_bottom_border {
@@ -142,6 +159,10 @@
         width: 100%;
       }
       
+      #t1_001 .gt_spanner_row {
+        border-bottom-style: hidden;
+      }
+      
       #t1_001 .gt_group_heading {
         padding-top: 8px;
         padding-bottom: 8px;
@@ -165,6 +186,7 @@
         border-right-width: 1px;
         border-right-color: #D3D3D3;
         vertical-align: middle;
+        text-align: left;
       }
       
       #t1_001 .gt_empty_group_heading {
@@ -240,6 +262,10 @@
         border-top-width: 2px;
       }
       
+      #t1_001 .gt_row_group_first th {
+        border-top-width: 2px;
+      }
+      
       #t1_001 .gt_summary_row {
         color: #333333;
         background-color: #FFFFFF;
@@ -289,6 +315,16 @@
         border-top-color: #D3D3D3;
       }
       
+      #t1_001 .gt_last_grand_summary_row_top {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-bottom-style: double;
+        border-bottom-width: 6px;
+        border-bottom-color: #D3D3D3;
+      }
+      
       #t1_001 .gt_striped {
         background-color: rgba(128, 128, 128, 0.05);
       }
@@ -319,8 +355,8 @@
       #t1_001 .gt_footnote {
         margin: 0px;
         font-size: 90%;
-        padding-left: 4px;
-        padding-right: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
         padding-left: 5px;
         padding-right: 5px;
       }
@@ -377,10 +413,9 @@
       }
       
       #t1_001 .gt_footnote_marks {
-        font-style: italic;
-        font-weight: normal;
         font-size: 75%;
         vertical-align: 0.4em;
+        position: initial;
       }
       
       #t1_001 .gt_asterisk {
@@ -408,90 +443,90 @@
         text-indent: 25px;
       }
       </style>
-        <table class="gt_table">
-        
-        <thead class="gt_col_headings">
-          <tr>
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col"><strong>Adverse Event</strong></th>
-            <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5" scope="colgroup">
+        <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+        <thead>
+          
+          <tr class="gt_col_headings gt_spanner_row">
+            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="&lt;strong&gt;Adverse Event&lt;/strong&gt;"><strong>Adverse Event</strong></th>
+            <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5" scope="colgroup" id="&lt;strong&gt;N = xx&lt;/strong&gt;">
               <span class="gt_column_spanner"><strong>N = xx</strong></span>
             </th>
           </tr>
-          <tr>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 1</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 2</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 3</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 4</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 5</strong></th>
+          <tr class="gt_col_headings">
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 1&lt;/strong&gt;"><strong>Grade 1</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 2&lt;/strong&gt;"><strong>Grade 2</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 3&lt;/strong&gt;"><strong>Grade 3</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 4&lt;/strong&gt;"><strong>Grade 4</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 5&lt;/strong&gt;"><strong>Grade 5</strong></th>
           </tr>
         </thead>
         <tbody class="gt_table_body">
-          <tr><td class="gt_row gt_left">Blood and lymphatic system disorders</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Anaemia</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Increased tendency to bruise</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Iron deficiency anaemia</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Thrombocytopenia</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">Gastrointestinal disorders</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Difficult digestion</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Intestinal dilatation</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Myochosis</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Non-erosive reflux disease</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Pancreatic enzyme abnormality</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Blood and lymphatic system disorders</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Anaemia</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Increased tendency to bruise</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Iron deficiency anaemia</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Thrombocytopenia</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Gastrointestinal disorders</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Difficult digestion</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Intestinal dilatation</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Myochosis</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Non-erosive reflux disease</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Pancreatic enzyme abnormality</td>
+      <td headers="stat_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_3" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_4" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_5" class="gt_row gt_center">xx (xx.x)</td></tr>
         </tbody>
         
         
@@ -503,14 +538,26 @@
     Code
       as_gt(t2, id = "t2_001")
     Output
-      <div id="t2_001" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-        <style>html {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+      <div id="t2_001" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+        <style>#t2_001 table {
+        font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      #t2_001 thead, #t2_001 tbody, #t2_001 tfoot, #t2_001 tr, #t2_001 td, #t2_001 th {
+        border-style: none;
+      }
+      
+      #t2_001 p {
+        margin: 0;
+        padding: 0;
       }
       
       #t2_001 .gt_table {
         display: table;
         border-collapse: collapse;
+        line-height: normal;
         margin-left: auto;
         margin-right: auto;
         color: #333333;
@@ -533,16 +580,9 @@
         border-left-color: #D3D3D3;
       }
       
-      #t2_001 .gt_heading {
-        background-color: #FFFFFF;
-        text-align: center;
-        border-bottom-color: #FFFFFF;
-        border-left-style: none;
-        border-left-width: 1px;
-        border-left-color: #D3D3D3;
-        border-right-style: none;
-        border-right-width: 1px;
-        border-right-color: #D3D3D3;
+      #t2_001 .gt_caption {
+        padding-top: 4px;
+        padding-bottom: 4px;
       }
       
       #t2_001 .gt_title {
@@ -561,12 +601,24 @@
         color: #333333;
         font-size: 85%;
         font-weight: initial;
-        padding-top: 0;
-        padding-bottom: 6px;
+        padding-top: 3px;
+        padding-bottom: 5px;
         padding-left: 5px;
         padding-right: 5px;
         border-top-color: #FFFFFF;
         border-top-width: 0;
+      }
+      
+      #t2_001 .gt_heading {
+        background-color: #FFFFFF;
+        text-align: center;
+        border-bottom-color: #FFFFFF;
+        border-left-style: none;
+        border-left-width: 1px;
+        border-left-color: #D3D3D3;
+        border-right-style: none;
+        border-right-width: 1px;
+        border-right-color: #D3D3D3;
       }
       
       #t2_001 .gt_bottom_border {
@@ -642,6 +694,10 @@
         width: 100%;
       }
       
+      #t2_001 .gt_spanner_row {
+        border-bottom-style: hidden;
+      }
+      
       #t2_001 .gt_group_heading {
         padding-top: 8px;
         padding-bottom: 8px;
@@ -665,6 +721,7 @@
         border-right-width: 1px;
         border-right-color: #D3D3D3;
         vertical-align: middle;
+        text-align: left;
       }
       
       #t2_001 .gt_empty_group_heading {
@@ -740,6 +797,10 @@
         border-top-width: 2px;
       }
       
+      #t2_001 .gt_row_group_first th {
+        border-top-width: 2px;
+      }
+      
       #t2_001 .gt_summary_row {
         color: #333333;
         background-color: #FFFFFF;
@@ -789,6 +850,16 @@
         border-top-color: #D3D3D3;
       }
       
+      #t2_001 .gt_last_grand_summary_row_top {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-bottom-style: double;
+        border-bottom-width: 6px;
+        border-bottom-color: #D3D3D3;
+      }
+      
       #t2_001 .gt_striped {
         background-color: rgba(128, 128, 128, 0.05);
       }
@@ -819,8 +890,8 @@
       #t2_001 .gt_footnote {
         margin: 0px;
         font-size: 90%;
-        padding-left: 4px;
-        padding-right: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
         padding-left: 5px;
         padding-right: 5px;
       }
@@ -877,10 +948,9 @@
       }
       
       #t2_001 .gt_footnote_marks {
-        font-style: italic;
-        font-weight: normal;
         font-size: 75%;
         vertical-align: 0.4em;
+        position: initial;
       }
       
       #t2_001 .gt_asterisk {
@@ -908,90 +978,90 @@
         text-indent: 25px;
       }
       </style>
-        <table class="gt_table">
-        
-        <thead class="gt_col_headings">
-          <tr>
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col"><strong>Adverse Event</strong></th>
-            <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5" scope="colgroup">
+        <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+        <thead>
+          
+          <tr class="gt_col_headings gt_spanner_row">
+            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="&lt;strong&gt;Adverse Event&lt;/strong&gt;"><strong>Adverse Event</strong></th>
+            <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5" scope="colgroup" id="&lt;strong&gt;N = xx&lt;/strong&gt;">
               <span class="gt_column_spanner"><strong>N = xx</strong></span>
             </th>
           </tr>
-          <tr>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 1</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 2</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 3</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 4</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 5</strong></th>
+          <tr class="gt_col_headings">
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 1&lt;/strong&gt;"><strong>Grade 1</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 2&lt;/strong&gt;"><strong>Grade 2</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 3&lt;/strong&gt;"><strong>Grade 3</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 4&lt;/strong&gt;"><strong>Grade 4</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 5&lt;/strong&gt;"><strong>Grade 5</strong></th>
           </tr>
         </thead>
         <tbody class="gt_table_body">
-          <tr><td class="gt_row gt_left">Blood and lymphatic system disorders</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Anaemia</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Increased tendency to bruise</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Iron deficiency anaemia</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Thrombocytopenia</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">Gastrointestinal disorders</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Difficult digestion</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Intestinal dilatation</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Myochosis</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Non-erosive reflux disease</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Pancreatic enzyme abnormality</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td>
-      <td class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Blood and lymphatic system disorders</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Anaemia</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Increased tendency to bruise</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Iron deficiency anaemia</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Thrombocytopenia</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Gastrointestinal disorders</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Difficult digestion</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Intestinal dilatation</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Myochosis</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Non-erosive reflux disease</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Pancreatic enzyme abnormality</td>
+      <td headers="stat_1" class="gt_row gt_center">xx</td>
+      <td headers="stat_2" class="gt_row gt_center">xx</td>
+      <td headers="stat_3" class="gt_row gt_center">xx</td>
+      <td headers="stat_4" class="gt_row gt_center">xx</td>
+      <td headers="stat_5" class="gt_row gt_center">xx</td></tr>
         </tbody>
         
         
@@ -1003,14 +1073,26 @@
     Code
       as_gt(t3, id = "t3_001")
     Output
-      <div id="t3_001" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-        <style>html {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+      <div id="t3_001" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+        <style>#t3_001 table {
+        font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      #t3_001 thead, #t3_001 tbody, #t3_001 tfoot, #t3_001 tr, #t3_001 td, #t3_001 th {
+        border-style: none;
+      }
+      
+      #t3_001 p {
+        margin: 0;
+        padding: 0;
       }
       
       #t3_001 .gt_table {
         display: table;
         border-collapse: collapse;
+        line-height: normal;
         margin-left: auto;
         margin-right: auto;
         color: #333333;
@@ -1033,16 +1115,9 @@
         border-left-color: #D3D3D3;
       }
       
-      #t3_001 .gt_heading {
-        background-color: #FFFFFF;
-        text-align: center;
-        border-bottom-color: #FFFFFF;
-        border-left-style: none;
-        border-left-width: 1px;
-        border-left-color: #D3D3D3;
-        border-right-style: none;
-        border-right-width: 1px;
-        border-right-color: #D3D3D3;
+      #t3_001 .gt_caption {
+        padding-top: 4px;
+        padding-bottom: 4px;
       }
       
       #t3_001 .gt_title {
@@ -1061,12 +1136,24 @@
         color: #333333;
         font-size: 85%;
         font-weight: initial;
-        padding-top: 0;
-        padding-bottom: 6px;
+        padding-top: 3px;
+        padding-bottom: 5px;
         padding-left: 5px;
         padding-right: 5px;
         border-top-color: #FFFFFF;
         border-top-width: 0;
+      }
+      
+      #t3_001 .gt_heading {
+        background-color: #FFFFFF;
+        text-align: center;
+        border-bottom-color: #FFFFFF;
+        border-left-style: none;
+        border-left-width: 1px;
+        border-left-color: #D3D3D3;
+        border-right-style: none;
+        border-right-width: 1px;
+        border-right-color: #D3D3D3;
       }
       
       #t3_001 .gt_bottom_border {
@@ -1142,6 +1229,10 @@
         width: 100%;
       }
       
+      #t3_001 .gt_spanner_row {
+        border-bottom-style: hidden;
+      }
+      
       #t3_001 .gt_group_heading {
         padding-top: 8px;
         padding-bottom: 8px;
@@ -1165,6 +1256,7 @@
         border-right-width: 1px;
         border-right-color: #D3D3D3;
         vertical-align: middle;
+        text-align: left;
       }
       
       #t3_001 .gt_empty_group_heading {
@@ -1240,6 +1332,10 @@
         border-top-width: 2px;
       }
       
+      #t3_001 .gt_row_group_first th {
+        border-top-width: 2px;
+      }
+      
       #t3_001 .gt_summary_row {
         color: #333333;
         background-color: #FFFFFF;
@@ -1289,6 +1385,16 @@
         border-top-color: #D3D3D3;
       }
       
+      #t3_001 .gt_last_grand_summary_row_top {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-bottom-style: double;
+        border-bottom-width: 6px;
+        border-bottom-color: #D3D3D3;
+      }
+      
       #t3_001 .gt_striped {
         background-color: rgba(128, 128, 128, 0.05);
       }
@@ -1319,8 +1425,8 @@
       #t3_001 .gt_footnote {
         margin: 0px;
         font-size: 90%;
-        padding-left: 4px;
-        padding-right: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
         padding-left: 5px;
         padding-right: 5px;
       }
@@ -1377,10 +1483,9 @@
       }
       
       #t3_001 .gt_footnote_marks {
-        font-style: italic;
-        font-weight: normal;
         font-size: 75%;
         vertical-align: 0.4em;
+        position: initial;
       }
       
       #t3_001 .gt_asterisk {
@@ -1408,54 +1513,54 @@
         text-indent: 25px;
       }
       </style>
-        <table class="gt_table">
-        
-        <thead class="gt_col_headings">
-          <tr>
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col"><strong>Adverse Event</strong></th>
-            <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup">
+        <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+        <thead>
+          
+          <tr class="gt_col_headings gt_spanner_row">
+            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="&lt;strong&gt;Adverse Event&lt;/strong&gt;"><strong>Adverse Event</strong></th>
+            <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="&lt;strong&gt;N = xx&lt;/strong&gt;">
               <span class="gt_column_spanner"><strong>N = xx</strong></span>
             </th>
           </tr>
-          <tr>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Any Grade Complication</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>Grade 3+ Complication</strong></th>
+          <tr class="gt_col_headings">
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Any Grade Complication&lt;/strong&gt;"><strong>Any Grade Complication</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Grade 3+ Complication&lt;/strong&gt;"><strong>Grade 3+ Complication</strong></th>
           </tr>
         </thead>
         <tbody class="gt_table_body">
-          <tr><td class="gt_row gt_left">Blood and lymphatic system disorders</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Anaemia</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Increased tendency to bruise</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Iron deficiency anaemia</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Thrombocytopenia</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">Gastrointestinal disorders</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Difficult digestion</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Intestinal dilatation</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Myochosis</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Non-erosive reflux disease</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Pancreatic enzyme abnormality</td>
-      <td class="gt_row gt_center">xx (xx.x)</td>
-      <td class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Blood and lymphatic system disorders</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Anaemia</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Increased tendency to bruise</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Iron deficiency anaemia</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Thrombocytopenia</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Gastrointestinal disorders</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Difficult digestion</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Intestinal dilatation</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Myochosis</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Non-erosive reflux disease</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Pancreatic enzyme abnormality</td>
+      <td headers="stat_2_1" class="gt_row gt_center">xx (xx.x)</td>
+      <td headers="stat_2_2" class="gt_row gt_center">xx (xx.x)</td></tr>
         </tbody>
         
         
@@ -1467,14 +1572,26 @@
     Code
       as_gt(t4, id = "t4_001")
     Output
-      <div id="t4_001" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-        <style>html {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+      <div id="t4_001" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+        <style>#t4_001 table {
+        font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      #t4_001 thead, #t4_001 tbody, #t4_001 tfoot, #t4_001 tr, #t4_001 td, #t4_001 th {
+        border-style: none;
+      }
+      
+      #t4_001 p {
+        margin: 0;
+        padding: 0;
       }
       
       #t4_001 .gt_table {
         display: table;
         border-collapse: collapse;
+        line-height: normal;
         margin-left: auto;
         margin-right: auto;
         color: #333333;
@@ -1497,16 +1614,9 @@
         border-left-color: #D3D3D3;
       }
       
-      #t4_001 .gt_heading {
-        background-color: #FFFFFF;
-        text-align: center;
-        border-bottom-color: #FFFFFF;
-        border-left-style: none;
-        border-left-width: 1px;
-        border-left-color: #D3D3D3;
-        border-right-style: none;
-        border-right-width: 1px;
-        border-right-color: #D3D3D3;
+      #t4_001 .gt_caption {
+        padding-top: 4px;
+        padding-bottom: 4px;
       }
       
       #t4_001 .gt_title {
@@ -1525,12 +1635,24 @@
         color: #333333;
         font-size: 85%;
         font-weight: initial;
-        padding-top: 0;
-        padding-bottom: 6px;
+        padding-top: 3px;
+        padding-bottom: 5px;
         padding-left: 5px;
         padding-right: 5px;
         border-top-color: #FFFFFF;
         border-top-width: 0;
+      }
+      
+      #t4_001 .gt_heading {
+        background-color: #FFFFFF;
+        text-align: center;
+        border-bottom-color: #FFFFFF;
+        border-left-style: none;
+        border-left-width: 1px;
+        border-left-color: #D3D3D3;
+        border-right-style: none;
+        border-right-width: 1px;
+        border-right-color: #D3D3D3;
       }
       
       #t4_001 .gt_bottom_border {
@@ -1606,6 +1728,10 @@
         width: 100%;
       }
       
+      #t4_001 .gt_spanner_row {
+        border-bottom-style: hidden;
+      }
+      
       #t4_001 .gt_group_heading {
         padding-top: 8px;
         padding-bottom: 8px;
@@ -1629,6 +1755,7 @@
         border-right-width: 1px;
         border-right-color: #D3D3D3;
         vertical-align: middle;
+        text-align: left;
       }
       
       #t4_001 .gt_empty_group_heading {
@@ -1704,6 +1831,10 @@
         border-top-width: 2px;
       }
       
+      #t4_001 .gt_row_group_first th {
+        border-top-width: 2px;
+      }
+      
       #t4_001 .gt_summary_row {
         color: #333333;
         background-color: #FFFFFF;
@@ -1753,6 +1884,16 @@
         border-top-color: #D3D3D3;
       }
       
+      #t4_001 .gt_last_grand_summary_row_top {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-bottom-style: double;
+        border-bottom-width: 6px;
+        border-bottom-color: #D3D3D3;
+      }
+      
       #t4_001 .gt_striped {
         background-color: rgba(128, 128, 128, 0.05);
       }
@@ -1783,8 +1924,8 @@
       #t4_001 .gt_footnote {
         margin: 0px;
         font-size: 90%;
-        padding-left: 4px;
-        padding-right: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
         padding-left: 5px;
         padding-right: 5px;
       }
@@ -1841,10 +1982,9 @@
       }
       
       #t4_001 .gt_footnote_marks {
-        font-style: italic;
-        font-weight: normal;
         font-size: 75%;
         vertical-align: 0.4em;
+        position: initial;
       }
       
       #t4_001 .gt_asterisk {
@@ -1872,38 +2012,38 @@
         text-indent: 25px;
       }
       </style>
-        <table class="gt_table">
-        
-        <thead class="gt_col_headings">
-          <tr>
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col"><strong>Characteristic</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>N = xx</strong><sup class="gt_footnote_marks">1</sup></th>
+        <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+        <thead>
+          
+          <tr class="gt_col_headings">
+            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Characteristic&lt;/strong&gt;"><strong>Characteristic</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;N = xx&lt;/strong&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;"><strong>N = xx</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
           </tr>
         </thead>
         <tbody class="gt_table_body">
-          <tr><td class="gt_row gt_left">Biological Marker</td>
-      <td class="gt_row gt_center"></td></tr>
-          <tr><td class="gt_row gt_left">    N</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Mean (SD)</td>
-      <td class="gt_row gt_center">xx (xx)</td></tr>
-          <tr><td class="gt_row gt_left">    Median (IQR)</td>
-      <td class="gt_row gt_center">xx (xx, xx)</td></tr>
-          <tr><td class="gt_row gt_left">    Range</td>
-      <td class="gt_row gt_center">xx, xx</td></tr>
-          <tr><td class="gt_row gt_left">    N missing</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">Treatment Group</td>
-      <td class="gt_row gt_center"></td></tr>
-          <tr><td class="gt_row gt_left">    Drug A</td>
-      <td class="gt_row gt_center">xx (xx.x%)</td></tr>
-          <tr><td class="gt_row gt_left">    Drug B</td>
-      <td class="gt_row gt_center">xx (xx.x%)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Biological Marker</td>
+      <td headers="stat_0" class="gt_row gt_center"></td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    N</td>
+      <td headers="stat_0" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Mean (SD)</td>
+      <td headers="stat_0" class="gt_row gt_center">xx (xx)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Median (IQR)</td>
+      <td headers="stat_0" class="gt_row gt_center">xx (xx, xx)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Range</td>
+      <td headers="stat_0" class="gt_row gt_center">xx, xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    N missing</td>
+      <td headers="stat_0" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Treatment Group</td>
+      <td headers="stat_0" class="gt_row gt_center"></td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Drug A</td>
+      <td headers="stat_0" class="gt_row gt_center">xx (xx.x%)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Drug B</td>
+      <td headers="stat_0" class="gt_row gt_center">xx (xx.x%)</td></tr>
         </tbody>
         
         <tfoot class="gt_footnotes">
           <tr>
-            <td class="gt_footnote" colspan="2"><sup class="gt_footnote_marks">1</sup> n (%)</td>
+            <td class="gt_footnote" colspan="2"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> n (%)</td>
           </tr>
         </tfoot>
       </table>
@@ -1914,14 +2054,26 @@
     Code
       as_gt(t5, id = "t5_001")
     Output
-      <div id="t5_001" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-        <style>html {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+      <div id="t5_001" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+        <style>#t5_001 table {
+        font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      #t5_001 thead, #t5_001 tbody, #t5_001 tfoot, #t5_001 tr, #t5_001 td, #t5_001 th {
+        border-style: none;
+      }
+      
+      #t5_001 p {
+        margin: 0;
+        padding: 0;
       }
       
       #t5_001 .gt_table {
         display: table;
         border-collapse: collapse;
+        line-height: normal;
         margin-left: auto;
         margin-right: auto;
         color: #333333;
@@ -1944,16 +2096,9 @@
         border-left-color: #D3D3D3;
       }
       
-      #t5_001 .gt_heading {
-        background-color: #FFFFFF;
-        text-align: center;
-        border-bottom-color: #FFFFFF;
-        border-left-style: none;
-        border-left-width: 1px;
-        border-left-color: #D3D3D3;
-        border-right-style: none;
-        border-right-width: 1px;
-        border-right-color: #D3D3D3;
+      #t5_001 .gt_caption {
+        padding-top: 4px;
+        padding-bottom: 4px;
       }
       
       #t5_001 .gt_title {
@@ -1972,12 +2117,24 @@
         color: #333333;
         font-size: 85%;
         font-weight: initial;
-        padding-top: 0;
-        padding-bottom: 6px;
+        padding-top: 3px;
+        padding-bottom: 5px;
         padding-left: 5px;
         padding-right: 5px;
         border-top-color: #FFFFFF;
         border-top-width: 0;
+      }
+      
+      #t5_001 .gt_heading {
+        background-color: #FFFFFF;
+        text-align: center;
+        border-bottom-color: #FFFFFF;
+        border-left-style: none;
+        border-left-width: 1px;
+        border-left-color: #D3D3D3;
+        border-right-style: none;
+        border-right-width: 1px;
+        border-right-color: #D3D3D3;
       }
       
       #t5_001 .gt_bottom_border {
@@ -2053,6 +2210,10 @@
         width: 100%;
       }
       
+      #t5_001 .gt_spanner_row {
+        border-bottom-style: hidden;
+      }
+      
       #t5_001 .gt_group_heading {
         padding-top: 8px;
         padding-bottom: 8px;
@@ -2076,6 +2237,7 @@
         border-right-width: 1px;
         border-right-color: #D3D3D3;
         vertical-align: middle;
+        text-align: left;
       }
       
       #t5_001 .gt_empty_group_heading {
@@ -2151,6 +2313,10 @@
         border-top-width: 2px;
       }
       
+      #t5_001 .gt_row_group_first th {
+        border-top-width: 2px;
+      }
+      
       #t5_001 .gt_summary_row {
         color: #333333;
         background-color: #FFFFFF;
@@ -2200,6 +2366,16 @@
         border-top-color: #D3D3D3;
       }
       
+      #t5_001 .gt_last_grand_summary_row_top {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-bottom-style: double;
+        border-bottom-width: 6px;
+        border-bottom-color: #D3D3D3;
+      }
+      
       #t5_001 .gt_striped {
         background-color: rgba(128, 128, 128, 0.05);
       }
@@ -2230,8 +2406,8 @@
       #t5_001 .gt_footnote {
         margin: 0px;
         font-size: 90%;
-        padding-left: 4px;
-        padding-right: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
         padding-left: 5px;
         padding-right: 5px;
       }
@@ -2288,10 +2464,9 @@
       }
       
       #t5_001 .gt_footnote_marks {
-        font-style: italic;
-        font-weight: normal;
         font-size: 75%;
         vertical-align: 0.4em;
+        position: initial;
       }
       
       #t5_001 .gt_asterisk {
@@ -2319,38 +2494,38 @@
         text-indent: 25px;
       }
       </style>
-        <table class="gt_table">
-        
-        <thead class="gt_col_headings">
-          <tr>
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col"><strong>Characteristic</strong></th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col"><strong>N = xx</strong><sup class="gt_footnote_marks">1</sup></th>
+        <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+        <thead>
+          
+          <tr class="gt_col_headings">
+            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;Characteristic&lt;/strong&gt;"><strong>Characteristic</strong></th>
+            <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;strong&gt;N = xx&lt;/strong&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;"><strong>N = xx</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
           </tr>
         </thead>
         <tbody class="gt_table_body">
-          <tr><td class="gt_row gt_left">Biological Marker</td>
-      <td class="gt_row gt_center"></td></tr>
-          <tr><td class="gt_row gt_left">    N</td>
-      <td class="gt_row gt_center">xx</td></tr>
-          <tr><td class="gt_row gt_left">    Mean (SD)</td>
-      <td class="gt_row gt_center">xx.x (xx.x)</td></tr>
-          <tr><td class="gt_row gt_left">    Median (IQR)</td>
-      <td class="gt_row gt_center">xx (xx, xx)</td></tr>
-          <tr><td class="gt_row gt_left">    Range</td>
-      <td class="gt_row gt_center">xx, xx</td></tr>
-          <tr><td class="gt_row gt_left">    N missing</td>
-      <td class="gt_row gt_center">xx.x</td></tr>
-          <tr><td class="gt_row gt_left">Treatment Group</td>
-      <td class="gt_row gt_center"></td></tr>
-          <tr><td class="gt_row gt_left">    Drug A</td>
-      <td class="gt_row gt_center">xx (xx.x%)</td></tr>
-          <tr><td class="gt_row gt_left">    Drug B</td>
-      <td class="gt_row gt_center">xx (xx.x%)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Biological Marker</td>
+      <td headers="stat_0" class="gt_row gt_center"></td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    N</td>
+      <td headers="stat_0" class="gt_row gt_center">xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Mean (SD)</td>
+      <td headers="stat_0" class="gt_row gt_center">xx.x (xx.x)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Median (IQR)</td>
+      <td headers="stat_0" class="gt_row gt_center">xx (xx, xx)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Range</td>
+      <td headers="stat_0" class="gt_row gt_center">xx, xx</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    N missing</td>
+      <td headers="stat_0" class="gt_row gt_center">xx.x</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">Treatment Group</td>
+      <td headers="stat_0" class="gt_row gt_center"></td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Drug A</td>
+      <td headers="stat_0" class="gt_row gt_center">xx (xx.x%)</td></tr>
+          <tr><td headers="label" class="gt_row gt_left">    Drug B</td>
+      <td headers="stat_0" class="gt_row gt_center">xx (xx.x%)</td></tr>
         </tbody>
         
         <tfoot class="gt_footnotes">
           <tr>
-            <td class="gt_footnote" colspan="2"><sup class="gt_footnote_marks">1</sup> n (%)</td>
+            <td class="gt_footnote" colspan="2"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> n (%)</td>
           </tr>
         </tfoot>
       </table>
