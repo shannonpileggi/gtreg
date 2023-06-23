@@ -58,8 +58,7 @@ test_that("add_overall() works", {
 
   expect_snapshot(
     tbl1 %>%
-      as_gt() %>%
-      gt::as_raw_html()
+      as.data.frame()
   )
 
   expect_error(
