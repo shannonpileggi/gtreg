@@ -1,5 +1,13 @@
 # gtreg (development version)
 
+
+* Fix GitHub link on pkgdown site (#207).
+
+* Address deprecated `purrr::when()` and `forcats::fct_explicit_na()` (#210).
+
+* Update package versions for dependencies.
+
+
 # gtreg 0.2.0
 
 Documentation:
