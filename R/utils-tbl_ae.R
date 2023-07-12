@@ -247,12 +247,25 @@
   tbl
 }
 
+# check_factor is not an exported function in forcats, copying here
+# for internal use
+.check_factor <- function(x) {
+  if (is.character(x)) {
+    factor(x)
+  } else if (is.factor(x)) {
+    x
+  } else {
+    cli::cli_abort(
+      "Input must be a factor or character vector."
+    )
+  }
+}
 
 # keeping deprecated forcats function in order
 # to not change default behavior with new functions
 .fct_explicit_na <- function(f, na_level = "(Missing)") {
 
-  f <- forcats:::check_factor(f)
+  f <- .check_factor(f)
 
   is_missing <- is.na(f)
   is_missing_level <- is.na(levels(f))
@@ -309,3 +322,7 @@
 
   result
 }
+
+
+
+

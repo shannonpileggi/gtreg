@@ -1,7 +1,7 @@
 # gtreg (development version)
 
 
-* Fix GitHub link on pkgdown site (#207).
+* Fix GitHub link on `pkgdown` site (#207).
 
 * Address deprecated `purrr::when()` and `forcats::fct_explicit_na()` (#210).
 
