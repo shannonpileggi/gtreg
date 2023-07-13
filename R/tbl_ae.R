@@ -191,7 +191,7 @@ tbl_ae <- function(data,
     # add class
     structure(class = c("tbl_ae", "gtsummary")) %>%
     # add default spanning headers
-    purrr::when(
+    .when(
       !is.null(strata) ~
         modify_spanning_header(., gtsummary::all_stat_cols() ~ "**{strata}**, N = {n}"),
       TRUE ~ modify_spanning_header(., gtsummary::all_stat_cols() ~ "**N = {N}**")
