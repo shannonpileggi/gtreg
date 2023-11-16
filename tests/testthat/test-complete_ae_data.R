@@ -437,7 +437,8 @@ test_that("messaging for missing ae or soc", {
     soc = "system_organ_class",
     id = "patient_id",
     by = "grade"
-    )
+    ),
+    "At least one `soc` is missing."
   )
 
   expect_error(
@@ -447,7 +448,8 @@ test_that("messaging for missing ae or soc", {
     soc = "system_organ_class",
     id = "patient_id",
     by = "grade"
-    )
+    ),
+  "At least one `soc` is missing."
   )
 
   expect_error(
@@ -457,7 +459,8 @@ test_that("messaging for missing ae or soc", {
     soc = "system_organ_class",
     id = "patient_id",
     by = "grade"
-    )
+    ),
+  "At least one `ae` is missing."
   )
 
 })
