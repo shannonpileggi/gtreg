@@ -107,7 +107,7 @@ test_that("style_xxx works with tbl_reg_summary", {
       modify_header(stat_0 ~ "**N = xx**"),
     NA)
 
-  expect_snapshot(as_gt(t4, id = "t4_001"))
-  expect_snapshot(as_gt(t5, id = "t5_001"))
+  expect_snapshot(as.data.frame(t4))
+  expect_snapshot(as.data.frame(t5))
 
 })
