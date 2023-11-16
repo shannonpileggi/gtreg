@@ -92,9 +92,29 @@
                             by = c(id, strata))) > 0) {
     stop("There are `id=`/`strata=` combinations in `data=` not found in `id_df=`.", call. = FALSE)
   }
+
+  # check for an AE that exists with both non-missing and a missing soc.
+  if (!is.null(soc) &&
+      nrow(dplyr::distinct(data[c(ae, soc)])) != nrow(dplyr::distinct(data[ae])) &&
+        any(is.na(dplyr::distinct(data[c(ae, soc)])[soc]))
+      ) {
+    stop("An `ae` term shows both a missing and non-missing `soc`; the `ae` levels must be unique across all `soc` levels.", call. = FALSE)
+  }
+
+  # check for an ae listed under more than one soc
   if (!is.null(soc) &&
       nrow(dplyr::distinct(data[c(ae, soc)])) != nrow(dplyr::distinct(data[ae]))) {
     stop("The `ae` levels must be unique across all `soc` levels.", call. = FALSE)
+  }
+
+  # check for missing soc
+  if (!is.null(soc) && any(is.na(dplyr::distinct(data[soc])))) {
+    stop("At least one `soc` is missing.", call. = FALSE)
+  }
+
+  # check for missing ae
+  if (!is.null(ae) && any(is.na(dplyr::distinct(data[ae])))) {
+    stop("At least one `ae` is missing.", call. = FALSE)
   }
 
   # some default factor levels -------------------------------------------------
