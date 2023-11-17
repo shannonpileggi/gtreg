@@ -1,6 +1,6 @@
 Package: gtreg
 Title: Regulatory Tables for Clinical Research
-Version: 0.2.0.9001
+Version: 0.3.0
 Authors@R: c(
     person("Shannon", "Pileggi", , "shannon.pileggi@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-7732-4164")),
@@ -32,7 +32,7 @@ Imports:
     tidyr (>= 1.2.1)
 Suggests: 
     covr (>= 3.6.1),
-    gt (>= 0.9.0),
+    gt (>= 0.10.0),
     knitr (>= 1.43),
     rmarkdown (>= 2.22),
     spelling (>= 2.2.1),
@@ -44,4 +44,4 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
