@@ -148,9 +148,21 @@
   if (is.null(zero_symbol)) return(tbl)
 
   # data frame of zero-count cells
-  df_zero_columns <-
+  df_zero_rows <-
     tbl$cards[[1]] |>
-    dplyr::filter(stat_name %in% "n", stat %in% 0L, !is.na(gts_column)) |>
+    dplyr::filter(stat_name %in% "n", stat %in% 0L, !is.na(gts_column))
+
+  if (nrow(df_zero_rows) == 0L) {
+    return(tbl %>%
+             gtsummary::modify_table_styling(
+               columns = gtsummary::all_stat_cols(),
+               rows = !is.na(.data$label),
+               missing_symbol = zero_symbol
+             ))
+  }
+
+  df_zero_columns <-
+    df_zero_rows |>
     dplyr::select(label = variable_level, col_name = gts_column) |>
     dplyr::mutate(label = unlist(label)) |>
     dplyr::as_tibble() |>
