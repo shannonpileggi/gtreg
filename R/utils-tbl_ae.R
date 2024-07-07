@@ -109,9 +109,10 @@
 
 .hide_unobserved_columns <- function(tbl, columns) {
   column_to_hide <-
-    tbl$df_by %>%
-    dplyr::filter(.data$by_chr %in% .env$columns) %>%
-    dplyr::pull("by_col")
+    tbl$cards[[1]] |>
+    dplyr::filter(group1_level %in% .env$columns) |>
+    dplyr::pull("gts_column") |>
+    unlist()
 
   if (rlang::is_empty(column_to_hide)) return(tbl)
   gtsummary::modify_column_hide(tbl, columns = all_of(column_to_hide))
@@ -123,9 +124,10 @@
 
   # identify column to move
   column_to_relocate <-
-    tbl$df_by %>%
-    dplyr::filter(.data$by_chr %in% "Unknown") %>%
-    dplyr::pull("by_col")
+    tbl$cards[[1]] |>
+    dplyr::filter(group1_level %in% "Unknown") |>
+    dplyr::pull("gts_column") |>
+    unlist()
 
   # if no Unknown column, return tbl unmodified
   if (rlang::is_empty(column_to_relocate)) return(tbl)
@@ -147,9 +149,11 @@
 
   # data frame of zero-count cells
   df_zero_columns <-
-    tbl$meta_data$df_stats[[1]] %>%
-    filter(.data$n == 0L) %>%
-    select(all_of(c("label", "col_name"))) %>%
+    tbl$cards[[1]] |>
+    dplyr::filter(stat_name %in% "n", stat %in% 0L, !is.na(gts_column)) |>
+    dplyr::select(label = variable_level, col_name = gts_column) |>
+    dplyr::mutate(label = unlist(label)) |>
+    dplyr::as_tibble() |>
     tidyr::nest(data = "label")
 
   # create expression with code to set zero count data to the zero_symbol
