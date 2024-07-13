@@ -110,9 +110,11 @@
 .hide_unobserved_columns <- function(tbl, columns) {
   column_to_hide <-
     tbl$cards[[1]] |>
-    dplyr::filter(group1_level %in% .env$columns) |>
+    dplyr::filter(
+      purrr::map_chr(.data$group1_level, ~ifelse(rlang::is_empty(.x), NA_character_, as.character(.x))) %in% .env$columns
+    ) |>
     dplyr::pull("gts_column") |>
-    unlist()
+    unique()
 
   if (rlang::is_empty(column_to_hide)) return(tbl)
   gtsummary::modify_column_hide(tbl, columns = all_of(column_to_hide))
