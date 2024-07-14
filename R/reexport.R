@@ -11,6 +11,10 @@ dplyr::vars
 #' @export
 dplyr::select
 
+#' @importFrom dplyr where
+#' @export
+dplyr::where
+
 #' @importFrom dplyr starts_with
 #' @export
 dplyr::starts_with

@@ -64,9 +64,9 @@ test_that("style_xxx works with tbl_ae family", {
     NA)
 
 
-  expect_snapshot(as_gt(t1, id = "t1_001"))
-  expect_snapshot(as_gt(t2, id = "t2_001"))
-  expect_snapshot(as_gt(t3, id = "t3_001"))
+  expect_snapshot(as.data.frame(t1))
+  expect_snapshot(as.data.frame(t2))
+  expect_snapshot(as.data.frame(t3))
 
 })
 
@@ -107,7 +107,7 @@ test_that("style_xxx works with tbl_reg_summary", {
       modify_header(stat_0 ~ "**N = xx**"),
     NA)
 
-  expect_snapshot(as_gt(t4, id = "t4_001"))
-  expect_snapshot(as_gt(t5, id = "t5_001"))
+  expect_snapshot(as.data.frame(t4))
+  expect_snapshot(as.data.frame(t5))
 
 })

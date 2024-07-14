@@ -263,7 +263,7 @@ test_that("tbl_ae() works", {
   )
   expect_equal(
     as_tibble(tbl, col_labels = FALSE)$stat_1,
-    c("2.0 / 3.0 (66.67%)", "2.0 / 3.0 (66.67%)", "0.0 / 3.0 (0.00%)")
+    c("2.0 / 3.0 (66.67%)", "2.0 / 3.0 (66.67%)", "0.0 / 3.0 (0%)")
   )
 
   # assess all inputs as a factor ----------------------------------------------

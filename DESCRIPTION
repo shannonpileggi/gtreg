@@ -24,7 +24,7 @@ Imports:
     dplyr (>= 1.1.1),
     forcats (>= 1.0.0),
     glue (>= 1.6.2),
-    gtsummary (>= 1.9.9),
+    gtsummary (>= 1.9.9.9009),
     purrr (>= 1.0.1),
     rlang (>= 1.1.1),
     stringr (>= 1.5.0),
@@ -45,4 +45,4 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.2

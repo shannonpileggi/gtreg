@@ -127,9 +127,9 @@
   # identify column to move
   column_to_relocate <-
     tbl$cards[[1]] |>
-    dplyr::filter(group1_level %in% "Unknown") |>
+    dplyr::filter(purrr::map_chr(.data$group1_level, ~ifelse(rlang::is_empty(.x), NA_character_, as.character(.x))) %in% "Unknown") |>
     dplyr::pull("gts_column") |>
-    unlist()
+    unique()
 
   # if no Unknown column, return tbl unmodified
   if (rlang::is_empty(column_to_relocate)) return(tbl)
@@ -152,7 +152,7 @@
   # data frame of zero-count cells
   df_zero_rows <-
     tbl$cards[[1]] |>
-    dplyr::filter(stat_name %in% "n", stat %in% 0L, !is.na(gts_column))
+    dplyr::filter(.data$stat_name %in% "n", .data$stat %in% 0L, !is.na(.data$gts_column))
 
   if (nrow(df_zero_rows) == 0L) {
     return(tbl %>%
@@ -165,8 +165,8 @@
 
   df_zero_columns <-
     df_zero_rows |>
-    dplyr::select(label = variable_level, col_name = gts_column) |>
-    dplyr::mutate(label = unlist(label)) |>
+    dplyr::select(label = "variable_level", col_name = "gts_column") |>
+    dplyr::mutate(label = unlist(.data$label)) |>
     dplyr::as_tibble() |>
     tidyr::nest(data = "label")
 
@@ -200,7 +200,7 @@
   if (is.null(tbl_soc)) {
     tbl_final <-
       tbl_ae %>%
-      gtsummary::modify_column_indent(columns = all_of("label"), undo = TRUE)
+      gtsummary::modify_column_indent(columns = all_of("label"), indent = 0)
     return(tbl_final)
   }
 
