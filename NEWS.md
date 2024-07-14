@@ -1,5 +1,8 @@
 # gtreg (development version)
 
+# gtreg 0.3.0
+
+* Add errors for missing `soc` and `ae` in `complete_ae_data()` (#204).
 
 * Fix GitHub link on `pkgdown` site (#207).
 
