@@ -404,3 +404,63 @@ test_that("assess complete data single arm, single soc", {
     )
   )
 })
+
+
+test_that("messaging for missing ae or soc", {
+
+  # missing soc for same ae
+  df1 <- tibble::tribble(
+    ~patient_id,     ~trt,                    ~system_organ_class, ~adverse_event, ~grade,
+    "ID 1", "Drug B",                                     NA,      "Anaemia",     1L,
+    "ID 2", "Drug B", "Blood and lymphatic system disorders",      "Anaemia",     2L,
+  )
+
+
+  # missing soc for different ae
+  df2 <- tibble::tribble(
+    ~patient_id,     ~trt,               ~system_organ_class, ~adverse_event,                 ~grade,
+    "ID 1", "Drug B",                                     NA, "Increased tendency to bruise",     1L,
+    "ID 2", "Drug B", "Blood and lymphatic system disorders", "Anaemia",                          2L
+  )
+
+  # missing ae
+  df3 <- tibble::tribble(
+    ~patient_id,    ~trt,                    ~system_organ_class, ~adverse_event, ~grade,
+    "ID 1", "Drug B", "Blood and lymphatic system disorders",      "Anaemia",     1L,
+    "ID 2", "Drug B", "Blood and lymphatic system disorders",             NA,     2L
+  )
+
+  expect_error(
+    .complete_ae_data(
+    data = df1,
+    ae = "adverse_event",
+    soc = "system_organ_class",
+    id = "patient_id",
+    by = "grade"
+    ),
+    "At least one `soc` is missing."
+  )
+
+  expect_error(
+  .complete_ae_data(
+    data = df2,
+    ae = "adverse_event",
+    soc = "system_organ_class",
+    id = "patient_id",
+    by = "grade"
+    ),
+  "At least one `soc` is missing."
+  )
+
+  expect_error(
+  .complete_ae_data(
+    data = df3,
+    ae = "adverse_event",
+    soc = "system_organ_class",
+    id = "patient_id",
+    by = "grade"
+    ),
+  "At least one `ae` is missing."
+  )
+
+})
