@@ -1,90 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/PULL_REQUEST_TEMPLATE.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/articles/counting-methods.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/articles/further_documentation.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/articles/output-gtreg.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/articles/table-modifications.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/articles/table-shells.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/index.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/add_overall_tbl_ae.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/df_adverse_events.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/df_patient_characteristics.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/dot-complete_ae_data.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/gtreg-package.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/inline_text_tbl_ae.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/selectors.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/style_xxx.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_ae.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_ae_count.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_ae_focus.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_listing.html</loc>
-  </url>
-  <url>
-    <loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_reg_summary.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/CONTRIBUTING.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/LICENSE.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/PULL_REQUEST_TEMPLATE.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/SUPPORT.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/articles/counting-methods.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/articles/further_documentation.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/articles/index.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/articles/output-gtreg.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/articles/table-modifications.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/articles/table-shells.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/authors.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/index.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/news/index.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/add_overall_tbl_ae.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/df_adverse_events.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/df_patient_characteristics.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/dot-complete_ae_data.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/gtreg-package.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/index.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/inline_text_tbl_ae.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/reexports.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/selectors.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/style_xxx.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_ae.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_ae_count.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_ae_focus.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_listing.html</loc></url>
+<url><loc>https://shannonpileggi.github.io/gtreg/dev/reference/tbl_reg_summary.html</loc></url>
 </urlset>
+
