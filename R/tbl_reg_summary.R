@@ -35,16 +35,20 @@
 tbl_reg_summary <- function(data,
                             by = NULL,
                             label = NULL,
-                            statistic = NULL,
+                            statistic =
+                              list(all_continuous() ~ c("{N_nonmiss}", "{mean} ({sd})", "{median} ({p25}, {p75})", "{min}, {max}", "{N_miss}"),
+                                   all_categorical() ~ "{n} ({p}%)"),
                             digits = NULL,
                             type = NULL,
                             value = NULL,
                             missing = c("no", "yes", "ifany"),
-                            missing_text = NULL,
-                            sort = NULL,
-                            percent = NULL,
+                            missing_text = "Unknown",
+                            missing_stat = "{N_miss}",
+                            sort = all_categorical(FALSE) ~ "alphanumeric",
+                            percent = c("column", "row", "cell"),
                             include = everything()) {
   missing <- match.arg(missing)
+  percent <- match.arg(percent)
 
   # execute `tbl_summary()` code with gtreg theme/defaults ---------------------
   gtsummary::with_gtsummary_theme(
@@ -68,7 +72,5 @@ tbl_reg_summary <- function(data,
 # creating theme for gtreg summaries -------------------------------------------
 gtreg_theme <-
   list(
-    "tbl_summary-str:default_con_type" = "continuous2",
-    "tbl_summary-str:continuous_stat" =
-      c("{N_nonmiss}", "{mean} ({sd})", "{median} ({p25}, {p75})", "{min}, {max}", "{N_miss}")
+    "tbl_summary-str:default_con_type" = "continuous2"
   )

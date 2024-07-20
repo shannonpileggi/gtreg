@@ -109,9 +109,12 @@
 
 .hide_unobserved_columns <- function(tbl, columns) {
   column_to_hide <-
-    tbl$df_by %>%
-    dplyr::filter(.data$by_chr %in% .env$columns) %>%
-    dplyr::pull("by_col")
+    tbl$cards[[1]] |>
+    dplyr::filter(
+      purrr::map_chr(.data$group1_level, ~ifelse(rlang::is_empty(.x), NA_character_, as.character(.x))) %in% .env$columns
+    ) |>
+    dplyr::pull("gts_column") |>
+    unique()
 
   if (rlang::is_empty(column_to_hide)) return(tbl)
   gtsummary::modify_column_hide(tbl, columns = all_of(column_to_hide))
@@ -123,9 +126,10 @@
 
   # identify column to move
   column_to_relocate <-
-    tbl$df_by %>%
-    dplyr::filter(.data$by_chr %in% "Unknown") %>%
-    dplyr::pull("by_col")
+    tbl$cards[[1]] |>
+    dplyr::filter(purrr::map_chr(.data$group1_level, ~ifelse(rlang::is_empty(.x), NA_character_, as.character(.x))) %in% "Unknown") |>
+    dplyr::pull("gts_column") |>
+    unique()
 
   # if no Unknown column, return tbl unmodified
   if (rlang::is_empty(column_to_relocate)) return(tbl)
@@ -146,10 +150,24 @@
   if (is.null(zero_symbol)) return(tbl)
 
   # data frame of zero-count cells
+  df_zero_rows <-
+    tbl$cards[[1]] |>
+    dplyr::filter(.data$stat_name %in% "n", .data$stat %in% 0L, !is.na(.data$gts_column))
+
+  if (nrow(df_zero_rows) == 0L) {
+    return(tbl %>%
+             gtsummary::modify_table_styling(
+               columns = gtsummary::all_stat_cols(),
+               rows = !is.na(.data$label),
+               missing_symbol = zero_symbol
+             ))
+  }
+
   df_zero_columns <-
-    tbl$meta_data$df_stats[[1]] %>%
-    filter(.data$n == 0L) %>%
-    select(all_of(c("label", "col_name"))) %>%
+    df_zero_rows |>
+    dplyr::select(label = "variable_level", col_name = "gts_column") |>
+    dplyr::mutate(label = unlist(.data$label)) |>
+    dplyr::as_tibble() |>
     tidyr::nest(data = "label")
 
   # create expression with code to set zero count data to the zero_symbol
@@ -182,7 +200,7 @@
   if (is.null(tbl_soc)) {
     tbl_final <-
       tbl_ae %>%
-      gtsummary::modify_column_indent(columns = all_of("label"), undo = TRUE)
+      gtsummary::modify_column_indent(columns = all_of("label"), indent = 0)
     return(tbl_final)
   }
 

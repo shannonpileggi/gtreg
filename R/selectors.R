@@ -44,52 +44,40 @@ NULL
 #' @export
 #' @rdname selectors
 all_ae_cols <- function(overall = FALSE, unknown = FALSE) {
-  # construct filtering expression
-  if (identical(overall, FALSE) && identical(unknown, FALSE))
-    expr <- rlang::expr(.data$hide %in% FALSE & !.data$overall %in% TRUE & !.data$unknown %in% TRUE)
-  else if (identical(overall, FALSE))
-    expr <- rlang::expr(.data$hide %in% FALSE & !.data$overall %in% TRUE)
-  else if (identical(unknown, FALSE))
-    expr <- rlang::expr(.data$hide %in% FALSE & !.data$unknown %in% TRUE)
-  else expr <- rlang::expr(.data$hide %in% FALSE & startsWith(.data$column, "stat_"))
+  # construct requested selector
+  if (identical(overall, FALSE) && identical(unknown, FALSE)) {
+    return(where(\(x) isFALSE(attr(x, "gtsummary.hide")) &&
+                   !rlang::is_empty(attr(x, "gtsummary.overall")) && !rlang::is_empty(attr(x, "gtsummary.unknown")) &&
+                   !isTRUE(attr(x, "gtsummary.overall")) && !isTRUE(attr(x, "gtsummary.unknown"))))
+  }
+  else if (identical(overall, FALSE)) {
+    return(where(\(x) isFALSE(attr(x, "gtsummary.hide")) &&
+                   !rlang::is_empty(attr(x, "gtsummary.overall")) &&
+                   !isTRUE(attr(x, "gtsummary.overall"))))
+  }
+  else if (identical(unknown, FALSE)) {
+    return(where(\(x) isFALSE(attr(x, "gtsummary.hide")) &&
+                   !rlang::is_empty(attr(x, "gtsummary.unknown")) &&
+                   !isTRUE(attr(x, "gtsummary.unknown"))))
+  }
 
-  broom.helpers::.generic_selector(
-    variable_column = "column",
-    select_column = c("hide", "overall", "unknown"),
-    select_expr = !!expr,
-    fun_name = "all_ae_cols"
-  )
+  where(\(x) isFALSE(attr(x, "gtsummary.hide")))
 }
 
 #' @export
 #' @rdname selectors
 all_cols_in_strata <- function(strata) {
-  broom.helpers::.generic_selector(
-    variable_column = "column",
-    select_column = c("hide", "strata"),
-    select_expr = .data$hide %in% FALSE & .data$strata %in% .env$strata,
-    fun_name = "all_cols_in_strata"
-  )
+  where(function(x) isFALSE(attr(x, "gtsummary.hide")) && isTRUE(attr(x, "gtsummary.strata") %in% strata))
 }
 
 #' @export
 #' @rdname selectors
 all_overall_cols <- function() {
-  broom.helpers::.generic_selector(
-    variable_column = "column",
-    select_column = c("hide", "overall"),
-    select_expr = .data$hide %in% FALSE & .data$overall %in% TRUE,
-    fun_name = "all_overall_cols"
-  )
+  where(function(x) isFALSE(attr(x, "gtsummary.hide")) && isTRUE(attr(x, "gtsummary.overall")))
 }
 
 #' @export
 #' @rdname selectors
 all_unknown_cols <- function() {
-  broom.helpers::.generic_selector(
-    variable_column = "column",
-    select_column = c("hide", "unknown"),
-    select_expr = .data$hide %in% FALSE & .data$unknown %in% TRUE,
-    fun_name = "all_unknown_cols"
-  )
+  where(function(x) isFALSE(attr(x, "gtsummary.hide")) && isTRUE(attr(x, "gtsummary.unknown")))
 }
