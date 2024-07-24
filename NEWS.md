@@ -1,5 +1,7 @@
 # gtreg (development version)
 
+* Update internals to be compatible with {gtsummary} 2.0.0 release.
+
 # gtreg 0.3.0
 
 * Add errors for missing `soc` and `ae` in `complete_ae_data()` (#204).
