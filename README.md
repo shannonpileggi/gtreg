@@ -77,7 +77,7 @@ number of patients in the study.
 ``` r
 library(gtreg)
 gtsummary::theme_gtsummary_compact()
-#> Setting theme `Compact`
+#> Setting theme "Compact"
 
 tbl_ae <- 
   df_adverse_events |>
@@ -124,6 +124,7 @@ regulatory submissions.
 tbl_reg_summary <-
   df_patient_characteristics |>
   tbl_reg_summary(by = trt, include = c(marker, status)) 
+#> Setting theme "Compact"
 ```
 
 <img src="man/figures/README-example-tbl_reg_summary-1.png" width="42%" />
