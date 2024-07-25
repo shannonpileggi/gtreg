@@ -1,6 +1,6 @@
 ## Test environments
 
-* Ubuntu latest (on github actions), devel, release, oldrel-1, oldrel-2, oldrel-3, oldrel-4
+* Ubuntu latest (on github actions), devel, release, oldrel-1, oldrel-2
 * Windows latest (on github actions), release
 * macOS latest (on github actions), release
 * win-builder devel
