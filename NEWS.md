@@ -1,4 +1,4 @@
-# gtreg (development version)
+# gtreg 0.4.0
 
 * Update internals to be compatible with {gtsummary} 2.0.0 release.
 
