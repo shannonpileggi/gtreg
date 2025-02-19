@@ -196,11 +196,22 @@ add_overall.tbl_ae <- function(x, across = NULL, ...) {
 
   # grouping columns with same spanning header together ------------------------
   if (across %in% c("both", "by") && !is.null(x$inputs$strata)) {
+    df_spanning_headers <-
+      dplyr::inner_join(
+        tbl_final$table_styling$header %>%
+          dplyr::filter(!.data$hide) %>%
+          select("column"),
+        tbl_final$table_styling$spanning_header,
+        by = "column"
+      ) %>%
+      dplyr::slice_tail(by = c("level", "column"), n = 1)
+
     column_order <-
-      unique(tbl_final$table_styling$header$spanning_header) %>%
+      unique(df_spanning_headers$spanning_header) %>%
       stats::na.omit() %>%
       purrr::map(
         ~ tbl_final$table_styling$header %>%
+          dplyr::left_join(df_spanning_headers[c("column", "spanning_header")], by = "column") %>%
           filter(.data$spanning_header %in% .x) %>%
           dplyr::pull("column")
       ) %>%

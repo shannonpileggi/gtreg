@@ -82,7 +82,7 @@ tbl_listing <- function(data, group_by = NULL, bold_headers = TRUE) {
     dplyr::mutate(row_type = "level", .before = 1L)
 
   group_by <-
-    broom.helpers::.select_to_varnames(
+    .select_to_varnames(
       select = {{ group_by }},
       data = data,
       arg_name = "group_by",

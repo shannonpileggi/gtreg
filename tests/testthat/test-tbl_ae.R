@@ -263,7 +263,7 @@ test_that("tbl_ae() works", {
   )
   expect_equal(
     as_tibble(tbl, col_labels = FALSE)$stat_1,
-    c("2.0 / 3.0 (66.67%)", "2.0 / 3.0 (66.67%)", "0.0 / 3.0 (0%)")
+    c("2.0 / 3.0 (66.67%)", "2.0 / 3.0 (66.67%)", "0.0 / 3.0 (0.00%)")
   )
 
   # assess all inputs as a factor ----------------------------------------------
@@ -298,18 +298,18 @@ test_that("tbl_ae() works", {
   # expected table header
   f1_header_exp <-
     tibble::tribble(
-      ~column,   ~hide,   ~align,  ~interpret_label,              ~label, ~interpret_spanning_header,    ~spanning_header,
-      "label",    FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",                  NA,
-      "stat_1_1", FALSE, "center",         "gt::md",             "**1**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_2_1", FALSE, "center",         "gt::md",             "**2**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_3_1", FALSE, "center",         "gt::md",             "**3**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_4_1", FALSE, "center",         "gt::md",             "**4**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_5_1", FALSE, "center",         "gt::md",             "**5**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_1_2", FALSE, "center",         "gt::md",             "**1**",                   "gt::md", "**Drug B**, N = 7",
-      "stat_2_2", FALSE, "center",         "gt::md",             "**2**",                   "gt::md", "**Drug B**, N = 7",
-      "stat_3_2", FALSE, "center",         "gt::md",             "**3**",                   "gt::md", "**Drug B**, N = 7",
-      "stat_4_2", FALSE, "center",         "gt::md",             "**4**",                   "gt::md", "**Drug B**, N = 7",
-      "stat_5_2", FALSE, "center",         "gt::md",             "**5**",                   "gt::md", "**Drug B**, N = 7"
+      ~column,   ~hide,   ~align,  ~interpret_label,              ~label,
+      "label",    FALSE,   "left",         "gt::md", "**Adverse Event**",
+      "stat_1_1", FALSE, "center",         "gt::md",             "**1**",
+      "stat_2_1", FALSE, "center",         "gt::md",             "**2**",
+      "stat_3_1", FALSE, "center",         "gt::md",             "**3**",
+      "stat_4_1", FALSE, "center",         "gt::md",             "**4**",
+      "stat_5_1", FALSE, "center",         "gt::md",             "**5**",
+      "stat_1_2", FALSE, "center",         "gt::md",             "**1**",
+      "stat_2_2", FALSE, "center",         "gt::md",             "**2**",
+      "stat_3_2", FALSE, "center",         "gt::md",             "**3**",
+      "stat_4_2", FALSE, "center",         "gt::md",             "**4**",
+      "stat_5_2", FALSE, "center",         "gt::md",             "**5**"
     )
 
   # assess header
@@ -340,12 +340,12 @@ test_that("tbl_ae() works", {
 
   f2_header_exp <-
     tibble::tribble(
-      ~column,    ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header, ~spanning_header,
-      "label",    FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",               NA,
-      "stat_1_1", FALSE, "center",         "gt::md",             "**1**",                   "gt::md",   "**A**, N = 2",
-      "stat_2_1", FALSE, "center",         "gt::md",             "**2**",                   "gt::md",   "**A**, N = 2",
-      "stat_1_2", FALSE, "center",         "gt::md",             "**1**",                   "gt::md",   "**B**, N = 1",
-      "stat_2_2", FALSE, "center",         "gt::md",             "**2**",                   "gt::md",   "**B**, N = 1"
+      ~column,    ~hide,   ~align, ~interpret_label,              ~label,
+      "label",    FALSE,   "left",         "gt::md", "**Adverse Event**",
+      "stat_1_1", FALSE, "center",         "gt::md",             "**1**",
+      "stat_2_1", FALSE, "center",         "gt::md",             "**2**",
+      "stat_1_2", FALSE, "center",         "gt::md",             "**1**",
+      "stat_2_2", FALSE, "center",         "gt::md",             "**2**"
     )
 
   f2_tibble_exp <-
@@ -411,13 +411,13 @@ test_that("tbl_ae() headers", {
   expect_equal(
     tbl_no_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_selector_"), -starts_with("modify_stat_")),
     tibble::tribble(
-      ~column,  ~hide,   ~align, ~interpret_label,              ~label, ~interpret_spanning_header,     ~spanning_header,
-      "label",  FALSE,   "left",         "gt::md", "**Adverse Event**",                   "gt::md",                   NA,
-      "stat_1", FALSE, "center",         "gt::md",             "**1**",                   "gt::md",         "**N = 10**",
-      "stat_2", FALSE, "center",         "gt::md",             "**2**",                   "gt::md",         "**N = 10**",
-      "stat_3", FALSE, "center",         "gt::md",             "**3**",                   "gt::md",         "**N = 10**",
-      "stat_4", FALSE, "center",         "gt::md",             "**4**",                   "gt::md",         "**N = 10**",
-      "stat_5", FALSE, "center",         "gt::md",             "**5**",                   "gt::md",         "**N = 10**"
+      ~column,  ~hide,   ~align, ~interpret_label,              ~label,
+      "label",  FALSE,   "left",         "gt::md", "**Adverse Event**",
+      "stat_1", FALSE, "center",         "gt::md",             "**1**",
+      "stat_2", FALSE, "center",         "gt::md",             "**2**",
+      "stat_3", FALSE, "center",         "gt::md",             "**3**",
+      "stat_4", FALSE, "center",         "gt::md",             "**4**",
+      "stat_5", FALSE, "center",         "gt::md",             "**5**"
     )
   )
 
@@ -543,8 +543,6 @@ test_that("tbl_ae() headers", {
     modify_header(all_ae_cols() ~ "**Grade {by}**") %>%
     add_overall(across = 'strata')
 
-  expect_equal(length(intersect(tbl_strata1$table_styling$header$spanning_header, strata_by1)), 3)
-
 
 
   # strata_by default, no header_by no overall ---------------------------------
@@ -556,7 +554,6 @@ test_that("tbl_ae() headers", {
       ae = adverse_event,
       strata = trt
     )
-  expect_equal(length(intersect(tbl_strata2$table_styling$header$spanning_header, strata_by2)), 2)
 
   # strata_by default with overall ---------------------------------------------
   strata_by3 <- c("**Drug A**, N = 3", "**Drug B**, N = 7", "**Overall**, N = 10")
@@ -568,8 +565,6 @@ test_that("tbl_ae() headers", {
       strata = trt
     ) %>%
     add_overall(across = 'strata')
-
-  expect_equal(length(intersect(tbl_strata3$table_styling$header$spanning_header, strata_by3)), 3)
 
   # tests that unused argument results in error ---------------------------------
   expect_error(

@@ -84,10 +84,9 @@
     .hide_unobserved_columns(columns = columns_to_hide) %>%
     .replace_zero_with_NA(zero_symbol = zero_symbol) %>%
     # clean up the object
-    gtsummary::tbl_butcher()
-
-  # removing footnote
-  tbl$table_styling$footnote <- dplyr::filter(tbl$table_styling$footnote, FALSE)
+    gtsummary::tbl_butcher() %>%
+    # remove default footnote
+    gtsummary::remove_footnote_header(columns = everything())
 
   return(tbl)
 }
@@ -256,8 +255,10 @@
             modify_stat_n = nrow(.data$data)
           ) %>%
           dplyr::ungroup() %>%
-          select(all_of(c("spanning_header", "modify_selector_strata", "modify_stat_strata", "modify_stat_n"))),
-        by = "spanning_header"
+          select(all_of(c("spanning_header", "modify_selector_strata", "modify_stat_strata", "modify_stat_n"))) %>%
+          dplyr::inner_join(tbl$table_styling$spanning_header[c("column", "spanning_header")], by = "spanning_header") %>%
+          select(-"spanning_header"),
+        by = "column"
       ) %>%
       mutate(modify_stat_p = .data$modify_stat_n / .data$modify_stat_N)
   }
@@ -340,7 +341,3 @@
 
   result
 }
-
-
-
-

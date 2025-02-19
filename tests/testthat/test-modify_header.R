@@ -49,11 +49,15 @@ test_that("modify_header() works", {
       all_cols_in_strata("Drug A") ~ "**Control Group**, N = {n}/{N} ({style_percent(p)}%)",
       all_cols_in_strata("Drug B") ~ "**Experimental Group**, N = {n}/{N} ({style_percent(p)}%)"
     ) %>%
-      purrr::pluck("table_styling", "header") %>%
-      dplyr::filter(!hide) %>%
-      purrr::pluck("spanning_header") %>%
+      purrr::pluck("table_styling", "spanning_header") %>%
+      dplyr::filter(.by = c(level, column), dplyr::row_number() == dplyr::n(), startsWith(column, "stat_")) %>%
+      dplyr::inner_join(
+        tbl1$table_styling$header %>% dplyr::filter(!hide) %>% select(column),
+        by = "column"
+      ) %>%
+      dplyr::pull(spanning_header) |>
       unique(),
-    c(NA, "**Control Group**, N = 44/100 (44%)", "**Experimental Group**, N = 56/100 (56%)")
+    c("**Control Group**, N = 44/100 (44%)", "**Experimental Group**, N = 56/100 (56%)")
   )
 
   expect_equal(
@@ -99,8 +103,17 @@ test_that("modify_header() works", {
       "**Grade 4**, N = 7 / 10", "**Grade 5**, N = 7 / 10")
   )
   expect_equal(
-    t1_modified$table_styling$header %>% filter(!hide) %>% dplyr::pull(spanning_header) %>% unique(),
-    c(NA, "**Drug A**, N = 3 / 10", "**Drug B**, N = 7 / 10")
+    t1_modified$table_styling$header %>%
+      filter(!hide) %>%
+      dplyr::inner_join(
+        t1_modified$table_styling$spanning_header %>%
+          dplyr::slice_tail(by = c(level, column), n = 1) %>%
+          dplyr::select(column, spanning_header),
+        by = "column"
+      ) %>%
+      dplyr::pull(spanning_header) %>%
+      unique(),
+    c("**Drug A**, N = 3 / 10", "**Drug B**, N = 7 / 10")
   )
   expect_equal(
     t1_modified$table_styling$caption,

@@ -1,3 +1,9 @@
+# gtreg (development version)
+
+* Update internals to be compatible with {gtsummary} 2.1.0 release.
+
+* Removed {broom.helpers} dependency.
+
 # gtreg 0.4.0
 
 * Update internals to be compatible with {gtsummary} 2.0.0 release.
@@ -11,7 +17,6 @@
 * Address deprecated `purrr::when()` and `forcats::fct_explicit_na()` (#210).
 
 * Update package versions for dependencies.
-
 
 # gtreg 0.2.0
 
