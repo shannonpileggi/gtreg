@@ -138,10 +138,10 @@ test_that("tbl_ae_focus() works", {
   expect_equal(
     tbl_no_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_stat_"), -starts_with("modify_selector_")),
     tibble::tribble(
-      ~column,    ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,     ~spanning_header,
-      "label",    FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                   NA,
-      "stat_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md",         "**N = 10**",
-      "stat_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md",         "**N = 10**"
+      ~column,    ~hide,   ~align, ~interpret_label,                       ~label,
+      "label",    FALSE,   "left",         "gt::md",          "**Adverse Event**",
+      "stat_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",
+      "stat_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**"
     )
   )
 
@@ -159,12 +159,12 @@ test_that("tbl_ae_focus() works", {
   expect_equal(
     tbl_w_strata$table_styling$header %>% dplyr::filter(!hide) %>% select(-starts_with("modify_stat_"), -starts_with("modify_selector_")),
     tibble::tribble(
-      ~column,      ~hide,   ~align, ~interpret_label,                       ~label, ~interpret_spanning_header,    ~spanning_header,
-      "label",      FALSE,   "left",         "gt::md",          "**Adverse Event**",                   "gt::md",                  NA,
-      "stat_2_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_2_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug A**, N = 3",
-      "stat_2_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",                   "gt::md", "**Drug B**, N = 7",
-      "stat_2_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",                   "gt::md", "**Drug B**, N = 7"
+      ~column,      ~hide,   ~align, ~interpret_label,                       ~label,
+      "label",      FALSE,   "left",         "gt::md",          "**Adverse Event**",
+      "stat_2_1_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",
+      "stat_2_1_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**",
+      "stat_2_2_1", FALSE, "center",         "gt::md", "**Any Grade Complication**",
+      "stat_2_2_2", FALSE, "center",         "gt::md",  "**Grade 3+ Complication**"
     )
   )
 

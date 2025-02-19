@@ -23,7 +23,7 @@ tbl_reg_summary(
 )
 }
 \arguments{
-\item{data}{(\code{data.frame})\cr A data frame}
+\item{data}{(\code{data.frame})\cr A data frame.}
 
 \item{by}{A column name (quoted or unquoted) in \code{data.} Summary statistics
 will be calculated separately for each level of the by variable
@@ -55,20 +55,20 @@ variables. gtsummary selectors, e.g. \code{all_dichotomous()}, cannot be used wi
 \item \code{missing}: must be one of \code{c("ifany", "no", "always")}
 \item \code{missing_text}: string indicating text shown on missing row. Default is \code{"Unknown"}
 \item \code{missing_stat}: statistic to show on missing row. Default is \code{"{N_miss}"}.
-Possible values are \code{N_miss}, \code{N_obs}, \code{N_nonmiss}, \code{p_miss}, \code{p_nonmiss}
+Possible values are \code{N_miss}, \code{N_obs}, \code{N_nonmiss}, \code{p_miss}, \code{p_nonmiss}.
 }}
 
 \item{sort}{(\code{\link[gtsummary:syntax]{formula-list-selector}})\cr
 Specifies sorting to perform for categorical variables.
 Values must be one of \code{c("alphanumeric", "frequency")}.
-Default is \code{all_categorical(FALSE) ~ "alphanumeric"}}
+Default is \code{all_categorical(FALSE) ~ "alphanumeric"}.}
 
 \item{percent}{(\code{string})\cr
 Indicates the type of percentage to return.
 Must be one of \code{c("column", "row", "cell")}. Default is \code{"column"}.}
 
 \item{include}{(\code{\link[dplyr:dplyr_tidy_select]{tidy-select}})\cr
-Variables to include in the summary table. Default is \code{everything()}}
+Variables to include in the summary table. Default is \code{everything()}.}
 }
 \value{
 a 'tbl_reg_summary' object

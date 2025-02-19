@@ -234,6 +234,7 @@ test_that("tbl_ae_count() works with unobserved data in stratum", {
     dplyr::mutate_all(
       ~stringr::str_replace_all(., pattern = "\\*\\*(.*?)\\*\\*", replacement = "\\1")
     ) %>%
+    dplyr::left_join(tbl_unobserved_stratum$table_styling$spanning_header[c("column", "spanning_header")], by = "column") %>%
     mutate(col_name = paste(spanning_header, label)) %>%
     select(col_name, column) %>%
     tibble::deframe()
@@ -252,6 +253,7 @@ test_that("tbl_ae_count() works with unobserved data in stratum", {
   expect_equal(
     dplyr::bind_rows(df_count_checks_soc, df_count_checks_ae) %>%
       arrange(label, strata, n),
-    tbl_counts
+    tbl_counts %>%
+      mutate(strata = stringr::str_remove_all(strata, pattern = stringr::fixed("*")))
   )
 })
