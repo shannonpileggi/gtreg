@@ -15,8 +15,8 @@
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Atkinson_Hyperlegible-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Table shells">
 <meta name="robots" content="noindex">
 </head>
@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gtreg</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.4.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,8 +119,7 @@ implementing the <code><a href="../reference/style_xxx.html">style_xxx()</a></co
 <span>    digits <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span></span>
 <span>    <span class="co"># function specification</span></span>
 <span>    <span class="co"># digits = everything() ~ function(x) style_number(x, digits = 1)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; Setting theme <span style="color: #0000BB;">"Compact"</span></span></span></code></pre></div>
+<span>  <span class="op">)</span></span></code></pre></div>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mwlefoodfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -572,8 +571,8 @@ implementing the <code><a href="../reference/style_xxx.html">style_xxx()</a></co
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Characteristic&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Characteristic</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;N = 100&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>N = 100</strong></span></th>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="label"><span class="gt_from_md"><strong>Characteristic</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_0"><span class="gt_from_md"><strong>N = 100</strong></span></th>
     </tr></thead>
 <tbody class="gt_table_body">
 <tr>
@@ -617,8 +616,7 @@ all columns using the column selector <code><a href="https://tidyselect.r-lib.or
 <span>    <span class="fu"><a href="../reference/tbl_reg_summary.html">tbl_reg_summary</a></span><span class="op">(</span></span>
 <span>      digits <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span>  <span class="va">style_xxx</span></span>
 <span>      <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="va">stat_0</span> <span class="op">~</span> <span class="st">"**N = xx**"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Setting theme <span style="color: #0000BB;">"Compact"</span></span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="va">stat_0</span> <span class="op">~</span> <span class="st">"**N = xx**"</span><span class="op">)</span></span></code></pre></div>
 <div id="bfdpbcyvkg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#bfdpbcyvkg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1070,9 +1068,9 @@ all columns using the column selector <code><a href="https://tidyselect.r-lib.or
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Characteristic&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Characteristic</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;N = xx&lt;/strong&gt;&lt;/span&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;">
-<span class="gt_from_md"><strong>N = xx</strong></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="label"><span class="gt_from_md"><strong>Characteristic</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_0">
+<span class="gt_from_md"><strong>N = xx</strong></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
 </th>
     </tr></thead>
 <tbody class="gt_table_body">
@@ -1115,7 +1113,7 @@ all columns using the column selector <code><a href="https://tidyselect.r-lib.or
 </tbody>
 <tfoot class="gt_footnotes"><tr>
 <td class="gt_footnote" colspan="2">
-<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span> <span class="gt_from_md">n (%)</span>
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <span class="gt_from_md">n (%)</span>
 </td>
     </tr></tfoot>
 </table>
@@ -1151,8 +1149,7 @@ The multi-line continuous variables are selected with
 <span>          <span class="va">style_xxx</span>,                                       <span class="co"># Range upper</span></span>
 <span>          <span class="va">style_xxx</span>                                        <span class="co"># N missing</span></span>
 <span>    <span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="va">stat_0</span> <span class="op">~</span> <span class="st">"**N = xx**"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Setting theme <span style="color: #0000BB;">"Compact"</span></span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="va">stat_0</span> <span class="op">~</span> <span class="st">"**N = xx**"</span><span class="op">)</span></span></code></pre></div>
 <div id="nayorehals" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#nayorehals table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1604,9 +1601,9 @@ The multi-line continuous variables are selected with
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Characteristic&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Characteristic</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;N = xx&lt;/strong&gt;&lt;/span&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;">
-<span class="gt_from_md"><strong>N = xx</strong></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="label"><span class="gt_from_md"><strong>Characteristic</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_0">
+<span class="gt_from_md"><strong>N = xx</strong></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span>
 </th>
     </tr></thead>
 <tbody class="gt_table_body">
@@ -1649,7 +1646,7 @@ The multi-line continuous variables are selected with
 </tbody>
 <tfoot class="gt_footnotes"><tr>
 <td class="gt_footnote" colspan="2">
-<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span> <span class="gt_from_md">n (%)</span>
+<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> <span class="gt_from_md">n (%)</span>
 </td>
     </tr></tfoot>
 </table>
@@ -2154,17 +2151,17 @@ dashes for zero cells.</p>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings gt_spanner_row">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Adverse Event&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Adverse Event</strong></span></th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5" scope="colgroup" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;N = xx&lt;/strong&gt;&lt;/span&gt;">
-        <span class="gt_column_spanner"><span class="gt_from_md"><strong>N = xx</strong></span></span>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="label"><span class="gt_from_md"><strong>Adverse Event</strong></span></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5" scope="colgroup" id="level 1; stat_1">
+        <div class="gt_column_spanner"><span class="gt_from_md"><strong>N = xx</strong></span></div>
       </th>
     </tr>
 <tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 1&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 1</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 2&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 2</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 3&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 3</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 4&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 4</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 5&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 5</strong></span></th>
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_1"><span class="gt_from_md"><strong>Grade 1</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_2"><span class="gt_from_md"><strong>Grade 2</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_3"><span class="gt_from_md"><strong>Grade 3</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_4"><span class="gt_from_md"><strong>Grade 4</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_5"><span class="gt_from_md"><strong>Grade 5</strong></span></th>
     </tr>
 </thead>
 <tbody class="gt_table_body">
@@ -2241,23 +2238,23 @@ dashes for zero cells.</p>
 <span>    <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**Grade {by}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/modify.html" class="external-link">modify_spanning_header</a></span><span class="op">(</span><span class="fu"><a href="../reference/selectors.html">all_ae_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op">~</span> <span class="st">"**N = xx**"</span><span class="op">)</span></span></code></pre></div>
-<div id="birslsqjlm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#birslsqjlm table {
+<div id="tkdbirslsq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tkdbirslsq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#birslsqjlm thead, #birslsqjlm tbody, #birslsqjlm tfoot, #birslsqjlm tr, #birslsqjlm td, #birslsqjlm th {
+#tkdbirslsq thead, #tkdbirslsq tbody, #tkdbirslsq tfoot, #tkdbirslsq tr, #tkdbirslsq td, #tkdbirslsq th {
   border-style: none;
 }
 
-#birslsqjlm p {
+#tkdbirslsq p {
   margin: 0;
   padding: 0;
 }
 
-#birslsqjlm .gt_table {
+#tkdbirslsq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2283,12 +2280,12 @@ dashes for zero cells.</p>
   border-left-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_caption {
+#tkdbirslsq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#birslsqjlm .gt_title {
+#tkdbirslsq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2300,7 +2297,7 @@ dashes for zero cells.</p>
   border-bottom-width: 0;
 }
 
-#birslsqjlm .gt_subtitle {
+#tkdbirslsq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2312,7 +2309,7 @@ dashes for zero cells.</p>
   border-top-width: 0;
 }
 
-#birslsqjlm .gt_heading {
+#tkdbirslsq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2324,13 +2321,13 @@ dashes for zero cells.</p>
   border-right-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_bottom_border {
+#tkdbirslsq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_col_headings {
+#tkdbirslsq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2345,7 +2342,7 @@ dashes for zero cells.</p>
   border-right-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_col_heading {
+#tkdbirslsq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2365,7 +2362,7 @@ dashes for zero cells.</p>
   overflow-x: hidden;
 }
 
-#birslsqjlm .gt_column_spanner_outer {
+#tkdbirslsq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2377,15 +2374,15 @@ dashes for zero cells.</p>
   padding-right: 4px;
 }
 
-#birslsqjlm .gt_column_spanner_outer:first-child {
+#tkdbirslsq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#birslsqjlm .gt_column_spanner_outer:last-child {
+#tkdbirslsq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#birslsqjlm .gt_column_spanner {
+#tkdbirslsq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2397,11 +2394,11 @@ dashes for zero cells.</p>
   width: 100%;
 }
 
-#birslsqjlm .gt_spanner_row {
+#tkdbirslsq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#birslsqjlm .gt_group_heading {
+#tkdbirslsq .gt_group_heading {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -2427,7 +2424,7 @@ dashes for zero cells.</p>
   text-align: left;
 }
 
-#birslsqjlm .gt_empty_group_heading {
+#tkdbirslsq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2442,15 +2439,15 @@ dashes for zero cells.</p>
   vertical-align: middle;
 }
 
-#birslsqjlm .gt_from_md > :first-child {
+#tkdbirslsq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#birslsqjlm .gt_from_md > :last-child {
+#tkdbirslsq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#birslsqjlm .gt_row {
+#tkdbirslsq .gt_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -2469,7 +2466,7 @@ dashes for zero cells.</p>
   overflow-x: hidden;
 }
 
-#birslsqjlm .gt_stub {
+#tkdbirslsq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2482,7 +2479,7 @@ dashes for zero cells.</p>
   padding-right: 5px;
 }
 
-#birslsqjlm .gt_stub_row_group {
+#tkdbirslsq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2496,15 +2493,15 @@ dashes for zero cells.</p>
   vertical-align: top;
 }
 
-#birslsqjlm .gt_row_group_first td {
+#tkdbirslsq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#birslsqjlm .gt_row_group_first th {
+#tkdbirslsq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#birslsqjlm .gt_summary_row {
+#tkdbirslsq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2514,16 +2511,16 @@ dashes for zero cells.</p>
   padding-right: 5px;
 }
 
-#birslsqjlm .gt_first_summary_row {
+#tkdbirslsq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_first_summary_row.thick {
+#tkdbirslsq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#birslsqjlm .gt_last_summary_row {
+#tkdbirslsq .gt_last_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -2533,7 +2530,7 @@ dashes for zero cells.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_grand_summary_row {
+#tkdbirslsq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2543,7 +2540,7 @@ dashes for zero cells.</p>
   padding-right: 5px;
 }
 
-#birslsqjlm .gt_first_grand_summary_row {
+#tkdbirslsq .gt_first_grand_summary_row {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -2553,7 +2550,7 @@ dashes for zero cells.</p>
   border-top-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_last_grand_summary_row_top {
+#tkdbirslsq .gt_last_grand_summary_row_top {
   padding-top: 1px;
   padding-bottom: 1px;
   padding-left: 5px;
@@ -2563,11 +2560,11 @@ dashes for zero cells.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_striped {
+#tkdbirslsq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#birslsqjlm .gt_table_body {
+#tkdbirslsq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2576,7 +2573,7 @@ dashes for zero cells.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_footnotes {
+#tkdbirslsq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2590,7 +2587,7 @@ dashes for zero cells.</p>
   border-right-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_footnote {
+#tkdbirslsq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 1px;
@@ -2599,7 +2596,7 @@ dashes for zero cells.</p>
   padding-right: 5px;
 }
 
-#birslsqjlm .gt_sourcenotes {
+#tkdbirslsq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2613,7 +2610,7 @@ dashes for zero cells.</p>
   border-right-color: #D3D3D3;
 }
 
-#birslsqjlm .gt_sourcenote {
+#tkdbirslsq .gt_sourcenote {
   font-size: 90%;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -2621,89 +2618,89 @@ dashes for zero cells.</p>
   padding-right: 5px;
 }
 
-#birslsqjlm .gt_left {
+#tkdbirslsq .gt_left {
   text-align: left;
 }
 
-#birslsqjlm .gt_center {
+#tkdbirslsq .gt_center {
   text-align: center;
 }
 
-#birslsqjlm .gt_right {
+#tkdbirslsq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#birslsqjlm .gt_font_normal {
+#tkdbirslsq .gt_font_normal {
   font-weight: normal;
 }
 
-#birslsqjlm .gt_font_bold {
+#tkdbirslsq .gt_font_bold {
   font-weight: bold;
 }
 
-#birslsqjlm .gt_font_italic {
+#tkdbirslsq .gt_font_italic {
   font-style: italic;
 }
 
-#birslsqjlm .gt_super {
+#tkdbirslsq .gt_super {
   font-size: 65%;
 }
 
-#birslsqjlm .gt_footnote_marks {
+#tkdbirslsq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#birslsqjlm .gt_asterisk {
+#tkdbirslsq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#birslsqjlm .gt_indent_1 {
+#tkdbirslsq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#birslsqjlm .gt_indent_2 {
+#tkdbirslsq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#birslsqjlm .gt_indent_3 {
+#tkdbirslsq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#birslsqjlm .gt_indent_4 {
+#tkdbirslsq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#birslsqjlm .gt_indent_5 {
+#tkdbirslsq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#birslsqjlm .katex-display {
+#tkdbirslsq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#birslsqjlm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#tkdbirslsq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 <table class="table gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings gt_spanner_row">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Adverse Event&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Adverse Event</strong></span></th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5" scope="colgroup" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;N = xx&lt;/strong&gt;&lt;/span&gt;">
-        <span class="gt_column_spanner"><span class="gt_from_md"><strong>N = xx</strong></span></span>
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" scope="col" id="label"><span class="gt_from_md"><strong>Adverse Event</strong></span></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5" scope="colgroup" id="level 1; stat_1">
+        <div class="gt_column_spanner"><span class="gt_from_md"><strong>N = xx</strong></span></div>
       </th>
     </tr>
 <tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 1&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 1</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 2&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 2</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 3&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 3</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 4&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 4</strong></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span class='gt_from_md'&gt;&lt;strong&gt;Grade 5&lt;/strong&gt;&lt;/span&gt;"><span class="gt_from_md"><strong>Grade 5</strong></span></th>
+<th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_1"><span class="gt_from_md"><strong>Grade 1</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_2"><span class="gt_from_md"><strong>Grade 2</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_3"><span class="gt_from_md"><strong>Grade 3</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_4"><span class="gt_from_md"><strong>Grade 4</strong></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="stat_5"><span class="gt_from_md"><strong>Grade 5</strong></span></th>
     </tr>
 </thead>
 <tbody class="gt_table_body">
@@ -2770,7 +2767,7 @@ dashes for zero cells.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
