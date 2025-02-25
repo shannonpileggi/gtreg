@@ -10,3 +10,7 @@
 0 errors | 0 warnings | 0 notes
 
 Maintainer: 'Shannon Pileggi <shannon.pileggi@gmail.com>'
+
+## Additional Comments
+
+Thank you for your time!
