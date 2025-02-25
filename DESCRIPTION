@@ -23,7 +23,7 @@ Imports:
     dplyr (>= 1.1.1),
     forcats (>= 1.0.0),
     glue (>= 1.6.2),
-    gtsummary (>= 2.0.4.9015),
+    gtsummary (>= 2.1.0),
     purrr (>= 1.0.1),
     rlang (>= 1.1.1),
     stringr (>= 1.5.0),
@@ -36,7 +36,6 @@ Suggests:
     rmarkdown (>= 2.22),
     spelling (>= 2.2.1),
     testthat (>= 3.1.9)
-Remotes: ddsjoberg/gtsummary
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
