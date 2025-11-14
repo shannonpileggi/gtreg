@@ -1,0 +1,16 @@
+# Further documentation
+
+Further long form documentation is available in the “Articles” section
+of the {gtreg} website.
+
+1.  [Adverse event counting
+    methods.](https://shannonpileggi.github.io/gtreg/articles/counting-methods.html)
+
+2.  [Output
+    types.](https://shannonpileggi.github.io/gtreg/articles/output-gtreg.html)
+
+3.  [Table modifications: headers, footnotes, and
+    captions.](https://shannonpileggi.github.io/gtreg/articles/table-modifications.html)
+
+4.  [Table
+    shells.](https://shannonpileggi.github.io/gtreg/articles/table-shells.html)
