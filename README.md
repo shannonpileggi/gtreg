@@ -124,7 +124,6 @@ regulatory submissions.
 tbl_reg_summary <-
   df_patient_characteristics |>
   tbl_reg_summary(by = trt, include = c(marker, status)) 
-#> Setting theme "Compact"
 ```
 
 <img src="man/figures/README-example-tbl_reg_summary-1.png" width="42%" />
