@@ -31,7 +31,7 @@
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
-#' \if{html}{\figure{tbl_reg_summary_ex1.png}{options: width=65\%}}
+#' \if{html}{\figure{tbl_reg_summary_ex1.png}{options: style="width: 65%;"}}
 tbl_reg_summary <- function(data,
                             by = NULL,
                             label = NULL,

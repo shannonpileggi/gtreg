@@ -64,11 +64,11 @@ the table to a data frame, then extract the needed cell, e.g.
 
 \if{html}{Example 1}
 
-\if{html}{\figure{tbl_listing_ex1.png}{options: width=65\%}}
+\if{html}{\figure{tbl_listing_ex1.png}{options: style="width: 65\%;"}}
 
 \if{html}{Example 2}
 
-\if{html}{\figure{tbl_listing_ex2.png}{options: width=75\%}}
+\if{html}{\figure{tbl_listing_ex2.png}{options: style="width: 75\%;"}}
 }
 
 \examples{

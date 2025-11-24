@@ -41,7 +41,7 @@ See the \href{https://shannonpileggi.github.io/gtreg/articles/table-modification
 
 \if{html}{Example 1}
 
-\if{html}{\figure{selectors_ex1.png}{options: width=65\%}}
+\if{html}{\figure{selectors_ex1.png}{options: style="width: 65\%;"}}
 }
 
 \examples{

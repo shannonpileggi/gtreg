@@ -72,19 +72,19 @@
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
-#' \if{html}{\figure{add_overall_ex1.png}{options: width=100\%}}
+#' \if{html}{\figure{add_overall_ex1.png}{options: style="width: 100%;"}}
 #'
 #' \if{html}{Example 2}
 #'
-#' \if{html}{\figure{add_overall_ex2.png}{options: width=70\%}}
+#' \if{html}{\figure{add_overall_ex2.png}{options: style="width: 70%;"}}
 #'
 #' \if{html}{Example 3}
 #'
-#' \if{html}{\figure{add_overall_ex3.png}{options: width=90\%}}
+#' \if{html}{\figure{add_overall_ex3.png}{options: style="width: 90%;"}}
 #'
 #' \if{html}{Example 4}
 #'
-#' \if{html}{\figure{add_overall_ex4.png}{options: width=90\%}}
+#' \if{html}{\figure{add_overall_ex4.png}{options: style="width: 90%;"}}
 NULL
 
 #' @rdname add_overall_tbl_ae
