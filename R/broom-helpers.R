@@ -304,8 +304,7 @@ formula_select_examples <- list(
 #' selectors provided by `{gtsummary}`.
 #'
 #' @param x (`data.frame`)\cr
-#' A tidy tibble, with a `"variable"` column, as returned by
-#' [`tidy_identify_variables()`].
+#' A tidy tibble, with a `"variable"` column
 #' @param data (`data.frame`)\cr
 #' An optional data frame the attributes will be added to.
 #' @return A data frame.

@@ -87,11 +87,11 @@ AE within SOC associated with the highest grade will be tabulated.
 
 \if{html}{Example 1}
 
-\if{html}{\figure{tbl_ae_ex1.png}{options: width=95\%}}
+\if{html}{\figure{tbl_ae_ex1.png}{options: style="width: 95\%;"}}
 
 \if{html}{Example 2}
 
-\if{html}{\figure{tbl_ae_ex2.png}{options: width=65\%}}
+\if{html}{\figure{tbl_ae_ex2.png}{options: style="width: 65\%"}}
 }
 
 \examples{

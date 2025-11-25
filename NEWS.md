@@ -1,3 +1,7 @@
+# gtreg 0.4.2
+
+* Update figure attributes for compatibility with CRAN checks.
+
 # gtreg 0.4.1
 
 * Update internals to be compatible with {gtsummary} 2.1.0 release.

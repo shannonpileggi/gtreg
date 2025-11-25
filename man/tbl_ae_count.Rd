@@ -72,7 +72,7 @@ not provide percentages as multiple AEs can be counted per subject.
 
 \if{html}{Example 1}
 
-\if{html}{\figure{tbl_ae_count_ex1.png}{options: width=90\%}}
+\if{html}{\figure{tbl_ae_count_ex1.png}{options: style="width: 90\%;"}}
 }
 
 \examples{

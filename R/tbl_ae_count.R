@@ -27,7 +27,7 @@
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
-#' \if{html}{\figure{tbl_ae_count_ex1.png}{options: width=90\%}}
+#' \if{html}{\figure{tbl_ae_count_ex1.png}{options: style="width: 90%;"}}
 #'
 #' @usage
 #' tbl_ae_count(
