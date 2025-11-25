@@ -13,7 +13,7 @@ are shown for categorical variables; precision levels estimated based on values 
 
     <a class="navbar-brand me-2" href="../index.html">gtreg</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,8 +118,8 @@ variables. gtsummary selectors, e.g. <code>all_dichotomous()</code>, cannot be u
 
 
 <dt id="arg-missing-missing-text-missing-stat">missing, missing_text, missing_stat<a class="anchor" aria-label="anchor" href="#arg-missing-missing-text-missing-stat"></a></dt>
-<dd><p>Arguments dictating how and if missing values are presented:</p><ul><li><p><code>missing</code>: must be one of <code>c("ifany", "no", "always")</code></p></li>
-<li><p><code>missing_text</code>: string indicating text shown on missing row. Default is <code>"Unknown"</code></p></li>
+<dd><p>Arguments dictating how and if missing values are presented:</p><ul><li><p><code>missing</code>: must be one of <code>c("ifany", "no", "always")</code>.</p></li>
+<li><p><code>missing_text</code>: string indicating text shown on missing row. Default is <code>"Unknown"</code>.</p></li>
 <li><p><code>missing_stat</code>: statistic to show on missing row. Default is <code>"{N_miss}"</code>.
 Possible values are <code>N_miss</code>, <code>N_obs</code>, <code>N_nonmiss</code>, <code>p_miss</code>, <code>p_nonmiss</code>.</p></li>
 </ul></dd>
@@ -135,7 +135,10 @@ Default is <code>all_categorical(FALSE) ~ "alphanumeric"</code>.</p></dd>
 <dt id="arg-percent">percent<a class="anchor" aria-label="anchor" href="#arg-percent"></a></dt>
 <dd><p>(<code>string</code>)<br>
 Indicates the type of percentage to return.
-Must be one of <code>c("column", "row", "cell")</code>. Default is <code>"column"</code>.</p></dd>
+Must be one of <code>c("column", "row", "cell")</code>. Default is <code>"column"</code>.</p>
+<p>In rarer cases, you may need to define/override the typical denominators.
+In these cases, pass an integer or a data frame. Refer to the
+<code><a href="https://insightsengineering.github.io/cards/latest-tag/reference/ard_tabulate.html" class="external-link">?cards::ard_tabulate(denominator)</a></code> help file for details.</p></dd>
 
 
 <dt id="arg-include">include<a class="anchor" aria-label="anchor" href="#arg-include"></a></dt>
@@ -152,7 +155,7 @@ Variables to include in the summary table. Default is <code><a href="https://tid
 
 
 <p>Example 1</p>
-<p><img src="figures/tbl_reg_summary_ex1.png" width="65%"></p>
+<p><img src="figures/tbl_reg_summary_ex1.png" style="width: 65%;"></p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

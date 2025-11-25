@@ -15,13 +15,13 @@ Source:
 [`DESCRIPTION`](https://github.com/shannonpileggi/gtreg/blob/main/DESCRIPTION)
 
 Pileggi S, Sjoberg D (2025). *gtreg: Regulatory Tables for Clinical
-Research*. R package version 0.4.1,
+Research*. R package version 0.4.2,
 <https://github.com/shannonpileggi/gtreg>.
 
     @Manual{,
       title = {gtreg: Regulatory Tables for Clinical Research},
       author = {Shannon Pileggi and Daniel D. Sjoberg},
       year = {2025},
-      note = {R package version 0.4.1},
+      note = {R package version 0.4.2},
       url = {https://github.com/shannonpileggi/gtreg},
     }

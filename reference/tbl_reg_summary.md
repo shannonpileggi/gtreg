@@ -81,10 +81,10 @@ tbl_reg_summary(
 
   Arguments dictating how and if missing values are presented:
 
-  - `missing`: must be one of `c("ifany", "no", "always")`
+  - `missing`: must be one of `c("ifany", "no", "always")`.
 
   - `missing_text`: string indicating text shown on missing row. Default
-    is `"Unknown"`
+    is `"Unknown"`.
 
   - `missing_stat`: statistic to show on missing row. Default is
     `"{N_miss}"`. Possible values are `N_miss`, `N_obs`, `N_nonmiss`,
@@ -102,6 +102,12 @@ tbl_reg_summary(
   (`string`)  
   Indicates the type of percentage to return. Must be one of
   `c("column", "row", "cell")`. Default is `"column"`.
+
+  In rarer cases, you may need to define/override the typical
+  denominators. In these cases, pass an integer or a data frame. Refer
+  to the
+  [`?cards::ard_tabulate(denominator)`](https://insightsengineering.github.io/cards/latest-tag/reference/ard_tabulate.html)
+  help file for details.
 
 - include:
 

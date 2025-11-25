@@ -1,5 +1,9 @@
 # Changelog
 
+## gtreg 0.4.2
+
+- Update figure attributes for compatibility with CRAN checks.
+
 ## gtreg 0.4.1
 
 CRAN release: 2025-02-27
