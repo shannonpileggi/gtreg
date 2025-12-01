@@ -12,7 +12,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/shannonpileggi/gtreg/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/shannonpileggi/gtreg/blob/v0.4.2/DESCRIPTION)
 
 Pileggi S, Sjoberg D (2025). *gtreg: Regulatory Tables for Clinical
 Research*. R package version 0.4.2,
